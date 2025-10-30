@@ -1,0 +1,239 @@
+﻿@page
+@model FOKE.Pages.NewsAndEvents.ManageModel
+@using FOKE.Models.PageModels
+@using FOKE.Localization
+
+@{
+    Layout = "_LayoutStandaloneContent";
+}
+@inject ISharedLocalizer Localize
+<form method="post" id="crudForm" autocomplete="off" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-body pb-20">
+            <div class="col-12" id="response">
+                @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                {
+                    <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                        <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                        <div class="flex-grow-1 fw-bold text-dark">
+                            <strong></strong> @Model.pageErrorMessage
+                        </div>
+                        <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+
+
+                <!-- Error message container (kept empty for static version) -->
+            </div>
+            <input type="hidden" asp-for="_formMode" />
+            <input type="hidden" asp-for="inputModel.Id" />
+            <input type="hidden" asp-for="inputModel.loggedinUserId" value="@User?.FindFirst("Userid")?.Value" />
+            <div class="row">
+                <!-- NEWS HEADING -->
+                <div class="col-12 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("HEADING")</label>
+                        <input asp-for="inputModel.Heading" class="form-control form-control-sm" placeholder="@Localize.Localize("ENTER_DETAILS")" />
+                        <span asp-validation-for="inputModel.Heading" class="text-danger"></span>
+                    
+                    </div>
+                </div>
+
+                <!-- DESCRIPTION -->
+                <div class="col-12 p-3">
+                    <!-- Quill Editor -->
+                    <div id="editor-container" style="height: 290px;"></div>
+                    <input type="hidden" asp-for="inputModel.Description" id="commentHtml">
+                </div>
+
+                <!-- NEWS DATE -->
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="required form-label">@Localize.Localize("NEWS_DATE")</label>
+                     
+                        <div class="form-group" id="dt_datepicker">
+                            <div class="input-group date">
+                                <!-- Always use NewsDate (DateTime) but ensure placeholder works -->
+                                <input asp-for="inputModel.Date"
+                                       type="text"
+                                       class="form-control form-control-sm"
+                                       placeholder="@Localize.Localize("NEWS_DATE")"
+                                       value="@(Model._formMode == "edit" ? Model.inputModel.Date?.ToString("dd-MMM-yyyy") : "")" />
+                                <span class="input-group-addon input-group-text input-group-text-sm">
+                                    <i class="ki-duotone ki-calendar fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                            </div>
+                            <span asp-validation-for="inputModel.Date" class="text-danger"></span>
+                        </div>
+                   
+                    </div>
+                </div>
+
+                <!-- FILE UPLOAD -->
+                <div id="pdfUploadDiv" class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("IMAGE_UPLOAD")</label>
+                        <input asp-for="inputModel.Image" id="pdfUpload" type="file" class="form-control form-control-sm" accept="image/*" multiple />
+                        @if (!string.IsNullOrEmpty(Model.inputModel.ImageName) && Model.inputModel.AttachmentAny)
+                        {
+                            <div id="fileActions" class="mt-2 p-2 border rounded d-flex justify-content-between align-items-center fileActions"
+                                 style="background: #f8f9fa; border: 1px solid #ddd;">
+
+                                <a href="@Url.Content("~" + Model.inputModel.ImagePath)"
+                                   class="text-primary menu-link viewAttachment"
+                                   data-url="@Url.Content("~" + Model.inputModel.ImagePath)"
+                                   style="text-decoration: none;">
+                                    📄@Model.inputModel.ImageName
+                                </a>
+                            </div>
+                        }
+                        <span class="text-danger" data-valmsg-for="inputModel.Attachment" data-valmsg-replace="true"></span>
+                
+                    </div>
+                </div>
+
+            
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="fs-6 fw-semibold mb-2">@Localize.Localize("SHOW_IN_WEBSITE")</label>
+                        <div class="form-check form-switch">
+                            <input asp-for="inputModel.ShowInWebsite" class="form-check-input" type="checkbox"  >
+                        </div>
+                    </div>
+                </div>
+
+               
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="fs-6 fw-semibold mb-2">@Localize.Localize("SHOW_IN_MOBILE")</label>
+                        <div class="form-check form-switch">
+                            <input asp-for="inputModel.ShowInMobile" class="form-check-input" type="checkbox" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                   
+
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("TYPE")</label>
+                        <select asp-for="inputModel.Type"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.TypeList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                     
+                        <span asp-validation-for="inputModel.Type" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            
+
+            <div class="card-footer text-end fixed-bottom bg-light">
+                <div class="row">
+                    <div class="col-6 text-start">
+                        <button type="button" class="btn btn-secondary btn-flat btn-sm" id="btnClear">
+                            <i class="fas fa-times"></i> @Localize.Localize("BTN_CLEAR")
+                        </button>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="submit" class="btn btn-primary btn-flat btn-sm">
+                            <i class="far fa-save"></i>  @Localize.Localize("BTN_SAVE")
+                        </button>
+                        <button type="submit" name="btnSubmit" id="btnRefresh" value="btnRefresh"
+                                class="btn btn-outline-primary btn-sm d-none btn-req-loader"
+                                formnovalidate="formnovalidate">
+                            @Localize.Localize("BTN_REFRESH")
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Initialize datepicker
+            $('#dt_datepicker .input-group.date').datepicker({
+                format: "dd-M-yyyy",
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            // Clear form functionality
+            $("#btnClear").click(function () {
+                $("#crudForm")[0].reset();
+                
+            });
+
+
+           
+        
+        });
+
+     
+        if ("@Model.IsSuccessReturn" == "True") {
+            top.Swal.fire({
+                icon: 'success',
+                buttonsStyling: false,
+                title: "@Html.Raw(@Model.sucessMessage)",
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+            setTimeout(function () {
+                      window.location.href = '/NewsAndEvents/Index';  // Redirect to Index page after 1.5 seconds
+            }, 1500);
+        }
+
+         quill = new Quill('#editor-container', {
+                theme: 'snow',
+                  modules: {
+                    toolbar: [
+                    [{ 'font': [] }],
+                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                    ['bold', 'italic', 'underline'],        // toggled buttons
+                    ['blockquote', 'code-block'],
+
+                    [{ 'color': [] }, { 'background': [] }],          // dropdowns for color
+                      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+
+                      [{ 'align': [] }],                                // text align
+                      ['link', 'image', 'video'],                       // media
+                      ['clean']                                         // remove formatting
+                   ],
+                }
+         });
+
+        var existingHtml = $('#commentHtml').val();
+        if (existingHtml && existingHtml.trim() !== "") {
+           quill.clipboard.dangerouslyPasteHTML(existingHtml);
+        }
+
+        // When form is submitted
+        $('#crudForm').on('submit', function (e) {
+            var htmlContent = quill.root.innerHTML;
+            if (htmlContent.trim() === "<p><br></p>") {
+                    alert("Please enter some content before submitting.");
+                    e.preventDefault();
+                    return;
+            }
+            $('#commentHtml').val(htmlContent);
+        });
+    </script>
+}

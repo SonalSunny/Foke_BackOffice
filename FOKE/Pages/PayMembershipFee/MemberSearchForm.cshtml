@@ -1,0 +1,144 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.PayMembershipFee.MemberSearchFormModel
+@inject ISharedLocalizer Localize
+
+
+
+<link href="~/css/searchform.css" rel="stylesheet" />
+<style>
+    .disabled-row {
+        background-color: #f8d7da !important; /* Light red background */
+        pointer-events: none; /* Disable clicks */
+        opacity: 0.6; /* Visual dim */
+        cursor: not-allowed;
+    }
+</style>
+
+<div class="container my-4">
+
+<div class="search-container">
+        <div class="search-card">
+        <div class="search-title"> @Localize.Localize("Search Member")</div>
+        <div class="form-inline">
+            <select asp-for="inputModel.SearchText" class="form-select form-select-sm"
+                    asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+            </select>
+
+                <input type="text" class="form-control form-control-sm" placeholder="@Localize.Localize("Enter search keyword")" id="txtSearchInputField" />
+
+            <button type="button" class="btn btn-sm btn-primary" id="btnRefresh">
+                    <i class="fas fa-search"></i> @Localize.Localize("BTN_SEARCH")
+            </button>
+        </div>
+
+        <div id="resultsContainer" class="mt-5">
+            <!-- Static results example -->
+          </div>
+    </div>
+</div>
+
+<script>
+       document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('btnRefresh').addEventListener('click', function () {
+            const keyword = document.getElementById('txtSearchInputField').value.trim();
+         
+            const selectedColumn = document.querySelector('[name="inputModel.SearchText"]').value;
+
+            if (keyword === "") {
+                alert("Please enter a keyword to search.");
+                return;
+            }
+
+            $.ajax({
+                  // url: '@Url.Page("MemberSearchForm", new { handler = "GetDetails" })',
+                url: '@Url.Page("MemberSearchForm", "GetDetails")',
+                type: 'GET',
+                data: {
+                    keyword: keyword,
+                    searchText: selectedColumn
+                },
+                success: function (response) {
+                    if (response && response.returnData && response.returnData.length > 0) {
+                        const members = response.returnData;
+                        console.log(members);
+                        let table = `
+                            <table class="table table-bordered table-striped mt-3">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Photo</th>
+                                        <th>Membership ID</th>
+                                        <th>Full Name</th>
+                                        <th>Profession</th>
+                                        <th>Workplace</th>
+                                        <th>Department</th>
+                                        <th>Area</th>
+                                        <th>Unit</th>
+                                        <th>Payment Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+                        members.forEach(member => {
+                                 const isPaid = member.paymentDone;
+                            const rowClass = isPaid ? 'disabled-row' : '';
+                            const nameDisplay = isPaid
+                                ? `<span style="color: red;">${member.name}</span>`
+                                : `<a href="/PayMembershipFee/PayFee?id=${member.issueId}">${member.name}</a>`;
+                            const paymentStatus = isPaid
+                                ? `<span style="color: red; font-weight: bold;">Paid</span>`
+                                : `<span class="badge bg-warning text-dark">Pending</span>`;
+
+                            table += `
+                                <tr class="${rowClass}">
+                                    <td><img src="${member.profileImagePath || '/images/Default.jpg'}"alt="Profile" style="width:50px;height:50px;border-radius:50%;object-fit:cover;" /> </td>
+                                    <td>${member.referenceNumber || ''}</td>                 
+                                    <td><a href="/PayMembershipFee/PayFee?id=${member.issueId}">${member.name}</a></td>
+                                    <td>${member.profession || ''}</td>
+                                    <td>${member.workPlace || ''}</td>
+                                    <td>${member.departmentName || ''}</td>
+                                    <td>${member.area || ''}</td>
+                                    <td>${member.unit || ''}</td>
+                                    <td>${paymentStatus}</td>
+                                </tr>
+                            `;
+                        });
+
+                        table += `</tbody></table>`;
+
+                        document.getElementById('resultsContainer').innerHTML = `
+                            <div class="table-responsive">
+                                ${table}
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById('resultsContainer').innerHTML = `<p class="text-danger mt-3">No results found.</p>`;
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while fetching the member data.");
+                }
+            });
+        });
+    });
+</script>
+<style>
+        .search-container {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically (optional, see note below) */
+            padding: 2rem;
+            background-color: #f9f9f9; /* Optional: light background */
+        }
+
+        .search-card {
+            width: 100%;
+            max-width: 1000px; /* Increase this as needed (e.g., 1400px) */
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+</style>

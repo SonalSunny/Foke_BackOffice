@@ -1,0 +1,268 @@
+﻿@page
+@model FOKE.Pages.CommitteManagement.IndexModel
+@{
+}
+
+@using FOKE.Localization
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/CommitteManagement/AddCommitte")" />
+<input type="hidden" id="hidGroupManagePageUrl" value="@Url.Content("~/CommitteManagement/AddGroup")" />    
+<input type="hidden" id="hidMemberManagePageUrl" value="@Url.Content("~/CommitteManagement/AddMember")" />
+<input type="hidden" id="hidDeletePageUrl" value="@Url.Content("~/CommitteManagement/Index?handler=DeleteCommittee")" />
+<input type="hidden" id="hidGroupDeletePageUrl" value="@Url.Content("~/CommitteManagement/Index?handler=DeleteGroup")" />
+<input type="hidden" id="hidMemberDeletePageUrl" value="@Url.Content("~/CommitteManagement/Index?handler=DeleteMember")" />
+
+<div class="card mb-5">
+    <div class="card-header border-bottom px-3" style="margin-left: -4px;">
+
+        <div class="card-header cursor-pointer border-bottom" role="button">
+            <div class="card-title m-0">
+                <h3 class="fw-bold m-0">
+                    @Localize.Localize("COMMITTEE_MANAGEMENT")
+                </h3>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <div class="m-0">
+                </div>
+          </div>
+        </div>
+</div>
+    <div class="card-body">
+        <div class="row">
+            <!-- Committee Section - Left (6 Columns) -->
+            <div class="col-md-6 pe-md-4">
+                <div class="section-header d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="fw-bold mb-0">@Localize.Localize("COMMITTEES")</h4>
+
+
+
+                    <a href="#" onclick="openCommitteeModal()" class="btn btn-sm fw-bold btn-primary btnAddNew">
+                        <i class="fas fa-plus"></i> @Localize.Localize("ADD_NEW_COMMITTEE")
+                    </a>
+
+
+
+                </div>
+
+                <div id="_postList" class="grid-position">
+                    <partial name="_CommitteeIndexPartial" model="Model" />
+                </div>
+            </div>
+
+            <!-- Group Section - Right (6 Columns) -->
+            <div class="col-md-6 ps-md-4">
+                <div class="section-header d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="fw-bold mb-0">@Localize.Localize("GROUPS")</h4>
+                    <a href="#" onclick="openGroupModal()" class="btn btn-sm fw-bold btn-primary btnAddNew">
+                        <i class="fas fa-plus"></i> @Localize.Localize("ADD_NEW_GROUP")
+                    </a>
+
+
+                </div>
+
+                <div id="groupListContainer" class="grid-position">
+                    <partial name="_GroupIndexPartial" model="Model" />
+                </div>
+            </div>
+            <hr style="margin: 60px 0; border-top: 2px solid #6c757d;" />
+
+
+        </div>
+
+        <!-- Member Section - Full Width (12 Columns) -->
+        <div class="mt-5">
+            <div class="section-header d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0">@Localize.Localize("MEMBERS")</h4>
+
+                <a href="#" onclick="openMemberModal()" class="btn btn-sm fw-bold btn-primary btnAddNew">
+                    <i class="fas fa-plus"></i> @Localize.Localize("ADD_NEW_MEMBERS")
+                </a>
+            </div>
+
+            <div class="table-header d-flex align-items-center justify-content-between">
+
+                <div class="card-title gap-md-2  d-md-flex">
+                    <div class="d-flex align-items-center position-relative my-1 w-100 w-md-150px">
+                        <select asp-for="globalSearchColumn" data-val="false" id="globalSearchColumnChooser" class="form-select form-select-solid form-select-sm"
+                                data-control="select2" data-hide-search="true"
+                                asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+                        </select>
+                    </div>
+
+                    <div class="d-flex align-items-center position-relative my-1 gap-2 pe-md-2 w-100 w-md-300px">
+                        <input type="text" class="form-control form-control-sm" placeholder=@Localize.Localize("BTN_SEARCH") id="txtSearchInputField">
+                        <button type="button" class="btn btn-sm btn-light-primary my-1 w-50" id="btnRefresh">
+                            <i class="fas fa-search"></i>@Localize.Localize("BTN_SEARCH")
+                        </button>
+                    </div>
+                </div>
+                <div class="card-toolbar d-flex justify-content-end">
+
+                    <a id="kt_horizontal_search_advanced_link" class="btn btn-sm btn-light-primary me-3" data-bs-toggle="collapse"
+                       href="#kt_advanced_search_form" aria-expanded="false">
+                        <i class="ki-duotone ki-filter fs-2">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                        @Localize.Localize("BTN_FILTER")
+                    </a>
+
+                    <button type="button" class="btn btn-sm btn-light-primary me-3" id="btnReset">
+                        <i class="fas fa-sync-alt"></i>  @Localize.Localize("BTN_RESET")
+                    </button>
+                </div>
+            </div>
+            <div class="collapse mb-5" id="kt_advanced_search_form">
+                <div class="separator separator-dashed mt-2 mb-3"></div>
+                <div class="card-rounded bg-light p-5">
+                    <form method="post" data-ajax="true" asp-page-handler="ApplyFilter" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+                          data-ajax-success='$("#btnRefresh").trigger("click")' id="transalationsForm" novalidate="novalidate" autocomplete="off">
+
+                        <div class="row g-8">
+                            <div class="table-header d-flex align-items-center">
+                                <div class="card-title">
+
+                                    <h3 class="text-dark m1-7 fw-normal">@Localize.Localize("TABLE_ADVANCE_FILTER_TITLE")</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <button type="submit" class="badge badge-primary b-border" data-kt-menu-dismiss="true">Apply</button>
+
+                                </div>
+                            </div>
+                            <div class="separator separator-dashed mb-1 mt-1"></div>
+                            <div class="col-lg-3 filter-margin">
+
+
+                                <label class="fs-6  mb-2">@Localize.Localize("COMMITTEE")</label>
+
+                                <select asp-for="CommitteSearch"
+                                        class="form-select form-select-sm select2"
+                                        asp-items='@new SelectList(Model.CommitteList, "keyID", "name")'>
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-3 filter-margin">
+                                <label class="fs-6  mb-2">@Localize.Localize("GROUP")</label>
+
+                                <select asp-for="GroupSearch" class="form-select form-select-sm select2"
+                                        asp-items='@new SelectList(Model.GroupList, "keyID", "name")'>
+                                    <option value="">@Localize.Localize("Select")</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="memberListContainer" class="grid-position">
+                <partial name="_MemberIndexPartial" model="Model" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/kTable.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+                $(document).ready(function () {
+            $("#_postList").kTable({
+
+                targetContainer: '_postList',
+
+                resourceUrl: "@Url.Page("Index", "PagedListCommittees")",
+                pageSize:"@Model.pageSize",
+                loadOnPageLoad: true,
+                sOrderField: "#hidSortOrderCommittees",
+                sOrderColumnField: "#hidSortColumnCommittees"
+
+            });
+
+            $("#groupListContainer").kTable({
+
+                targetContainer: 'groupListContainer',
+
+                resourceUrl: "@Url.Page("Index", "PagedListGroups")",
+                pageSize: "@Model.pageSize",
+                loadOnPageLoad: true,
+                sOrderField: "#hidSortOrderGroups",
+                sOrderColumnField: "#hidSortColumnGroups"
+
+            });
+
+             $("#memberListContainer").kTable({
+                     submitButton: '#btnRefresh',
+                resetButton: '#btnReset',
+                targetContainer: 'memberListContainer',
+                 searchInputField: '#txtSearchInputField',
+                searchColumnChooser: '#globalSearchColumnChooser',
+                resourceUrl: "@Url.Page("Index", "PagedListMembers")",
+                pageSize: "@Model.pageSize",
+                loadOnPageLoad: true,
+                sOrderField: "#hidSortOrderMembers",
+                sOrderColumnField: "#hidSortColumnMembers"
+
+            });
+        });
+
+        function openCommitteeModal() {
+                 top.showPopup("@Localize.Localize("Add Committee")", "/CommitteManagement/AddCommitte", 600, 300, window.frameElement?.id);
+             }
+
+
+             function openGroupModal() {
+                 top.showPopup("@Localize.Localize("Add Group")", "/CommitteManagement/AddGroup", 600, 300, window.frameElement?.id);
+             }
+
+
+             function openMemberModal() {
+                 top.showPopup("@Localize.Localize("Add Member")", "/CommitteManagement/MemberSearchForm", 800, 450, window.frameElement?.id);
+             }
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+                       
+
+         
+  
+
+
+
+
+
+    
+    
+
+     
+       
+
+
+
+
+
+           
+    
+
+
+
+
+
+     

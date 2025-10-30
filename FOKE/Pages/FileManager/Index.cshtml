@@ -1,0 +1,170 @@
+﻿@page
+@model FOKE.Pages.FileManager.IndexModel
+@{
+}
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/FileManager/Manage")" />
+<input type="hidden" id="hidSearch" value="@Url.Page("~/FileManager/Index")" />
+<input type="hidden" id="hidPageCode" value="FILEMANAGER" />
+
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+    <!--begin::Content wrapper-->
+    <div class="d-flex flex-column flex-column-fluid">
+        <!--begin::Toolbar-->
+        <div id="kt_app_content" class="app-content flex-column-fluid">
+            <!--begin::Content container-->
+            <div id="kt_app_content_container" class="app-container container-xxl">
+                <!--begin::Card-->
+                <div class="card card-flush">
+                    <!--begin::Card header-->
+                    <div class="card-header pt-5">
+                        <div class="card-title">
+                            <div class="row">
+                                <h3 class="fw-bold m-0 mb-5">
+                                    File Manager
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center position-relative gap-2 my-1 pe-md-2 w-100 w-md-400px">
+                            <input type="text" class="form-control form-control-sm flex-grow-1" placeholder="Search" id="txtSearchInputField" />
+
+                            <button type="button" class="btn btn-sm btn-light-primary d-flex align-items-center gap-1 btnSearch" id="btnRefresh">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </button>
+
+                            <button type="button" class="btn btn-sm btn-light-primary d-flex align-items-center gap-1 btnReset" id="btnReset">
+                                <i class="fas fa-sync-alt"></i>
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body">
+                        <!--begin::Table-->
+                        <table id="kt_file_manager_list" class="table align-middle table-row-dashed fs-6 gy-5">
+                            <thead>
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="min-w-150px min-w-sm-250px">Name</th>
+                                    <th class="min-w-150px min-w-sm-250px">Description</th>
+                                    <th class="w-125px"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="fw-semibold text-gray-600">
+                                <!-- Static data rows -->
+                                <tr>
+                                    <td data-order="Finance Documents">
+                                        <div class="d-flex align-items-center">
+                                            <span class="icon-wrapper">
+                                                <i class="ki-duotone ki-folder fs-2x text-primary me-4">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                            </span>
+                                            <a href="#" class="text-gray-800 text-hover-primary btnFolderClick" keyID="1" name="Documents">Finance Documents</a>
+                                        </div>
+                                    </td>
+                                    <td>All company documents</td>
+                                </tr>
+                                <tr>
+                                    <td data-order="HR Policies">
+                                        <div class="d-flex align-items-center">
+                                            <span class="icon-wrapper">
+                                                <i class="ki-duotone ki-folder fs-2x text-primary me-4">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                            </span>
+                                            <a href="#" class="text-gray-800 text-hover-primary btnFolderClick" keyID="2" name="Images">HR Policies</a>
+                                        </div>
+                                    </td>
+                                    <td>Company images and photos</td>
+                                </tr>
+                                <tr>
+                                    <td data-order="Project Documentation">
+                                        <div class="d-flex align-items-center">
+                                            <span class="icon-wrapper">
+                                                <i class="ki-duotone ki-folder fs-2x text-primary me-4">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                            </span>
+                                            <a href="#" class="text-gray-800 text-hover-primary btnFolderClick" keyID="3" name="Templates">Project Documentation</a>
+                                        </div>
+                                    </td>
+                                    <td>Document templates</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end::Content container-->
+        </div>
+        <!--end::Content-->
+    </div>
+    <!--end::Content wrapper-->
+    <!--begin::Footer-->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <!-- Previous Button -->
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <!-- Page Numbers -->
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <!-- Next Button -->
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!--end::Footer-->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Folder click handler
+        $(document).on('click', '.btnFolderClick', function (e) {
+            e.preventDefault();
+            var pageCode = $("#hidPageCode").val();
+            var modID = $(this).attr('keyID');
+            var Name = $(this).attr('name');
+            var url = $("#hidManagePageUrl").val() + "?id=" + modID + "&Foldername=" + Name + "&pageCode=" + encodeURIComponent(pageCode);
+            console.log("Navigating to: " + url);
+            window.location.href = url;
+        });
+
+        // Search functionality
+        $('#txtSearchInputField').on('keydown', function (e) {
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                e.preventDefault();
+                $('.btnSearch').click();
+            }
+        });
+
+        $(document).on('click', '.btnSearch', function (e) {
+            e.preventDefault();
+            var pageCode = $("#hidPageCode").val();
+            var searchText = $("#txtSearchInputField").val().trim();
+            var url = $("#hidSearch").val() + "?searchText=" + encodeURIComponent(searchText) + "&pageCode=" + encodeURIComponent(pageCode);
+            console.log("Searching for: " + url);
+            window.location.href = url;
+        });
+
+        $(document).on('click', '.btnReset', function (e) {
+            e.preventDefault();
+            $('#txtSearchInputField').val('');
+            $('.btnSearch').click();
+        });
+    });
+</script>

@@ -1,0 +1,226 @@
+﻿@page
+@model FOKE.Pages.DigitalIDManagement.MemberDetailsViewModel
+@using FOKE.Localization
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+
+
+@* <input type="hidden" id="hidDeletePageUrl" value="@Url.Page("MemberDetailsView", null, new { handler = "ForceLogout" })" />
+
+ *@
+    <input type="hidden" id="hidDeletePageUrl" value="@Url.Content("~/DigitalIDManagement/MemberDetailsView?handler=ForceLogout")"/>
+
+    <div class="container mt-5">
+    <h2 class="fw-bold text-primary mb-4">📱 Registered Devices</h2>
+
+    @if (Model.inputModel.DeviceData != null && Model.inputModel.DeviceData.Any())
+    {
+        <table class="table table-hover table-rounded table-striped border gy-4 gs-7 table-sortable">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Device Type</th>
+                    <th>Device Model</th>
+                    <th>Activation Date</th>
+                    <th>Last Opened</th>
+                    <th>Last Closed</th>
+                    <th>Logout</th>
+                    <th>Status</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody class="text-center align-middle">
+                @foreach (var item in Model.inputModel.DeviceData)
+                {
+                    var deviceIdSafe = item.DeviceId?.Replace("-", "").Replace(" ", "") ?? Guid.NewGuid().ToString("N");
+
+                    <tr>
+                        <td>
+                            <a href="@Url.Content("~" + item.FilePath)" target="_blank">
+                                <img src="@Url.Content("~" + item.FilePath)"
+                                     alt="Device Icon"
+                                     class="rounded-circle border border-primary"
+                                     style="height: 40px; width: 40px; object-fit: cover;" />
+                            </a>
+@*                             <a href="@Url.Content("~/" + "images/default.jpg")" target="_blank">
+                                <img src="@Url.Content("~/" + "images/default.jpg")"
+                                     alt="Device Icon"
+                                     class="rounded-circle border border-primary"
+                                     style="height: 40px; width: 40px; object-fit: cover;" />
+                            </a> *@
+                        </td>
+                        <td>@item.DeviceType</td>
+                        <td>
+                            <a href="javascript:void(0);" onclick="showHistory('@deviceIdSafe')"
+                               class="text-decoration-underline text-primary fw-semibold">
+                                @item.DeviceModel
+                            </a>
+                        </td>
+                        <td>@item.CreatedDateTimeString</td>
+                        <td>@item.LastOpenDateTimeString</td>
+                        <td>@item.LastClosedDateTimeString</td>
+                        <td>
+                            @if (item.ForceLogOut)
+                            {
+                                <span class="badge bg-danger">Force Logout</span>
+                            }
+                            else if (!item.Active && !item.ForceLogOut)
+                            {
+                                <span class="badge bg-danger">Logged out</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">N/A</span>
+                            }
+                        </td>
+                        <td>
+                            <span class="badge bg-@(item.Active ? "success" : "danger")">
+                                @(item.Active ? "Active" : "Inactive")
+                            </span>
+                        </td>
+                        <td>
+                            @if(@item.Active )
+                            {
+                              <button type="button"
+                                    class="btn btn-sm btn-outline-danger border border-danger"
+                                    onclick="confirmForceLogout('@item.DeviceDetailId')">
+                                Logout
+                              </button> 
+                            }
+                        </td>
+                    </tr>
+
+                    <!-- Hidden History Row -->
+                    <tr id="history-table-@deviceIdSafe" style="display: none;">
+                        <td colspan="9">
+                            <div class="bg-light p-3 rounded border mt-2">
+                                <h6 class="text-primary fw-bold mb-2"> @item.DeviceModel</h6>
+                                @if (item.HistoryList != null && item.HistoryList.Any())
+                                {
+                                    <table class="table table-bordered table-sm text-center mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Image</th>
+                                                <th>Activation Date</th>
+                                                <th>Opened</th>
+                                                <th>Closed</th>
+                                                <th>Logged Out</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var h in item.HistoryList)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <a href="@Url.Content("~" + h.FilePath)" target="_blank">
+                                                            <img src="@Url.Content("~" + h.FilePath)"
+                                                                 class="rounded-circle border border-primary"
+                                                                 style="height: 32px; width: 32px; object-fit: cover;" />
+                                                        </a>
+                                                        
+@*                                                         <a href="@Url.Content("~/" + "images/default.jpg")" target="_blank">
+                                                            <img src="@Url.Content("~/" + "images/default.jpg")"
+                                                                 class="rounded-circle border border-primary"
+                                                                 style="height: 32px; width: 32px; object-fit: cover;" />
+                                                        </a> *@
+                                                    </td>
+                                                    <td>@h.CreatedDateTimeString</td>
+                                                    <td>@h.LastOpenDateTimeString</td>
+                                                    <td>@h.LastClosedDateTimeString</td>
+                                                    <td>@h.LogOutDateTimeString</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                                else
+                                {
+                                    <p class="text-muted mb-0">No history available.</p>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">No device data available for this member.</div>
+    }
+</div>
+
+
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function showHistory(deviceId) {
+            const tableHtml = document.getElementById('history-table-' + deviceId).innerHTML;
+
+            Swal.fire({
+                title: 'Device History',
+                html: tableHtml,
+                width: '700px',
+                confirmButtonText: 'Close',
+                customClass: {
+                    popup: 'text-start'
+                }
+            });
+        }
+
+        function confirmForceLogout(deviceId) {
+            const postUrl = $('#hidDeletePageUrl').val();
+    
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to force logout this device?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Logout!',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: postUrl,
+                        type: 'POST',
+                        data: { deviceId: deviceId }, // Send as form data
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        beforeSend: function (xhr) {
+                                xhr.setRequestHeader("XSRF-TOKEN",
+                                $('input:hidden[name="__RequestVerificationToken"]').val()
+                                );
+                        },
+                        success: function (response) {
+                            if (response.transactionStatus === 200 || response.success) {
+                                Swal.fire('Logged out!', 'Device has been logged out successfully.', 'success').then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire('Error', response.returnMessage || 'Logout failed', 'error');
+                            }
+                        },
+                        error: function (xhr) {
+                            console.error("Error:", xhr);
+                            Swal.fire('Error', 'An error occurred while processing.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+
+    </script>
+}
+
+<style>
+    .table th, .table td {
+        vertical-align: middle !important;
+    }
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>

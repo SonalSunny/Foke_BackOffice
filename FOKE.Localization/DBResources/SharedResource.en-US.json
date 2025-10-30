@@ -1,0 +1,39 @@
+{
+  "Language": "English",
+  "Culture": "en-US",
+  "Module": "Shared",
+  "Translation": [
+    {
+      "Name": "EMPLOYEE_PHOTO",
+      "Value": "Employee Photo"
+    },
+    {
+      "Name": "EMPLOYEE_NUMBER",
+      "Value": "Employee Number"
+    },
+    {
+      "Name": "EMPLOYEE_FIRST_NAME",
+      "Value": "First Name"
+    },
+    {
+      "Name": "EMPLOYEE_MIDDLE_NAME",
+      "Value": "Middle Name"
+    },
+    {
+      "Name": "EMPLOYEE_LAST_NAME",
+      "Value": "Last Name"
+    },
+    {
+      "Name": "DEPARTMENT_NAME",
+      "Value": "Department"
+    },
+    {
+      "Name": "DESIGNATION_NAME",
+      "Value": "Designation"
+    },
+    {
+      "Name": "DATE_OF_JOINING",
+      "Value": "Date Of Joining"
+    }
+  ]
+}

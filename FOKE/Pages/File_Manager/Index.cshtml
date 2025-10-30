@@ -1,0 +1,137 @@
+﻿@page
+@model FOKE.Pages.File_Manager.IndexModel
+@{
+}
+@using FOKE.Localization
+@inject ISharedLocalizer Localize
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/Library/Manage")" />
+<input type="hidden" id="hidSearch" value="@Url.Page("~/File_Manager/Index")" />
+<input type="hidden" id="hidPageCode" value="@Model.pagecode" />
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Toolbar-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			<!--begin::Content container-->
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<!--begin::Card-->
+				<!--end::Card-->
+				<!--begin::Card-->
+				<div class="card card-flush">
+					<!--begin::Card header-->
+					<div class="card-header pt-5">
+						<div class="card-title">
+							<div class="row">
+								<h3 class="fw-bold m-0 mb-5">
+									@Localize.Localize("FILE_MANAGER")
+								</h3>
+
+
+							</div>
+
+						</div>
+						<div class="d-flex align-items-center position-relative gap-2 my-1 pe-md-2 w-100 w-md-400px">
+							<input type="text" asp-for="SearchText" class="form-control form-control-sm flex-grow-1" placeholder=@Localize.Localize("BTN_SEARCH") id="txtSearchInputField" />
+
+							<button type="button" class="btn btn-sm btn-light-primary d-flex align-items-center gap-1 btnSearch" id="btnRefresh">
+								<i class="fas fa-search"></i>
+								@Localize.Localize("BTN_SEARCH")
+							</button>
+
+							<button type="button" class="btn btn-sm btn-light-primary d-flex align-items-center gap-1 btnReset" id="btnReset">
+								<i class="fas fa-sync-alt"></i>
+								@Localize.Localize("BTN_RESET")
+							</button>
+						</div>
+					</div>
+					<!--end::Card header-->
+					<!--begin::Card body-->
+					<div class="card-body">
+						<!--begin::Row-->
+						<table id="kt_file_manager_list" data-kt-filemanager-table="folders" class="table align-middle table-row-dashed fs-6 gy-5">
+							<thead>
+								<tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+									<th class="min-w-150px min-w-sm-250px">@Localize.Localize("NAME")</th>
+									<th class="min-w-150px min-w-sm-250px">@Localize.Localize("DESCRIPTION")</th>
+									<th class="w-125px"></th>
+								</tr>
+							</thead>
+							<tbody class="fw-semibold text-gray-600">
+								@if (Model.pagedListData != null && Model.pagedListData.Count() > 0)
+								{
+									@for (int i = 0; i < Model.pagedListData.Count(); i++)
+									{
+										var item = Model.pagedListData[i];
+										<tr>
+											<td data-order="@item.FolderName">
+												<div class="d-flex align-items-center">
+													<img src="~/media/svg/files/folder-document.svg" class="theme-light-show me-3 iconsize" alt="Folder Icon" />
+													<a href="#" class="text-gray-800 text-hover-primary btnFolderClick" keyID="@item.FolderId" name="@item.FolderName">@item.FolderName</a>
+												</div>
+											</td>
+											<td>@item.Description</td>
+										</tr>
+									}
+								}
+								else
+								{
+									<tr>
+										<td colspan="3" class="text-center text-muted">No folders found.</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+						</div>
+						<!--end:Row-->
+					</div>
+					<!--end::Card body-->
+
+				</div>
+				<!--end::Content container-->
+			</div>
+			<!--end::Content-->
+		</div>
+		<!--end::Content wrapper-->
+	</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		KTMenu.init();
+
+		// Event delegation for dynamically generated elements
+		$(document).on('click', '.btnFolderClick', function (e) {
+			e.preventDefault(); // Prevent default behavior of <a> tag
+			debugger;
+			 var pageCode = $("#hidPageCode").val(); // hidden input for pageCode
+			var modID = $(this).attr('keyID'); // Get FolderId
+			var Name=$(this).attr('name');
+			var url = $("#hidManagePageUrl").val() + "?id=" + modID + "&Foldername=" + Name+"&pageCode=" + encodeURIComponent(pageCode); // Get hidden input value
+
+			console.log("Navigating to: " + url); // Debugging output
+
+			window.location.href = url; // Navigate to the URL
+		});
+		$('#txtSearchInputField').on('keydown', function (e) {
+		if (e.key === 'Enter' || e.keyCode === 13) {
+			e.preventDefault(); // Prevent form submission if inside a form
+			$('.btnSearch').click(); // Trigger the search button click
+		}
+		});
+		$(document).on('click', '.btnSearch', function (e) {
+		e.preventDefault(); // Prevent default behavior
+		var pageCode = $("#hidPageCode").val(); // hidden input for pageCode
+		var searchText = $("#txtSearchInputField").val().trim(); // Get SearchText value
+
+
+		var url = $("#hidSearch").val() + "?searchText=" + encodeURIComponent(searchText)+ "&pageCode=" + encodeURIComponent(pageCode); // Append search text
+
+		console.log("Navigating to: " + url); // Debugging output
+
+		window.location.href = url; // Redirect to search page
+	});
+	$(document).on('click', '.btnReset', function (e) {
+		e.preventDefault();
+		$('#txtSearchInputField').val('');
+		$('.btnSearch').click(); // Trigger the search button click
+	});
+	});
+</script>

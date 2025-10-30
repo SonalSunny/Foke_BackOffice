@@ -1,0 +1,426 @@
+{
+    "Module": "MembershipActions",
+    "Translations": [
+        {
+            "Name": "Pay Membership Fee",
+            "Description": "Pay Membership Fee",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "ادفع رسوم العضوية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Pay Membership Fee"
+                }
+            ]
+        },
+        {
+            "Name": "Current Campaign Info",
+            "Description": "Current Campaign Info",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "معلومات الحملة الحالية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Current Campaign Info"
+                }
+            ]
+        },
+        {
+            "Name": "Campaign Name:",
+            "Description": "Campaign Name:",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم الحملة:"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Campaign Name:"
+                }
+            ]
+        },
+        {
+            "Name": "Start Date:",
+            "Description": "Start Date:",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تاريخ البدء:"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Start Date:"
+                }
+            ]
+        },
+        {
+            "Name": "End Date:",
+            "Description": "End Date:",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تاريخ الانتهاء:"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "End Date:"
+                }
+            ]
+        },
+        {
+            "Name": "Amount:",
+            "Description": "Amount:",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "المبلغ:"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Amount:"
+                }
+            ]
+        },
+        {
+            "Name": "Description:",
+            "Description": "Description:",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الوصف:"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Description:"
+                }
+            ]
+        },
+        {
+            "Name": "Payment Type",
+            "Description": "Payment Type",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "نوع الدفع"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Payment Type"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Amount",
+            "Description": "Enter Amount",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل المبلغ"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Amount"
+                }
+            ]
+        },
+        {
+            "Name": "Collection Remarks",
+            "Description": "Collection Remarks",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "ملاحظات المجموعة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Collection Remarks"
+                }
+            ]
+        },
+        {
+            "Name": "Edit Membership Details",
+            "Description": "Edit Membership Details",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تحرير تفاصيل العضوية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Edit Membership Details"
+                }
+            ]
+        },
+
+        {
+            "Name": "Personal Information",
+            "Description": "Personal Information",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "المعلومات الشخصية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Personal Information"
+                }
+            ]
+        },
+        {
+            "Name": "Started Medical Work (Kuwait)",
+            "Description": "Started Medical Work (Kuwait)",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "بدأت العمل الطبي (الكويت)"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Started Medical Work (Kuwait)"
+                }
+            ]
+        },
+        {
+            "Name": "Received Amount",
+            "Description": "Received Amount",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "المبلغ المستلم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Received Amount"
+                }
+            ]
+        },
+        {
+            "Name": "MemberID",
+            "Description": "MemberID",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رقم العضو"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "MemberID"
+                }
+            ]
+        },
+        {
+            "Name": "FullName",
+            "Description": "FullName",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الاسم الكامل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "FullName"
+                }
+            ]
+        },
+        {
+            "Name": "Device Count",
+            "Description": "Device Count",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "عدد الأجهزة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Device Count"
+                }
+            ]
+        },
+        {
+            "Name": "Contact Details",
+            "Description": "Contact Details",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تفاصيل الاتصال"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Contact Details"
+                }
+            ]
+        },
+        {
+            "Name": "Membership Fee Campaign",
+            "Description": "Membership Fee Campaign",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "حملة رسوم العضوية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Membership Fee Campaign"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Fee Campaign",
+            "Description": "Add New Fee Campaign",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة حملة رسوم جديدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Fee Campaign"
+                }
+            ]
+        },
+        {
+            "Name": "Campaign Name",
+            "Description": "Campaign Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم الحملة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Campaign Name"
+                }
+            ]
+        },
+        {
+            "Name": "Start Date",
+            "Description": "Start Date",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تاريخ البدء"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Start Date"
+                }
+            ]
+        },
+        {
+            "Name": "End Date",
+            "Description": "End Date",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تاريخ الانتهاء"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "End Date"
+                }
+            ]
+        },
+        {
+            "Name": "Membership Fee",
+            "Description": "Membership Fee",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رسوم العضوية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Membership Fee"
+                }
+            ]
+        },
+        {
+            "Name": "DigitlID Management",
+            "Description": "DigitlID Management",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إدارة الهوية الرقمية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "DigitlID Management"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Campaign Name",
+            "Description": "Enter Campaign Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل اسم الحملة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Campaign Name"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Membership Fee",
+            "Description": "Enter Membership Fee",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل رسوم العضوية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Membership Fee"
+                }
+            ]
+        },
+        {
+            "Name": "Add Committee",
+            "Description": "Add Committee",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة لجنة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add Committee"
+                }
+            ]
+        },
+        {
+            "Name": "Add Group",
+            "Description": "Add Group",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة مجموعة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add Group"
+                }
+            ]
+        },
+        {
+            "Name": "Add Member",
+            "Description": "Add Member",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة عضو"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add Member"
+                }
+            ]
+        }
+    ]
+}

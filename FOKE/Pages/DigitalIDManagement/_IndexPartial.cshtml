@@ -1,0 +1,226 @@
+﻿@model IndexModel
+@using FOKE.Localization
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using FOKE.Models.PageModels
+@inject ISharedLocalizer Localize
+
+<div class="table-responsive">
+    <input type="hidden" asp-for="pageNo" id="hidpageNo" />
+    <input type="hidden" asp-for="pageSize" id="hidpageSize" />
+    <input type="hidden" asp-for="sortColumn" id="hidSortColumn" />
+    <input type="hidden" asp-for="sortOrder" id="hidSortOrder" />
+    <table class="table table-hover table-rounded table-striped border gy-4 gs-7 table-sortable">
+        <thead>
+            <tr class="fs-6 text-white bg-primary">
+                <th class="ps-4 t-plr-sm-5 sorting" area-field="MemberID">
+                    @Localize.Localize("MemberID")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 sorting" area-field="FullName">
+                    @Localize.Localize("FullName")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 sorting" area-field="CivilID">
+                    @Localize.Localize("Device Count")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 sorting" area-field="ContactNumber">
+                    @Localize.Localize("Contact Details")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 sorting" area-field="Area">
+                    @Localize.Localize("Area")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 sorting" area-field="Area">
+                    @Localize.Localize("Status")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model.pagedListData != null && Model.pagedListData.Count() > 0)
+        {
+            @for (int i = 0; i < Model.pagedListData.Count(); i++)
+            {
+                var item = Model.pagedListData[i];
+                <tr>
+                    <td>
+                        @item.ReferenceNumber
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                         @if (@item.DeviceCount != null)
+                         {
+                                <a href="/DigitalIDManagement/MemberDetailsView?Id=@item.IssueId" class="menu-link px-3 btnItemView" keyID="@item.IssueId"
+                             title="@Localize.Localize("View")">@item.DeviceCount</a>
+                         }
+                         else
+                         {
+                             @item.DeviceCount
+                         }
+                    </td>
+                    <td>
+                            <button class="btn btn-sm btn-outline-primary border border-primary"
+                                    onclick="showContactPopup('@item.Email', '@item.PhoneNo')">
+                            View Details
+                        </button>
+                    </td>
+                    <td>
+                        @item.Area
+                    </td>
+                    <td>
+                            @if (item.PaymentDone)
+                            {
+                                <span class="badge badge-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Payment Pending</span>
+                            }                 
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start pt-3">
+        <div class="dataTables_length" id="kt_datatable_fixed_header_length">
+            <label>
+                <select asp-for="pageSize" id="kt_datatable_page_size" class="form-select form-select-sm form-select-solid">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </label>
+        </div><div class="dataTables_info" id="kt_datatable_fixed_header_info" role="status" aria-live="polite">Showing @(Model?.pagedListData?.FirstItemOnPage ?? 0) to @(Model?.pagedListData?.LastItemOnPage ?? 0) of @(Model?.pagedListData?.TotalItemCount ?? 0) records</div>
+    </div><div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+        <div class="dataTables_paginate paging_simple_numbers" id="kt_datatable_fixed_header_paginate">
+            @if (Model.hasPagination)
+            {
+                <div>
+                    @Html.PagedListPager((IPagedList)Model.pagedListData, page => Url.Page("Index", "PagedList",
+                    new
+                    {
+                        pn = page,
+                        ps = Model.pageSize,
+                        so = Model.sortOrder,
+                        sc = Model.sortColumn,
+                        nm = Model.globalSearch
+                    }),
+                                PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions()
+                                {
+                                    PageClasses = new string[] { "page-link" },
+                                    LiElementClasses = new string[] { "page-item" },
+                                    UlElementClasses = new string[] { "pagination pagination-circle pagination-outline" },
+                                    EllipsesElementClass = "ki-duotone ki-double-left fs-2",
+                                    Display = PagedListDisplayMode.IfNeeded,
+                                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                                    LinkToPreviousPageFormat = "<i class='fas fa-angle-left'></i>",
+                                    LinkToNextPageFormat = "<i class='fas fa-angle-right'></i>",
+                                    LinkToFirstPageFormat = "<i class='fas fa-step-backward'></i>",
+                                    LinkToLastPageFormat = "<i class='fas fa-step-forward'></i>",
+                                    MaximumPageNumbersToDisplay = 10, // Adjust this number as needed
+                                }, new AjaxOptions()
+                                { HttpMethod = "Get", UpdateTargetId = "_postList", OnBegin = "showInTableLoader()", OnSuccess = "", OnComplete = "hideInTableLoader()" }))
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div id="tableLoader" class="loader-container">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<script src="~/js/ktable.js" asp-append-version="true"></script>
+
+<script>
+    $(function () {
+        KTMenu.init();
+
+        // Show loader at the start
+        $("#tableLoader").removeClass("hidden");
+
+        // Hide loader when document is ready
+        $(document).ready(function () {
+            $("#tableLoader").addClass("hidden");
+        });
+
+        $('.btnItemDelete').click(function () {
+            var keyID = $(this).attr('keyID');
+            var ID = $(this).attr('delete');
+            var url = $("#hidDeletePageUrl").val();
+
+            if (ID == 1) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Deactivate it!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var data = { keyid: keyID, Id: ID };
+                        postAjaxDeleteMasterData(url, data, function (e) {
+                            $("#btnRefresh").trigger("click");
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Activate it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var data = { keyid: keyID, Id: ID };
+                        postAjaxDeleteMasterData(url, data, function (e) {
+                            $("#btnRefresh").trigger("click");
+                        });
+                    }
+                });
+            }
+
+            return false;
+        });
+
+        $('.btnItemEdit').click(function () {
+            var modID = $(this).attr('keyID');
+            var url = $("#hidManagePageUrl").val() + "?id=" + modID + "&mode=edit";
+            top.showPopup("Update Department", url, 600, 240, window.frameElement.id);
+            return false;
+        });
+    });
+
+    function showContactPopup(email, phone) {
+        Swal.fire({
+            title: '📞 Contact Info',
+            html: `<div class="text-start">
+                      <p><strong>Email:</strong> ${email}</p>
+                      <p><strong>Phone:</strong> ${phone}</p>
+                   </div>`,
+            icon: 'info',
+            confirmButtonText: 'Close',
+            customClass: {
+                popup: 'rounded-4'
+            }
+        });
+    }
+</script>

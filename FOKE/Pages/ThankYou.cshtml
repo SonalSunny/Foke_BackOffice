@@ -1,0 +1,91 @@
+﻿@page
+@model FOKE.Pages.ThankYouModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Thank You</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="New Membership Registration" />
+    <meta property="og:site_name" content="Keralites Medical Forum, Kuwait" />
+    <meta property="og:url" content="https://portal.FOKEkuwait.com/NewMember" />
+    <meta property="og:description" content="Join FOKE Kuwait, our awesome community of professionals! Become a member today." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+    <meta property="og:image:secure_url" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="FOKE Association Banner" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:logo" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+
+    <!-- Twitter Card Meta Tags (Optional but Recommended) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="New Membership Registration" />
+    <meta name="twitter:description" content="Join FOKE Kuwait, our awesome community of professionals! Become a member today." />
+    <meta name="twitter:image" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+
+    <link href="~/plugins/global/plugins.bundle.css" rel="stylesheet" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <style>
+        .success-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            padding-bottom: 50px; /* Extra padding at bottom */
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 40px;
+            color: #28a745;
+        }
+
+        .success-text {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 20px;
+            color: #5e60ce;
+        }
+
+        .return-btn {
+            margin-top: 30px;
+        }
+
+        .logo-img {
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+    <div class="success-container">
+            <div class="text-center mb-3">
+                <img src="~/media/logos/FOKE_LOGO.png" class="logo-img mb-3" alt="Association Logo" />
+                <h4 class="fw-bold">Friends Of Kannur Kuwait Expats Association, Kuwait</h4>
+                <p class="">Registration No.IDEMB/KWT/ASSN/37</p>
+            </div>
+        <hr />
+        <div class="success-icon">✅</div>
+        <div class="success-text">Thank You</div>
+        <p class="mt-3 successtext">Membership registration request has been successfully submitted.</p>
+        @* <a href="/Index" class="btn btn-outline-success return-btn">Back to Home</a> *@
+      
+    </div>
+    </div>
+</body>
+</html>

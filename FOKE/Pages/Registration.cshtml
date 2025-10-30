@@ -1,0 +1,657 @@
+﻿@page
+@model FOKE.Pages.RegistrationModel
+@{
+    Layout = "";
+    ViewData["Title"] = "Registration Form";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="New Membership Registration" />
+    <meta property="og:site_name" content="Keralites Medical Forum, Kuwait" />
+    <meta property="og:url" content="https://portal.FOKEkuwait.com/NewMember" />
+    <meta property="og:description" content="Join FOKE Kuwait, our awesome community of professionals! Become a member today." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+    <meta property="og:image:secure_url" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="FOKE Association Banner" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:logo" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+
+    <!-- Twitter Card Meta Tags (Optional but Recommended) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="New Membership Registration" />
+    <meta name="twitter:description" content="Join FOKE Kuwait, our awesome community of professionals! Become a member today." />
+    <meta name="twitter:image" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+
+
+    <link href="~/plugins/global/plugins.bundle.css" rel="stylesheet" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/Registration.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container py-5">
+        <div class="registration-card">
+            <div class="text-center mb-3">
+                <img src="~/media/logos/FOKE_LOGO.png" class="logo-img mb-3" alt="Association Logo" />
+                <h4 class="fw-bold">Friends Of Kannur Kuwait Expats Association, Kuwait</h4>
+                <p class="">Registration No.IDEMB/KWT/ASSN/37</p>
+            </div>
+            <hr />
+            <h3 class="text-center mb-4">Membership Registration Form</h3>
+            <p class="text-center text-muted mb-5">* Please ensure all mandatory fields are completed.</p>
+
+            <form asp-action="Register" method="post">
+                <div class="col-12" id="response">
+                    @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                    {
+                        <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                            <i class="ki-duotone ki-info-circle fs-2 text-danger me-3 test-colo"></i>
+                            <div class="flex-grow-1 fw-bold text-danger">
+                                <strong></strong> @Model.pageErrorMessage
+                            </div>
+                            <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                </div>
+                @Html.AntiForgeryToken()
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="required form-label">Name</label>
+                        <input asp-for="inputModel.Name" class="form-control form-control-sm" id="NameInput" maxlength="100" placeholder="Enter Name" />
+                        <span asp-validation-for="inputModel.Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="required form-label">Civil ID</label>
+                        <input asp-for="inputModel.CivilId" class="form-control form-control-sm" id="CivilIdInput" maxlength="12" placeholder="Enter Civil ID" />
+                        <span id="civilIdError" class="text-danger" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.CivilId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="required form-label">Passport No</label>
+                        <input asp-for="inputModel.PassportNo" class="form-control form-control-sm" id="PassportInput" maxlength="8" placeholder="Enter Passport No" />
+                        <span id="PassportnoError" class="text-danger" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.PassportNo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="required form-label">Date of Birth</label>
+                        <input type="text" class="form-control form-control-sm" id="DOBDisplay" placeholder="DD-MM-YYYY" disabled/>
+                         @* <input asp-for="inputModel.DOB" type="text" class="form-control form-control-sm" id="DOBInput" placeholder="DOB"/>*@                     
+                        <input asp-for="inputModel.DOB" type="hidden" id="DOBInput" />
+                        <span asp-validation-for="inputModel.DOB" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="required form-label">Gender</label>
+                        <select asp-for="inputModel.Genderid"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.GenderList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.Genderid" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="required form-label">Blood Group</label>
+                        <select asp-for="inputModel.BloodGroupid"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.BloodGroupList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.BloodGroupid" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="required form-label" id="lblpro">Profession</label>
+                        <label class="required form-label" id="lblproother" style="display:none;">Profession(Other)</label>
+                        <select asp-for="inputModel.Professionid"
+                                class="form-select select2"
+                                asp-items='@new SelectList(Model.ProffessionList, "keyID", "name")' id="ProfessionDDL">
+                            <option value="">Select</option>
+                        </select>
+                        <input asp-for="inputModel.ProffessionOther" class="form-control form-control-sm" id="ProfessionText" style="display:none" />
+                        <span class="text-danger" id="ProfessionTextError" ></span>
+                        <a href="javascript:void(0);" id="BackToDropdown" class="Change">
+                            Change
+                        </a>
+                        <span asp-validation-for="inputModel.Professionid" class="text-danger" id="ProfessionDDLError"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="required form-label" id="lblwork">Workplace</label>
+                        <label class="required form-label" id="lblworkother" style="display:none;">Workplace(Other)</label>
+                        <select asp-for="inputModel.WorkPlaceid"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.WorkPlaceList, "keyID", "name")' id="WorkPlaceDDL">
+                            <option value="">Select</option>
+                        </select>
+                        <input asp-for="inputModel.WorkplaceOther" class="form-control form-control-sm" id="WorkPlaceText" style="display:none" />
+                        <span class="text-danger" id="WorkPlaceTextError"></span>
+                        <a href="javascript:void(0);" id="BackToDDL" class="Change">
+                            Change
+                        </a>
+                        <span asp-validation-for="inputModel.WorkPlaceid" class="text-danger" id="WorkPlaceError"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+
+
+                    <div class="col-md-6">
+                        <label class="required form-label">Contact Number</label>
+                        <div class="input-group">
+                            <select asp-for="inputModel.CountryCodeid" class="form-select form-select-sm NoDdl">
+                                <option value="+965">+965 🇰🇼</option>
+                                <option value="+91">+91 🇮🇳</option>
+                            </select>
+                            <input asp-for="inputModel.ContactNo" class="form-control form-control-sm" placeholder="Enter phone number" />
+                        </div>
+
+                        <span id="ContactNoError" class="text-danger" style="display: none;"></span>
+                        <span asp-validation-for="inputModel.ContactNo" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label  class="required form-label">Email</label>
+                        <input asp-for="inputModel.Email" class="form-control form-control-sm" id="EmailInput" placeholder="Enter Email" />
+                        <span id="EmailidError" class="text-danger" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label  class="required form-label">District</label>
+                        <select asp-for="inputModel.Districtid"
+                                class="form-select form-select-sm select2" id="DistrictDDl"
+                                asp-items='@new SelectList(Model.DistrictList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.Districtid" class="text-danger" id="DistrictDDlError"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label  class="required form-label">Area</label>
+                        <select asp-for="inputModel.Areaid"
+                                class="form-select form-select-sm select2" id="AreaDDL"
+                                asp-items='@new SelectList(Model.AreaList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.Areaid" class="text-danger" id="AreaDDLError"></span>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label class="required form-label">Department</label>
+                        <select asp-for="inputModel.DepartmentId"
+                                class="form-select form-select-sm select2" id="DepartmentDDL"
+                                asp-items='@new SelectList(Model.DepartmentList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.DepartmentId" class="text-danger" id="DepartmentDDLError"></span>
+                        
+                    </div>
+                    @* <div class="col-md-6">
+                        <label class="required form-label">How did you hear about us</label>
+                        <select asp-for="inputModel.Hearaboutusid"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.HearaboutUsList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.Hearaboutusid" class="text-danger"></span>
+                    </div> *@
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label class="required form-label">In which year did you start working in the medical sector in Kuwait?</label>
+                        <select asp-for="inputModel.WorkYear"
+                                class="form-select form-select-sm select2" id="WorkYearDDl"
+                                asp-items='@new SelectList(Model.YearList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.WorkYear" class="text-danger" id="WorkYearDDlError"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="text-end">
+                    <button type="submit" id="BtnSave" class="btn btn-purple px-5">Apply for Membership</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/css/select2.min.css" rel="stylesheet" />
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script src="~/js/select2.min.js"></script>
+@section Scripts {
+  
+
+    <partial name="_ValidationScriptsPartial" />
+    
+}
+<script>
+   $(document).ready(function () {
+        
+
+                             // Repopulate DOBDisplay on page load if DOBInput has a value
+          const hiddenDob = $("#DOBInput").val();
+          if (hiddenDob) {
+              // Convert from yyyy-MM-dd to dd-MM-yyyy
+              const parts = hiddenDob.split("-");
+              if (parts.length === 3) {
+                  const formattedDob = `${parts[2]}-${parts[1]}-${parts[0]}`;
+                  $("#DOBDisplay").val(formattedDob);
+        
+              }
+          }
+
+ $('.select2').select2({
+          width: 'resolve' // or try '100%' if still misaligned
+      });
+        $('#WorkPlaceDDL').on('change', function () {
+              var selectedValue = $(this).val();
+              if (selectedValue) {
+                  $('#WorkPlaceError').text(''); // Clear validation message
+              }
+          });
+                $('#ProfessionDDL').on('change', function () {
+                var selectedValue1 = $(this).val();
+                  if (selectedValue1) {
+                      $('#ProfessionDDLError').text(''); // Clear validation message
+                }
+              });
+                  $('#DistrictDDl').on('change', function () {
+                  var selectedValue1 = $(this).val();
+                    if (selectedValue1) {
+                          $('#DistrictDDlError').text(''); // Clear validation message
+                  }
+                });
+                     $('#WorkYearDDl').on('change', function () {
+                    var selectedValue1 = $(this).val();
+                      if (selectedValue1) {
+                              $('#WorkYearDDlError').text(''); // Clear validation message
+                    }
+                    });
+                        $('#DepartmentDDL').on('change', function () {
+                      var selectedValue1 = $(this).val();
+                        if (selectedValue1) {
+                                  $('#DepartmentDDLError').text(''); // Clear validation message
+                      }
+                        });
+                             $('#AreaDDL').on('change', function () {
+                        var selectedValue1 = $(this).val();
+                          if (selectedValue1) {
+                                      $('#AreaDDLError').text(''); // Clear validation message
+                        }
+                          });
+        // Success message alert
+        if ("@Model.IsSuccessReturn" === "True") {
+           window.location.href = "/Thankyou";
+        }
+
+        $('#crudForm input').on('keypress', function(e) {
+           if (e.which === 13) { // Enter key code
+              e.preventDefault();
+              return false;
+           }
+        });
+  });
+          $('form').on('submit', function (e) {
+        let hasError = false;
+            
+        // Validate ProfessionText
+        if ($('#ProfessionText').is(':visible') && !$('#ProfessionText').val()) {
+            $('#ProfessionTextError').text('Required');
+            $('#ProfessionText').addClass('is-invalid');
+            hasError = true;
+        } else {
+            $('#ProfessionTextError').text('');
+            $('#ProfessionText').removeClass('is-invalid');
+        }
+
+        // Validate WorkPlaceText
+        if ($('#WorkPlaceText').is(':visible') && !$('#WorkPlaceText').val()) {
+            $('#WorkPlaceTextError').text('Required');
+            $('#WorkPlaceText').addClass('is-invalid');
+            hasError = true;
+        } else {
+            $('#WorkPlaceTextError').text('');
+            $('#WorkPlaceText').removeClass('is-invalid');
+        }
+
+        // Prevent form submit if any error found
+        if (hasError) {
+            e.preventDefault();
+        }
+    });
+       $('#ProfessionText').on('input', function () {
+          if ($(this).val().trim() !== '') {
+              $('#ProfessionTextError').text('');
+              $(this).removeClass('is-invalid');
+          }
+      });
+
+      $('#WorkPlaceText').on('input', function () {
+          if ($(this).val().trim() !== '') {
+              $('#WorkPlaceTextError').text('');
+              $(this).removeClass('is-invalid');
+          }
+      });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+            const countryCodeSelect = document.querySelector('[name="inputModel.CountryCodeid"]');
+            const contactInput = document.querySelector('[name="inputModel.ContactNo"]');
+            const errorSpan = document.getElementById("ContactNoError");
+
+            function getMaxLength() {
+                return countryCodeSelect.value === "+91" ? 10 : 8;
+            }
+
+            function isDigitsOnly(value) {
+                return /^\d*$/.test(value);
+            }
+
+            function validateAndCheck() {
+                let value = contactInput.value.replace(/\D/g, '');
+                const maxLength = getMaxLength();
+
+                // Trim and enforce digit-only
+                if (!isDigitsOnly(value)) {
+                    value = value.replace(/\D/g, '');
+                }
+                if (value.length > maxLength) {
+                    value = value.substring(0, maxLength);
+                }
+
+                if (value.length < maxLength) {
+                    errorSpan.textContent = "Enter a valid contact number.";
+                    errorSpan.style.display = "block";
+                    return; // Stop further validation
+                }
+
+                contactInput.value = value;
+
+                if (value.length === maxLength) {
+                    // Valid length reached → check with backend
+                    $.ajax({
+                        url: '@Url.Page("Registration", "ValidateContactNo")',
+                        type: 'GET',
+                        data: { contactNo: value },
+                        success: function (data) {
+                            if (!data.isValid) {
+                                errorSpan.textContent = "Contact number already exists.";
+                                errorSpan.style.display = "block";
+                            } else {
+                                errorSpan.textContent = "";
+                                errorSpan.style.display = "none";
+                            }
+                        },
+                        error: function () {
+                            console.log("AJAX call failed.");
+                        }
+                    });
+                } else {
+                    // Not enough digits yet → don't check
+                    errorSpan.textContent = "";
+                    errorSpan.style.display = "none";
+                }
+            }
+
+            contactInput.addEventListener("input", validateAndCheck);
+            countryCodeSelect.addEventListener("change", function () {
+                contactInput.value = ""; // reset input
+                validateAndCheck();      // recalculate length and error state
+            });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+       const nameInput = document.getElementById("NameInput");
+
+            nameInput.addEventListener("input", function () {
+                // Replace anything that's not a letter or space
+                this.value = this.value.replace(/[^A-Za-z ]/g, '');
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+        const civilIdInput = document.getElementById("CivilIdInput");
+
+        // Restrict input to digits only
+        civilIdInput.addEventListener("input", function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Change validation (your existing code)
+        $("#CivilIdInput").change(function () {
+                    $("#DOBDisplay").val(""); // Clear DOB fields before validation
+            $("#DOBInput").val("");
+            var civilId = $(this).val();
+
+            if (!/^\d+$/.test(civilId)) {
+                $("#civilIdError").text("Only digits are allowed.").show();
+                $(this).addClass("is-invalid");
+                return;
+            } else {
+                $("#civilIdError").text("").hide();
+                $(this).removeClass("is-invalid");
+            }
+
+            if (civilId) {
+                $.ajax({
+                    url: '@Url.Page("Registration", "ValidateCivilId")',
+                    type: 'GET',
+                    data: { civilId: civilId },
+                    success: function (data) {
+                        switch (data.status) {
+                            case 1:
+                                $("#civilIdError").text("Invalid Civil ID").show();
+                                $("#CivilIdInput").addClass("is-invalid");
+                                document.getElementById("DOBDisplay").value = "";
+                                break;
+
+                            case 2:
+                                $("#civilIdError").text("Civil ID Already Exists").show();
+                                $("#CivilIdInput").addClass("is-invalid");
+                                document.getElementById("DOBDisplay").value = "";
+                                break;
+
+                            case 3:
+                                $("#civilIdError").text("").hide();
+                                $("#CivilIdInput").removeClass("is-invalid");
+                                Extractdbo(civilId);
+                                break;
+
+                            default:
+                                $("#civilIdError").text("Unknown validation response").show();
+                                $("#CivilIdInput").addClass("is-invalid");
+                                document.getElementById("DOBDisplay").value = "";
+                                break;
+                        }
+                    },
+                    error: function () {
+                        $("#civilIdError").text("Error Validating Civil ID").show();
+                        $("#CivilIdInput").addClass("is-invalid");
+                    }
+                });
+            }
+        });
+    });
+
+
+     document.addEventListener("DOMContentLoaded", function () {
+            const PassportInput = document.getElementById("PassportInput");
+
+            // Allow only alphanumeric characters
+            PassportInput.addEventListener("input", function () {
+                this.value = this.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(); // Auto-uppercase
+            });
+
+            // On change, validate passport number
+           $("#PassportInput").change(function () {
+                var passportNumber = $(this).val();
+
+                if (passportNumber) {
+                $.ajax({
+                    url: '@Url.Page("Registration", "ValidatePassportNo")',
+                    type: 'GET',
+                    data: { passportNo : passportNumber},
+                    success: function (data) {
+                              switch (data.status) {
+                                case 1:
+                                    $("#PassportnoError").text("Invalid Passport No").show();
+                                    break;
+
+                                case 2:
+                                    $("#PassportnoError").text("PassportNo Already Exists").show();
+                                    break;
+
+                                case 3:
+                                    $("#PassportnoError").text("").hide();
+                                    break;
+
+                                default:
+                                    $("#PassportnoError").text("Unknown validation response").show();
+                                    break;
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const EmailInput = document.getElementById("EmailInput");
+
+        // Allow only alphanumeric characters
+        EmailInput.addEventListener("input", function () {
+            this.value = this.value.replace(/[^a-zA-Z0-9@@._-]/g, '');
+        });
+        EmailInput.addEventListener("change", function () {
+                const email = this.value.trim();
+                const regex = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\..+$/;
+          
+               if (email === "") {
+                  $("#EmailidError").text("").hide();
+                  $(this).removeClass("is-invalid");
+                  return;
+    }
+
+
+            if (!regex.test(email)) {
+                $("#EmailidError").text("Invalid Emailid").show();
+                $(this).addClass("is-invalid");
+                return;
+            }
+            else {
+                $("#EmailidError").text("").hide();
+                $(this).removeClass("is-invalid");
+            }
+        });
+    });
+
+
+$('#ProfessionDDL').on('select2:select', function (e) {
+        var selectedText = e.params.data.text;
+        if (selectedText === "Other") {
+            $('#ProfessionDDL').next('.select2').hide(); // Hide the Select2 dropdown
+            $('#ProfessionText').show().focus();   
+            $('#BackToDropdown').show(); // Show and focus textbox
+            $('#lblproother').show();
+             $('#lblpro').hide();
+            // Make textbox required
+        $('#ProfessionText').attr('required', true);
+        } else {
+            $('#ProfessionText').hide().val('');
+            $('#ProfessionDDL').next('.select2').show(); // Show Select2 dropdown
+            $('#lblproother').hide();
+            $('#lblpro').show();
+        }
+    });
+
+    $('#BackToDropdown').on('click', function () {
+        $('#ProfessionText').hide().val('');
+        $('#BackToDropdown').hide();
+        $('#ProfessionDDL').next('.select2-container').show();
+         $('#lblproother').hide();
+             $('#lblpro').show();
+        // Optionally reset selection
+        $('#ProfessionDDL').val('').trigger('change'); // or trigger('select2:select')
+    });
+
+    $('#WorkPlaceDDL').on('select2:select', function (e) {
+        var selectedText = e.params.data.text;
+        if (selectedText === "Other") {
+            $('#WorkPlaceDDL').next('.select2').hide(); // Hide the Select2 dropdown
+            $('#WorkPlaceText').show().focus();  
+            $('#BackToDDL').show();
+             $('#lblworkother').show();
+             $('#lblwork').hide();
+        } else {
+            $('#WorkPlaceText').hide().val('');
+            $('#WorkPlaceDDL').next('.select2').show(); // Show Select2 dropdown
+             $('#lblworkother').hide();
+            $('#lblwork').show();
+        }
+    });
+
+    $('#BackToDDL').on('click', function () {
+        $('#WorkPlaceText').hide().val('');
+        $('#BackToDDL').hide();
+        $('#WorkPlaceDDL').next('.select2-container').show();
+         $('#lblworkother').hide();
+            $('#lblwork').show();
+        // Optionally reset selection
+        $('#WorkPlaceDDL').val('').trigger('change'); // or trigger('select2:select')
+    });
+
+    function Extractdbo(civilId) {
+        // Civil ID must be 12 digits, starting with 2 (1900s) or 3 (2000s)
+        if (!/^[23]\d{11}$/.test(civilId)) return;
+
+        const dobPart = civilId.substring(1, 7); // YYMMDD
+        const yearPrefix = civilId.startsWith("2") ? "19" : "20";
+        const fullDateStr = yearPrefix + dobPart; // e.g. 19850715
+
+        // Format as yyyy-MM-dd for input[type="date"]
+        const yyyy = fullDateStr.substring(0, 4);
+        const mm = fullDateStr.substring(4, 6);
+        const dd = fullDateStr.substring(6, 8);
+        const formattedDate = ` ${dd}-${mm}-${yyyy}`;
+
+        // Set the date to input field
+        document.getElementById("DOBDisplay").value = formattedDate;
+        document.getElementById("DOBInput").value = `${yyyy}-${mm}-${dd}`;
+    // ✅ Clear validation error on DOB if any
+        $("#DOBInput").removeClass("input-validation-error");
+        $("[data-valmsg-for='inputModel.DOB']")
+            .text("")
+            .removeClass("field-validation-error")
+            .addClass("field-validation-valid");
+
+    }
+
+</script>
+
+
+

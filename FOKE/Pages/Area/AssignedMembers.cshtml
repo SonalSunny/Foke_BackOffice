@@ -1,0 +1,146 @@
+﻿@page "{handler?}"
+@using FOKE.Localization
+@model FOKE.Pages.Area.AssignedMembersModel
+
+@inject ISharedLocalizer Localize
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+
+@{
+    var tokens = Antiforgery.GetAndStoreTokens(HttpContext);
+}
+
+<input type="hidden" id="RequestVerificationToken" name="__RequestVerificationToken" value="@tokens.RequestToken" />
+
+<style>
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 80px;
+        height: calc(100vh - 80px);
+        background-color: #f9fbfd;
+    }
+
+    .search-card {
+        background: white;
+        padding: 2rem 3rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+    }
+
+    .search-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: #2d3748;
+    }
+
+    .form-inline {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+        .form-inline select,
+        .form-inline input {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .form-inline button {
+            white-space: nowrap;
+        }
+</style>
+
+<div class="search-container">
+    <div class="search-card">
+        <div class="search-title">@Localize.Localize("Assigned Users")</div>
+        <div class="form-inline">
+            <select asp-for="inputModel.SearchText" class="form-select form-select-sm"
+                    asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+            </select>
+
+            <input type="text" class="form-control form-control-sm" placeholder="Enter search keyword" id="txtSearchInputField" />
+
+            <button type="button" class="btn btn-sm btn-primary" id="btnRefresh">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+
+        <div id="resultsContainer" class="mt-5"></div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function loadAssignedMembers() {
+            const keyword = document.getElementById('txtSearchInputField').value.trim();
+            const selectedColumn = document.querySelector('[name="inputModel.SearchText"]').value;
+              function getAreaIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("areaId");
+        }
+          const areaId = getAreaIdFromUrl(); // 🔥 Extract areaId from URL
+         
+            if (!areaId) {
+                alert("Area ID is missing in the URL.");
+                return;
+            }
+            $.ajax({
+                url: '@Url.Page("AssignedMembers", "GetDetails")',
+                type: 'GET',
+                data: {
+                    keyword: keyword,
+                    searchText: selectedColumn,
+                     areaId: areaId // ✅ Pass to backend
+                },
+                success: function (response) {
+                    const container = document.getElementById('resultsContainer');
+
+                    if (response && response.returnData && response.returnData.length > 0) {
+                        const members = response.returnData;
+                     
+                        let table = `
+                            <table class="table table-bordered table-striped mt-3">
+                                <thead class="table-light">
+                                    <tr>
+                                       
+                                        <th>User Name</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+                        members.forEach(member => {
+                            table += `
+                                <tr>
+                                    <td>${member.username || ''}</td>
+                                 
+                                   
+                                </tr>
+                            `;
+                        });
+
+                        table += `</tbody></table>`;
+                        container.innerHTML = table;
+                    } else {
+                        container.innerHTML = `<p class="text-danger mt-3">No assigned users found.</p>`;
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while loading the assigned users.");
+                }
+            });
+        }
+
+        // Search button click
+        document.getElementById('btnRefresh').addEventListener('click', loadAssignedMembers);
+
+        // Auto-load assigned members on page load
+        loadAssignedMembers();
+    });
+</script>

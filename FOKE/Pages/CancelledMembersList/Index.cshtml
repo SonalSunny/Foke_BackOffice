@@ -1,0 +1,238 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.CancelledMembersList.IndexModel
+@{
+}
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+
+
+
+<div class="card mb-5 mb-xl-10 pb-5">
+    <div class="card-header cursor-pointer border-bottom" role="button">
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">
+                @Localize.Localize("Cancelled Members List")
+            </h3>
+        </div>
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <div class="m-0">
+            </div>
+        </div>
+    </div>
+    <div class="card-body mx-5" style="padding: 0 10px !important;">
+        <div class="table-header d-flex align-items-center justify-content-between">
+            <div class="card-title gap-md-2 d-md-flex">
+                <div class="d-flex align-items-center position-relative my-1 w-100 w-md-150px">
+                    <select asp-for="globalSearchColumn" data-val="false" id="globalSearchColumnChooser" class="form-select form-select-solid form-select-sm"
+                            data-control="select2" data-hide-search="true"
+                            asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+                    </select>
+                </div>
+
+                <div class="d-flex align-items-center position-relative my-1 gap-2 pe-md-2 w-100 w-md-300px">
+                    <input type="text" class="form-control form-control-sm" placeholder=@Localize.Localize("BTN_SEARCH") id="txtSearchInputField">
+                    <button type="button" class="btn btn-sm btn-light-primary my-1 w-50" id="btnRefresh">
+                        <i class="fas fa-search"></i>@Localize.Localize("BTN_SEARCH")
+                    </button>
+                </div>
+            </div>
+            <div class="card-toolbar d-flex justify-content-end">
+                <a id="kt_horizontal_search_advanced_link" class="btn btn-sm btn-light-primary me-3" data-bs-toggle="collapse"
+                   href="#kt_advanced_search_form" aria-expanded="false">
+                    <i class="ki-duotone ki-filter fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                    @Localize.Localize("BTN_FILTER")
+                </a>
+                <button type="button" id="btnExport" style="display:none;"></button>
+
+
+                <div class="dropdown me-3">
+                    <button class="btn btn-sm btn-light-primary dropdown-toggle"
+                            type="button"
+                            id="btnExportDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="ki-duotone ki-exit-up fs-2">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i> @Localize.Localize("BTN_EXPORT")
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="btnExportDropdown">
+                        <li>
+                            <a href="#" class="dropdown-item" onclick="confirmExport('excel')">
+                                <i class="fas fa-file-excel text-success me-2"></i> @Localize.Localize("Excel")
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-item" onclick="confirmExport('pdf')">
+                                <i class="fas fa-file-pdf text-danger me-2"></i> @Localize.Localize("PDF")
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Hidden forms -->
+                <form method="post" asp-page-handler="ExportExcel" id="exportExcelForm"></form>
+                <form method="post" asp-page-handler="ExportPdf" id="exportPdfForm"></form>
+
+
+
+
+
+
+
+
+
+
+
+                <button type="button" class="btn btn-sm btn-light-primary me-3" id="btnReset">
+                    <i class="fas fa-sync-alt"></i> @Localize.Localize("BTN_RESET")
+                </button>
+            </div>
+        </div>
+        <div class="collapse mb-5" id="kt_advanced_search_form">
+            <div class="separator separator-dashed mt-2 mb-3"></div>
+            <div class="card-rounded bg-light p-5">
+                <form method="post" data-ajax="true" asp-page-handler="ApplyFilter" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+                      data-ajax-success='$("#btnRefresh").trigger("click")' id="transalationsForm" novalidate="novalidate" autocomplete="off">
+
+                    <div class="row g-8">
+                        <div class="table-header d-flex align-items-center">
+                            <div class="card-title">
+
+                                <h3 class="text-dark m1-7 fw-normal">@Localize.Localize("TABLE_ADVANCE_FILTER_TITLE")</h3>
+                            </div>
+                            <div class="card-toolbar">
+                                <button type="submit" class="badge badge-primary b-border" data-kt-menu-dismiss="true">Apply</button>
+
+                            </div>
+                        </div>
+                        <div class="separator separator-dashed mb-1 mt-1"></div>
+                        <div class="col-lg-3 filter-margin">
+                            <label class="fs-6  mb-2">@Localize.Localize("Area")</label>
+                            <select asp-for="Areaid" name="Areaid"
+                                    class="form-select form-select-sm select2"
+                                    asp-items='@new SelectList(Model.AreaList, "keyID", "name")'>
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="collapse" id="kt_advanced_search_form" style="">
+            <form method="post" data-ajax="true" asp-page-handler="ApplyFilter" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+                  data-ajax-success='$("#btnRefresh").trigger("click")' id="transalationsForm" novalidate="novalidate" autocomplete="off">
+            </form>
+        </div>
+        <div class="collapse" id="kt_advanced_search_form">
+            <div class="card-rounded bg-light">
+                <form method="post" data-ajax="true" asp-page-handler="ApplyFilter" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+                      data-ajax-success='$("#btnRefresh").trigger("click")' id="transalationsForm" novalidate="novalidate" autocomplete="off">
+                </form>
+            </div>
+        </div>
+
+        <div id="_postList" class="grid-position">
+            <partial name="_IndexPartial" />
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/kTable.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+
+
+         function confirmExport(type) {
+               const typeLabel = type === 'excel' ? 'Excel' : 'PDF';
+               const formId = type === 'excel' ? 'exportExcelForm' : 'exportPdfForm';
+
+               Swal.fire({
+
+                   title: `<strong>Export to ${typeLabel}?</strong>`,
+                   // text: `Are you sure you want to export to ${typeLabel}.`,
+                   text: "Are you sure you want to export data?",
+                   icon: 'warning',
+                   showCancelButton: true,
+                   confirmButtonText: `Yes, Export!`,
+                   cancelButtonText: 'Cancel',
+                       reverseButtons: true,
+                   // confirmButtonColor: 'btn btn-primary',
+                   // cancelButtonColor: 'btn btn-secondary'
+
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                        cancelButton: 'btn btn-secondary'
+                    }
+
+
+               }).then((result) => {
+                   if (result.isConfirmed) {
+
+                         $('#btnExport').data('postdata', {
+            
+            
+                GlobalSearch: $('#txtSearchInputField').val(),
+                GlobalSearchColumn: $('#globalSearchColumnChooser').val(),
+                  Areaid: $('select[name="Areaid"]').val() // get from your filter dropdown
+
+                
+            })
+
+
+          .data('export-url', type === 'excel'
+        ? '@Url.Page("Index", "ExportData")'
+        : '@Url.Page("Index", "ExportPdf")');
+
+
+
+                         $("#btnExport").trigger("click");
+                   }
+               });
+           }
+
+           
+
+
+
+
+
+
+        $(document).ready(function () {
+           
+
+            $('#dt_datepickerTo .input-group.date').datepicker({
+                format: "dd-M-yyyy",
+                autoclose: true,
+            });
+            $('#dt_datepickerFrom .input-group.date').datepicker({
+                format: "dd-M-yyyy",
+                autoclose: true,
+            });
+          
+            //bindPageList(1, 10)
+            $("#_postList").kTable({
+                submitButton: '#btnRefresh',
+                resetButton: '#btnReset',
+                targetContainer: '_postList',
+                searchInputField: '#txtSearchInputField',
+                searchColumnChooser: '#globalSearchColumnChooser',
+                resourceUrl: "@Url.Page("Index", "PagedList")",
+                pageSize: "@Model.pageSize",
+                loadOnPageLoad: true,
+                sOrderField: "#hidSortOrder",
+                sOrderColumnField: "#hidSortColumn",
+                exportUrl: "@Url.Page("Index", "ExportData")",
+                exportButton: '#btnExport'
+            });
+
+        });
+
+    </script>
+}

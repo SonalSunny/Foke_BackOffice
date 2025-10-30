@@ -1,0 +1,81 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.ProjectConfiguration.IndexModel
+@{
+}
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/ProjectConfiguration/Manage")" />
+<input type="hidden" id="hidDeletePageUrl" value="@Url.Content("~/ProjectConfiguration/Index?handler=DeleteTeam")" />
+<div class="card  mb-5 mb-xl-10 pb-5">
+
+
+    <div class="card-header cursor-pointer border-bottom" role="button">
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">
+                @Localize.Localize("PROJECT_CONFIGURATION_TITLE")
+            </h3>
+        </div>
+    </div>
+    <div class="card-body mx-5" style="padding: 0 10px !important;">
+
+        <div class="table-header d-flex align-items-center justify-content-between">
+
+            <div class="card-title gap-md-2  d-md-flex">
+                <div class="d-flex align-items-center position-relative my-1 w-100 w-md-150px">
+                    <select asp-for="globalSearchColumn" data-val="false" id="globalSearchColumnChooser" class="form-select form-select-solid form-select-sm"
+                            data-control="select2" data-hide-search="true"
+                            asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center position-relative my-1 gap-2 pe-md-2 w-100 w-md-300px">
+
+                    <input type="text" class="form-control form-control-sm" placeholder="Search" id="txtSearchInputField">
+                    <button type="button" class="btn btn-sm btn-light-primary my-1 w-50" id="btnRefresh">
+                        <i class="fas fa-search"></i>@Localize.Localize("BTN_SEARCH")
+                    </button>
+                </div>
+             
+
+                @*   onclick="bindPageList(1, 10)"*@
+            </div>
+            <div class="card-toolbar d-flex justify-content-end">
+                <button type="button" class="btn btn-sm btn-light-primary " id="btnReset">
+                    <i class="fas fa-sync-alt"></i>   @Localize.Localize("BTN_RESET")
+                </button>
+            </div>
+        </div>
+        <div class="collapse mb-5" id="kt_advanced_search_form">
+            <div class="separator separator-dashed mt-2 mb-3"></div>
+        </div>
+        <div id="_postList" class="grid-position">
+            <partial name="_IndexPartial" model="Model" />
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/kTable.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //bindPageList(1, 10)
+            $("#_postList").kTable({
+                submitButton: '#btnRefresh',
+                resetButton: '#btnReset',
+                targetContainer: '_postList',
+                searchInputField: '#txtSearchInputField',
+                searchColumnChooser: '#globalSearchColumnChooser',
+                resourceUrl: "@Url.Page("Index", "PagedList")",
+                pageSize: "@Model.pageSize",
+                loadOnPageLoad: true,
+                sOrderField: "#hidSortOrder",
+                sOrderColumnField: "#hidSortColumn",
+                exportUrl: "@Url.Page("Index", "ExportData")",
+                exportButton: '#btnExport'
+            });
+
+        });
+
+    </script>
+}

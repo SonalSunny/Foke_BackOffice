@@ -1,0 +1,241 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.Configurations.Localization.IndexModel
+@{
+}
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+
+<div class="card  mb-5 mb-xl-10 pb-10">
+    <div class="card-header cursor-pointer border-bottom" role="button">
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">
+                @Localize.Localize("TRANS_UPDATE_TITLE")
+            </h3>
+        </div>
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <div class="m-0">
+            </div>
+               <form method="post" data-ajax="true" asp-page-handler="UpdateTranslations" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+                data-ajax-success="completed" id="transalationsForm" novalidate="novalidate" autocomplete="off">
+   
+            <button type="submit" class="btn btn-sm btn-primary me-3" name="btnSubmit" value="btnSync" formnovalidate="formnovalidate">
+                <i class="fas fa-sync-alt"></i> @Localize.Localize("BTN_SYNC_LOCALIZATION")
+            </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row col-12">
+        @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+        {
+            <div class="alert alert-dismissible bg-light-danger d-flex flex-column flex-sm-row w-100 p-5">
+                <div class="d-flex flex-column pe-0 pe-sm-10">
+                    <span>@Model.pageErrorMessage</span>
+                </div>
+
+                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                    <i class="ki-duotone ki-cross fs-1 text-danger"><span class="path1"></span><span class="path2"></span></i>
+                </button>
+            </div>
+        }
+    </div>
+    <form method="post" data-ajax="true" asp-page-handler="UpdateTranslations" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+          data-ajax-success="completed" id="transalationsForm" novalidate="novalidate" autocomplete="off">
+        <div class="card-body mx-5" style="padding: 0 10px !important;">
+
+            <div class="table-header d-flex align-items-center">
+
+
+                <div class="card-title gap-md-2  d-md-flex">
+                    <div class="d-flex align-items-center position-relative my-1 w-100 w-md-150px">
+                        <select asp-for="globalSearchColumn" data-val="false" id="globalSearchColumnChooser" class="form-select form-select-solid form-select-sm"
+                                data-control="select2" data-hide-search="true"
+                                asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center position-relative gap-2 my-1 pe-md-2 w-80 w-md-300px">
+
+                        <input type="text" class="form-control form-control-sm" placeholder="@Localize.Localize("PLACEHOLDER_TABLE_SEARCH")" id="txtSearchInputField">
+                        <button type="button" class="btn btn-sm btn-light-primary my-1 w-50" id="btnRefresh">
+                            <i class="fas fa-search"></i>@Localize.Localize("BTN_SEARCH")
+                        </button>
+                    </div>
+                  
+                </div>
+                <div class="card-toolbar">
+                    <div class="d-flex justify-content-end">
+                        <a id="kt_horizontal_search_advanced_link" class="btn btn-sm btn-light-primary collapsed me-3" data-bs-toggle="collapse"
+                           href="#kt_advanced_search_form" aria-expanded="false">
+                            <i class="ki-duotone ki-filter fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                            @Localize.Localize("BTN_FILTER")
+                        </a>
+                        <button type="button" class="btn btn-sm btn-light-primary me-3" id="btnExport">
+                            <i class="ki-duotone ki-exit-up fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>@Localize.Localize("BTN_EXPORT")
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light-primary me-3" id="btnReset">
+                            <i class="fas fa-sync-alt"></i>  @Localize.Localize("BTN_RESET")
+                        </button>
+
+                   @*      <button type="submit" class="btn btn-sm btn-light-primary me-3" name="btnSubmit" value="btnSync" formnovalidate="formnovalidate">
+                            <i class="fas fa-sync-alt"></i> @Localize.Localize("BTN_SYNC_LOCALIZATION")
+                        </button>
+                      *@   
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse mb-5" id="kt_advanced_search_form" >
+                <div class="separator separator-dashed mt-2 mb-3"></div>
+                <div class="card-rounded bg-light p-5">
+                    @*  <form method="post" data-ajax="true" asp-page-handler="ApplyFilter" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+                    data-ajax-success='$("#btnRefresh").trigger("click")' id="transalationsForm" novalidate="novalidate" autocomplete="off">*@
+                    <div class="row g-8">
+                        <div class="table-header d-flex align-items-center">
+
+
+                        <div class="card-title">
+                        <h3 class="text-dark m1-7 fw-normal">@Localize.Localize("TABLE_ADVANCE_FILTER_TITLE")</h3>
+                        </div>
+                        <div class="card-toolbar">
+                            @* <button type="submit" name="btnSubmit" value="btnApplyFilter" formnovalidate="formnovalidate" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">@Localize.Localize("BTN_TABLE_ADVANCE_FILTER_APPLY")</button> *@
+                                <button type="submit" class="badge badge-primary b-border" data-kt-menu-dismiss="true">@Localize.Localize("BTN_TABLE_ADVANCE_FILTER_APPLY")</button>
+                        </div>
+                        </div>
+                        <div class="separator separator-dashed mb-1 mt-1"></div>
+                        <div class="col-lg-3 filter-margin" >
+                            <label class="fs-6 mb-2">@Localize.Localize("TRANSLATION_MODULE")</label>
+                            <select asp-for="moduleCode" data-val="false" class="form-control form-control-sm select2" asp-items='@new SelectList(Model.moduleList, "code", "name")'
+                                    data-placeholder="@Localize.Localize("DD_DEFAULT_OPTION_SELECT") @Localize.Localize("TRANSLATION_MODULE")">
+                                <option value="">@Localize.Localize("DD_DEFAULT_OPTION_SELECT") @Localize.Localize("TRANSLATION_MODULE")</option>
+                            </select>
+                        </div>
+
+                      
+                        @* <div class="col-lg-12  pt-1 mt-3">
+                            <button type="reset" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">@Localize.Localize("BTN_TABLE_ADVANCE_FILTER_RESET")</button>
+                            <button type="submit" name="btnSubmit" value="btnApplyFilter" formnovalidate="formnovalidate" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">@Localize.Localize("BTN_TABLE_ADVANCE_FILTER_APPLY")</button>
+                        </div> *@
+                    </div>
+                    @*</form>*@
+                </div>
+            </div>
+            @* <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed rounded-3 p-4 mt-2 mb-3">
+                <div class="d-flex flex-stack flex-grow-1">
+                    <div class="fw-semibold">
+                        <h4 class="text-gray-900 fw-normal m-0">@Localize.Localize("TRANSLATION_HEADING")</h4>
+                    </div>
+                </div>
+            </div> *@
+            <div id="_postList" class="grid-position">
+                <partial name="_IndexPartial" model="Model" />
+            </div>
+        </div>
+
+        <div class="card-footer text-end fixed-bottom bg-light">
+            <button type="submit" name="btnSubmit" value="btnSave" class="btn btn-primary btn-flat btn-sm"><i class="far fa-save"></i> @Localize.Localize("BTN_SAVE")</button>
+        </div>
+    </form>
+</div>
+<script src="~/js/ktable.js" asp-append-version="true"></script>
+@section scripts{
+    <script>
+        $(document).ready(function (e) {
+            $("#_postList").kTable({
+                submitButton: '#btnRefresh',
+                resetButton: '#btnReset',
+                targetContainer: '_postList',
+                searchInputField: '#txtSearchInputField',
+                searchColumnChooser: '#globalSearchColumnChooser',
+                resourceUrl: "@Url.Page("Index", "PagedList")",
+                pageSizeField: "#hidpageSize",
+                loadOnPageLoad: true,
+                sOrderField: "#hidSortOrder",
+                sOrderColumnField: "#hidSortColumn",
+                exportUrl: "@Url.Page("Index", "ExportData")",
+                exportButton: '#btnExport'
+            });
+
+            //$('#exportButton').click(function () {
+            //    $.ajax({
+            //        url: "@Url.Page("Index", "DownloadFile")",
+            //        type: 'POST',
+            //        contentType: 'application/json',
+            //        beforeSend: function (xhr) {
+            //            xhr.setRequestHeader("XSRF-TOKEN",
+            //                $('input:hidden[name="__RequestVerificationToken"]').val());
+            //            Swal.fire({
+            //                title: 'Please Wait!',
+            //                didOpen: () => {
+            //                    Swal.showLoading()
+            //                }
+            //            });
+            //        },
+            //    }).done(function (data, statusText, xhdr) {
+            //        swal.close()
+            //        try {
+            //            if (data.tFileName != "") {
+            //                window.location.href = "@Url.RouteUrl(new { Controller = "Report", Action = "Download"})?tFile=" + data.tFileName + "&fileName=" + data.fileName;
+            //            }
+            //        }
+            //        catch (e) {
+
+            //        }
+            //    }).fail(function (xhdr, statusText, errorText) {
+            //        swal.close()
+            //    });
+            //});
+        });
+        if ("@Model.IsSuccessReturn" == "True") {
+            Swal.fire({
+                icon: 'success',
+                buttonsStyling: false,
+                title: "@Html.Raw(@Model.sucessMessage)",
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
+        function completed(data) {
+            hidePageLoader();
+            debugger
+            if (data.returnMessage !== 'undefined' && data.returnMessage !== null) {
+                if (data.status == "OK") {
+                    top.Swal.fire({
+                        icon: 'success',
+                        buttonsStyling: false,
+                        title: data.returnMessage,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+                else {
+                    top.Swal.fire({
+                        icon: 'error',
+                        buttonsStyling: false,
+                        title: data.returnMessage,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            }
+            else {
+                $("#btnRefresh").trigger("click")
+            }
+        }
+        failed = function (xhr) {
+            hidePageLoader();
+            alert(`Status: {xhr.status}, Status Text: {xhr.statusText}`);
+        };
+    </script>
+    }
+
+
+
+

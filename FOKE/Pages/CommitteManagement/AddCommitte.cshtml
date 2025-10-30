@@ -1,0 +1,223 @@
+﻿@page
+@model FOKE.Pages.CommitteManagement.AddCommitteModel
+@{
+    Layout = "_LayoutStandaloneContent";
+}
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+@inject ISharedLocalizer Localize
+
+<form method="post" id="committeeForm" autocomplete="off">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="_formMode" />
+    <input type="hidden" asp-for="inputModel.CommitteeId" />
+    <input type="hidden" asp-for="inputModel.loggedinUserId" value="@User.FindFirst("Userid")?.Value" />
+    <div class="card">
+        <div class="card-body">
+            <div class="col-12" id="response">
+                @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                {
+                    <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                        <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                        <div class="flex-grow-1 fw-bold text-dark">
+                            <strong></strong> @Model.pageErrorMessage
+
+                        </div>
+                        <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+            </div>
+            <div class="row">
+
+                <div class="col-12 mb-5">
+                    <div class="form-group">
+
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("COMMITTEE_NAME")</label>
+                        <input asp-for="inputModel.CommitteeName" class="form-control form-control-sm" placeholder="@Localize.Localize("ENTER_comm_name")" />
+                        <span asp-validation-for="inputModel.CommitteeName" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("FROM_DATE")</label>
+                        <div class="form-group" id="dt_datepicker">
+                            <div class="input-group date" id="">
+                                @if (Model.formMode == FormModeEnum.add)
+                                {
+                                    <input asp-for="inputModel.FromDate" type="text" class="form-control form-control-sm" placeholder="@Localize.Localize("FROM_DATE")" />
+
+                                }
+                                else
+                                {
+                                    <input asp-for="inputModel.FromDateFormatted" type="text" class="form-control form-control-sm expiry" placeholder="@Localize.Localize("FROM_DATE")" />
+                                    <input asp-for="inputModel.FromDate" type="hidden" />
+
+
+                                }
+                                <span class="input-group-addon input-group-text input-group-text-sm">
+                                    <i class="ki-duotone ki-calendar fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                            </div>
+                            <span class="text-danger" data-valmsg-for="inputModel.FromDate" id="PwdexDateError" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("TO_DATE")</label>
+                        <div class="form-group" id="dt_datepicker">
+                            <div class="input-group date" id="">
+                                @if (Model.formMode == FormModeEnum.add)
+                                {
+                                    <input asp-for="inputModel.ToDate" type="text" class="form-control form-control-sm" placeholder="@Localize.Localize("TO_DATE")" />
+
+                                }
+                                else
+                                {
+                                    <input asp-for="inputModel.ToDateFormatted" type="text" class="form-control form-control-sm expiry" placeholder="@Localize.Localize("TO_DATE")" />
+                                    <input asp-for="inputModel.ToDate" type="hidden" />
+
+                                }
+                                <span class="input-group-addon input-group-text input-group-text-sm">
+                                    <i class="ki-duotone ki-calendar fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                            </div>
+                            <span class="text-danger" data-valmsg-for="inputModel.ToDate" id="PwdexDateError" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-5">
+                    <div class="form-group">
+
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("SORT_ORDER")</label>
+                        <input asp-for="inputModel.SortOrder" type="number" class="form-control form-control-sm" placeholder="@Localize.Localize("ENTER_SORT_ORDER")" />
+                        <span asp-validation-for="inputModel.SortOrder" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="card-footer fixed-bottom bg-light">
+                    <div class="row">
+                        <div class="col-6 text-start">
+                            <button type="button" class="btn btn-secondary btn-flat btn-sm" id="btnClear"><i class="fas fa-times"></i> @Localize.Localize("BTN_CLEAR")</button>
+
+                        </div>
+                        <div class="col-6 text-end">
+                            <button type="submit" name="btnSubmit" value="btnSave" class="btn btn-primary btn-flat btn-sm btn-req-loader"><i class="far fa-save"></i> @Localize.Localize("BTN_SAVE")</button>
+                            <button type="submit" name="btnSubmit" id="btnRefresh" value="btnRefresh" class="btn btn-outline-primary btn-sm d-none btn-req-loader" formnovalidate="formnovalidate">@Localize.Localize("BTN_REFRESH")</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+              $('#dt_datepicker .input-group.date').datepicker({
+                format: "dd-M-yyyy",
+                autoclose: true,
+            });
+
+            $("#btnClear").click(function () {
+                    $("#committeeForm")[0].reset(); 
+
+
+
+            });
+            top.hidePageLoader();
+              $.validator.unobtrusive.parse("#committeeForm");
+                 
+        $('.role-code').change(function () {
+            var selectedValue = $(this).val();
+            $("#btnRefresh").click();
+        });
+        });
+
+           if ("@Model.IsSuccessReturn" == "True") {
+            top.Swal.fire({
+                icon: 'success',
+                buttonsStyling: false,
+                title: "@Html.Raw(@Model.sucessMessage)",
+                showConfirmButton: false,
+                timer: 1500
+            })
+            top.hidePopupWithRefresh('btnRefresh');
+        }
+
+    </script>
+
+}
+
+
+
+
+
+            
+     
+           
+
+
+
+
+
+
+              
+
+
+             
+
+
+
+
+
+
+
+               
+
+            
+
+
+
+
+
+                   
+           
+ 
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

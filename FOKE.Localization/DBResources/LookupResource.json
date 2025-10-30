@@ -1,0 +1,89 @@
+{
+  "Module": "LookupMaster",
+  "Translations": [
+    {
+      "Name": "LOOKUP_MASTER_TITLE",
+      "Description": "LookupMaster",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "سيد البحث "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Lookup Master"
+        }
+      ]
+    },
+    {
+      "Name": "LOOKUP_ADD_NEW",
+      "Description": "Lookup Add",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إضافة بحث "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add Lookup"
+        }
+      ]
+    },
+    {
+      "Name": "LOOKUP_LIST",
+      "Description": "Lookup List",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "قائمة البحث "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Lookup List"
+        }
+      ]
+    },
+    {
+      "Name": "LOOKUP_TYPE_NAME",
+      "Description": "Lookup Type",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "نوع البحث "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Lookup Type"
+        }
+      ]
+    },
+    {
+      "Name": "LOOKUP_NAME",
+      "Description": "Lookup Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اسم البحث "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Lookup Name"
+        }
+      ]
+    },
+    {
+      "Name": "LOOKUP_DESCRIPTION",
+      "Description": "Lookup Description",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "وصف البحث"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Lookup Description"
+        }
+      ]
+    }
+  ]
+}

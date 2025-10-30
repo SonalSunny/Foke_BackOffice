@@ -1,0 +1,76 @@
+﻿@page
+@model FOKE.Pages.CommitteManagement.ViewCommitteeModel
+@{
+    Layout = "_LayoutStandaloneContent"; // clean popup without main layout
+}
+
+<style>
+    .detail-row {
+        display: flex;
+        justify-content: flex-start;
+        gap: 3rem; /* space between each detail */
+        flex-wrap: wrap; /* wrap if screen is narrow */
+        margin-bottom: 1.5rem;
+    }
+
+    .detail-item {
+        min-width: 200px; /* prevent shrinking too much */
+    }
+
+
+
+    .detail-label {
+        font-weight: 600;
+        color: #6c757d; /* gray text */
+        margin-bottom: 0.25rem;
+        font-size: 1rem; 
+        white-space: nowrap;
+    }
+
+
+    .detail-value {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: #212529;
+    }
+</style>
+
+<div class="container mt-4" style="max-width: 600px;">
+    <div class="card shadow-lg rounded overflow-hidden mx-auto">
+        <div class="p-4 text-white fw-bold fs-3" style="background: linear-gradient(to right, #4da0f3, #007bff);">
+            📋 Committee Details
+        </div>
+
+        <div class="card-body bg-white p-4">
+            <div class="row mb-2">
+                <div class="col-12 d-flex">
+                    <div class="fw-bold text-gray-800" style="width: 160px;">Committee Name:</div>
+                    <div>@Model.Committe.CommitteeName</div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 d-flex">
+                    <div class="fw-bold text-gray-800" style="width: 160px;">From Date:</div>
+                    <div>@Model.Committe.FromDate?.ToString("dd-MMM-yyyy")</div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 d-flex">
+                    <div class="fw-bold text-gray-800" style="width: 160px;">To Date:</div>
+                    <div>@Model.Committe.ToDate?.ToString("dd-MMM-yyyy")</div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 d-flex">
+                    <div class="fw-bold text-gray-800" style="width: 160px;">Sort Order:</div>
+                    <div>@Model.Committe.SortOrder</div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

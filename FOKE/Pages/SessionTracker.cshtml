@@ -1,0 +1,15 @@
+﻿@page
+@model FOKE.Pages.SessionTrackerModel
+@{
+    Layout = "";
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+        localStorage.clear();      
+       window.top.location.href = '/Login?expired=true';
+       
+    });
+</script>

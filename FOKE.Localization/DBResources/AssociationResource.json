@@ -1,0 +1,1056 @@
+{
+  "Module": "Association",
+  "Translations": [
+    {
+      "Name": "COMMITTEE_MANAGEMENT",
+      "Description": "Committee Management",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إدارة اللجنة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Committee Management"
+        }
+      ]
+    },
+    {
+      "Name": "COMMITTEES",
+      "Description": "Committees",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اللجان "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Committees"
+        }
+      ]
+    },
+    {
+      "Name": "ADD_NEW_COMMITTEE",
+      "Description": "Add New Committe",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إضافة لجنة جديدة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add New Committe"
+        }
+      ]
+    },
+    {
+      "Name": "COMMITTEE_ORDER",
+      "Description": "Committee Order",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أمر اللجنة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Committee Order"
+        }
+      ]
+    },
+    {
+      "Name": "NAME",
+      "Description": "Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اسم"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Name"
+        }
+      ]
+    },
+    {
+      "Name": "FROM_DATE",
+      "Description": "From Date",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "من التاريخ"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "From Date"
+        }
+      ]
+    },
+    {
+      "Name": "TO_DATE",
+      "Description": "To Date",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حتى الآن"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "To Date"
+        }
+      ]
+    },
+    {
+      "Name": "GROUPS",
+      "Description": "Groups",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "المجموعات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Groups"
+        }
+      ]
+    },
+    {
+      "Name": "ADD_NEW_GROUP",
+      "Description": "Add New Group",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إضافة مجموعة جديدة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add New Group"
+        }
+      ]
+    },
+    {
+      "Name": "GROUP_ORDER",
+      "Description": "Group order",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ترتيب المجموعة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Group order"
+        }
+      ]
+    },
+    {
+      "Name": "GROUP",
+      "Description": "Group",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "مجموعة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Group"
+        }
+      ]
+    },
+    {
+      "Name": "COMMITTEE",
+      "Description": "Committee",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "لجنة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Committee"
+        }
+      ]
+    },
+    {
+      "Name": "MEMBERS",
+      "Description": "Members",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أعضاء"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Members"
+        }
+      ]
+    },
+    {
+      "Name": "ADD_NEW_MEMBERS",
+      "Description": "Add New Members",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إضافة أعضاء جدد"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add New Members"
+        }
+      ]
+    },
+    {
+      "Name": "PHOTO",
+      "Description": "Photo",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "صورة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Photo"
+        }
+      ]
+    },
+    {
+      "Name": "POSITION",
+      "Description": "Position",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "موضع"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Position"
+        }
+      ]
+    },
+    {
+      "Name": "CONTACT_NO",
+      "Description": "Contact No",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "رقم الاتصال"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Contact No"
+        }
+      ]
+    },
+    {
+      "Name": "CONTACT",
+      "Description": "Contact",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الاتصال"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Contact"
+        }
+      ]
+    },
+    {
+      "Name": "MEMBER_ORDER",
+      "Description": "Member Order",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ترتيب الأعضاء"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Member Order"
+        }
+      ]
+    },
+    {
+      "Name": "COMMITTEE_NAME",
+      "Description": "Committee Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اسم اللجنة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Committee Name"
+        }
+      ]
+    },
+    {
+      "Name": "ENTER_comm_name",
+      "Description": "Enter committee name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أدخل إسم اللجنة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Enter committee name"
+        }
+      ]
+    },
+    {
+      "Name": "SORT_ORDER",
+      "Description": "Sort Order",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ترتيب الفرز"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Sort Order"
+        }
+      ]
+    },
+    {
+      "Name": "GROUP_NAME",
+      "Description": "Group Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اسم المجموعة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Group Name"
+        }
+      ]
+    },
+    {
+      "Name": "ENTER_gr_name",
+      "Description": "Enter Group Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أدخل اسم المجموعة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Enter Group Name"
+        }
+      ]
+    },
+    {
+      "Name": "Enter_SORT_ORDER",
+      "Description": "Enter sort order",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أدخل ترتيب الفرز"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Enter sort order"
+        }
+      ]
+    },
+    {
+      "Name": "MEMBER_ID",
+      "Description": "Member ID",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "معرف العضو"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Member ID"
+        }
+      ]
+    },
+    {
+      "Name": "MEMBER_NAME",
+      "Description": "Member Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اسم العضو"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Member Name"
+        }
+      ]
+    },
+    {
+      "Name": "SELECT_GROUP",
+      "Description": "Select Group",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حدد المجموعة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Select Group"
+        }
+      ]
+    },
+    {
+      "Name": "LINE1",
+      "Description": "Line1",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حدد المجموعة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Line1"
+        }
+      ]
+    },
+    {
+      "Name": "LINE2",
+      "Description": "Line2",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حدد المجموعة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Line2"
+        }
+      ]
+    },
+    {
+      "Name": "LINE3",
+      "Description": "Line3",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حدد المجموعة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Line3"
+        }
+      ]
+    },
+    {
+      "Name": "SEARCH_MEMBER",
+      "Description": "Search Member",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "البحث عن عضو"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Search Member"
+        }
+      ]
+    },
+    {
+      "Name": "ENTER_SEARCH_KEYWORD",
+      "Description": "Enter Search Keyword",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أدخل كلمة البحث الرئيسية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Enter Search Keyword"
+        }
+      ]
+    },
+    {
+      "Name": "NEWS_AND_EVENTS_MASTERS",
+      "Description": "News & Events Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أخبار وأحداث ماستر"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "News & Events Master"
+        }
+      ]
+    },
+    {
+      "Name": "ADD_NEWS_AND_EVENTS_MASTERS",
+      "Description": "Add News/Events",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إضافة الأخبار/الأحداث"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add News/Events"
+        }
+      ]
+    },
+    {
+      "Name": "NEWS_HEADING",
+      "Description": "News Heading",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "عناوين الأخبار"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "News Heading"
+        }
+      ]
+    },
+    {
+      "Name": "NEWS_DATE",
+      "Description": "News Date",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تاريخ الأخبار"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "News Date"
+        }
+      ]
+    },
+    {
+      "Name": "NEWS_IMAGE",
+      "Description": "News Image",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "صورة الأخبار"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "News Image"
+        }
+      ]
+    },
+    {
+      "Name": "SHOW_IN_WEBSITE",
+      "Description": "Show In Website",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "عرض في الموقع"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Show In Website"
+        }
+      ]
+    },
+    {
+      "Name": "SHOW_IN_MOBILE",
+      "Description": "Show In Mobile",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "عرض في الجوال"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Show In Mobile"
+        }
+      ]
+    },
+    {
+      "Name": "HEADING",
+      "Description": "Heading",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "عنوان"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Heading"
+        }
+      ]
+    },
+    {
+      "Name": "DESCRIPTION",
+      "Description": "Description",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "وصف"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Description"
+        }
+      ]
+    },
+    {
+      "Name": "IMAGE_UPLOAD",
+      "Description": "Upload a main image",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تحميل الصورة الرئيسية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Upload a main image"
+        }
+      ]
+    },
+    {
+      "Name": "TYPE",
+      "Description": "Type",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يكتب"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Type"
+        }
+      ]
+    },
+    {
+      "Name": "ENTER_NEW_HEADING",
+      "Description": "Enter a heading for your event",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أدخل عنوانًا لحدثك"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Enter a heading for your event"
+        }
+      ]
+    },
+    {
+      "Name": "ENTER_DETAILS",
+      "Description": "Enter The details of the Events",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أدخل تفاصيل الأحداث"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Enter The details of the Events"
+        }
+      ]
+    },
+    {
+      "Name": "OFFER_IMAGE",
+      "Description": "Offer Image",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "صورة العرض"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Offer Image"
+        }
+      ]
+    },
+    {
+      "Name": "OFFER",
+      "Description": "Offer",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "العرض"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Offer"
+        }
+      ]
+    },
+    {
+      "Name": "OFFER",
+      "Description": "Offer",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "العرض"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Offer"
+        }
+      ]
+    },
+    {
+      "Name": "Offers_to_Active_Members",
+      "Description": "Offers to Active Members",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "عروض للأعضاء النشطين"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Offers to Active Members"
+        }
+      ]
+    },
+    {
+      "Name": "ADD_OFFER",
+      "Description": "Add Offer",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أضف العرض"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add Offer"
+        }
+      ]
+    },
+    {
+      "Name": "SPONSORSHIP",
+      "Description": "Sponsorship Data",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "بيانات الرعاية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Sponsorship Data"
+        }
+      ]
+    },
+    {
+      "Name": "ADD_NEW_SPONSORSHIP",
+      "Description": "Add New Sponsorship",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إضافة رعاية جديدة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add New Sponsorship"
+        }
+      ]
+    },
+    {
+      "Name": "Contact",
+      "Description": "Contact Person",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الشخص الذي يمكن الاتصال به"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Contact Person"
+        }
+      ]
+    },
+    {
+      "Name": "EMAIL",
+      "Description": "Email",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "بريد إلكتروني"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Email"
+        }
+      ]
+    },
+    {
+      "Name": "MOBILE",
+      "Description": "Mobile",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "متحرك"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Mobile"
+        }
+      ]
+    },
+    {
+      "Name": "LOGO",
+      "Description": "Logo",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الشعار"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Logo"
+        }
+      ]
+    },
+    {
+      "Name": "CAMPAIGN",
+      "Description": "Campaign",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حملة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Campaign"
+        }
+      ]
+    },
+    {
+      "Name": "ENTER_PHONE",
+      "Description": "Enter Phone Number",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أدخل رقم الهاتف"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Enter Phone Number"
+        }
+      ]
+    },
+    {
+      "Name": "Sponsorship Label",
+      "Description": "Sponsorship Label",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ملصق الرعاية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Sponsorship Label"
+        }
+      ]
+    },
+    {
+      "Name": "Notes",
+      "Description": "Notes",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ملحوظات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Notes"
+        }
+      ]
+    },
+    {
+      "Name": "CATEGORY",
+      "Description": "Category",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "فئة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Category"
+        }
+      ]
+    },
+    {
+      "Name": "AMOUNT",
+      "Description": "Amount",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "كمية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Amount"
+        }
+      ]
+    },
+    {
+      "Name": "DATE",
+      "Description": "Date",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تاريخ"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Date"
+        }
+      ]
+    },
+    {
+      "Name": "RefNo",
+      "Description": "RefNo",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "رقم المرجع"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "RefNo"
+        }
+      ]
+    },
+    {
+      "Name": "Remark",
+      "Description": "Remark",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ملاحظة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Remark"
+        }
+      ]
+    },
+    {
+      "Name": "Accounts",
+      "Description": "Accounts",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الحسابات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Accounts"
+        }
+      ]
+    },
+    {
+      "Name": "Add_Income/Expense",
+      "Description": "Add_Income/Expense",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إضافة الدخل/المصروفات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add_Income/Expense"
+        }
+      ]
+    },
+    {
+      "Name": "Category_Type",
+      "Description": "Category Type",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "نوع الفئة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Category Type"
+        }
+      ]
+    },
+    {
+      "Name": "Reference No",
+      "Description": "Reference No",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الرقم المرجعي"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Reference No"
+        }
+      ]
+    },
+    {
+      "Name": "FILE_MANAGER",
+      "Description": "File Manager",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "مدير الملفات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "File Manager"
+        }
+      ]
+    },
+    {
+      "Name": "Update_Income/Expense",
+      "Description": "Update Income/Expense",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تحديث الإيرادات/المصروفات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Update Income/Expense"
+        }
+      ]
+    },
+    {
+      "Name": "UPDATE_NEWS_AND_EVENTS",
+      "Description": "Update News and Events",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تحديث الأخبار والأحداث"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Update News and Events"
+        }
+      ]
+    },
+    {
+      "Name": "Update_OFFER",
+      "Description": "Update Offer",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تحديث العرض"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Update Offer"
+        }
+      ]
+    },
+    {
+      "Name": "Add Sponsor",
+      "Description": "Add Sponsor",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أضف راعٍ"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add Sponsor"
+        }
+      ]
+    }
+
+  ]
+}

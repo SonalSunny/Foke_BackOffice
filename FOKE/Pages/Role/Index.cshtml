@@ -1,0 +1,227 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.Role.IndexModel
+@{
+}
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+
+
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/Role/Manage")" />
+<input type="hidden" id="hidDeletePageUrl" value="@Url.Content("~/Role/Index?handler=DeleteRole")" />
+<div class="card  mb-5 mb-xl-10 pb-5" >
+    <div class="card-header cursor-pointer border-bottom" role="button">
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">
+                @Localize.Localize("ROLE_MASTER_TITLE")
+            </h3>
+        </div>
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <div class="m-0">
+            </div>
+            <a href="#" class="btn btn-sm fw-bold btn-primary btnAddNew">
+                <i class="fas fa-plus"></i> @Localize.Localize("ROLE_ADD_NEW")
+            </a>
+        </div>
+    </div>
+
+    @* <div class="row col-12">
+    @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+    {
+    <div class="alert alert-dismissible bg-light-danger d-flex flex-column flex-sm-row w-100 p-5">
+    <div class="d-flex flex-column pe-0 pe-sm-10">
+    <span>@Model.pageErrorMessage</span>
+    </div>
+
+    <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+    <i class="ki-duotone ki-cross fs-1 text-danger"><span class="path1"></span><span class="path2"></span></i>
+    </button>
+    </div>
+    }
+    </div> *@
+
+    <div class="card-body mx-5" style="padding: 0 10px !important;">
+
+        <div class="table-header d-flex align-items-center justify-content-between">
+
+            <div class="card-title gap-md-2  d-md-flex">
+                <div class="d-flex align-items-center position-relative my-1 w-100 w-md-150px">
+                    <select asp-for="globalSearchColumn" data-val="false" id="globalSearchColumnChooser" class="form-select form-select-solid form-select-sm"
+                            data-control="select2" data-hide-search="true"
+                            asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+                    </select>
+                </div>
+          
+                <div class="d-flex align-items-center position-relative my-1 gap-2 pe-md-2 w-100 w-md-300px">
+                  @*   <select asp-for="globalSearchColumn" data-val="false" id="globalSearchColumnChooser" class="form-select form-select-solid form-select-sm"
+                            data-control="select2" data-hide-search="true"
+                            asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+                    </select> *@
+                    <input type="text" class="form-control form-control-sm" placeholder=@Localize.Localize("BTN_SEARCH") id="txtSearchInputField">
+                    <button type="button" class="btn btn-sm btn-light-primary my-1 w-50" id="btnRefresh">
+                        <i class="fas fa-search"></i>@Localize.Localize("BTN_SEARCH")
+                    </button>
+                </div>
+               
+
+                @*   onclick="bindPageList(1, 10)"*@
+            </div>
+            <div class="card-toolbar d-flex justify-content-end">
+
+                <a id="kt_horizontal_search_advanced_link" class="btn btn-sm btn-light-primary me-3" data-bs-toggle="collapse"
+                   href="#kt_advanced_search_form" aria-expanded="false">
+                    <i class="ki-duotone ki-filter fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                    @Localize.Localize("BTN_FILTER")
+                </a>
+
+                <button type="submit" class="btn btn-sm btn-light-primary me-3" id="btnExport1">
+                    <i class="ki-duotone ki-exit-up fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>@Localize.Localize("BTN_EXPORT")
+                </button>
+                <button type="submit" class="btn btn-sm btn-light-primary me-3 d-none" id="btnExport">
+                    <i class="ki-duotone ki-exit-up fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>@Localize.Localize("BTN_EXPORT")
+                </button>
+ 
+             
+
+                <button type="button" class="btn btn-sm btn-light-primary me-3" id="btnReset">
+                    <i class="fas fa-sync-alt"></i>  @Localize.Localize("BTN_RESET")
+                </button>
+               @*  <a id="kt_horizontal_search_advanced_link" class="btn btn-sm btn-light-primary collapsed" data-bs-toggle="collapse"
+                   href="#kt_advanced_search_form" aria-expanded="false">
+                    <i class="ki-duotone ki-filter fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                    Filter
+                </a>
+ *@
+            </div>
+        </div>
+        <div class="collapse mb-5" id="kt_advanced_search_form" >
+            <div class="separator separator-dashed mt-2 mb-3"></div>
+            <div class="card-rounded bg-light p-5">
+                <form method="post" data-ajax="true" asp-page-handler="ApplyFilter" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+                      data-ajax-success='$("#btnRefresh").trigger("click")' id="transalationsForm" novalidate="novalidate" autocomplete="off">
+
+                    <div class="row g-8">
+                        <div class="table-header d-flex align-items-center">
+                            <div class="card-title">
+
+                                <h3 class="text-dark m1-7 fw-normal">@Localize.Localize("TABLE_ADVANCE_FILTER_TITLE")</h3>
+                            </div>
+                            <div class="card-toolbar">
+                                <button type="submit" class="badge badge-primary b-border" data-kt-menu-dismiss="true">Apply</button>
+
+                            </div>
+                        </div>
+                        <div class="separator separator-dashed mb-1 mt-1"></div>
+
+                        <div class="col-lg-3 filter-margin">
+                            <label class="fs-6  mb-2">@Localize.Localize("STATUS")</label>
+                            <select asp-for="Statusid" data-val="false" class="form-select form-select-sm selectpicker">
+                                <option value="1">@Localize.Localize("DD_ACTIVE")</option>
+                                <option value="2">@Localize.Localize("DD_ALL_TABLE_SEARCH")</option>
+                                <option value="0">@Localize.Localize("DD_INACTIVE")</option>
+                            </select>
+                        </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+           
+        </div>
+
+
+        <div id="_postList" class="grid-position">
+            <partial name="_IndexPartial" model="Model" />
+
+           
+        </div>
+    
+    </div>
+  
+    
+</div>
+
+
+@section scripts {
+    <script src="~/js/kTable.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+       
+        $(document).ready(function () {
+
+            $("#btnExport1").click(function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: "Export to Excel?",
+                    text: "Are you sure you want to export data?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes,Export!',
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                        cancelButton: 'btn btn-secondary'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#btnExport").trigger("click");
+                    }
+                });
+            });
+
+
+
+
+
+            $(".btnAddNew").click(function () {
+
+                top.showPopup("@Localize.Localize("Add New Role")", $("#hidManagePageUrl").val(), 600, 240, window.frameElement?.id);
+            });
+
+            $("#_postList").kTable({
+                submitButton: '#btnRefresh',
+                resetButton: '#btnReset',
+                targetContainer: '_postList',
+                searchInputField: '#txtSearchInputField',
+                searchColumnChooser: '#globalSearchColumnChooser',
+                resourceUrl: "@Url.Page("Index", "PagedList")",
+                pageSize: "@Model.pageSize",
+                loadOnPageLoad: true,
+                sOrderField: "#hidSortOrder",
+                sOrderColumnField: "#hidSortColumn",
+                exportUrl: "@Url.Page("Index", "ExportData")",
+       
+                exportButton: '#btnExport'
+            });
+
+            // $("#btnRefresh").on("click", function () {
+            //     // Custom logic for refreshing the table (if necessary)
+            //     $("#_postList").kTable("reload");
+            // });
+
+
+
+        });
+
+    </script>
+}
+

@@ -1,0 +1,93 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DBResources\AssociationResource.json" />
+    <None Remove="DBResources\ConfigurationResource.json" />
+    <None Remove="DBResources\HomeResource.json" />
+    <None Remove="DBResources\IssueMemberResource.json" />
+    <None Remove="DBResources\LookupResource.json" />
+    <None Remove="DBResources\MasterDataResource.json" />
+    <None Remove="DBResources\MembershipActionResource.json" />
+    <None Remove="DBResources\NotificationResource.json" />
+    <None Remove="DBResources\MenuResource.json" />
+    <None Remove="DBResources\NotificationResource.json" />
+    <None Remove="DBResources\ProjectConfigurationResources.json" />
+    <None Remove="DBResources\RoleResource.json" />
+    <None Remove="DBResources\SharedResource.ar-AE.json" />
+    <None Remove="DBResources\SharedResource.en-US.json" />
+    <None Remove="DBResources\SharedResource.json" />
+    <None Remove="DBResources\UserResource.json" />
+    <None Remove="DBResources\WelcomeResource.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="DBResources\AssociationResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\ConfigurationResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\HomeResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\IssueMemberResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\LookupResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\MasterDataResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\MembershipActionResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\MenuResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\NotificationResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\ProjectConfigurationResources.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\RoleResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\SharedResource.ar-AE.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\SharedResource.en-US.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\SharedResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\UserResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBResources\WelcomeResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.104.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Html.Abstractions" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.3.0" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FOKE.DataAccess\FOKE.DataAccess.csproj" />
+    <ProjectReference Include="..\FOKE.Entity\FOKE.Entity.csproj" />
+    <ProjectReference Include="..\FOKE.Services\FOKE.Services.csproj" />
+  </ItemGroup>
+
+</Project>

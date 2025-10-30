@@ -1,0 +1,187 @@
+{
+  "Module": "UserMaster",
+  "Translations": [
+    {
+      "Name": "USER_MASTER_TITLE",
+      "Description": "User Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "سيد المستخدم "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "User Master"
+        }
+      ]
+    },
+    {
+      "Name": "USER_ADD_NEW",
+      "Description": "User Add",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إضافة مستخدم جديد "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add User"
+        }
+      ]
+    },
+    {
+      "Name": "USER_LIST",
+      "Description": "User List",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "قائمة المستخدمين "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "User List"
+        }
+      ]
+    },
+    {
+      "Name": "USER_NAME",
+      "Description": "User Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اسم المستخدم "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "User Name"
+        }
+      ]
+    },
+    {
+      "Name": "EMPLOYEE",
+      "Description": "Employee Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "موظف"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Employee Name"
+        }
+      ]
+    },
+    {
+      "Name": "ROLE",
+      "Description": "Role",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "دور"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Role"
+        }
+      ]
+    },
+    {
+      "Name": "PASSWORD",
+      "Description": "Password",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "كلمة المرور"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Password"
+        }
+      ]
+    },
+    {
+      "Name": "CONFIRM_PASSWORD",
+      "Description": "Confirm Password",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تأكيد كلمة المرور"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Confirm Password"
+        }
+      ]
+    },
+    {
+      "Name": "PASSWORD_EXPIRY",
+      "Description": "Password Expiry Date",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تاريخ انتهاء كلمة المرور"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Password Expiry Date"
+        }
+      ]
+    },
+    {
+      "Name": "EMPLOYEE_NUMBER",
+      "Description": "Employee Number",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "رقم الموظف"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Employee Number"
+        }
+      ]
+    },
+    {
+      "Name": "PASSWORD_EXPIRY_FROM",
+      "Description": "Password Expiry Date From",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تاريخ انتهاء كلمة المرور من"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Password Expiry Date From"
+        }
+      ]
+    },
+    {
+      "Name": "PASSWORD_EXPIRY_TO",
+      "Description": "Password Expiry Date To",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تاريخ انتهاء كلمة المرور إلى"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Password Expiry Date To"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_RESOLVE",
+      "Description": "Resolve Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حل"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Resolve"
+        }
+      ]
+    }
+  ]
+}

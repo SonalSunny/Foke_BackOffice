@@ -1,0 +1,194 @@
+﻿@page
+@model ManageModel
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+@{
+    Layout = "_LayoutStandaloneContent";
+}
+@inject ISharedLocalizer Localize
+<form method="post" id="crudForm" novalidate="novalidate" autocomplete="off">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-body">
+            <div class="col-12" id="response">
+                @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                {
+                    <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                        <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                        <div class="flex-grow-1 fw-bold text-dark">
+                            <strong></strong> @Model.pageErrorMessage
+                        </div>
+                        <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+            </div>
+            <input type="hidden" asp-for="_formMode" />
+            <input type="hidden" asp-for="inputModel.UserId" />
+            <input type="hidden" asp-for="inputModel.loggedinUserId" value="@User?.FindFirst("Userid")?.Value" />
+            <div class="row">
+                
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="fs-6 fw-semibold mb-2">@Localize.Localize("ROLE")</label>
+
+                        <select asp-for="inputModel.RoleId"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.RoleList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.RoleId" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="fs-6 fw-semibold mb-2">@Localize.Localize("USER_NAME")</label>
+                        
+                        <input asp-for="inputModel.Username" class="form-control form-control-sm" placeholder="@Localize.Localize("Enter Username")" />
+                      
+                        <span class="text-danger" data-valmsg-for="inputModel.Username" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="col-12 mb-5">
+                    <div class="form-group">
+                        <label class="required form-label">@Localize.Localize("PASSWORD_EXPIRY")</label>
+                        <div class="form-group" id="dt_datepicker">
+                            <div class="input-group date" id="">
+                                @if(Model.formMode==FormModeEnum.add)
+                                {
+                                      <input asp-for="inputModel.PasswordExpirydate" id="PwdexDate" type="text" class="form-control form-control-sm" placeholder="@Localize.Localize("PASSWORD_EXPIRY")" />
+                              
+                                }
+                                else{
+                                    <input asp-for="inputModel.PasswordExpirydateFormat" type="text" class="form-control form-control-sm expiry" placeholder="@Localize.Localize("PASSWORD_EXPIRY")" />
+
+                                }
+                                <span class="input-group-addon input-group-text input-group-text-sm">
+                                    <i class="ki-duotone ki-calendar fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="text-danger" data-valmsg-for="inputModel.PasswordExpirydate" id="PwdexDateError" data-valmsg-replace="true"></span>
+                        <input type="hidden" asp-for="inputModel.PasswordExpirydate">
+
+                    </div>
+                </div>
+                <div class="col-6 mb-5">
+                    <div class="form-group" data-kt-password-meter="true">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("PASSWORD")</label>
+                        <div class="col-md-6 mb-3">
+                            <input id="password-field" type="password" class="form-control form-control-sm" asp-for="inputModel.Password">
+                            <span toggle="#password-field" class="fa fa-fw fa-eye-slash field-icon toggle-password i-margin" ></span>
+                        </div>
+
+                        <!-- Password strength meter -->
+                        <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                        </div>
+
+                        <!-- Validation and help text -->
+                        <span class="text-danger field-validation-valid" data-valmsg-for="inputModel.Password" data-valmsg-replace="true"></span>
+                        <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &amp; symbols.</div>
+                    </div>
+                </div>
+
+
+
+
+
+                    <div class="col-6 mb-5">
+                        <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("CONFIRM_PASSWORD")</label>
+                        <input asp-for="inputModel.ConfirmPassword" class="form-control form-control-sm" type="password"  />
+                            <span class="text-danger field-validation-valid" data-valmsg-for="inputModel.ConfirmPassword" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                <div class="card-footer fixed-bottom bg-light">
+                    <div class="row">
+                    <div class="col-6 text-start">
+                            <button type="button" class="btn btn-secondary btn-flat btn-sm" id="btnClear"><i class="fas fa-times"></i> @Localize.Localize("BTN_CLEAR")</button>
+
+                    </div>
+                    <div class="col-6 text-end">
+                            <button type="submit" name="btnSubmit" value="btnSave" class="btn btn-primary btn-flat btn-sm btn-req-loader"><i class="far fa-save"></i> @Localize.Localize("BTN_SAVE")</button>
+                            <button type="submit" name="btnSubmit" id="btnRefresh" value="btnRefresh" class="btn btn-outline-primary btn-sm d-none btn-req-loader" formnovalidate="formnovalidate">@Localize.Localize("BTN_REFRESH")</button>
+                    </div>
+                    </div>
+                 </div>
+    </div>
+    </div>
+    </div>
+</form>
+@section scripts {
+    
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+        //     console.log($('#PwdexDate').val().trim() ); // Should be 1
+        //          $(document).on('input', '#PwdexDate', function () {
+        //               alert(1);
+        //     if ($(this).val().trim() !== '') {
+        //         $('#PwdexDateError').text('');
+        //         $(this).removeClass('is-invalid');
+        //     }
+        // });
+        //         if ($('#PwdexDate').val().trim() !== '') {
+        //     alert(1);
+        // }
+       // var length = $('#PwdexDate').val().trim().length;
+       //  if (length > 0) {
+       //      alert(1);
+       //  }
+            $("#btnClear").click(function () {
+                    $("#crudForm")[0].reset(); // Reset the form fields
+
+                     $(".select2").val(null).trigger("change");
+                     $("#inputModel_Username").val("");
+                     $(".expiry").val("");
+            });
+            top.hidePageLoader();
+                 // Initialize the datepicker
+        $('#dt_datepicker .input-group.date').datepicker({
+            format: "dd-M-yyyy",
+            autoclose: true,
+            todayHighlight: true,
+            daysOfWeekDisabled: [],
+            keepEmptyValues: false,
+            templates: {
+                leftArrow: '«',
+                rightArrow: '»'
+            }
+        }).on('changeDate', function (e) {
+            var value = $('#PwdexDate').val().trim();
+            if (value !== '') {
+                $('#PwdexDateError').text('');
+                $('#PwdexDate').removeClass('is-invalid');
+            }
+        });
+
+        });
+        // Trigger refresh on role change
+        $('.role-code').change(function () {
+            var selectedValue = $(this).val();
+            $("#btnRefresh").click();
+        });
+        if ("@Model.IsSuccessReturn" == "True") {
+            top.Swal.fire({
+                icon: 'success',
+                buttonsStyling: false,
+                title: "@Html.Raw(@Model.sucessMessage)",
+                showConfirmButton: false,
+                timer: 1500
+            })
+            top.hidePopupWithRefresh('btnRefresh');
+        }
+    </script>
+
+}
+
+

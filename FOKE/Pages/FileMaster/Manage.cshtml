@@ -1,0 +1,262 @@
+﻿@page
+@model FOKE.Pages.FileMaster.ManageModel
+@using FOKE.Localization
+@inject ISharedLocalizer Localize
+@{
+    Layout = "_LayoutStandaloneContent";
+}
+<form method="post" id="crudForm" novalidate="novalidate" autocomplete="off" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="hidDeletePageUrl" value="@Url.Page("/FileMaster/Manage", "DeleteAttachment")" />
+
+    <div class="card">
+        <div class="card-body">
+            <div class="col-12" id="response">
+                @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                {
+                    <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                        <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                        <div class="flex-grow-1 fw-bold text-dark">
+                            <strong></strong> @Model.pageErrorMessage
+                        </div>
+                        <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+            </div>
+            <input type="hidden" asp-for="_formMode" />
+            <input type="hidden" asp-for="inputModel.FileId" />
+            @* <input type="hidden" asp-for="inputModel.loggedinUserId" value="@User?.FindFirst("Userid")?.Value" /> *@
+            <div class="row">
+                @* <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("FOLDER_NAME")</label>
+                        <select id="FolderId" asp-for="inputModel.FolderId" class="form-select form-select-sm select2"
+                                data-selected="@Model.inputModel.FolderId">
+                            <option value="">Select </option>
+                        </select>
+                        <span asp-validation-for="inputModel.FolderId" class="text-danger"></span>
+                    </div>
+                </div> *@
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("Folder Name")</label>
+
+                        <select asp-for="inputModel.FolderId" class="form-select form-select-sm select2" asp-items='@new SelectList(Model.FolderList, "keyID", "name")'>
+                            <option value="">Select Folder</option>
+
+                        </select>
+                        <span asp-validation-for="inputModel.FolderId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("File Ref. Number")</label>
+                        <input asp-for="inputModel.FileRefNo" class="form-control form-control-sm" placeholder="@Localize.Localize("Enter File ReferenceNumber")" />
+                        <span asp-validation-for="inputModel.FileRefNo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-12 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("File Name")</label>
+                        <input asp-for="inputModel.FileName" class="form-control form-control-sm" placeholder="@Localize.Localize("Enter File Name")" />
+                        <span asp-validation-for="inputModel.FileName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-5">
+                    <div class="form-group">
+                        <label class="form-label">@Localize.Localize("Description")</label>
+                        <textarea asp-for="inputModel.Description" class="form-control form-control-sm" rows="2" cols="78" style="resize: both;" placeholder="@Localize.Localize("Enter Description")"></textarea>
+                        <span asp-validation-for="inputModel.Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-5" id="divupload">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("Upload File")</label>
+                        <input asp-for="inputModel.Attachment" type="file" class="form-control form-control-sm" accept="pdf/*" multiple />
+                    </div>
+                </div>
+
+                <div id="pdfUploadDiv" class="col-12 mb-5" style="display: none;">
+                    <div class="form-group">
+                        <label class="fs-6 fw-semibold mb-2">@Localize.Localize("Attachments")</label>
+                        <input asp-for="inputModel.Attachment" id="pdfUpload" type="file" class="form-control form-control-sm" accept=".pdf" />
+                        @if (!string.IsNullOrEmpty(Model.inputModel.UploadFileName) && Model.inputModel.AttachmentAny)
+                        {
+                            <div id="fileActions" class="mt-2 p-2 border rounded d-flex justify-content-between align-items-center fileActions"
+                                 style="background: #f8f9fa; border: 1px solid #ddd;">
+
+                                <!-- File Preview -->
+                                <a href="@Url.Content("~" + Model.inputModel.FilePath)"
+                                   class="text-primary menu-link viewAttachment"
+                                   data-url="@Url.Content("~" + Model.inputModel.FilePath)"
+                                   style="text-decoration: none;">
+                                    @Model.inputModel.FileName
+                                </a>
+
+                                <!-- Delete Button -->
+                                <button class="btn btn-danger btn-sm btnItemDeleteAttachment" keyID="@Model.inputModel.FileId" delete="1">
+                                    Delete
+                                </button>
+                            </div>
+                        }
+                        <span class="text-danger" data-valmsg-for="inputModel.Attachment" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="card-footer text-end fixed-bottom bg-light">
+                    <div class="row">
+                        <div class="col-6 text-start">
+                            <button type="button" class="btn btn-secondary btn-flat btn-sm" id="btnClear"><i class="fas fa-times"></i>  Clear</button>
+
+                        </div>
+                        <div class="col-6 text-end">
+                            <button type="submit" name="btnSubmit" id="btnSave" value="btnSave" class="btn btn-primary btn-flat btn-sm btn-req-loader"><i class="far fa-save"></i> Save</button>
+                            <button type="submit" name="btnSubmit" id="btnRefresh" value="btnRefresh" class="btn btn-outline-primary btn-sm d-none btn-req-loader" formnovalidate="formnovalidate">btnRefresh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts {
+    <!-- jQuery (only include one version) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- jQuery Validation Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <!-- jQuery Validation Unobtrusive Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+
+
+            $("#btnClear").click(function () {
+
+                $("#crudForm")[0].reset(); // Reset the form fields
+               $(".select2").val(null).trigger("change");
+                 $("#inputModel_FileRefNo").val("");
+                $("#inputModel_FileName").val("");
+                  $("#inputModel_Description").val("");
+                   $("#inputModel_Attachment").val("");
+
+            });
+
+
+
+            top.hidePageLoader();
+            $.validator.unobtrusive.parse("#crudForm");
+
+            });
+        if ("@Model.IsSuccessReturn" == "True") {
+            top.Swal.fire({
+                icon: 'success',
+                buttonsStyling: false,
+                title: "@Html.Raw(@Model.sucessMessage)",
+                showConfirmButton: false,
+                timer: 1500
+            })
+            top.hidePopupWithRefresh('btnRefresh');
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+           let locationTypeSelect = document.getElementById("locationTypeSelect");
+            let pdfUploadDiv = document.getElementById("pdfUploadDiv");
+            debugger;
+            let savedAttachmentType = "@Model.inputModel.AttachmentTypeId"; // Replace with actual backend data
+            console.log(pdfUploadDiv);
+            pdfUploadDiv.style.display = "block";
+            divupload.style.display = "none";
+            if (savedAttachmentType > 0) {
+                locationTypeSelect.value = savedAttachmentType;
+                 
+            }
+        });
+
+
+            $(document).on("click", ".viewAttachment", function (e) {
+               e.preventDefault();
+
+               // Get the image URL from the data-url attribute
+               let imageUrl = $(this).attr("data-url");
+
+               if (imageUrl) {
+                   // $("#mainContentWrapper").hide(); // Hide the content
+                   //  $("#pdfViewer").attr("src", fileUrl);
+                   //  $("#pdfViewerWrapper").show();   // Show PDF viewer
+                   window.open(imageUrl, "_blank"); // Open file in a new tab
+               } else {
+                   alert("File URL not found.");
+               }
+           });
+
+         $(document).on("click", ".btnItemDeleteAttachment", function (e) {
+             e.preventDefault();
+
+             let keyID = $(this).attr("keyID");
+             let deleteUrl = $("#hidDeletePageUrl").val();
+             let fileActionElement = $(".fileActions"); // Ensure this ID exists
+
+             if (!keyID) {
+                 alert("Attachment ID not found!");
+                 return;
+             }
+
+             Swal.fire({
+                 title: "Are you sure?",
+                 icon: "warning",
+                 showCancelButton: true,
+                 confirmButtonText: "Yes, Delete it!",
+                 customClass: {
+                     confirmButton: "btn btn-primary",
+                     cancelButton: "btn btn-secondary",
+                 },
+             }).then((result) => {
+                 if (result.isConfirmed) {
+                     fileActionElement.remove();
+                     let data = { keyid: keyID };
+                     $.ajax({
+                         url: deleteUrl,
+                         type: "POST",
+                         cache: false,
+                         data: data,
+                         beforeSend: function (xhr) {
+                             xhr.setRequestHeader("XSRF-TOKEN",
+                                 $('input:hidden[name="__RequestVerificationToken"]').val());
+                         },
+                         success: function (resp) {
+                             if (resp.status === "OK") {
+                                 console.log("File deleted successfully.");
+                                 Swal.fire({
+                                     icon: "success",
+                                     title: "Success",
+                                     text: "Deleted Successfully!"
+                                 }).then(() => {
+                                     $("#btnRefresh").trigger("click");
+                                 });
+                             } else {
+                                 console.log("Delete failed:", resp.returnMessage);
+                                 Swal.fire({
+                                     icon: "error",
+                                     title: "Failed to delete record!!",
+                                     text: resp.returnMessage
+                                 });
+                             }
+                         },
+                         error: function () {
+                             Swal.fire({
+                                 icon: "error",
+                                 title: "Oops...",
+                                 text: "Something went wrong!"
+                             });
+                         }
+                     });
+                 }
+             });
+         });
+
+    </script>
+}

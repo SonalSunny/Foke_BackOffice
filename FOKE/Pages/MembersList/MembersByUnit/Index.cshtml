@@ -1,0 +1,193 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.MembersList.MembersByUnit.IndexModel
+@{
+}
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/MembersByUnit/Manage")" />
+<input type="hidden" id="hidPaymentPageUrl" value="@Url.Content("~/PayMembershipFee/PayFee")" />
+<input type="hidden" id="SavePaymentPageUrl" value="@Url.Page("/MembersList/MembersByUnit/Index", "SaveRemark")" />
+<div class="card mb-5 mb-xl-10 pb-5">
+    <div class="card-header cursor-pointer border-bottom" role="button">
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">
+                @Localize.Localize("MENU_MEMBERS_BY_UNIT")
+            </h3>
+        </div>
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <div class="m-0">
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="hidUnitId" />
+    <div class="card-body mx-5" style="padding: 0 10px !important;">
+        <div class="table-header d-flex align-items-center justify-content-between">
+            <div class="card-title gap-md-2 d-md-flex">
+                <div class="d-flex align-items-center position-relative my-1 w-100 w-md-200px">
+                    <select asp-for="UnitId"
+                            class="form-select form-select-solid form-select-sm"
+                            asp-items='@new SelectList(Model.UnitList, "keyID", "name")'>
+                        <option value="">Select</option>
+                    </select>
+
+
+                   @*  <select id="unitFilterDropdown" class="form-select form-select-solid form-select-sm"
+                            data-control="select2" data-hide-search="true">
+                        <option value="Unit 1" selected><strong>Unit 1</strong></option>
+                        <option value="Unit 2"><strong>Unit 2</strong></option>
+                        <option value="Unit 3"><strong>Unit 3</strong></option>
+                    </select> *@
+                </div>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Payment Status">
+                <input type="radio" class="btn-check" name="paymentStatus" id="radioUnpaid" value="Unpaid" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="radioUnpaid">@Localize.Localize("Unpaid")</label>
+
+                <input type="radio" class="btn-check" name="paymentStatus" id="radioPaid" value="Paid" autocomplete="off">
+                <label class="btn btn-outline-primary" for="radioPaid">@Localize.Localize("Paid")</label>
+
+                <input type="radio" class="btn-check" name="paymentStatus" id="radioAll" value="All" autocomplete="off">
+                <label class="btn btn-outline-primary" for="radioAll">@Localize.Localize("DD_ALL_TABLE_SEARCH")</label>
+            </div>
+        </div>
+        <div class="collapse mb-5" id="kt_advanced_search_form">
+            <div class="separator separator-dashed mt-2 mb-3"></div>
+            <div class="card-rounded bg-light p-5">
+                <form method="post" data-ajax="true" asp-page-handler="ApplyFilter" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+                      data-ajax-success='$("#btnRefresh").trigger("click")' id="transalationsForm" novalidate="novalidate" autocomplete="off">
+                    <button type="button" id="btnRefresh" style="display: none;"></button>
+                    <input type="hidden" name="UnitId" id="HiddenUnitid" value="@Model.UnitId" />
+                </form>
+            </div>
+        </div>
+
+        <div id="_postList" class="grid-position">
+            <partial name="_IndexPartial" />
+        </div>
+      
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/kTable.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Initialize select2 without search
+            $('#UnitId').select2({
+                minimumResultsForSearch: Infinity
+            });
+            $('input[name="paymentStatus"]').change(function () {
+            var selectedValue = $('input[name="paymentStatus"]:checked').val();
+            var unitid= $('#HiddenUnitid').val();
+            $.ajax({
+                    url: "/MembersList/MembersByUnit/Index?handler=PagedList",
+                    method: "GET",
+                    data: {
+                        Value: selectedValue,
+                        searchfield:unitid
+                    },
+                    success: function (result) {
+                        $("#_postList").html(result);
+                    },
+
+                });
+        });
+
+
+              $("#_postList").kTable({
+                submitButton: '#btnRefresh',
+                resetButton: '#btnReset',
+                targetContainer: '_postList',
+                searchInputField: '#txtSearchInputField',
+                searchColumnChooser: '#globalSearchColumnChooser',
+                resourceUrl: "@Url.Page("Index", "PagedList")",
+                pageSize: "@Model.pageSize",
+                loadOnPageLoad: true,
+                sOrderField: "#hidSortOrder",
+                sOrderColumnField: "#hidSortColumn",
+                exportUrl: "@Url.Page("Index", "ExportData")",
+                exportButton: '#btnExport',
+                radiobutton: '#hidRadio',
+                searchfield:'#hidSearchfield'
+            });
+        });
+
+           $(function () {
+            // On area dropdown change
+            $('#UnitId').change(function () {
+                var selectedUnit = $(this).val();
+                 $('#HiddenUnitid').val(selectedUnit); // keep it in hidden field
+                var paymentStatus = $('input[name="paymentStatus"]:checked').val();
+                $.ajax({
+                    url: "/MembersList/MembersByUnit/Index?handler=PagedList",
+                    method: "GET",
+                    data: {
+                        searchfield: selectedUnit,
+                        Value: paymentStatus
+                    },
+                    beforeSend: function () {
+                        $("#tableLoader").removeClass("hidden");
+                    },
+                    success: function (result) {
+                        $("#_postList").html(result);
+                    },
+                    complete: function () {
+                        $("#tableLoader").addClass("hidden");
+                    }
+                });
+            });
+             var storedRadio = $('#hidRadio').val();
+        var search = $('#hidSearchfield').val();
+
+        // ✅ Apply stored values to the UI
+        if (storedRadio) {
+            $("input[name='paymentStatus'][value='" + storedRadio + "']").prop("checked", true);
+        }
+
+        if (search) {
+            $('#UnitId').val(search).trigger('change.select2'); // for select2
+            $('#hidUnitId').val(search);
+            $('#HiddenUnitid').val(search);
+        }
+
+        // ✅ Now trigger the AJAX load once both are set
+        if (storedRadio || search) {
+            var paymentStatus = $('input[name="paymentStatus"]:checked').val();
+            var selectedArea = $('#UnitId').val();
+
+            $.ajax({
+                url: "/MembersList/MembersByUnit/Index?handler=PagedList",
+                method: "GET",
+                data: {
+                    Value: paymentStatus,
+                    searchfield: selectedArea
+                },
+                beforeSend: function () {
+                    $("#tableLoader").removeClass("hidden");
+                },
+                success: function (result) {
+                    $("#_postList").html(result);
+                },
+                complete: function () {
+                    $("#tableLoader").addClass("hidden");
+                }
+            });
+        }
+        });
+    </script>
+}
+
+
+
+
+
+     
+       
+         
+
+          
+
+
+  

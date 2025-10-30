@@ -1,0 +1,159 @@
+﻿@page
+@model FOKE.Pages.NewMemberModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>New Member</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="New Membership Registration" />
+    <meta property="og:site_name" content="Keralites Medical Forum, Kuwait" />
+    <meta property="og:url" content="https://portal.FOKEkuwait.com/NewMember" />
+    <meta property="og:description" content="Join FOKE Kuwait, our awesome community of professionals! Become a member today." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+    <meta property="og:image:secure_url" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="FOKE Association Banner" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:logo" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+
+    <!-- Twitter Card Meta Tags (Optional but Recommended) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="New Membership Registration" />
+    <meta name="twitter:description" content="Join FOKE Kuwait, our awesome community of professionals! Become a member today." />
+    <meta name="twitter:image" content="https://portal.FOKEkuwait.com/media/logos/FOKE_LOGO.png" />
+
+
+    <link href="~/plugins/global/plugins.bundle.css" rel="stylesheet" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    
+    <style>
+
+        body {
+            background-color: #ffffff !important;
+        }
+        .membership-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            padding-bottom: 50px; /* Extra padding at bottom */
+            text-align: center;
+        }
+
+        .logo-img {
+            width: 120px;
+        }
+
+        .form-check {
+            margin-bottom: 1.5rem;
+        }
+
+        .submit-btn {
+            display: block;
+            margin: 30px auto 0 auto; /* Center and add spacing */
+        }
+
+        .btn-purple {
+            background-color: #5e60ce;
+            color: #fff;
+        }
+
+            .btn-purple:hover {
+                background-color: #4b4db6;
+            }
+
+        .form-check-input {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        .form-check label {
+            margin-left: 0.5em;
+            vertical-align: middle;
+            font-size: 15px;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+    <div class="membership-container">
+            <div class="text-center mb-3">
+                <img src="~/media/logos/FOKE_LOGO.png" class="logo-img mb-3" alt="Association Logo" />
+                <h4 class="fw-bold">Friends Of Kannur Kuwait Expats Association, Kuwait</h4>
+                <p class="">Registration No.IDEMB/KWT/ASSN/37</p>
+            </div>
+        <hr />
+
+        <form method="post" class="text-start" onsubmit="return validateForm();">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="condition1" name="condition1">
+                <label for="condition1">
+                        I am an Indian national from Kannur district, Kerala, currently residing in Kuwait with a valid residency permit.
+                </label>
+                <div id="error1" class="error">Please confirm this condition</div>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="condition2" name="condition2">
+                <label for="condition2">
+                        I hereby declare that I am not associated with or a member of any other Kannur-based association in Kuwait.
+                </label>
+                <div id="error2" class="error">Please confirm this condition</div>
+            </div>
+
+             <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="condition3" name="condition3">
+                <label for="condition3">
+                        I hereby declare that I will abide by the association’s bylaws and strictly adhere to all its rules and regulations.
+                </label>
+                <div id="error3" class="error">Please confirm this condition</div>
+            </div>
+
+            <button type="submit" id="SuccessBtn" class="btn btn-purple submit-btn">Become a Member</button>
+        </form>
+    </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#SuccessBtn").click(function (e) {
+                e.preventDefault(); // prevent form from submitting normally
+
+                if (validateForm()) {
+                    // Redirect only if both checkboxes are checked
+                    window.location.href = "/Registration";
+                }
+            });
+        });
+
+        function validateForm() {
+            var cond1 = document.getElementById("condition1").checked;
+            var cond2 = document.getElementById("condition2").checked;
+            var cond3 = document.getElementById("condition3").checked;
+
+            document.getElementById("error1").style.display = cond1 ? "none" : "block";
+            document.getElementById("error2").style.display = cond2 ? "none" : "block";
+            document.getElementById("error3").style.display = cond3 ? "none" : "block";
+
+            return cond1 && cond2;
+        }
+    </script>
+
+</body>

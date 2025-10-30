@@ -1,0 +1,62 @@
+{
+  "Module": "RoleMaster",
+  "Translations": [
+    {
+      "Name": "ROLE_MASTER_TITLE",
+      "Description": "Role Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "دور رئيسي "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Role Master"
+        }
+      ]
+    },
+    {
+      "Name": "ROLE_ADD_NEW",
+      "Description": "Role Add",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إضافة دور جديد"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Add Role"
+        }
+      ]
+    },
+    {
+      "Name": "ROLE_NAME",
+      "Description": "Role Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اسم الدور "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Role Name"
+        }
+      ]
+    },
+
+    {
+      "Name": "Role_Description",
+      "Description": "Description",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "وصف"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Description"
+        }
+      ]
+    }
+  ]
+}

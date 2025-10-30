@@ -1,0 +1,604 @@
+﻿@page
+@model FOKE.Pages.IssueMembership.MemberViewModel
+@inject ISharedLocalizer Localize
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+@{
+}
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<form method="post" id="crudForm" novalidate="novalidate" autocomplete="off">
+	<div id="kt_app_content" class="app-content flex-column-fluid">
+		<div id="kt_app_content_container" class="app-container container-xxl">
+			<div class="card">
+				@if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+				{
+					<input type="hidden" asp-for="Issueid" />
+					<div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+						<i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+						<div class="flex-grow-1 fw-bold text-dark">
+							<strong></strong> @Model.pageErrorMessage
+						</div>
+						<button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				}
+				<input type="hidden" asp-for="_formMode" />
+				<input type="hidden" asp-for="inputModel.MembershipId" />
+				<input type="hidden" asp-for="inputModel.loggedinUserId" value="@User.FindFirst("Userid")?.Value" />
+
+				<div class="container-xxl mt-4">
+					<div class="card shadow-lg rounded overflow-hidden mb-5">
+						<div class="p-4 text-white fw-bold fs-3" style="background: linear-gradient(to right, #4da0f3, #007bff);">
+							🧑‍💼 Applicant Details
+						</div>
+
+						<div class="card-body shadow-sm p-4 bg-white rounded">
+							<h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+								<i class="bi bi-person-lines-fill me-2"></i> Personal Information
+							</h4>
+							<div class="container ms-5">
+								<div class="row g-4">
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Name") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.Name</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Civil Id") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.CivilId</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Passport No") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.PassportNo</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Date of Birth") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.DateofBirthString</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Gender") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.Gender</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Blood Group") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.BloodGroup</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Contact Number") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.PhoneNo</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Email") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.Email</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("District") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.District</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Area") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.Area</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Department") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.DepartmentName</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Year Started Working") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.WorkYear</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Profession") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.Profession</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.ProffessionOther</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Work Place") :
+										</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.WorkPlace</div>
+										<div class="fw-bold fs-6 text-dark-800">@Model.inputModel.WorkplaceOther</div>
+									</div>
+
+								</div>
+							</div>
+
+
+							<div class="px-0 mt-4">
+								<hr class="my-4" />
+
+								<div class="border rounded p-4 bg-light">
+									<h5 class="fw-bold mb-4">For Office Use Only</h5>
+
+									<div class="row">
+										<div class="col-md-4 mb-3">
+											<div class="form-group">
+												<label class="form-label-new"> @Localize.Localize("Referred By")</label>
+												<div class="input-group">
+													<select asp-for="inputModel.SearchText" id="searchColumn" class="form-select form-select-sm"
+															asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+													</select>
+													<input type="text" id="referredByInput" class="form-control form-control-sm" placeholder="Referred By" />
+													<input asp-for="inputModel.ReferredBy" type="hidden" id="SelectedMemberId" />
+												</div>
+												<span asp-validation-for="inputModel.ReferredBy" class="text-danger"></span>
+
+												<!-- ✅ Add result container here -->
+												<div id="resultsContainer" class="mt-2"></div>
+
+												<!-- Hidden field to store selected ID -->
+												<input type="hidden" id="SelectedMemberId" name="SelectedMemberId" />
+											</div>
+										</div>
+
+
+										<div class="col-md-4 mb-5">
+											<div class="form-group">
+												<label class="required form-label-new">Zone</label>
+												<select asp-for="inputModel.ZoneId" id="ZoneId"
+														class="form-select form-select-sm select2"
+														asp-items='@new SelectList(Model.ZoneList, "keyID", "name")'>
+													<option value="">Select</option>
+												</select>
+												<span asp-validation-for="inputModel.ZoneId" class="text-danger" id="ZoneDDLError"></span>
+											</div>
+										</div>
+
+										<div class="col-md-4 mb-5">
+											<div class="form-group">
+												<label class="required form-label-new">Unit</label>
+												<select asp-for="inputModel.UnitId" id="UnitId"
+														class="form-select form-select-sm select2"
+														asp-items='@new SelectList(Model.UnitList, "keyID", "name")'>
+													<option value="">Select</option>
+												</select>
+												<span asp-validation-for="inputModel.UnitId" class="text-danger" id="UnitDDLError"></span>
+											</div>
+										</div>
+
+										
+									</div>
+								</div>
+
+								<hr class="my-4" />
+
+								<!-- Fee Collection -->
+
+								<div class="border rounded p-4 bg-light mb-4">
+									<h5 class="fw-bold mb-4">Fee Collection</h5>
+
+									<div class="row">
+										<div class="col-md-6 mb-4">
+											<div class="form-group">
+												<label class="required form-label-new">Campaign</label>
+												<select asp-for="inputModel.CampaignId" id="CampaignDropdown" class="form-select form-select-sm select2 ">
+													<option value="">Select</option>
+													@foreach (var campaign in Model.CampaignList)
+													{
+														<option value="@campaign.CampaignId" data-amount="@campaign.MemberShipFee">
+															@campaign.CampaignName
+														</option>
+													}
+												</select>
+												<span asp-validation-for="inputModel.CampaignId" class="text-danger" id="CampaignDDLError"></span>
+											</div>
+										</div>
+
+										<div class="col-md-6 mb-4">
+											<div class="form-group">
+												<label class="form-label-new">Campaign Amount</label>
+												<input asp-for="inputModel.CampaignAmount" class="form-control form-control-sm" id="CampaignAmount" disabled/>
+												<span asp-validation-for="inputModel.CampaignAmount" class="text-danger"></span>
+											</div>
+										</div>
+
+										<div class="col-md-6 mb-4">
+											<div class="form-group">
+												<div class="form-group">
+													<label class="form-label-new"> Amount Received </label>
+													<input asp-for="inputModel.AmountRecieved" class="form-control form-control-sm" placeholder="Amount Received" />
+													<span asp-validation-for="inputModel.AmountRecieved" class="text-danger"></span>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-md-6 mb-4">
+											<div class="form-group">
+												<label class="form-label-new">Payment Type</label>
+												<select asp-for="inputModel.PaymentTypeId" id="PaymentType"
+														class="form-select form-select-sm select2"
+														asp-items='@new SelectList(Model.PaymentTypeList, "keyID", "name")'>
+													<option value="">Select</option>
+												</select>
+												<span asp-validation-for="inputModel.PaymentTypeId" class="text-danger" id="PaymentTypeDDLError"></span>
+											</div>
+										</div>
+
+										<div class="col-md-12 mb-4">
+											<div class="form-group">
+												<label class=" form-label-new"> Payment Remarks </label>
+												<textarea asp-for="inputModel.PaymentRemarks" class="form-control form-control-sm" placeholder="Payment Remarks"></textarea>
+												<span asp-validation-for="inputModel.PaymentRemarks" class="text-danger"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="border rounded p-4 bg-light" id="requestActionContainer">
+									<h5 class="fw-bold mb-4">Request Action</h5>
+
+									<!-- Action and Reason Row -->
+									<div class="row mb-4">
+										<!-- Action Dropdown -->
+										<div class="col-md-6">
+											<label for="requestActionDropdown" class="form-label">Action</label>
+											<select id="requestActionDropdown" class="form-select form-select-sm">
+												<option value="" selected disabled>Select an action</option>
+												<option value="accept">Accept</option>
+												<option value="reject">Reject</option>
+											</select>
+										</div>
+
+										<!-- Reason Dropdown (only visible when rejected) -->
+										<div class="col-md-6 d-none" id="rejectReasonCol">
+											<label for="reqRejectionReason" class="form-label">Reason</label>
+											<select asp-for="inputModel.RejectionReasonId" id="reqRejectionReason" class="form-select form-select-sm"
+													class="form-select form-select-sm select2"
+													asp-items='@new SelectList(Model.RejectedReasonList, "keyID", "name")'>
+												<option value="">Select</option>
+											</select>
+										</div>
+									</div>
+
+									<!-- Remarks Row -->
+									<div class="row mb-4 d-none" id="rejectRemarksRow">
+										<div class="col-12">
+											<label for="reqRejectionNotes" class="form-label">Rejection Remarks</label>
+											<textarea id="reqRejectionNotes" class="form-control form-control-sm" rows="2" placeholder="Enter rejection remarks..."></textarea>
+										</div>
+									</div>
+
+									<!-- Accept Panel -->
+									<div id="reqAcceptDetails" class="d-none">
+										<div class="form-check mb-3">
+											<input class="form-check-input" type="checkbox" id="reqTermsCheckbox">
+											<label class="form-check-label" for="reqTermsCheckbox">
+												Following the successful verification of the provided information, the membership is hereby approved and issued.
+											</label>
+										</div>
+										<div class="text-center">
+											<button type="button" class="btn btn-success" id="reqConfirmIssueBtn" disabled>Confirm Issue</button>
+										</div>
+									</div>
+
+									<!-- Reject Button -->
+									<div class="text-center d-none" id="reqRejectBtnContainer">
+										<button type="button" class="btn btn-danger" id="reqRejectConfirmBtn">Reject</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="ActionStatus" id="hiddenActionStatus" />
+	<input type="hidden" name="RejectionReason" id="hiddenRejectionReason" />
+	<input type="hidden" name="RejectionRemarks" id="hiddenRejectionRemarks" />
+</form>
+
+<link href="~/css/select2.min.css" rel="stylesheet" />
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script src="~/js/select2.min.js"></script>
+
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+			const SelectedCampaign = parseInt('@ViewData["SelectedCampaign"]');
+				 // If a campaign is pre-selected (from server), set the amount
+		if (SelectedCampaign > 0) {
+			// Delay to ensure DOM and Select2 are ready
+			setTimeout(function () {
+				$('#CampaignDropdown').val(SelectedCampaign).trigger('change');
+
+				// Manually trigger select2:select to apply amount
+				$('#CampaignDropdown').trigger({
+					type: 'select2:select',
+					params: {
+						data: $('#CampaignDropdown').find('option:selected').data()
+					}
+				});
+			}, 100);
+		}
+        $('.select2').select2();
+
+			$('#ZoneId').on('change', function () {
+						var selectedValue1 = $(this).val();
+						  if (selectedValue1) {
+									  $('#ZoneDDLError').text(''); // Clear validation message
+						}
+			 });
+
+			 $('#UnitId').on('change', function () {
+						var selectedValue1 = $(this).val();
+						  if (selectedValue1) {
+									  $('#UnitDDLError').text(''); // Clear validation message
+						}
+			 });
+
+			 $('#CampaignDropdown').on('change', function () {
+						var selectedValue1 = $(this).val();
+						  if (selectedValue1) {
+									  $('#CampaignDDLError').text(''); // Clear validation message
+						}
+			 });
+
+			 $('#PaymentType').on('change', function () {
+						var selectedValue1 = $(this).val();
+						  if (selectedValue1) {
+									  $('#PaymentTypeDDLError').text(''); // Clear validation message
+						}
+			 });
+            
+        // Hide both sections initially
+        $("#reqAcceptDetails").hide();
+        $("#reqRejectDetails").hide();
+
+        // Handle dropdown selection
+        $("#requestActionDropdown").change(function () {
+             const action = $(this).val();
+
+        if (action === "accept") {
+            // Show Accept block
+            $("#reqAcceptDetails").removeClass("d-none").show();
+
+            // Hide Reject-related UI
+            $("#rejectReasonCol, #rejectRemarksRow, #reqRejectBtnContainer").addClass("d-none").hide();
+        } else if (action === "reject") {
+            // Hide Accept block
+            $("#reqAcceptDetails").addClass("d-none").hide();
+
+            // Show Reject-related UI
+            $("#rejectReasonCol, #rejectRemarksRow, #reqRejectBtnContainer").removeClass("d-none").show();
+        } else {
+            // Hide all
+            $("#reqAcceptDetails").addClass("d-none").hide();
+            $("#rejectReasonCol, #rejectRemarksRow, #reqRejectBtnContainer").addClass("d-none").hide();
+        }
+        });
+         // Enable/disable confirm button when checkbox is toggled
+        $('#reqTermsCheckbox').change(function () {
+            $('#reqConfirmIssueBtn').prop('disabled', !this.checked);
+        });
+
+        // Confirm Issue
+        $('#reqConfirmIssueBtn').click(function () {
+            $('#hiddenActionStatus').val('accept');
+            $('#hiddenRejectionReason').val('');
+            $('#hiddenRejectionRemarks').val('');
+            $('#crudForm').submit();
+        });
+
+        $('#reqRejectConfirmBtn').click(function () {
+            const reason = $('#reqRejectionReason').val();
+            const notes = $('#reqRejectionNotes').val();
+
+            if (!reason) {
+                Swal.fire('Warning', 'Please select a reason.', 'warning');
+                return;
+            }
+
+            $('#hiddenActionStatus').val('reject');
+            $('#hiddenRejectionReason').val(reason);
+            $('#hiddenRejectionRemarks').val(notes);
+            $('#crudForm').submit();
+        });
+
+        $("#btnClear").click(function () {
+            $("#crudForm")[0].reset();
+        });
+
+        top.hidePageLoader();
+        
+        $.validator.unobtrusive.parse("#crudForm");
+        $('.role-code').change(function () {
+            var selectedValue = $(this).val();
+            $("#btnRefresh").click();
+           });
+        });
+
+		// Override the form submit handler for the reject scenario
+		$('#reqRejectConfirmBtn').click(function() {
+			const reason = $('#reqRejectionReason').val();
+
+			if (!reason) {
+				Swal.fire('Warning', 'Please select a reason.', 'warning');
+				return;
+			}
+
+			$('#hiddenActionStatus').val('reject');
+			$('#hiddenRejectionReason').val(reason);
+			$('#hiddenRejectionRemarks').val($('#reqRejectionNotes').val());
+
+			// Bypass validation when rejecting
+			$("#crudForm").find("input[data-val=true], select[data-val=true]").removeAttr("data-val");
+
+			// Submit the form without validation
+			$("#crudForm").validate().cancelSubmit = true;
+			$("#crudForm").submit();
+		});
+
+        if ("@Model.IsSuccessReturn" == "True") {
+            top.Swal.fire({
+                   icon: 'success',
+                   buttonsStyling: false,
+                   title: "@Html.Raw(@Model.sucessMessage)",
+                   showConfirmButton: false,
+                   timer: 1500
+            })
+
+            setTimeout(function () {
+                      window.location.href = '/IssueMembership/Index';  // Redirect to Index page after 1.5 seconds
+            }, 1500);
+        }
+
+		$('#CampaignDropdown').select2();
+
+		$('#CampaignDropdown').on('select2:select', function (e) {
+			var selectedOption = $(this).find('option:selected');
+			var amount = selectedOption.data('amount');
+
+			if (amount !== undefined) {
+				$('#CampaignAmount').val(amount);
+			} else {
+				$('#CampaignAmount').val(0);
+			}
+		});
+
+		function fetchAndShowResults() {
+			let keyword = $('#referredByInput').val().trim();
+			let selectedColumn = $('#searchColumn').val();
+			if (!keyword) return;
+
+			$.ajax({
+				url: '@Url.Page("Manage", "GetDetails")',
+				type: 'GET',
+				data: {
+					keyword: keyword,
+					searchText: selectedColumn
+				},
+				success: function (response) {
+					if (response && response.returnData && response.returnData.length > 0) {
+						const members = response.returnData;
+
+						let table = `
+						<table class="table table-bordered table-hover table-sm">
+							<thead class="table-light">
+							<tr>
+								<th>Membership ID</th>
+								<th>Full Name</th>
+								<th>Civil ID</th>
+								<th>Phone Number</th>
+							</tr>
+							</thead>
+						<tbody>
+						`;
+
+						members.forEach(member => {
+							table += `
+								<tr class="select-member" data-id="${member.issueId}" data-name="${member.name}" style="cursor:pointer;">
+									<td>${member.referenceNumber || ''}</td>
+									<td>${member.name}</td>
+									<td>${member.civilId || ''}</td>
+									<td>${member.contactNo || ''}</td>
+								</tr>
+							`;
+						});
+
+						table += '</tbody></table>';
+						document.getElementById('resultsContainer').innerHTML = table;
+					} else {
+						document.getElementById('resultsContainer').innerHTML = `<p class="text-danger">No results found.</p>`;
+					}
+				}, // ✅ ← Missing comma was here
+				error: function () {
+					alert("An error occurred while fetching the member data.");
+				}
+			});
+		}
+
+		$('#referredByInput').on('blur', function () {
+			setTimeout(() => {
+			fetchAndShowResults();
+			}, 200); // Delay allows row click to register
+		});
+
+		// Trigger search on Enter key
+		$('#referredByInput').on('keypress', function (e) {
+			if (e.which === 13) {
+			e.preventDefault();
+			fetchAndShowResults();
+			}
+		});
+
+		// Handle selection of member from results
+		$(document).on('click', '.select-member', function () {
+			const name = $(this).data('name');
+			const id = $(this).data('id');
+
+			$('#referredByInput').val(name);
+			$('#SelectedMemberId').val(id);
+
+			// $('#resultsContainer').html(''); // Clear results
+			 $('#resultsContainer').html(`
+			<table class="table table-bordered table-sm">
+				<thead class="table-light">
+					<tr>
+						<th>Membership ID</th>
+						<th>Full Name</th>
+						<th>Civil ID</th>
+						<th>Phone Number</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="Unselect-member">
+						<td>${$(this).closest('tr').find('td:eq(0)').text()}</td>
+						<td>${name}</td>
+						<td>${$(this).closest('tr').find('td:eq(2)').text()}</td>
+						<td>${$(this).closest('tr').find('td:eq(3)').text()}</td>
+					</tr>
+				</tbody>
+			</table>
+		`);
+		});
+		$(document).on('click', '.Unselect-member', function () {
+
+		 fetchAndShowResults();
+		 });
+
+	</script>
+}
+
+

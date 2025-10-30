@@ -1,0 +1,760 @@
+{
+  "Module": "Shared",
+  "Translations": [
+    {
+      "Name": "SAVED_SUCCESS",
+      "Description": "Saved Successfully",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حفظ بنجاح"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Saved Successfully"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_SAVE",
+      "Description": "Save Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يحفظ"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Save"
+        }
+      ]
+    },
+    {
+      "Name": "GRID_SHOWING",
+      "Description": "Showing",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "عرض"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Showing"
+        }
+      ]
+    },
+    {
+      "Name": "GRID_TO",
+      "Description": "To",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إلى"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "To"
+        }
+      ]
+    },
+    {
+      "Name": "GRID_OF",
+      "Description": "Of",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "من"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "of"
+        }
+      ]
+    },
+    {
+      "Name": "GRID_RECORDS",
+      "Description": "Records",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "السجلات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "records"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_GO_BACK",
+      "Description": "Back Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "خلف"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Back"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_RESET",
+      "Description": "Reset Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إعادة ضبط"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Reset"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_FILTER",
+      "Description": "Filter Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "منقي"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Filter"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_SEARCH",
+      "Description": "Search Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يبحث"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Search"
+        }
+      ]
+    },
+    {
+      "Name": "PLACEHOLDER_TABLE_SEARCH",
+      "Description": "Table Search Place Holder",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يبحث"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Search"
+        }
+      ]
+    },
+    {
+      "Name": "DD_ALL_TABLE_SEARCH",
+      "Description": "Table Search All",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الجميع"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "All"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_ACTION_HEADER",
+      "Description": "Action Column Header",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "فعل"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Action"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_FILTER",
+      "Description": "Filter Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "منقي"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Filter"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_EXPORT",
+      "Description": "Export Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يصدّر"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Export"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_SYNC_LOCALIZATION",
+      "Description": "Sync Localization",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "توطين المزامنة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Sync Localization"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_VIEW",
+      "Description": "Export Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "منظر"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "View"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_EDIT",
+      "Description": "Export Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يحرر"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Edit"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_DETAILS",
+      "Description": "Details",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تفاصيل"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Details"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_DELETE",
+      "Description": "Delete Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يمسح"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Delete"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_ADVANCE_FILTER_TITLE",
+      "Description": "Advance Filter",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "المرشحات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Filters"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_TABLE_ADVANCE_FILTER_RESET",
+      "Description": "Reset Table Filter",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يمسح"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Reset"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_TABLE_ADVANCE_FILTER_APPLY",
+      "Description": "Apply Table Filter",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يمسح"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Apply"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_PHOTO_ALLOWED_FILE_TYPE",
+      "Description": "Allowed file types Photo",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أنواع الملفات المسموح بها: png, jpg, jpeg."
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Allowed file types: png, jpg, jpeg."
+        }
+      ]
+    },
+    {
+      "Name": "DD_DEFAULT_OPTION_SELECT",
+      "Description": "Dropdown Select Option",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يختار"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Select"
+        }
+      ]
+    },
+
+    {
+      "Name": "Status",
+      "Description": "Dropdown Select Option",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يختار"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Status"
+        }
+      ]
+    },
+
+
+
+
+    {
+      "Name": "PLACE_HOLDER_INPUT",
+      "Description": "Enter Input",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "يختار"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Enter"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_REFRESH",
+      "Description": "Refresh",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تحديث"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Refresh"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_SAVE",
+      "Description": "Save",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حفظ"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Save"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_CLOSE",
+      "Description": "Close",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إغلاق"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Close"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_SEND_REQUEST",
+      "Description": "Send Request",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إرسال طلب"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Send Request"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_SEND",
+      "Description": "Send",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إرسال"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Send"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_ATTACHMENT",
+      "Description": "File Attachment",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "المرفق"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Attachment"
+        }
+      ]
+    },
+    {
+      "Name": "CONTRACT_TYPE_NAME",
+      "Description": "ContractTypeName",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اسم نوع الفئة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "ContractTypeName"
+        }
+      ]
+    },
+    {
+      "Name": "CATEGORY_TYPE_NAME",
+      "Description": "CategoryTypeName",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "اسم نوع الفئة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "CategoryTypeName"
+        }
+      ]
+
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_ATTACHMENT",
+      "Description": "Attachment",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "مرفق"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Attachment"
+        }
+      ]
+
+    },
+    {
+      "Name": "CREATED_BY",
+      "Description": "Created By",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تم الإنشاء بواسطة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Created By"
+        }
+      ]
+
+    },
+    {
+      "Name": "CREATED_DATE",
+      "Description": "Created Date",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تاريخ الإنشاء"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Created Date"
+        }
+      ]
+
+    },
+    {
+      "Name": "STATUS",
+      "Description": "Status",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حالة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Status"
+        }
+      ]
+
+    },
+    {
+      "Name": "DD_ACTIVE",
+      "Description": "Active",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "نشيط"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Active"
+        }
+      ]
+
+    },
+    {
+      "Name": "DD_INACTIVE",
+      "Description": "Inactive",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "غير نشط"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Inactive"
+        }
+      ]
+
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_DEACTIVATE",
+      "Description": "Deactivate",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إلغاء التنشيط"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Deactivate"
+        }
+      ]
+    },
+    {
+      "Name": "TABLE_BTN_TITLE_ACTIVATE",
+      "Description": "Activate",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "فعل"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Activate"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_CLEAR",
+      "Description": "Clear Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "واضح"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Clear"
+        }
+      ]
+    },
+    {
+      "Name": "BTN_REFRESH",
+      "Description": "Refresh Button",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ينعش"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Refresh"
+        }
+      ]
+    },
+    {
+      "Name": "ATTACHMENTS",
+      "Description": "Attachment",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "مرفق"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Attachment"
+        }
+      ]
+    },
+    {
+      "Name": "Membership_Form",
+      "Description": "Membership Form",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "استمارة العضوية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Membership Form"
+        }
+      ]
+    },
+    {
+      "Name": "Website",
+      "Description": "Website",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "موقع إلكتروني"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Website"
+        }
+      ]
+    },
+    {
+      "Name": "Mobile_Apps",
+      "Description": "Mobile Apps",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تطبيقات الجوال"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Mobile Apps"
+        }
+      ]
+    },
+    {
+      "Name": "App_Store",
+      "Description": "App Store",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "متجر التطبيقات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "App Store"
+        }
+      ]
+    },
+    {
+      "Name": "Play_Store",
+      "Description": "Play Store",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "متجر اللعب"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Play Store"
+        }
+      ]
+    },
+    {
+      "Name": "Change_Password",
+      "Description": "Change Password",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تغيير كلمة المرور"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Change Password"
+        }
+      ]
+    },
+    {
+      "Name": "Log_Out",
+      "Description": "Log Out",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تسجيل الخروج"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Log Out"
+        }
+      ]
+    }
+
+  ]
+}

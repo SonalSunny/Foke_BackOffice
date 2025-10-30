@@ -1,0 +1,149 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.PayMembershipFee.IndexModel
+@{
+}
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+
+
+<style>
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* align towards top */
+        padding-top: 80px; /* push it down slightly */
+        height: calc(100vh - 80px); /* keeps original height logic */
+        background-color: #f9fbfd;
+    }
+
+    .search-card {
+        background: white;
+        padding: 2rem 3rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 700px;
+        text-align: center;
+    }
+
+    .search-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: #2d3748;
+    }
+
+    .form-inline {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+        .form-inline select,
+        .form-inline input {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .form-inline button {
+            white-space: nowrap;
+        }
+</style>
+
+<div class="search-container">
+    <div class="search-card">
+        <div class="search-title">Search Member</div>
+        <div class="form-inline">
+            <select asp-for="globalSearchColumn" class="form-select form-select-sm"
+                    asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+            </select>
+
+            <input type="text" class="form-control form-control-sm" placeholder="Enter search keyword" id="txtSearchInputField" />
+
+            <button type="button" class="btn btn-sm btn-primary" id="btnRefresh">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+
+        <div id="resultsContainer" class="mt-5">
+            <!-- Results will be populated here -->
+        </div>
+
+
+
+    </div>
+
+   
+
+</div>
+<!-- Result Table -->
+@* <div id="searchResultsContainer" class="mt-5" style="display: none;">
+    <h5>Search Results:</h5>
+    <table class="table table-bordered table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Membership ID</th>
+                <th>Full Name</th>
+                <th>Civil ID</th>
+                <th>Phone No</th>
+            </tr>
+        </thead>
+        <tbody id="searchResultsBody">
+            <!-- Data will be injected here -->
+        </tbody>
+    </table>
+</div>
+ *@
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById('btnRefresh').addEventListener('click', function () {
+                const keyword = document.getElementById('txtSearchInputField').value.trim();
+
+                if (keyword === "") {
+                    alert("Please enter a keyword to search.");
+                    return;
+                }
+
+                // Dummy data — always shown regardless of keyword
+                const dummyData = [
+            { id: 1, membershipId: 'M001', fullName: 'Dominic', civilId: '234-567-890123', phone: '965 99887766' },
+                    { id: 2, membershipId: 'M002', fullName: 'Sara Mohammed', civilId: '0987654321', phone: '87654321' },
+                    { id: 3, membershipId: 'M003', fullName: 'John Doe', civilId: '1111222233', phone: '99998888' }
+                ];
+
+                let table = `
+                    <table class="table table-bordered table-striped mt-3">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Membership ID</th>
+                                <th>Full Name</th>
+                                <th>Civil ID</th>
+                                <th>Phone Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                dummyData.forEach(member => {
+                    table += `
+                        <tr>
+                            <td>${member.membershipId}</td>
+                            <td><a href="/PayMembershipFee/PayFee?id=${member.id}">${member.fullName}</a></td>
+                            <td>${member.civilId}</td>
+                            <td>${member.phone}</td>
+                        </tr>
+                    `;
+                });
+
+                table += `</tbody></table>`;
+                document.getElementById('resultsContainer').innerHTML = table;
+            });
+        });
+</script>
+
+

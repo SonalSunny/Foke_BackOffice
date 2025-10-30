@@ -1,0 +1,35 @@
+{
+  "Language": "Arabic",
+  "Culture": "ar-AE",
+  "Module": "Shared",
+  "Translation": [
+    {
+      "Name": "EMPLOYEE_PHOTO",
+      "Value": "لوحة القيادة"
+    },
+    {
+      "Name": "EMPLOYEE_NUMBER",
+      "Value": "لوحة القيادة"
+    },
+    {
+      "Name": "EMPLOYEE_FIRST_NAME",
+      "Value": "لوحة القيادة"
+    },
+    {
+      "Name": "EMPLOYEE_LAST_NAME",
+      "Value": "لوحة القيادة"
+    },
+    {
+      "Name": "DEPARTMENT_NAME",
+      "Value": "لوحة القيادة"
+    },
+    {
+      "Name": "DESIGNATION_NAME",
+      "Value": "لوحة القيادة"
+    },
+    {
+      "Name": "DATE_OF_JOINING",
+      "Value": "لوحة القيادة"
+    }
+  ]
+}

@@ -1,0 +1,253 @@
+﻿@model IndexModel
+@using FOKE.Localization
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using FOKE.Models.PageModels
+@inject ISharedLocalizer Localize
+
+<div class="table-responsive">
+    <input type="hidden" asp-for="pageNo" id="hidpageNo" />
+    <input type="hidden" asp-for="pageSize" id="hidpageSize" />
+    <input type="hidden" asp-for="sortColumn" id="hidSortColumn" />
+    <input type="hidden" asp-for="Radio" id="hidRadio" />
+    <input type="hidden" asp-for="Searchfield" id="hidSearchfield" />
+    <table class="table table-hover table-rounded table-striped border gy-4 gs-7 table-sortable table-scroll">
+        <thead>
+            <tr class="fs-6 text-white bg-primary">
+                @*  <th class="ps-4 t-plr-sm-5 min-w-150px">@Localize.Localize("TABLE_ACTION_HEADER")</th> *@
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="MemberID">
+                    @Localize.Localize("Paid Status")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="MemberID">
+                    @Localize.Localize("Update")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="ReferenceNumber">
+                    @Localize.Localize("Member ID")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="Name">
+                    @Localize.Localize("Full Name")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="Profession">
+                    @Localize.Localize("Profession")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="WorkPlace">
+                    @Localize.Localize("Workplace")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="DepartmentName">
+                    @Localize.Localize("Department")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="Area">
+                    @Localize.Localize("Area")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="Unit">
+                    @Localize.Localize("Unit")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+
+                <th class="ps-4 t-plr-sm-5 min-w-150px sorting" area-field="Zone">
+                    @Localize.Localize("Zone")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.pagedListData != null && Model.pagedListData.Count() > 0)
+        {            
+            @for (int i = 0; i < Model.pagedListData.Count(); i++)
+            {
+                var item = Model.pagedListData[i];
+
+                    <tr>
+                        <td>
+                            @if (item.AmountInt > 0)
+                            {
+                                <span>Paid</span>
+                            }
+                            else
+                            {
+                                <button class="btn btn-sm btn-primary btnUnpaid" keyID="@item.IssueId">Pay</button>
+                            }
+
+                        </td>
+                        <td class="ps-4 pe-4">
+                            <div class="remark-container" data-id="@item.IssueId">
+                                <span class="paid-label text-primary"
+                                      keyID="@item.IssueId"
+                                      data-remark="@item.Updates"
+                                      style="cursor: pointer;">
+                                    <i class="fa fa-pencil-alt me-1"></i>
+                                    @(item.Updates ?? "Remark")
+                                </span>
+
+
+                                <form method="post" asp-page-handler="SaveRemark" class="paid-edit mt-1" style="display: none;">
+                                    <input type="hidden" name="id" value="@item.IssueId" />
+                                    <input type="text" name="inputValue" class="form-control form-control-sm mb-1" placeholder="Enter Remark" />
+                                    <input type="hidden" name="Radio" value="@Model.Radio" />
+                                    <input type="hidden" name="Searchfield" value="@Model.Searchfield" />
+                                    <div class="d-flex gap-1">
+                                        <button type="submit" class="btn btn-sm btn-success rounded-circle p-1" title="Save">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-danger rounded-circle p-1 reset-remark-btn" title="Reset">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+
+
+                        @* <td class="ps-4 pe-4">2001</td> *@
+                        <td>
+                            @item.ReferenceNumber
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td class="ps-4 pe-4">@item.Profession</td>
+                        <td class="ps-4 pe-4">@item.WorkPlace</td>
+                        <td>
+                            @item.DepartmentName
+                        </td>
+                        <td>
+                            @item.Area
+                        </td>
+                        <td>
+                            @item.Unit
+                        </td>
+                        <td>
+                            @item.Zone
+                        </td>
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+               
+           
+
+<div class="row">
+    <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start pt-3">
+        <div class="dataTables_length" id="kt_datatable_fixed_header_length">
+            <label>
+                <select asp-for="pageSize" id="kt_datatable_page_size" class="form-select form-select-sm form-select-solid">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </label>
+        </div><div class="dataTables_info" id="kt_datatable_fixed_header_info" role="status" aria-live="polite">Showing @(Model?.pagedListData?.FirstItemOnPage ?? 0) to @(Model?.pagedListData?.LastItemOnPage ?? 0) of @(Model?.pagedListData?.TotalItemCount ?? 0) records</div>
+    </div><div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+        <div class="dataTables_paginate paging_simple_numbers" id="kt_datatable_fixed_header_paginate">
+            @if (Model.hasPagination)
+            {
+                <div>
+                    @Html.PagedListPager((IPagedList)Model.pagedListData, page => Url.Page("Index", "PagedList",
+                             new
+                             {
+                                 pn = page,
+                                 ps = Model.pageSize,
+                                 so = Model.sortOrder,
+                                 sc = Model.sortColumn,
+                                 gs = Model.globalSearch,
+                                 gsc = Model.searchField,
+                                 nm = Model.globalSearch,
+                                 searchfield = Model.Searchfield,
+                                 Value = Model.Radio
+                             }),
+                             PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions()
+                {
+                    PageClasses = new string[] { "page-link" },
+                    LiElementClasses = new string[] { "page-item" },
+                    UlElementClasses = new string[] { "pagination pagination-circle pagination-outline" },
+                    EllipsesElementClass = "ki-duotone ki-double-left fs-2",
+                    Display = PagedListDisplayMode.IfNeeded,
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    LinkToPreviousPageFormat = "<i class='fas fa-angle-left'></i>",
+                    LinkToNextPageFormat = "<i class='fas fa-angle-right'></i>",
+                    LinkToFirstPageFormat = "<i class='fas fa-step-backward'></i>",
+                    LinkToLastPageFormat = "<i class='fas fa-step-forward'></i>",
+                    MaximumPageNumbersToDisplay = 10, // Adjust this number as needed
+                }, new AjaxOptions()
+                { HttpMethod = "Get", UpdateTargetId = "_postList", OnBegin = "showInTableLoader()", OnSuccess = "", OnComplete = "hideInTableLoader()" }))
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div id="tableLoader" class="loader-container">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<script src="~/js/ktable.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+      $(function () {
+        KTMenu.init()
+
+        $(document).ready(function ()
+        {
+            $("#tableLoader").removeClass("hidden"); // Show loader on page load
+
+           $(document).ready(function () {
+            $("#tableLoader").addClass("hidden");
+            });
+        });
+        $(document).on('click', '.paid-label', function () {
+        var $container = $(this).closest('.remark-container');
+        var remarkText = $(this).data('remark') || '';
+
+        $container.find('.paid-label').hide();
+        var $form = $container.find('.paid-edit');
+
+        $form.show();
+        $form.find('input[name="inputValue"]').val(remarkText).focus(); // Prefill textbox
+    });
+
+        $(document).on('click', '.reset-remark-btn', function () {
+        var $form = $(this).closest('form');
+        var $container = $form.closest('.remark-container');
+        var issueId = $container.data('id');
+
+        // Clear input
+        $form.find('input[name="inputValue"]').val('');
+
+        // Hide form
+        $form.hide();
+
+        // Show span
+        $container.find('.paid-label').show();
+    });
+
+           $('.btnUnpaid').click(function () {
+        var modID = $(this).attr('keyID');
+        var type = "Unit";
+        var url = $("#hidPaymentPageUrl").val() + "?id=" + modID + "&type=" + type;
+        window.location.href = url; // Directly navigate to the page
+        return false;
+    });
+
+
+    });
+</script>
+

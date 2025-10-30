@@ -1,0 +1,261 @@
+﻿@page
+@model FOKE.Pages.File_Manager.ManageModel
+@{
+}
+@using FOKE.Localization
+@inject ISharedLocalizer Localize
+<input type="hidden" id="hidSearch" value="@Url.Page("~/File_Manager/Manage")" />
+<input type="hidden" id="hidPageCode" value="@Model.pagecode" />
+<input type="hidden" id="Folderid" asp-for="Folderid" />
+<input type="hidden" id="FolderName" asp-for="FolderName" />
+<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Toolbar-->
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			<!--begin::Content container-->
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<!--begin::Card-->
+				<!--end::Card-->
+				<!--begin::Card-->
+				<div class="card card-flush">
+					<!--begin::Card header-->
+					<div class="card-header pt-5">
+						<div class="card-title">
+							<div class="row">
+								<h3 class="fw-bold m-0 mb-5">
+									@Model.FolderName
+								</h3>
+
+
+							</div>
+
+						</div>
+						<div class="d-flex align-items-center position-relative gap-2 my-1 pe-md-2 w-100 w-md-400px">
+							<input type="text" asp-for="SearchText" class="form-control form-control-sm flex-grow-1" placeholder="Search" id="txtSearchInputField" />
+
+							<button type="button" class="btn btn-sm btn-light-primary d-flex align-items-center gap-1 btnSearch" id="btnRefresh">
+								<i class="fas fa-search"></i>
+								@Localize.Localize("BTN_SEARCH")
+							</button>
+
+							<button type="button" class="btn btn-sm btn-light-primary d-flex align-items-center gap-1 btnReset" id="btnReset">
+								<i class="fas fa-sync-alt"></i>
+								@Localize.Localize("BTN_RESET")
+							</button>
+						</div>
+					</div>
+					<!--end::Card header-->
+					<!--begin::Card body-->
+					<div class="card-body">
+						<!--begin::Row-->
+						<div class="row g-6 g-xl-9 mb-6 mb-xl-9">
+							@if (Model.pagedListData != null && Model.pagedListData.Count() > 0)
+							{
+								@for (int i = 0; i < Model.pagedListData.Count(); i++)
+								{
+									var item = Model.pagedListData[i];
+									<!--begin::Col-->
+									<div class="col-md-6 col-lg-2 col-xl-3">
+										<!--begin::Card-->
+										<div class="card h-100">
+											<!--begin::Card body-->
+											<div class="card-body d-flex justify-content-center text-center flex-column">
+												<!--begin::Name-->
+												@if (item.AttachmentAny){
+													<a href="@Url.Content("~" + item.FilePath)" class="text-gray-800 text-hover-primary d-flex flex-column viewAttachment" data-url="@Url.Content("~" + item.FilePath)">
+														<!--begin::Image-->
+														<span class="icon-wrapper">
+															@if (item.FileExtension != null)
+															{
+																string fileIconClass = item.FileExtension.ToLower() switch
+																{
+																	".pdf" => "fa-solid fa-file-pdf text-danger",      // PDF icon in red
+																	".doc" or ".docx" => "fa-solid fa-file-word text-primary", // Word icon in blue
+																	".xls" or ".xlsx" => "fa-solid fa-file-excel text-success", // Excel icon in green
+																	".ppt" or ".pptx" => "fa-solid fa-file-powerpoint text-warning", // PowerPoint icon
+																	".txt" => "fa-solid fa-file-lines text-secondary",  // Text file icon
+																	".jpg" or ".jpeg" or ".png" or ".gif" => "fa-solid fa-file-image text-info", // Image file
+																	".zip" or ".rar" => "fa-solid fa-file-zip text-muted", // Compressed file
+																	_ => "fa-solid fa-file text-gray-500" // Default file icon
+																};
+																<i class="@fileIconClass fs-2x me-4"></i>
+															}
+															else
+															{
+																<i class="fa-solid fa-file text-gray-500 fs-2x me-4"></i> <!-- Default file icon -->
+															}
+
+														</span>
+														<!--end::Image-->
+														<!--begin::Title-->
+														<div class="fs-5 fw-bold mb-2">@item.FileName</div>
+														<!--end::Title-->
+													</a>
+												}
+												else if (item.FileLink != null)
+												{
+													<a href="@(item.FileLink.StartsWith("http") ? item.FileLink : "https://" + item.FileLink)" target="_blank" rel="noopener noreferrer">
+														<!--begin::Image-->
+														<span class="icon-wrapper">
+															@if (item.FileExtension != null)
+															{
+																string fileIconClass = item.FileExtension.ToLower() switch
+																{
+																	".pdf" => "fa-solid fa-file-pdf text-danger",      // PDF icon in red
+																	".doc" or ".docx" => "fa-solid fa-file-word text-primary", // Word icon in blue
+																	".xls" or ".xlsx" => "fa-solid fa-file-excel text-success", // Excel icon in green
+																	".ppt" or ".pptx" => "fa-solid fa-file-powerpoint text-warning", // PowerPoint icon
+																	".txt" => "fa-solid fa-file-lines text-secondary",  // Text file icon
+																	".jpg" or ".jpeg" or ".png" or ".gif" => "fa-solid fa-file-image text-info", // Image file
+																	".zip" or ".rar" => "fa-solid fa-file-zip text-muted", // Compressed file
+																	_ => "fa-solid fa-file text-gray-500" // Default file icon
+																};
+																<i class="@fileIconClass fs-2x me-4"></i>
+															}
+															else
+															{
+																<i class="fa-solid fa-file text-gray-500 fs-2x me-4"></i> <!-- Default file icon -->
+															}
+
+														</span>
+														<!--end::Image-->
+														<!--begin::Title-->
+														<div class="fs-5 fw-bold mb-2">@item.FileName</div>
+														<!--end::Title-->
+													</a>
+
+												}
+												else
+												{
+													<a href="#" target="_blank" rel="noopener noreferrer">
+														<!--begin::Image-->
+														<span class="icon-wrapper">
+															@if (item.FileExtension != null)
+															{
+																string fileIconClass = item.FileExtension.ToLower() switch
+																{
+																	".pdf" => "fa-solid fa-file-pdf text-danger",      // PDF icon in red
+																	".doc" or ".docx" => "fa-solid fa-file-word text-primary", // Word icon in blue
+																	".xls" or ".xlsx" => "fa-solid fa-file-excel text-success", // Excel icon in green
+																	".ppt" or ".pptx" => "fa-solid fa-file-powerpoint text-warning", // PowerPoint icon
+																	".txt" => "fa-solid fa-file-lines text-secondary",  // Text file icon
+																	".jpg" or ".jpeg" or ".png" or ".gif" => "fa-solid fa-file-image text-info", // Image file
+																	".zip" or ".rar" => "fa-solid fa-file-zip text-muted", // Compressed file
+																	_ => "fa-solid fa-file text-gray-500" // Default file icon
+																};
+																<i class="@fileIconClass fs-2x me-4"></i>
+															}
+															else
+															{
+																<i class="fa-solid fa-file text-gray-500 fs-2x me-4"></i> <!-- Default file icon -->
+															}
+
+														</span>
+														<!--end::Image-->
+														<!--begin::Title-->
+														<div class="fs-5 fw-bold mb-2">@item.FileName</div>
+														<!--end::Title-->
+													</a>
+												}
+												<!--end::Name-->
+											</div>
+											<!--end::Card body-->
+										</div>
+										<!--end::Card-->
+									</div>
+									<!--end::Col-->
+								}
+							}
+							else
+							{
+								<div class="col-12 text-center text-muted">No folders found.</div>
+							}
+						</div>
+						<div class="col-12 text-end">
+							<button id="btnBack" type="button" class="btn btn-secondary btn-flat btn-sm">
+								<i class="fas fa-arrow-left"></i> Back
+							</button>
+						</div>
+					</div>
+					<!--end:Row-->
+					
+				</div>
+				<!--end::Card body-->
+				
+			</div>
+			<!--end::Content container-->
+		</div>
+		<!--end::Content-->
+	</div>
+	<!--end::Content wrapper-->
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		KTMenu.init();
+
+		// Event delegation for dynamically generated elements
+		$(document).on('click', '.btnFolderClick', function (e) {
+			e.preventDefault(); // Prevent default behavior of <a> tag
+			debugger;
+			 var pageCode = $("#hidPageCode").val(); // hidden input for pageCode
+			var modID = $(this).attr('keyID'); // Get FolderId
+			var Name=$(this).attr('name');
+			var url = $("#hidManagePageUrl").val() + "?id=" + modID + "&Foldername=" + Name+"&pageCode=" + encodeURIComponent(pageCode); // Get hidden input value
+
+			console.log("Navigating to: " + url); // Debugging output
+
+			window.location.href = url; // Navigate to the URL
+		});
+		$('#txtSearchInputField').on('keydown', function (e) {
+		if (e.key === 'Enter' || e.keyCode === 13) {
+			e.preventDefault(); // Prevent form submission if inside a form
+			$('.btnSearch').click(); // Trigger the search button click
+		}
+		});
+		$(document).on('click', '.btnSearch', function (e) {
+		e.preventDefault(); // Prevent default behavior
+
+		var searchText = $("#txtSearchInputField").val().trim(); // Get SearchText value
+		 var pageCode = $("#hidPageCode").val(); // hidden input for pageCode
+		 var FolderId = $("#Folderid").val(); // Get FolderId from hidden field
+			var FolderName=$("#FolderName").val();
+
+		var url = $("#hidSearch").val() + "?searchText=" + encodeURIComponent(searchText)+ "&pageCode=" + encodeURIComponent(pageCode)+"&id=" + encodeURIComponent(FolderId)+"&Foldername="+encodeURIComponent(FolderName); // Append search text
+
+		console.log("Navigating to: " + url); // Debugging output
+
+		window.location.href = url; // Redirect to search page
+	});
+	$(document).on('click', '.btnReset', function (e) {
+		e.preventDefault();
+		$('#txtSearchInputField').val('');
+		$('.btnSearch').click(); // Trigger the search button click
+	});
+	$(document).on("click", "#btnBack", function (e) {
+			const pageCode = document.getElementById("hidPageCode").value;
+
+			
+				window.location.href = '@Url.Content("~/File_Manager/index")' + '?pageCode=' + pageCode;
+		
+			});
+			$(document).on("click", ".viewAttachment", function (e) {
+				   e.preventDefault();
+				   // Get the image URL from the data-url attribute
+				   let fileUrl = $(this).data("url"); // More reliable way to fetch data attributes
+				   console.log("fileUrl to: "+fileUrl);
+				   if (fileUrl && fileUrl.trim() !== "") {
+						   $("#mainContentWrapper").hide(); // Hide the content
+					$("#pdfViewer").attr("src", fileUrl);
+					$("#pdfViewerWrapper").show();   // Show PDF viewer
+				   } else {
+					   Swal.fire({
+						   icon: "error",
+						   title: "Attachment Not Found",
+						   text: "The file URL is missing or invalid.",
+						   confirmButtonColor: "#d33"
+					   });
+				   }
+		   });
+	});
+</script>

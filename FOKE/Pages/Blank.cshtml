@@ -1,0 +1,46 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.BlankModel
+@inject FOKE.Services.Interface.IUserRepository _userRepository;
+@inject ISharedLocalizer Localize
+<!-- Google Fonts link -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet" />
+<link href="~/css/blankcss.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+<div class="custom-gradient-background">
+    <div class="container glass-container">
+        <div class="d-flex flex-column flex-lg-row-reverse align-items-center justify-content-between px-3 px-md-5 py-4">
+
+            <!-- Image Section: right on desktop, top on mobile -->
+            <div class="text-center mb-4 mb-lg-0 w-100 w-lg-50">
+                <img src="~/media/logos/FOKE_LOGO.png"
+                     alt="FOKE Logo"
+                     class="img-fluid w-50 w-lg-75 logo-image" />
+            </div>
+
+            <!-- Text Section -->
+            <div class="w-100 w-lg-50 pe-lg-5">
+                <h2 class="mb-4">@Localize.Localize("Friends Of Kannur Kuwait Expats Association")</h2>
+
+                <div class="mb-2">
+                    <span class="fs-6 fw-semibold">@Localize.Localize("FOKE is registered with")</span>
+                </div>
+
+                <p class="fs-6">
+                    @Localize.Localize("The Indian Embassy of Kuwait") <br />
+                    <strong>@Localize.Localize("(Registration No.IDEMB / KWT / ASSN / 37)")</strong>
+                </p>
+
+                <p class="fs-6">
+                    <strong>@Localize.Localize("Operations"):</strong>@Localize.Localize("(Registration No.IDEMB / KWT / ASSN / 37)") Functions strictly in accordance with the guidelines<br />
+                    of the Indian Embassy with the objective of opening up the venues<br />
+                    for the Indians in Kuwait to come together.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>

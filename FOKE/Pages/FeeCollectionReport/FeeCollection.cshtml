@@ -1,0 +1,518 @@
+﻿@page
+@using FOKE.Localization
+@inject ISharedLocalizer Localize
+
+@model FOKE.Pages.FeeCollectionReport.FeeCollectionModel
+@{
+  //  ViewData["Title"] = "Fee Collection Report";
+}
+
+<!-- Add ApexCharts CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.35.0/dist/apexcharts.min.css">
+
+<div class="container-fluid mt-5">
+    
+    <div class="card-title m-0">
+        <h3 class="fw-bold m-0">
+              @Localize.Localize("Fee Collection Report")
+        </h3>
+    </div>
+    <br />
+    <!-- dropdown  -->
+    <div class="row mb-5">
+        <div class="col-md-4">
+           @*  <select class="form-select"> *@
+              @*   <option selected>-- Select Campaign --</option> *@
+            <select asp-for="FeeCampaign" name="FeeCampaign"
+                        class="form-select form-select-sm select2"
+                    asp-items='@new SelectList(Model.CampaignList, "keyID", "name")' onchange="onCampaignChange(this.value)">
+                   @*  <option value="">-- Select Campaign --</option> *@
+                </select>
+              @*   <option value="1">Campaign 1</option>
+                <option value="2">Campaign 2</option> *@
+            @* </select> *@
+        </div>
+    </div>
+
+    <!-- Chart Grid -->
+    <div class="row g-5">
+        <!-- Row 1 -->
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"> @Localize.Localize("Pie Chart of Paid and Unpaid Members by Count")</h5>
+                    <div id="chartPaidUnpaidPie" style="min-height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+             <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"> @Localize.Localize("Collected By Report")</h5>
+                    <div id="ChartCollectorsData" style="min-height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@Localize.Localize("Zone-wise Paid and Unpaid Members")</h5>
+                    <div id="chartZoneBar" style="min-height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"> @Localize.Localize("Unit-wise Paid and Unpaid Members")</h5>
+                    <div id="chartUnitBar" style="min-height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"> @Localize.Localize("Payment Type Wise")</h5>
+                    <div id="chartPaymentTypePie" style="min-height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"> @Localize.Localize("Unpaid Members by Area")</h5>
+                    <div id="chartUnpaidByArea" style="min-height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- row 4 -->
+        <div class="col-md-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"> @Localize.Localize("Bar Chart of Paid and Unpaid Members by Area")</h5>
+                    <div id="chartPaidUnpaidArea" style="min-height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Dropdown -->
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <div class="dropdown" style="width: 45%;">
+                <button class="btn btn-primary dropdown-toggle w-45" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Export to Excel
+                </button>
+                <ul class="dropdown-menu w-45" aria-labelledby="exportDropdown">
+                    <li><a class="dropdown-item" href="#">Paid Members</a></li>
+                    <li><a class="dropdown-item" href="#">All Members</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.35.0/dist/apexcharts.min.js"></script>
+
+    <script>
+        let pieChart;
+
+        function initPieChart(paid, unpaid) {
+            var options = {
+                chart: { type: 'pie', height: '100%' },
+                series: [paid, unpaid],
+                labels: ['Paid', 'Unpaid'],
+                colors: ['#4CAF50', '#F44336'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: { width: 200 },
+                        legend: { position: 'bottom' }
+                    }
+                }]
+            };
+            console.log("Pie chart options:", options);
+                 if (typeof paid !== 'number' || typeof unpaid !== 'number') {
+            console.error("Invalid data passed to pie chart:", paid, unpaid);
+            return; // Prevent chart rendering with invalid data
+        }
+               const chartContainer = document.querySelector("#chartPaidUnpaidPie");
+        console.log("Chart container element:", chartContainer);
+        if (!chartContainer) {
+            console.error("Chart container element not found.");
+            return;
+        }
+
+
+            if (pieChart) {
+                pieChart.destroy();
+            }
+            pieChart = new ApexCharts(document.querySelector("#chartPaidUnpaidPie"), options);
+              // pieChart.render();
+                 pieChart.render().catch(e => {
+            console.error("Error rendering chart:", e);
+        });
+         
+        }
+                async function fetchChartData(campaignId) {
+            if (!campaignId) return;
+
+            try {
+                const response = await fetch(`?handler=ChartData&campaignId=${campaignId}`);
+                
+                if (!response.ok) {
+                    console.error('Error fetching chart data:', response.statusText);
+                    return;
+                }
+                const data = await response.json();
+                console.log("Fetched data:", data);
+                
+                initPieChart(data.paidCount, data.unpaidCount);
+            } catch (error) {
+                console.error("Fetch or JSON parsing failed:", error);
+            }
+        }
+                // Declare global chart variables
+        let unitChart, zoneChart, areaChart;
+
+        // Function to initialize and render a bar chart
+        function initBarChart(containerId, options) {
+            const container = document.querySelector(containerId);
+            if (container) {
+                container.innerHTML = ''; // Clear previous chart
+                const chart = new ApexCharts(container, options);
+                chart.render();
+                return chart;
+            }
+            return null;
+        }
+
+        // Fetch and render Unit Payment Data
+        async function fetchUnitPaymentData(campaignId) {
+            try {
+                const response = await fetch(`?handler=UnitPaymentData&campaignId=${campaignId}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error("Server error:", data.error);
+                    return;
+                }
+
+                const units = data.map(x => x.areaName);
+                const paid = data.map(x => x.paidMembers ?? 0);
+                const unpaid = data.map(x => x.unpaidMembers ?? 0);
+
+                const options = {
+                    chart: { type: 'bar', height: '100%', stacked: true },
+                    series: [
+                        { name: 'Paid', data: paid },
+                        { name: 'Unpaid', data: unpaid }
+                    ],
+                    xaxis: { categories: units },
+                    yaxis: { title: { text: 'Number of Members' } },
+                    colors: ['#4CAF50', '#F44336']
+                };
+
+                // Destroy existing chart if it exists
+                if (unitChart) unitChart.destroy();
+
+                // Initialize and render new chart
+                unitChart = initBarChart("#chartUnitBar", options);
+
+            } catch (err) {
+                console.error("Error loading unit payment chart:", err);
+            }
+        }
+
+        // Fetch and render Zone Payment Data
+        async function fetchZonePaymentData(campaignId) {
+            try {
+                const response = await fetch(`?handler=ZonePaymentData&campaignId=${campaignId}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error("Zone chart error:", data.error);
+                    return;
+                }
+
+                const zones = data.map(z => z.areaName);
+                const paid = data.map(z => z.paidMembers ?? 0);
+                const unpaid = data.map(z => z.unpaidMembers ?? 0);
+
+                const zoneBarOptions = {
+                    chart: { type: 'bar', height: '100%', stacked: true },
+                    series: [
+                        { name: 'Paid', data: paid },
+                        { name: 'Unpaid', data: unpaid }
+                    ],
+                    colors: ['#4CAF50', '#F44336'],
+                    xaxis: {
+                        categories: zones,
+                        title: { text: 'Zone', style: { color: '#6B7280', fontWeight: 600, fontSize: '14px' } },
+                        labels: { style: { colors: '#6B7280' } }
+                    },
+                    yaxis: {
+                        title: { text: 'Number of Members', style: { color: '#6B7280', fontWeight: 600, fontSize: '14px' } }
+                    },
+                    plotOptions: { bar: { borderRadius: 4, horizontal: false } },
+                    legend: { position: 'top' }
+                };
+
+                // Destroy existing chart if it exists
+                if (zoneChart) zoneChart.destroy();
+
+                // Initialize and render new chart
+                zoneChart = initBarChart("#chartZoneBar", zoneBarOptions);
+
+            } catch (err) {
+                console.error("Failed to fetch zone data:", err);
+            }
+        }
+
+        // Fetch and render Area Payment Data
+        async function fetchAreaPaymentData(campaignId) {
+            try {
+                const response = await fetch(`?handler=AreaPaymentData&campaignId=${campaignId}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error("Server error:", data.error);
+                    return;
+                }
+
+                const areas = data.map(x => x.areaName);
+                const paid = data.map(x => x.paidMembers ?? 0);
+                const unpaid = data.map(x => x.unpaidMembers ?? 0);
+
+                const options = {
+                    chart: { type: 'bar', height: '100%', stacked: false },
+                    series: [
+                        { name: 'Paid Members', data: paid },
+                        { name: 'Unpaid Members', data: unpaid }
+                    ],
+                    xaxis: {
+                        categories: areas,
+                        title: { text: 'Area', style: { fontSize: '14px', fontWeight: 600, color: '#6B7280' } },
+                        labels: { style: { fontSize: '12px', colors: '#6B7280' } }
+                    },
+                    yaxis: {
+                        title: { text: 'Number of Members', style: { fontSize: '14px', fontWeight: 600, color: '#6B7280' } },
+                        labels: {
+                            formatter: function (val) {
+                                return val.toLocaleString(); // Optional: comma formatting
+                            },
+                            style: { fontSize: '12px', colors: '#6B7280' }
+                        }
+                    },
+                    colors: ['#4CAF50', '#F44336'],
+                    legend: { position: 'top' },
+                    tooltip: {
+                        y: {
+                            formatter: function (val) {
+                                return `${val} members`;
+                            }
+                        }
+                    }
+                };
+
+                // Destroy existing chart if it exists
+                if (areaChart) areaChart.destroy();
+
+                // Initialize and render new chart
+                areaChart = initBarChart("#chartPaidUnpaidArea", options);
+
+            } catch (err) {
+                console.error("Error loading area payment chart:", err);
+            }
+        }
+
+                let paymentTypeChart;
+
+        function initPaymentTypeChart({ series, labels }) {
+          const options = {
+            chart: { type: 'pie', height: '100%' },
+            series,
+            labels,
+            colors: ['#3B82F6', '#6366F1', '#8B5CF6', '#A855F7'],
+            legend: { position: 'bottom' }
+          };
+
+          if (paymentTypeChart) paymentTypeChart.destroy();
+          paymentTypeChart = new ApexCharts(
+            document.querySelector('#chartPaymentTypePie'),
+            options
+          );
+          paymentTypeChart.render().catch(e => console.error('Pie chart error:', e));
+        }
+
+        async function fetchPaymentTypeData(campaignId) {
+          try {
+            const res = await fetch(`?handler=PaymentTypeData&campaignId=${campaignId}`);
+            const data = await res.json();
+
+            const series = data.map(x => x.paidMembers);
+            const labels = data.map(x => x.areaName);
+
+            initPaymentTypeChart({ series, labels });
+          } catch (err) {
+            console.error("Payment type fetch error:", err);
+          }
+        }
+                
+                        let unpaidAreaChart = null;
+
+        function initUnpaidAreaPie(el, series, labels) {
+          const total = series.reduce((sum, val) => sum + val, 0);
+
+          // If total is zero, do NOT destroy the existing chart
+          // if (total === 0) {
+          //   // If chart hasn't been created yet, show "no data" message
+          //   if (!unpaidAreaChart) {
+          //     el.innerHTML = `<p class="text-muted text-center">No unpaid members data available</p>`;
+          //   }
+          //   return;
+          // }
+
+                  if (total === 0) {
+          if (unpaidAreaChart) {
+            unpaidAreaChart.destroy();
+            unpaidAreaChart = null;
+          }
+          el.innerHTML = `<p class="text-muted text-center">No unpaid members data available</p>`;
+          return;
+        }
+
+
+
+
+          // Only destroy and recreate the chart if data is valid (non-zero)
+          if (unpaidAreaChart) unpaidAreaChart.destroy();
+
+          const options = {
+            chart: {
+              type: 'pie',
+              height: '100%'
+            },
+            series,
+            labels,
+            colors: ['#EF4444', '#F97316', '#F59E0B', '#EC4899'],
+            dataLabels: {
+              enabled: true
+            },
+            legend: {
+              position: 'bottom'
+            },
+            plotOptions: {
+              pie: {
+                customScale: 0.9,
+                size: 180
+              }
+            }
+          };
+
+          el.innerHTML = ''; // Clear any fallback message
+
+          unpaidAreaChart = new ApexCharts(el, options);
+          unpaidAreaChart.render();
+        }
+
+
+ 
+
+        async function fetchUnpaidByAreaData(campaignId) {
+          try {
+            const res = await fetch(`?handler=UnpaidByAreaData&campaignId=${campaignId}`);
+            const data = await res.json();
+
+            const series = data.map(x => x.unpaidMembers ?? 0);
+            const labels = data.map(x => x.areaName);
+
+            const el = document.querySelector('#chartUnpaidByArea');
+            initUnpaidAreaPie(el, series, labels);
+          } catch (e) {
+            console.error("Error loading unpaid-by-area pie:", e);
+          }
+        }
+
+        let collectedByChart;
+        async function fetchCollectedByReport(campaignId) {
+          try {
+            const res = await fetch(`?handler=PaymentCollectorsData&campaignId=${campaignId}`);
+            const data = await res.json();
+            console.log('Fetched data:', data);
+
+            const series = data.map(x => x.count ?? 0);
+            const labels = data.map(x => x.name ?? "Unknown");
+
+            console.log('Series:', series);
+            console.log('Labels:', labels);
+
+            if (series.length === 0 || labels.length === 0) {
+              console.warn("No data to show in chart.");
+              return;
+            }
+
+            drawCollectedByChart({ series, labels });
+          } catch (e) {
+            console.error("Error fetching or rendering chart:", e);
+          }
+        }
+
+        function drawCollectedByChart({ series, labels }) {
+          if (collectedByChart) collectedByChart.destroy();
+
+          const options = {
+            chart: {
+              type: 'pie',
+              height: 300
+            },
+            series,
+            labels,
+                  colors: ['#4CAF50', '#F44336' ,'#3B82F6', '#6366F1', '#8B5CF6', '#A855F7'],
+            legend: { position: 'bottom' }
+          };
+
+          collectedByChart = new ApexCharts(document.querySelector('#ChartCollectorsData'), options);
+          collectedByChart.render().catch(err => {
+            console.error("Pie chart render error:", err);
+          });
+        }
+
+        // Function to handle campaign change
+        function onCampaignChange(campaignId) {
+                fetchChartData(campaignId);
+                fetchUnitPaymentData(campaignId);  // Unit bar chart
+                fetchZonePaymentData(campaignId);   // Zone bar chart
+                fetchAreaPaymentData(campaignId);   // Area bar chart
+                fetchPaymentTypeData(campaignId);
+                fetchUnpaidByAreaData(campaignId);
+                fetchCollectedByReport(campaignId);
+        }
+
+     
+        // On page load, load data for default campaign
+        document.addEventListener('DOMContentLoaded', () => {
+            const defaultCampaignId = document.querySelector('[name="FeeCampaign"]').value;
+            if (defaultCampaignId) {
+                fetchChartData(defaultCampaignId);
+                fetchAreaPaymentData(defaultCampaignId);        // Area bar chart
+                fetchZonePaymentData(defaultCampaignId);
+                fetchUnitPaymentData(defaultCampaignId);
+                fetchPaymentTypeData(defaultCampaignId);
+                fetchUnpaidByAreaData(defaultCampaignId);
+                fetchCollectedByReport(defaultCampaignId);
+            }
+        });
+    </script>
+}
+

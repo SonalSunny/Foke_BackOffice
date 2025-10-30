@@ -1,0 +1,130 @@
+﻿@model FOKE.Pages.CoreModule.Configurations.Localization.old.IndexModel
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+<div class="table-responsive">
+    <input type="hidden" asp-for="pageNo" id="hidpageNo" />
+    <input type="hidden" asp-for="pageSize" id="hidpageSize" />
+    <input type="hidden" asp-for="sortColumn" id="hidSortColumn" />
+    <input type="hidden" asp-for="sortOrder" id="hidSortOrder" />
+    <input type="hidden" asp-for="searchField" id="hidSearchField" />
+
+    <table class="table table-hover table-rounded table-striped border gy-4 gs-7 table-sortable">
+        <thead>
+            <tr>
+     
+                <th class="sorting t-plr-sm-5" area-field="Module">
+                    Module
+                    <span>
+                        <i class="fas fa-sort text-white" aria-hidden="true"></i>
+                    </span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Name">
+                    Name
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Description">
+                    Description
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="LocalizationArabic">
+                    Arabic
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="LocalizationEnglish">
+                    English
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.localizationResources != null && Model.localizationResources.Count() > 0)
+            {
+                @for (int i = 0; i < Model.localizationResources.Count(); i++)
+                {
+                    var item = Model.localizationResources[i];
+                    <tr>
+                       
+                        <input type="hidden" asp-for="localizationResources[i].Module" />
+                        <input type="hidden" asp-for="localizationResources[i].Name" />
+                        <input type="hidden" asp-for="localizationResources[i].Description" />
+
+                        <td>@Html.Raw((Model.localizationResources[i].Module))</td>
+                        <td>@Html.Raw((Model.localizationResources[i].Name))</td>
+                        <td>@Html.Raw((Model.localizationResources[i].Description))</td>
+                        <td>
+                            <input type="text" asp-for="@Model.localizationResources[i].LocalizationArabic" class="form-control form-control-sm" />
+                        </td>
+                        <td>
+                            <input type="text" asp-for="@Model.localizationResources[i].LocalizationEnglish" class="form-control form-control-sm" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
+        <div class="dataTables_length" id="kt_datatable_fixed_header_length">
+            <label>
+                <select asp-for="pageSize" id="kt_datatable_page_size" class="form-select form-select-sm form-select-solid">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </label>
+        </div><div class="dataTables_info" id="kt_datatable_fixed_header_info" role="status" aria-live="polite">Showing @(Model?.pagedListData?.FirstItemOnPage ?? 0) to @(Model?.pagedListData?.LastItemOnPage ?? 0) of @(Model?.pagedListData?.TotalItemCount ?? 0) records</div>
+    </div><div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+        <div class="dataTables_paginate paging_simple_numbers" id="kt_datatable_fixed_header_paginate">
+            @if (Model.hasPagination)
+            {
+                <div>
+                    @Html.PagedListPager((IPagedList)Model.pagedListData, page => Url.Page("Index", "PagedList",
+                new
+                {
+                pn = page,
+                ps = Model.pageSize,
+                so = Model.sortOrder,
+                sc = Model.sortColumn,
+                nm = Model.globalSearch,
+                mod = Model.module,
+                cl = Model.culture,
+                }),
+                PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions()
+                {
+                PageClasses = new string[] { "page-link" },
+                LiElementClasses=new string[] { "page-item" },
+                UlElementClasses = new string[] { "pagination pagination-circle pagination-outline" },
+                EllipsesElementClass = "ki-duotone ki-double-left fs-2",
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                LinkToPreviousPageFormat = "<i class='fas fa-angle-left'></i>",
+                LinkToNextPageFormat = "<i class='fas fa-angle-right'></i>",
+                LinkToFirstPageFormat= "<i class='fas fa-step-backward'></i>",
+                LinkToLastPageFormat= "<i class='fas fa-step-forward'></i>",
+                MaximumPageNumbersToDisplay = 10, // Adjust this number as needed
+                }, new AjaxOptions()
+                { HttpMethod = "Get", UpdateTargetId = "_postList", OnBegin = "showInTableLoader()", OnSuccess = "", OnComplete = "hideInTableLoader()" }))
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="loading-ct loader-display">
+    <div id="customerDatatable_processing" class="dataTables_processing loader-display">
+        <img src="~/media/load.png" asp-append-version="true">
+
+    </div>
+</div>
+
+
+<script src="~/js/ktable.js" asp-append-version="true"></script>
+

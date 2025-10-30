@@ -1,0 +1,19 @@
+{
+  "Module": "Welcome",
+  "Translations": [
+    {
+      "Name": "WELCOME",
+      "Description": "Welcome",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "مرحباً "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Welcome"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.PaymentReports.SummaryReport.IndexModel
+@{
+}
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+<input type="hidden" id="hidDetailPageUrl" value="@Url.Content("~/PaymentReports/DetailReport/Index")" />
+<div class="card mb-5 mb-xl-10 pb-5">
+    <div class="card-header cursor-pointer border-bottom" role="button">
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">
+                @Localize.Localize("Payment Summary Report")
+            </h3>
+        </div>
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <div class="m-0">
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="hidAreaid" />
+    <div class="card-body mx-5 px-0" style="padding: 0 10px !important;">
+        <div class="table-header d-flex align-items-center justify-content-between">
+            <div class="card-title gap-md-2 d-md-flex">
+                <div class="d-flex align-items-center position-relative my-1 w-100 w-md-200px">
+
+                    <select asp-for="UserId"
+                            class="form-select form-select-solid form-select-sm" data-control="select2" data-hide-search="true"
+                            asp-items='@new SelectList(Model.UserList, "keyID", "name")'>
+                        <option value="">Select</option>
+                    </select>
+                </div>
+
+                <div class="d-flex align-items-center position-relative my-1 w-100 w-md-200px">
+                    <select asp-for="Year"
+                            class="form-select form-select-solid form-select-sm" data-control="select2" data-hide-search="true"
+                            asp-items='@new SelectList(Model.YearList, "name", "name")'>
+                        <option value="">Select</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        <div class="collapse mb-5" id="kt_advanced_search_form">
+            <div class="separator separator-dashed mt-2 mb-3"></div>
+            <div class="card-rounded bg-light p-5">
+
+                <form method="post" data-ajax="true" asp-page-handler="ApplyFilter" data-ajax-method="post" data-ajax-begin="showPageLoader()"
+                      data-ajax-success='$("#btnRefresh").trigger("click")' id="transalationsForm" novalidate="novalidate" autocomplete="off">
+                    <button type="button" id="btnRefresh" style="display: none;"></button>
+
+                    <input type="hidden" name="UserId" id="HiddenUserId" value="@Model.UserId" />
+                    <input type="hidden" name="Year" id="HiddenYearValue" value="@Model.Year" />
+
+                </form>
+            </div>
+        </div>
+        <div id="_postList" class="grid-position">
+            <partial name="_IndexPartial" model="Model" />
+        </div>
+
+
+    </div>
+</div>
+@section scripts {
+    <script src="~/js/kTable.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#UserId').select2({
+                minimumResultsForSearch: Infinity
+            });
+            $("#_postList").kTable({
+                submitButton: '#btnRefresh',
+                resetButton: '#btnReset',
+                targetContainer: '_postList',
+                searchInputField: '#txtSearchInputField',
+                searchColumnChooser: '#globalSearchColumnChooser',
+                resourceUrl: "@Url.Page("Index", "PagedList")",
+                pageSize: "@Model.pageSize",
+                loadOnPageLoad: true,
+                sOrderField: "#hidSortOrder",
+                sOrderColumnField: "#hidSortColumn",
+                exportUrl: "@Url.Page("Index", "ExportData")",
+                exportButton: '#btnExport'
+            });
+            
+            $('#UserId').change(function () {
+                var selectedUser = $(this).val();
+                 $('#HiddenUserId').val(selectedUser); // keep it in hidden field
+                $.ajax({
+                    url: "/PaymentReports/SummaryReport/Index?handler=PagedList",
+                    method: "GET",
+                    data: {
+                        searchfield: selectedUser
+                    },
+                    beforeSend: function () {
+                        $("#tableLoader").removeClass("hidden");
+                    },
+                    success: function (result) {
+                        $("#_postList").html(result);
+                    },
+                    complete: function () {
+                        $("#tableLoader").addClass("hidden");
+                    }
+                });
+            });
+
+            $('#Year').select2({
+                minimumResultsForSearch: Infinity
+            });
+
+            $('#Year').change(function () {
+                var selectedYear  = $(this).val();
+                 $('#HiddenYearValue').val(selectedYear ); // keep it in hidden field
+                $.ajax({
+                    url: "/PaymentReports/SummaryReport/Index?handler=PagedList",
+                    method: "GET",
+                    data: {
+                        Year: selectedYear
+                    },
+                    beforeSend: function () {
+                        $("#tableLoader").removeClass("hidden");
+                    },
+                    success: function (result) {
+                        $("#_postList").html(result);
+                    },
+                    complete: function () {
+                        $("#tableLoader").addClass("hidden");
+                    }
+                });
+            });
+        });
+
+    </script>
+}

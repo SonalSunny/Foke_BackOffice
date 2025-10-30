@@ -1,0 +1,142 @@
+﻿@model IndexModel
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+@inject ISharedLocalizer Localize
+
+<div class="table-responsive ">
+
+    @*------------------------- grid table ----------------------------------------------------------------------*@
+    <table class="table table-hover table-rounded table-striped border gy-4 gs-7">
+        
+    </table>
+    @*------------------------- grid table ---------------------------------------------------------------------*@
+</div>
+@*----------------------------- pagination ---------------------------------------------------------------------*@
+<div class="row">
+    
+</div>
+@*----------------------------- pagination ---------------------------------------------------------------------*@
+
+<div id="smsNotificationForm" class="p-3 border rounded shadow-sm" style="max-width: 600px; margin: 16px;">
+    <br />
+    <!-- Heading -->
+    <h4 class="mb-4 text-dark fw-bold">📩 SMS Notifications</h4>
+    <br />
+    <div class="form-group row mb-3">
+        <div class="col-sm-3">
+            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                <option value="name" selected>Name</option>
+                <option value="phone">Mobile</option>
+            </select>
+
+        </div>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" value="John" readonly />
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-primary px-4">Search</button>
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label fw-bold">To</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="+965-655-558-5798, +965-955-584-09, +965-655-538-61, ..." />
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label fw-bold">Heading</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="Enter heading" />
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label fw-bold">Message</label>
+        <div class="col-sm-9">
+            <textarea class="form-control" rows="4" placeholder="Enter your message here..."></textarea>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button type="button" class="btn btn-primary px-5">Save</button>
+    </div>
+</div>
+
+<div id="tableLoader" class="loader-container">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<script src="~/js/ktable.js" asp-append-version="true"></script>
+<script type="text/javascript">
+
+    $(function () {
+        KTMenu.init()
+
+        $(document).ready(function ()
+        {
+            $("#tableLoader").removeClass("hidden"); // Show loader on page load
+
+           $(document).ready(function () {
+            $("#tableLoader").addClass("hidden");
+            });
+        });
+
+        $('.btnItemDelete').click(function () {
+            var keyID = $(this).attr('keyID')
+            var ID = $(this).attr('delete')
+            var url = $("#hidDeletePageUrl").val();  // Get the URL value
+
+            console.log('Generated URL:', url);  // Log the generated URL
+            if (ID == 1) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Deactivate it!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var data = { keyid: keyID, Id: ID }
+                        postAjaxDeleteMasterData($("#hidDeletePageUrl").val(), data, function (e) {
+                            $("#btnRefresh").trigger("click")
+                        });
+                    }
+                })
+            }
+            else {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Activate it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var data = { keyid: keyID, Id: ID }
+                        console.log('Generated URL:', url);  // Log the generated URL
+                        postAjaxDeleteMasterData($("#hidDeletePageUrl").val(), data, function (e) {
+                            $("#btnRefresh").trigger("click")
+                        });
+                    }
+                })
+            }
+            return false;
+        });
+        $('.btnItemEdit').click(function () {
+            debugger
+            var modID = $(this).attr('keyID')
+            var url = $("#hidManagePageUrl").val() + "?id=" + modID + "&mode=edit"
+            top.showPopup("Update Holiday", url, 600, 450, window.frameElement.id);
+            return false;
+        });
+    });
+
+</script>

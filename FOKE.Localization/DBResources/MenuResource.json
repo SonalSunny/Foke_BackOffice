@@ -1,0 +1,865 @@
+{
+    "Module": "Menu",
+  "Translations": [
+    {
+      "Name": "MENU_HOME",
+      "Description": "Home",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "بيت"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Home"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_DASHBOARD",
+      "Description": "Dashboard",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "لوحة التحكم"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Dashboard"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MEMBERS",
+      "Description": "Members",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أعضاء"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Members"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MEMBERSHIP_FEE",
+      "Description": "Membership Fee",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "رسوم العضوية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Membership Fee"
+        }
+      ]
+    },
+
+
+    {
+      "Name": "MENU_NOTIFICATION",
+      "Description": "MENU_NOTIFICATION",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إشعار"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Notification"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_COMPOSE",
+      "Description": "Compose",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تأليف"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Compose"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_SENT_ITEMS",
+      "Description": "Sent Items",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "المحتويات المرسلة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Sent Items"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MESSAGES_FROM_DIGITALID",
+      "Description": "Messages From DigitalID",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "رسائل من الهوية الرقمية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Messages From DigitalID"
+        }
+      ]
+    },
+
+
+    {
+      "Name": "MENU_ISSUE_MEMBERSHIP",
+      "Description": "Issue Membership",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إصدار العضوية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Issue Membership"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MEMBERS_LIST",
+      "Description": "Members List",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "قائمة الأعضاء"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Members List"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_SEARCH_MEMBER",
+      "Description": "Search Member",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "بحث عن عضو"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Search Member"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_ALL_MEMBERS_LIST",
+      "Description": "All Members List",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "قائمة جميع الأعضاء"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "All Members List"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MEMBERS_BY_AREA",
+      "Description": "Members By Area",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الأعضاء حسب المنطقة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Members By Area"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MEMBERS_BY_ZONE",
+      "Description": "Members By Zone",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الأعضاء حسب المنطقة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Members By Zone"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MEMBERS_BY_UNIT",
+      "Description": "Members By Unit",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الأعضاء حسب الوحدة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Members By Unit"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MEMBERSHIP_ACTIONS",
+      "Description": "Membership Actions",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إجراءات العضوية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Membership Actions"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_PAY_MEMBERSHIP_FEE",
+      "Description": "Pay Membership Fee",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ادفع رسوم العضوية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Pay Membership Fee"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_EDIT_MEMBERSHIP",
+      "Description": "Edit Membership",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تعديل العضوية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Edit Membership"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_CANCEL_MEMBERSHIP",
+      "Description": "Cancel Membership",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إلغاء العضوية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Cancel Membership"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_DIGITALID_MANAGEMENT",
+      "Description": "DigitalID Management",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إدارة الهوية الرقمية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "DigitalID Management"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_CAMPAIGNS",
+      "Description": "Campaigns",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حملات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Campaigns"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_ASSOCIATION",
+      "Description": "Association",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "منظمة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Association"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_COMMITTEE_MANAGEMENT",
+      "Description": "Committee Management",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إدارة اللجان"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Committee Management"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_NEWS_AND_EVENTS",
+      "Description": "News and Events",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الأخبار والفعاليات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "News and Events"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_OFFERS",
+      "Description": "Offers To Active Members",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "عروض للأعضاء النشطين"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Offers To Active Members"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_SPONSORSHIP",
+      "Description": "Sponsorship",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "رعاية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Sponsorship"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_ACCOUNTS",
+      "Description": "Accounts",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "حسابات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Accounts"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_FILE_MANAGER",
+      "Description": "File Manager",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "مدير الملفات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "File Manager"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_MASTER",
+      "Description": "Master Data Entry",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "إتقان إدخال البيانات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Master Data Entry"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_USER_MASTER",
+      "Description": "User Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "سيد المستخدم"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "User Master"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_ROLES",
+      "Description": "Roles",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الأدوار"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Roles"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_LOOKUPMASTER",
+      "Description": "Lookup Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "سيد البحث"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Lookup Master"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_AREA_MASTER",
+      "Description": "Area Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "سيد المنطقة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Area Master"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_ZONE_MASTER",
+      "Description": "Zone Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "منطقة ماستر"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Zone Master"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_UNIT_MASTER",
+      "Description": "Unit Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "وحدة ماستر"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Unit Master"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_PROFESSION_MASTER",
+      "Description": "Profession Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ماجستير المهنة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Profession Master"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_WORKPLACE",
+      "Description": "Workplace",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "مكان العمل"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Workplace"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_FOLDER_MASTER",
+      "Description": "Folder Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "المجلد الرئيسي"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Folder Master"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_FILE_MASTER",
+      "Description": "File Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الملف الرئيسي"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "File Master"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_DEPARTMENT_MASTER",
+      "Description": "Department Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ماجستير القسم"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Department Master"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_APP_INFO_MASTER",
+      "Description": "App-Info Master",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ماستر معلومات التطبيق"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "App-Info Master"
+        }
+      ]
+    },
+
+
+
+
+
+
+
+    {
+      "Name": "MENU_REPORT_AND_ANALYSIS",
+      "Description": "Report And Analysis",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "التقرير والتحليل"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Report And Analysis"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_USER_LOGIN_LOG",
+      "Description": "User Login Log",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "سجل دخول المستخدم"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "User Login Log"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_ALL_MEMBERS_REPORT",
+      "Description": "All Members Report",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تقرير جميع الأعضاء"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "All Members Report"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_ACTIVE_MEMBERS_REPORT",
+      "Description": "Active Members Report",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تقرير الأعضاء النشطين"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Active Members Report"
+        }
+      ]
+    },
+
+    {
+      "Name": "MENU_UNPAID_MEMBERS_REPORT",
+      "Description": "Unpaid Members Report",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تقرير الأعضاء غير المدفوعين"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Unpaid Members Report"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_REJECTED_APPLICANTS_REPORT",
+      "Description": "Rejected Applicants Report",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تقرير المتقدمين الذين تم رفضهم"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Rejected Applicants Report"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_CANCELLED_MEMBERS_REPORT",
+      "Description": "Cancelled Members Report",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تقرير الأعضاء الملغيين"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Cancelled Members Report"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_FEE_COLLECTION_SUMMARY_REPORT",
+      "Description": "Fee Collection Summary Report",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تقرير ملخص تحصيل الرسوم"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Fee Collection Summary Report"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_FEE_COLLECTION_DETAIL_REPORT",
+      "Description": "Fee Collection Detail Report",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تقرير تفاصيل جمع الرسوم"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Fee Collection Detail Report"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MEMBERS_BY_REAL_EXPIRY",
+      "Description": "Members By Real Expiry",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الأعضاء حسب تقرير انتهاء الصلاحية الحقيقي"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Members By Real Expiry Report"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_MEMBERSHIP_REPORT",
+      "Description": "Membership Report",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تقرير العضوية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Membership Report"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_SETUP_AND_CONFIQ",
+      "Description": "Setup & Configuration",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الإعداد والتكوين"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Setup & Configuration"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_TRANSLATION",
+      "Description": "Translation",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ترجمة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Translation"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_PROJECT_CONFIQ",
+      "Description": "Project Configuration ",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تكوين المشروع"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Project Configuration"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_USER_ROLES",
+      "Description": "User Roles - Modules Access",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "أدوار المستخدم - الوصول إلى الوحدة النمطية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "User Roles-Module Access"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_IMPORT_DATA",
+      "Description": "Import Data",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "استيراد البيانات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Import Data"
+        }
+      ]
+    },
+    {
+      "Name": "MENU_EXPORT_DATA",
+      "Description": "Export Data",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تصدير البيانات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Export Data"
+        }
+      ]
+    },
+
+
+
+
+
+
+    {
+      "Name": "MENU_LICENCE_CONFIGURATION",
+      "Description": "MENU_LICENCE_CONFIGURATION",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تكوين الترخيص"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Licence Configuration"
+        }
+      ]
+    }
+
+
+  ]
+}

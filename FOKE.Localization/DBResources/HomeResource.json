@@ -1,0 +1,145 @@
+{
+    "Module": "Home",
+    "Translations": [
+        {
+            "Name": "Welcome Back! Admin",
+            "Description": "Welcome Back! Admin",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مرحبًا بك مجددًا! إدارة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Welcome Back! Admin"
+                }
+            ]
+        },
+        {
+            "Name": "You Logged In at:",
+            "Description": "You Logged In at:",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "لقد قمت بتسجيل الدخول في:"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "You Logged In at:"
+                }
+            ]
+        },
+        {
+            "Name": "Your Previous Login:",
+            "Description": "Your Previous Login:",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تسجيل الدخول السابق الخاص بك:"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Your Previous Login:"
+                }
+            ]
+        },
+      {
+        "Name": "Your Password will expire on:",
+        "Description": "Your Password will expire on:",
+        "Localizations": [
+          {
+            "Culture": "ar-AE",
+            "Value": "ستنتهي صلاحية كلمة المرور الخاصة بك في:"
+          },
+          {
+            "Culture": "en-US",
+            "Value": "Your Password will expire on:"
+          }
+        ]
+      },
+      {
+        "Name": "Keralites Medical Forum, Kuwait",
+        "Description": "Keralites Medical Forum, Kuwait",
+        "Localizations": [
+          {
+            "Culture": "ar-AE",
+            "Value": "منتدى كيرلا الطبي، الكويت"
+          },
+          {
+            "Culture": "en-US",
+            "Value": "Keralites Medical Forum, Kuwait"
+          }
+        ]
+      },
+      {
+        "Name": "FOKE is registered with",
+        "Description": "FOKE is registered with:",
+        "Localizations": [
+          {
+            "Culture": "ar-AE",
+            "Value": "تم تسجيل FOKE لدى"
+          },
+          {
+            "Culture": "en-US",
+            "Value": "FOKE is registered with:"
+          }
+        ]
+      },
+      {
+        "Name": "Registration No",
+        "Description": "Registration No",
+        "Localizations": [
+          {
+            "Culture": "ar-AE",
+            "Value": "رقم التسجيل"
+          },
+          {
+            "Culture": "en-US",
+            "Value": "Registration No"
+          }
+        ]
+      },
+      {
+        "Name": "Operations",
+        "Description": "Operations",
+        "Localizations": [
+          {
+            "Culture": "ar-AE",
+            "Value": "العمليات"
+          },
+          {
+            "Culture": "en-US",
+            "Value": "Operations"
+          }
+        ]
+      },
+      {
+        "Name": " Functions strictly in accordance with the guidelines",
+        "Description": " Functions strictly in accordance with the guidelines",
+        "Localizations": [
+          {
+            "Culture": "ar-AE",
+            "Value": "يعمل وفقًا تمامًا لإرشادات السفارة الهندية بهدف فتح الأماكن للهنود في الكويت للالتقاء."
+          },
+          {
+            "Culture": "en-US",
+            "Value": " Functions strictly in accordance with the guidelines"
+          }
+        ]
+      },
+      {
+        "Name": "The Indian Embassy of Kuwait",
+        "Description": " The Indian Embassy of Kuwait",
+        "Localizations": [
+          {
+            "Culture": "ar-AE",
+            "Value": "السفارة الهندية في الكويت."
+          },
+          {
+            "Culture": "en-US",
+            "Value": "The Indian Embassy of Kuwait"
+          }
+        ]
+      }
+    ]
+}

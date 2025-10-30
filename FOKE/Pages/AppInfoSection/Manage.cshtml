@@ -1,0 +1,177 @@
+﻿@page
+@model ManageModel
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+@{
+    Layout = "_LayoutStandaloneContent";
+}
+@inject ISharedLocalizer Localize
+<form method="post" id="crudForm" novalidate="novalidate" autocomplete="off" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-body">
+            <div class="col-12" id="response">
+                @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                {
+                    <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                        <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                        <div class="flex-grow-1 fw-bold text-dark">
+                            <strong></strong> @Model.pageErrorMessage
+                        </div>
+                        <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+            </div>
+            <input type="hidden" asp-for="_formMode" />
+            <input type="hidden" asp-for="inputModel.Id" />
+            <input type="hidden" asp-for="inputModel.loggedinUserId" value="@User?.FindFirst("Userid")?.Value" />
+            <div class="row">
+                
+                <div class="col-md-12  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Section Type")</label>
+                        <select asp-for="inputModel.SectionType"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.SectionTypeList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.SectionType" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("SHOW_IN_WEBSITE")</label>
+                        <div class="form-check form-switch">
+                            <input asp-for="inputModel.ShowInWebsite" class="form-check-input" type="checkbox">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("SHOW_IN_MOBILE")</label>
+                        <div class="form-check form-switch">
+                            <input asp-for="inputModel.ShowInMobile" class="form-check-input" type="checkbox">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 p-3">
+                    <!-- Quill Editor -->
+                    <div id="editor-container" style="height: 290px;"></div>
+                    <input type="hidden" asp-for="inputModel.HTMLContent" id="commentHtml">
+                </div>
+
+                <div class="card-footer fixed-bottom bg-light">
+                    <div class="row">
+                       <div class="col-6 text-start">
+                            <button type="button" class="btn btn-secondary btn-flat btn-sm" id="btnClear"><i class="fas fa-times"></i> @Localize.Localize("Clear") </button>
+
+                       </div>
+                       <div class="col-6 text-end">
+                            <button type="submit" name="btnSubmit" value="btnSave" class="btn btn-primary btn-flat btn-sm btn-req-loader"><i class="far fa-save"></i> @Localize.Localize("BTN_SAVE")</button>
+                            <button type="submit" name="btnSubmit" id="btnRefresh" value="btnRefresh" class="btn btn-outline-primary btn-sm d-none btn-req-loader" formnovalidate="formnovalidate">@Localize.Localize("BTN_REFRESH")</button>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+
+            quill = new Quill('#editor-container', {
+                theme: 'snow',
+                  modules: {
+                    toolbar: [
+                    [{ 'font': [] }],
+                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                    ['bold', 'italic', 'underline'],        // toggled buttons
+                    ['blockquote', 'code-block'],
+
+                    [{ 'color': [] }, { 'background': [] }],          // dropdowns for color
+                      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+
+                      [{ 'align': [] }],                                // text align
+                      ['link', 'image', 'video'],                       // media
+                      ['clean']                                         // remove formatting
+                   ],
+                }
+            });
+
+
+            var existingHtml = $('#commentHtml').val();
+            if (existingHtml && existingHtml.trim() !== "") {
+                quill.clipboard.dangerouslyPasteHTML(existingHtml);
+            }
+
+
+            // When form is submitted
+            $('#crudForm').on('submit', function () {
+                var htmlContent = quill.root.innerHTML;
+                if (htmlContent.trim() === "<p><br></p>") {
+                        alert("Please enter some content before submitting.");
+                        e.preventDefault();
+                        return;
+                }       
+                $('#commentHtml').val(htmlContent);
+            });
+
+            $("#btnClear").click(function () {
+                    $("#crudForm")[0].reset(); // Reset the form fields
+
+                     $(".select2").val(null).trigger("change");
+                     $("#inputModel_Username").val("");
+                     $(".expiry").val("");
+            });
+
+            top.hidePageLoader();
+            $('#dt_datepicker .input-group.date').datepicker({
+                    format: "dd-M-yyyy",
+                    autoclose: true,
+                    todayHighlight: true,
+                    daysOfWeekDisabled: [],  // Ensure no days are disabled
+                    keepEmptyValues: false,
+                    templates: {
+                        leftArrow: '«',
+                        rightArrow: '»'
+                    }
+            });
+        });
+        // Trigger refresh on role change
+        $('.role-code').change(function () {
+            var selectedValue = $(this).val();
+            $("#btnRefresh").click();
+        });
+        if ("@Model.IsSuccessReturn" == "True") {
+            top.Swal.fire({
+                icon: 'success',
+                buttonsStyling: false,
+                title: "@Html.Raw(@Model.sucessMessage)",
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+            setTimeout(function () {
+                      window.location.href = '/AppInfoSection/Index';  // Redirect to Index page after 1.5 seconds
+            }, 1500);
+        }
+
+        let pdfUploadDiv = document.getElementById("pdfUploadDiv");
+
+    </script>
+
+}
+
+

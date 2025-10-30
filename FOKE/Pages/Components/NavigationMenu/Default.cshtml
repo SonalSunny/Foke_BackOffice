@@ -1,0 +1,129 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using FOKE.Entity.MenuManagement.DTO
+@using FOKE.Localization
+@using FOKE.Localization
+@using FOKE.Services.Interface;
+@inject ISharedLocalizer Localize
+
+@model List<MenuRole>
+
+@foreach (var itemRole in Model)
+{
+    string htmlIcn = "";
+    if (Model.Count > 1)
+    {
+        htmlIcn = $"<div data-kt-menu-trigger='click' class='menu-item menu-accordion hover'>";
+        htmlIcn = $"{htmlIcn} <span class='menu-link' style='padding-left: 0;'> <span class='menu-icon'>{itemRole.MenuIcon}</span>";
+        htmlIcn = $"{htmlIcn} <span class='menu-title'>{@Localize.LocalizeMenu(itemRole.MenuTitle)}</span>";
+        htmlIcn = $"{htmlIcn} <span class='menu-arrow'></span> </span>";
+        htmlIcn = $"{htmlIcn} <div class='menu-sub menu-sub-accordion' kt-hidden-height='81' style=''>";
+    }
+
+    @Html.Raw(htmlIcn)
+
+    @foreach (var item in itemRole.MenuGroups)
+    {
+        @if (!string.IsNullOrEmpty(item.GroupTitle) && item.Menus?.Count() > 0)
+        {
+            <div class='menu-item'>
+                <div class='menu-content'>
+                    <span class='menu-heading fw-bold text-uppercase fs-7'>@Localize.LocalizeMenu(item.GroupTitle)</span>
+                </div>
+            </div>
+        }
+        var Data = item.Menus.Where(i => i.ParentMenuId == null).ToList();
+        @foreach (var menu in item.Menus)
+        {
+            if (menu.ParentMenuId == null) //Level one items will have null parent id
+            {
+                var children = item.Menus.Where(x => x.ParentMenuId == menu.MenuId).OrderBy(x => x.DisplayOrder).ToList();
+                if (children.Count() > 0)
+                {
+                    <div data-kt-menu-trigger='click' class='menu-item menu-accordion hover'>
+                        <span class='menu-link'>
+                            <span class='menu-icon'>
+                                @* <i class='ki-duotone ki-chart-pie-3 fs-2'>
+            <span class='path1'></span>
+            <span class='path2'></span>
+            <span class='path3'></span>
+            </i>*@
+                                <i class="@menu.MenuIcon"></i>
+                                @*   @Html.Raw(menu.MenuIcon)*@
+                            </span>
+                            <span class='menu-title'>
+                                @Localize.LocalizeMenu(menu.MenuTitle)
+
+                            </span>
+                            <span class='menu-arrow'></span>
+                        </span>
+                        <div class='menu-sub menu-sub-accordion' kt-hidden-height='81' style=''>
+                            @*  @{
+                                string countHtml = "";
+                            } *@
+                            @foreach (var cMenu in children)
+                            {
+
+                                <div class='menu-item'>
+                                    <a href='javascript:;' class='menu-link ChangePage' src='@cMenu.Path'>
+                                        <span class='menu-bullet'>
+                                            <span class='bullet bullet-dot'></span>
+                                        </span>
+                                        <span class='menu-title'>@Localize.LocalizeMenu(cMenu.MenuTitle)</span>
+                                    </a>
+                                    @*   @{
+                                    if (cMenu.MenuId == MenuMasterStructs.CustomerNotification)
+                                    {
+
+                                    int c = approval.GetAllQuotationClientStatus().returnData?.Count() ?? 0;
+
+                                     countHtml="(" + c + ")";
+
+
+
+                                    }
+                                  } *@
+                                </div>
+
+                            }
+
+                            @* @Html.Raw(countHtml) *@
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class='menu-item'>
+                        <!--begin:Menu link-->
+                        <a href='javascript:;' class='menu-link ChangePage' src='@(menu.Path != "#"  ? menu.Path: "")'>
+                            <span class='menu-icon'>
+                                <i class="@menu.MenuIcon"></i>
+                            </span>
+                            <span class='menu-title'>
+                                @(
+                                    Localize.LocalizeMenu(menu.MenuTitle)
+                                    )
+
+                           
+                            </span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                }
+            }
+        }
+
+    }
+
+    if (Model.Count > 1)
+    {
+        htmlIcn = "</div></div>";
+    }
+    @Html.Raw(htmlIcn)
+
+    @*  </div>
+                        </div>*@
+}

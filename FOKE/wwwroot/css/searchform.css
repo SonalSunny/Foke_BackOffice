@@ -1,0 +1,42 @@
+﻿.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* align towards top */
+    padding-top: 80px; /* push it down slightly */
+    height: calc(100vh - 80px); /* keeps original height logic */
+    background-color: #f9fbfd;
+}
+
+.search-card {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+}
+
+.search-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+.form-inline {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+    .form-inline select,
+    .form-inline input {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .form-inline button {
+        white-space: nowrap;
+    }

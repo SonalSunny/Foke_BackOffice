@@ -1,0 +1,164 @@
+﻿@page
+@model FOKE.Pages.Notifications.SentItems.ManageModel
+@using FOKE.Localization
+@inject ISharedLocalizer Localize
+@{
+    ViewData["Title"] = "Manage SMS Notification";
+    var isAjax = HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+}
+
+<!-- Card: Header -->
+<div class="card mb-5 mb-xl-10">
+    <!-- Card: Body -->
+    <div class="card-body py-5 px-10">
+        <form id="recipientSearchForm" class="mb-4">
+            <input type="hidden" asp-for="_notificationid" />
+            <div class="d-flex justify-content-end gap-2">
+                <div class="input-group input-group-sm w-auto">
+                    <input type="text" name="searchTerm" class="form-control"
+                           placeholder="Search by Name or Mobile"
+                           value="@Request.Query["searchTerm"]" />
+                </div>
+                    <button type="submit" class="btn btn-sm btn-light-primary me-3">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                
+                <button type="button" id="resetSearch" class="btn btn-sm btn-light-primary me-3">
+                    <i class="fa fa-rotate-left"></i> Reset
+                </button>
+            </div>
+        </form>
+       
+        <!-- Table Container -->
+        <div class="table-responsive">
+            <table class="table table-hover table-rounded table-striped border gy-4 gs-7 table-row-bordered align-middle">
+                <thead class="fs-7 text-gray-700 text-uppercase fw-bold">
+                    <tr>
+                        <th class="min-w-150px fw-bold">
+                            <strong>
+                                @Localize.Localize("NAME")
+                            </strong>
+                        </th>
+                        <th class="min-w-150px fw-bold">
+                            <strong>
+                                @Localize.Localize("MODEL")
+                            </strong>
+                        </th>
+                        <th class="min-w-200px fw-bold">
+                            <strong>
+                                @Localize.Localize("MOBILE NUMBER")
+                            </strong>
+                        </th>
+                        <th class="min-w-150px fw-bold">
+                            <strong> 
+                                @Localize.Localize("MESSAGE STATUS")
+                            </strong>
+                        </th>
+                        <th class="min-w-150px fw-bold">
+                            <strong> 
+                                @Localize.Localize("SENT TIME")
+                            </strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="fw-semibold text-gray-800">
+                    @if (Model.pagedListData != null && Model.pagedListData.Count() > 0)
+                    {
+                        @for (int i = 0; i < Model.pagedListData.Count(); i++)
+                        {
+                            var item = Model.pagedListData[i];
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.DeviceModel</td>
+                                <td>@item.ContactNo</td>
+                                <td>
+                                    @if (item.FirebaseSuccess == true)
+                                    {
+                                        <span class="badge badge-light-success">@Localize.Localize("Sent")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-light-danger">@Localize.Localize("Not Sent")</span>
+                                    }
+                                </td>
+                                <td>@item.SendToTime</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (!isAjax)
+        {
+            <div class="row">
+                <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start pt-3">
+                    <div class="dataTables_info" role="status" aria-live="polite">
+                        Showing 1 to 2 of 2 records
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Loader -->
+<div id="tableLoader" class="d-flex justify-content-center align-items-center mt-10" style="min-height: 80px;">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#tableLoader").removeClass("hidden");
+            $(document).ready(function () {
+                $("#tableLoader").addClass("hidden");
+            });
+        });
+            // Submit Search Form (inside modal)
+        $(document).on('submit', '#recipientSearchForm', function (e) {
+            e.preventDefault();
+            const searchTerm = $(this).find('input[name="searchTerm"]').val();
+            const Notificationid = $('input[name="_notificationid"]').val();
+            $('#kt_modal_view_recipients_body').html(`
+                <div class="d-flex justify-content-center py-10">
+                    <div class="spinner-border text-primary" role="status"></div>
+                </div>
+            `);
+
+            $.get(`/Notifications/SentItems/Manage`, {
+                id: Notificationid,
+                mode: 'view',
+                searchTerm: searchTerm
+            }, function (html) {
+                $('#kt_modal_view_recipients_body').html(html);
+            });
+        });
+
+        // Reset Button Click
+        $(document).on('click', '#resetSearch', function () {
+           const Notificationid = $('input[name="_notificationid"]').val();
+
+            $('#kt_modal_view_recipients_body').html(`
+                <div class="d-flex justify-content-center py-10">
+                    <div class="spinner-border text-primary" role="status"></div>
+                </div>
+            `);
+
+            $.get(`/Notifications/SentItems/Manage`, {
+                id: Notificationid,
+                mode: 'view'
+            }, function (html) {
+                $('#kt_modal_view_recipients_body').html(html);
+            });
+        });
+
+        // Track last clicked NotificationID
+        $(document).on('click', '.btnViewRecipients', function () {
+            $('.btnViewRecipients').removeClass('active');
+            $(this).addClass('active');
+        });
+    </script>
+}

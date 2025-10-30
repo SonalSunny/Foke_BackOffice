@@ -1,0 +1,618 @@
+.dataTables_processing {
+    border-radius: 0.475rem;
+    box-shadow: var(--bs-dropdown-box-shadow);
+    background-color: var(--bs-tooltip-bg);
+    color: var(--bs-gray-700);
+    font-weight: 500;
+    margin: 0 !important;
+    width: auto;
+    padding: 1rem 2rem !important;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+@media (min-width: 992px) {
+    .app-container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
+
+.grid-position{
+    position:relative;
+}
+
+.search-width{
+    width:100%;
+}
+
+.login-input {
+    top: 100%;
+    left: 0;
+    transform: translateY(0.2rem);
+}
+
+.login-height {
+    height: 3.5rem;
+}
+
+.loader-display {
+    display: block;
+}
+
+.iframe-size {
+    height: 500px;
+    width: 100%;
+}
+
+.login-margin {
+    margin-top: 10px;
+}
+.filter-margin {
+    margin-top: 5px;
+}
+
+.b-border {
+    border-color: #009ef7;
+}
+
+.plusBG {
+    font-size: 16px;
+    width: 10px !important;
+    height: 30px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #323248 !important;
+    color: white !important;
+    z-index: 1;
+    position: relative;
+    border-radius: 5px !important;
+}
+
+@media (min-width: 768px) {
+    .plusBG {
+        font-size: 18px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .plusBG {
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+}
+
+.status-select {
+    width: 150px; /* Adjust as needed */
+    min-width: 120px;
+}
+
+@media (min-width: 768px) {
+    .status-select {
+        width: 110px;
+        min-width: 90px;
+    }
+}
+
+/* Smaller size for smaller screens */
+@media (max-width: 767.98px) {
+    .status-select {
+       width: 100%;
+        min-width: 90px;
+    }
+}
+
+@media (max-width: 576px) { /* For small screens */
+    .checkBox {
+        flex-direction: column; /* Stack checkboxes vertically */
+    }
+}
+
+.form-select {
+    z-index: 2; /* Ensure dropdown is on top */
+    position: relative;
+}
+
+.card .card-footer {
+    padding: 1rem 1.25rem;
+    color: var(--bs-card-cap-color);
+    background-color: var(--bs-card-cap-bg);
+    border-top: 1px solid var(--bs-card-border-color);
+}
+
+.table-sortable thead th {
+    background-color: #0095e8 !important;
+    color: white !important;
+    table-layout: auto; /* Or 'fixed' if you want consistent column widths */
+}
+
+
+.card .card-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    min-height: 50px;
+    color: var(--bs-card-cap-color);
+    padding: 0px 2.25rem;
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+}
+
+    .card .card-page-header .card-title, .card .card-page-header .card-title .card-label {
+        font-weight: 500;
+        font-size: 1.275rem;
+        color: var(--bs-text-dark);
+        display: flex;
+        align-items: center;
+    }
+
+
+.loading-spiner-holder {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    /*background-color: rgb(0,0,0);*/
+    z-index: 50000;
+    background-color: rgba(189, 187, 187, 0.4); /* Black w/ opacity */
+}
+
+.loading-spiner-img {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.full_screen {
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.card .card-header {
+
+    min-height: 60px !important;
+    
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+    min-height: 30px;
+  
+    color: var(--bs-card-cap-color);
+    background-color: var(--bs-card-cap-bg);
+}
+
+.input-group-text-sm {
+    padding: 0rem 0.5rem !important;
+}
+.color-circle {
+    text-align: center;
+}
+
+.color-circle div {
+    width: 20px; 
+    height: 20px; 
+    border-radius: 50%; 
+    display: inline-block;
+}
+.test:after {
+    content: '\2807'; /* Unicode for the 3-dot icon */
+    font-size: 20px;
+    cursor: pointer; /* Indicates that it’s clickable */
+    display: block;
+    text-align: center; /* Center the dots within the div */
+}
+.table-scroll {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Hide vertical scrolling */
+    white-space: nowrap; /* Prevent table content from wrapping */
+    width: 107%; /* Optional: Adjust width as needed */
+}
+
+    .table-scroll table {
+        width: 100%; /* Ensure the table can scale properly */
+        min-width: 800px; /* Optional: Set a minimum width for better usability */
+    }
+
+.loader-container {
+    position: fixed; /* Ensures it stays in place */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers the loader */
+    z-index: 1050; /* High z-index to appear above everything */
+    background: rgba(255, 255, 255, 0.7); /* Light overlay effect */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+td.question-wrap {
+    max-width: 250px; /* Limit the width of the cell */
+    word-wrap: break-word; /* Allow long words to break */
+    white-space: normal; /* Allow text to wrap normally */
+    overflow: hidden; /* Hide overflow if necessary */
+}
+
+td.options-wrap {
+    max-width: 250px; /* Limit the width of the cell */
+    word-wrap: break-word; /* Allow long words to break */
+    white-space: normal; /* Allow text to wrap normally */
+    overflow: hidden; /* Hide overflow if necessary */
+}
+
+td.answer-wrap {
+    max-width: 250px; /* Limit the width of the cell */
+    word-wrap: break-word; /* Allow long words to break */
+    white-space: normal; /* Allow text to wrap normally */
+    overflow: hidden; /* Hide overflow if necessary */
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px; /* Controls spacing between icons */
+    transition: transform 0.2s ease-in-out;
+}
+
+.social-icons a:hover {
+   transform: scale(1.1); /* Small zoom effect on hover */
+}
+
+.social-icons img {
+    height: 20px; /* Standardized icon height */
+    margin: 8px 0; /* Keeps spacing consistent */
+}
+
+.footer-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6c757d; /* Bootstrap 'text-muted' color */
+}
+
+.swal-close-button {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    font-size: 24px !important;
+    z-index: 10 !important;
+}
+
+.large-swal-popup {
+    position: relative !important;
+    height: 90vh !important;
+    max-height: 90vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding-top: 20px !important; /* Add padding at the top to ensure image doesn't overlap close button */
+}
+
+.swal-image-fullsize {
+    max-width: 100% !important;
+    max-height: 85vh !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+}
+.datepicker.dropdown-menu {
+    min-height: 300px; /* Adjust if needed */
+}
+
+/* Task Header and Description Section */
+.task-header-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+    .task-header-section .form-label {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .task-header-section .form-control {
+        height: 38px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+/* Table Styling */
+.table {
+    border-radius: 8px;
+}
+
+    .table th, .table td {
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Pagination Styling */
+.pagination {
+    margin: 0;
+    padding: 0;
+}
+
+    .pagination .page-link {
+        border-radius: 50%;
+        padding: 5px 10px;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+
+.offday-note {
+    width: 120px;
+    height: 25px;
+    font-size: 0.9rem;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Custom Label Style */
+. /* Custom Label Style */
+.custom-label1 {
+    font-size: 0.875rem; /* equivalent to fs-6 */
+    font-weight: 600; /* equivalent to fw-semibold */
+    margin-bottom: 0.5rem; /* equivalent to mb-2 */
+    width: 90px;
+    display: inline-block; /* ensures label aligns properly */
+}
+/* Custom Label Style for Off Days */
+.custom-label {
+ 
+   
+    min-width: 90px;
+    display: inline-block;
+    white-space: nowrap;
+    margin-bottom: 0.5rem;
+}
+.logosize {
+    max-height: 50px;
+}
+.letterstyle {
+    letter-spacing: 1px;
+    color:black;
+}
+.leftnavstyle{
+    background-color:gray;
+}
+.body {
+    background-color: #ffffff !important;
+    font-family: 'Segoe UI', sans-serif;
+}
+.membership-container {
+    max-width: 700px;
+    margin: 50px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    padding: 30px;
+    padding-bottom: 50px; /* Extra padding at bottom */
+}
+
+.logo-img {
+    width: 120px;
+}
+
+.form-check {
+    margin-bottom: 1.5rem;
+}
+
+.submit-btn {
+    display: block;
+    margin: 30px auto 0 auto; /* Center and add spacing */
+}
+
+.btn-purple {
+    background-color: #5e60ce;
+    color: #fff;
+}
+
+    .btn-purple:hover {
+        background-color: #4b4db6;
+    }
+
+.form-check-input {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.form-check label {
+    margin-left: 0.5em;
+    vertical-align: middle;
+    font-size: 15px;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    display: none;
+}
+.registration-card {
+    max-width: 800px;
+    margin: auto;
+    background: radial-gradient(circle at top left, #ffffff 0%, #fffbe6 30%, transparent 70%), linear-gradient(135deg, #fffbe6, #e0f2fe);
+    background-blend-mode: screen;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    backdrop-filter: blur(4px);
+    color: #000;
+}
+.form-label {
+    font-weight: bold;
+    /* font-size: 1.35rem !important;  */
+}
+}
+
+.form-label-new {
+    font-weight: normal;
+    /* font-size: 1.35rem !important;  */
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    width: 80px;
+}
+ .form-control,
+        .form-select {
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        .NoDdl{
+            max-width: 110px;
+        }
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.custom-gradient-background {
+    background: radial-gradient(circle at top left, #ffffff 0%, #fffbe6 30%, transparent 70%), linear-gradient(135deg, #fffbe6, #e0f2fe);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    max-height: 600px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.content-section {
+    max-width: 45%;
+    text-align: left;
+}
+
+.image-section {
+    max-width: 70%;
+}
+
+h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 1.25rem;
+}
+
+.text-bold {
+    font-weight: 700 !important;
+}
+
+.text-dark {
+    color: #333333 !important;
+}
+
+.fs-7 {
+    font-size: 1rem;
+}
+
+.fs-6 {
+    font-size: 1.125rem;
+}
+
+.content-section p,
+.content-section span {
+    margin-bottom: 1rem;
+}
+
+    .content-section p:last-child {
+        margin-bottom: 0;
+    }
+.successtext {
+    font-size: large;
+    font-weight: 700;
+}
+.payment-status-group .form-check-label {
+    font-weight: 500;
+    padding: 6px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.payment-status-group .form-check-input {
+    display: none; /* hide native radio */
+}
+
+    .payment-status-group .form-check-input:checked + .form-check-label {
+        background-color: #0d6efd;
+        color: #fff;
+        border-color: #0d6efd;
+        font-weight: 600;
+        box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+    }
+
+.payment-status-group .form-check {
+    margin-right: 8px;
+}
+
+.avatar-container {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: -10px; /* overlap effect */
+    border: 2px solid #fff; /* white border like in your screenshot */
+    cursor: pointer;
+}
+
+.avatar img { 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+.avatar-img {
+    width: 32px; /* control size */
+    height: 32px; /* control size */
+    border-radius: 50%; /* make it circular */
+    object-fit: cover; /* crop inside circle neatly */
+}

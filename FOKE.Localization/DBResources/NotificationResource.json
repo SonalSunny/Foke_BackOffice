@@ -1,0 +1,343 @@
+{
+  "Module": "Notification",
+  "Translations": [
+    {
+            "Name": "Notifications",
+            "Description": "Notifications",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "إشعارات"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Notifications"
+        }
+      ]
+    },
+    {
+            "Name": "Send To",
+      "Description": "Send To",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "إرسال إلى"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Send To"
+        }
+      ]
+    },
+
+    {
+            "Name": "Notification Type:",
+            "Description": "Notification Type:",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "نوع الإشعار:"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Notification Type:"
+        }
+      ]
+    },
+    {
+            "Name": "Send To:",
+            "Description": "Send To:",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "أرسل إلى:"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Send To:"
+        }
+      ]
+    },
+    {
+            "Name": "Header:",
+            "Description": "Header:",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "عنوان:"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Header:"
+        }
+      ]
+    },
+    {
+            "Name": "Content:",
+            "Description": "Content:",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "المحتوى:"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Content:"
+        }
+      ]
+    },
+    {
+            "Name": "Send",
+            "Description": "Send",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "أرسل"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Send"
+        }
+      ]
+    },
+    {
+            "Name": "Heading",
+      "Description": "Heading",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "عنوان"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Heading"
+        }
+      ]
+    },
+    {
+            "Name": "Description",
+      "Description": "Description",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "وصف"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Description"
+        }
+      ]
+    },
+    {
+            "Name": "To",
+      "Description": "To",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "إلى"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "To"
+        }
+      ]
+    },
+    {
+            "Name": "Type",
+      "Description": "Type",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "نوع"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Type"
+        }
+      ]
+    },
+    {
+            "Name": "Sent Time",
+      "Description": "Sent Time",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "وقت الإرسال"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Sent Time"
+        }
+      ]
+    },
+    {
+            "Name": "Message From DigitalID",
+            "Description": "Message From DigitalID",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رسالة من DigitalID"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Message From DigitalID"
+                }
+            ]
+        },
+        {
+            "Name": "MEMBER_NAME",
+            "Description": "MEMBER_NAME",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم العضو"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Member Name"
+                }
+            ]
+        },
+        {
+            "Name": "Issue_Type",
+            "Description": "Issue_Type",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "نوع المشكلة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Issue_Type"
+                }
+            ]
+        },
+        {
+            "Name": "ISSUE_DESCRIPTION",
+            "Description": "ISSUE_DESCRIPTION",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "وصف المشكلة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Issue_Description"
+                }
+            ]
+        },
+        {
+            "Name": "CONTACT_NO",
+            "Description": "CONTACT_NO",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "رقم الاتصال"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Contact No"
+        }
+      ]
+    },
+    {
+            "Name": "RECIEVED_DATE",
+            "Description": "RECIEVED_DATE",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "تاريخ الاستلام"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Received Date"
+        }
+      ]
+    },
+    {
+            "Name": "RESOLVED_BY",
+            "Description": "RESOLVED_BY",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "تم الحل بواسطة"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Resolved By"
+        }
+      ]
+    },
+    {
+            "Name": "RESOLVED_DATE",
+            "Description": "RESOLVED_DATE",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+                    "Value": "تاريخ الحل"
+        },
+        {
+          "Culture": "en-US",
+                    "Value": "Resolved Date"
+        }
+      ]
+    },
+    {
+        "Name": "STATUS",
+        "Description": "STATUS",
+        "Localizations": [
+            {
+                "Culture": "ar-AE",
+                "Value": "حالة"
+            },
+            {
+                "Culture": "en-US",
+                "Value": "Status"
+            }
+        ]
+    },
+    {
+        "Name": "Enter header",
+        "Description": "Enter header",
+        "Localizations": [
+            {
+                "Culture": "ar-AE",
+                "Value": "أدخل الرأس"
+            },
+            {
+                "Culture": "en-US",
+                "Value": "Enter header"
+            }
+        ]
+    },
+    {
+        "Name": "Enter Notification content...",
+        "Description": "Enter Notification content...",
+        "Localizations": [
+            {
+                "Culture": "ar-AE",
+                "Value": "أدخل محتوى الإشعار..."
+            },
+            {
+                "Culture": "en-US",
+                "Value": "Enter Notification content..."
+            }
+        ]
+    } ,
+    {
+        "Name": "Search",
+        "Description": "Search",
+        "Localizations": [
+            {
+                "Culture": "ar-AE",
+                "Value": "بحث"
+            },
+            {
+                "Culture": "en-US",
+                "Value": "Search"
+            }
+        ]
+    }
+
+  ]
+}

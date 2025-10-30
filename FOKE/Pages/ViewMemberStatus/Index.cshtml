@@ -1,0 +1,80 @@
+﻿@page
+@model FOKE.Pages.ViewMemberStatus.IndexModel
+@{
+    var name = Model.MemberName; // Replace with Model.Name
+    var status = Model.Status; // Replace with Model.Status
+
+    var statusColor = status switch
+    {
+        1 => "#a1e3a1",     // pastel green
+        0 => "#cccccc"             // default gray
+    };
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Member Status</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top left, #f1ffdb 0%, #fffbe6 30%, transparent 70%), linear-gradient(135deg, #fffbe6, #aadafa);
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .info-card {
+            background: #ffffffee;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 40px 50px;
+            width: 380px;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+            .info-card h2 {
+                font-size: 28px;
+                color: #333;
+                margin-bottom: 12px;
+            }
+
+        .status-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .info-card p {
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    @{
+        var StatusText = Model.Status == 1 ? "Active" : "InActive";
+    }
+    <div class="page-wrapper">
+        <div class="info-card">
+            <h2>@name</h2>
+            <div class="status-text" style="background-color:@statusColor">@StatusText</div>
+        </div>
+    </div>
+</body>
+</html>

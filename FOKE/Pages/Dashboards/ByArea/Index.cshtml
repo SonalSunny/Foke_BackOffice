@@ -1,0 +1,1011 @@
+﻿@page
+@model FOKE.Pages.Dashboards.ByArea.IndexModel
+@using System.Text.Json
+@using FOKE.Localization
+@inject ISharedLocalizer Localize
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+    body {
+        transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .dark-theme {
+        background-color: #121212;
+        color: #f0f0f0;
+    }
+
+    .chart-card {
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        padding: 25px;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+    }
+
+    .dark-theme .chart-card {
+        background: rgba(30, 30, 30, 0.8);
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05);
+    }
+
+    .chart-card:hover {
+        transform: scale(1.01);
+    }
+
+    .chart-title {
+        font-weight: 600;
+        font-size: 1.3rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .sunburst-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .sunburst-box {
+        flex: 1;
+        height: 600px;
+    }
+
+    .theme-toggle {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+/*     .sunburst-wrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    }
+
+    .sunburst-chart {
+        width: 100% !important;
+        height: 400px !important;
+    } */
+
+</style>
+
+<div class="container mt-4">
+@*     <!-- Theme toggle -->
+    <div class="theme-toggle">
+        <button id="toggleThemeBtn" class="btn btn-outline-dark">🌙 Dark Mode</button>
+    </div>
+ *@
+@*    <div class="chart-card">
+        <div class="chart-title"> 👥 All Member Data</div>
+        <div style="height: 500px;">
+            <canvas id="membershipBarChart"</canvas>
+        </div>
+    </div> *@
+
+
+    <div class="col-12 mb-2">
+	<!--begin::Lists Widget 19-->
+    	<div class="card card-flush h-xl-100">
+    		<!--begin::Heading-->
+            <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-250px"
+                 style="background-color: #F1416C; background-image:url('@Url.Content("~/assets/media/patterns/vector-1.png")')"
+                 data-bs-theme="light">    			<!--begin::Title-->
+    			            <h3 class="card-title align-items-start flex-column text-white pt-15">
+    				<span class="fw-bold fs-2x mb-3">@Localize.Localize("Members Data")</span>
+    				<div class="fs-4 text-white">
+    					<span class="opacity-75">@Localize.Localize("See All Data Related To Members Here")</span>
+    				</div>
+    			</h3>
+    		</div>
+    		<!--end::Heading-->
+    		<!--begin::Body-->
+            @{
+               var TotalMemberData = Model.AllMemberList.FirstOrDefault();
+               var ActiveMemberData = Model.AllMemberList.Skip(1).First();
+               var NewMembers = Model.AllMemberList.Skip(2).First();
+               var RecentMembers = Model.AllMemberList.Skip(3).First();
+            }
+    		<div class="card-body mt-n20">
+    			<!--begin::Stats-->
+    			<div class="mt-n20 position-relative">
+    				<!--begin::Row-->
+    				<div class="row g-5 g-lg-5">
+    					<!--begin::Col-->
+    					<div class="col-md-3">
+    						<!--begin::Items-->
+    						<div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
+    							<!--begin::Symbol-->
+    							<div class="symbol symbol-30px me-5 mb-8">
+    								<span class="symbol-label">
+    									<i class="ki-duotone ki-flask fs-1 text-primary">
+    										<span class="path1"></span>
+    										<span class="path2"></span>
+    									</i>
+    								</span>
+    							</div>
+    							<!--end::Symbol-->
+    							<!--begin::Stats-->
+    							<div class="m-0">
+    								<!--begin::Number-->
+    								<span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">@TotalMemberData.Count</span>
+    								<!--end::Number-->
+    								<!--begin::Desc-->
+    								<span class="text-gray-500 fw-semibold fs-6">@Localize.Localize("Total Members")</span>
+    								<!--end::Desc-->
+    							</div>
+    							<!--end::Stats-->
+    						</div>
+    						<!--end::Items-->
+    					</div>
+    					<!--end::Col-->
+    					<!--begin::Col-->
+    					<div class="col-md-3">
+    						<!--begin::Items-->
+    						<div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
+    							<!--begin::Symbol-->
+    							<div class="symbol symbol-30px me-5 mb-8">
+    								<span class="symbol-label">
+    									<i class="ki-duotone ki-bank fs-1 text-primary">
+    										<span class="path1"></span>
+    										<span class="path2"></span>
+    									</i>
+    								</span>
+    							</div>
+    							<!--end::Symbol-->
+    							<!--begin::Stats-->
+    							<div class="m-0">
+    								<!--begin::Number-->
+    								<span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">@ActiveMemberData.Count</span>
+    								<!--end::Number-->
+    								<!--begin::Desc-->
+    								<span class="text-gray-500 fw-semibold fs-6">@Localize.Localize("Active Members")</span>
+    								<!--end::Desc-->
+    							</div>
+    							<!--end::Stats-->
+    						</div>
+    						<!--end::Items-->
+    					</div>
+    					<!--end::Col-->
+    					<!--begin::Col-->
+    					<div class="col-md-3">
+    						<!--begin::Items-->
+    						<div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
+    							<!--begin::Symbol-->
+    							<div class="symbol symbol-30px me-5 mb-8">
+    								<span class="symbol-label">
+    									<i class="ki-duotone ki-award fs-1 text-primary">
+    										<span class="path1"></span>
+    										<span class="path2"></span>
+    										<span class="path3"></span>
+    									</i>
+    								</span>
+    							</div>
+    							<!--end::Symbol-->
+    							<!--begin::Stats-->
+    							<div class="m-0">
+    								<!--begin::Number-->
+    								<span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">@NewMembers.Count </span>
+    								<!--end::Number-->
+    								<!--begin::Desc-->
+    								<span class="text-gray-500 fw-semibold fs-6">@Localize.Localize("New Members")</span>
+    								<!--end::Desc-->
+    							</div>
+    							<!--end::Stats-->
+    						</div>
+    						<!--end::Items-->
+    					</div>
+    					<!--end::Col-->
+    					<!--begin::Col-->
+    					<div class="col-md-3">
+    						<!--begin::Items-->
+    						<div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
+    							<!--begin::Symbol-->
+    							<div class="symbol symbol-30px me-5 mb-8">
+    								<span class="symbol-label">
+    									<i class="ki-duotone ki-timer fs-1 text-primary">
+    										<span class="path1"></span>
+    										<span class="path2"></span>
+    										<span class="path3"></span>
+    									</i>
+    								</span>
+    							</div>
+    							<!--end::Symbol-->
+    							<!--begin::Stats-->
+    							<div class="m-0">
+    								<!--begin::Number-->
+    								<span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">@RecentMembers.Count </span>
+    								<!--end::Number-->
+    								<!--begin::Desc-->
+    								<span class="text-gray-500 fw-semibold fs-6">@Localize.Localize("Recent Members")</span>
+    								<!--end::Desc-->
+    							</div>
+    							<!--end::Stats-->
+    						</div>
+    						<!--end::Items-->
+    					</div>
+    					<!--end::Col-->
+    				</div>
+    				<!--end::Row-->
+    			</div>
+    			<!--end::Stats-->
+    		</div>
+    		<!--end::Body-->
+    	</div>
+	<!--end::Lists Widget 19-->
+	</div>
+	<!--end::Col-->
+
+    <!-- Sunburst Charts -->
+    <div class="row g-2">
+        <!-- Zone Chart -->
+
+        <div class="col-md-6  mb-2">
+            <div class="card card-flush h-xl-100">
+                <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 pt-3">🔲 @Localize.Localize("Members By Zone")</div>
+                <div id="zoneChart" style="height: 500px;"></div>
+            </div>
+        </div>
+
+        <!-- Unit Chart -->
+        <div class="col-md-6 mb-2">
+            <div class="card card-flush h-xl-100">
+                <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 pt-3">👥 @Localize.Localize("Members By Unit")</div>
+                <div id="unitChart" style="height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Area Chart -->
+    <div class="col-12 mb-2">
+        <div class="card card-flush h-xl-100">
+            <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 pt-3"> 🗺️ @Localize.Localize("Members By Area")</div> 
+            <div style="height: 500px;">
+                <canvas id="areaBarChart"></canvas>
+            </div>
+                <div style="text-align: center; margin: 10px;">
+                         <button class="btn" id="btnViewAllAreaData"
+                                style="background-color: #cfe8fc; color: #0d47a1; border: none;">
+                            View All 
+                        </button>
+                </div>
+        </div>
+    </div>
+
+
+    <div class="row g-2">
+        <div class="col-md-6 mb-2">
+            <div class="card card-flush h-xl-100">
+                    <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 p-3">🩸 @Localize.Localize("Blood Group Distribution")</div>
+                    <canvas id="BloodGroupPieChart" style="height: 500px;"></canvas>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-2">
+            <div class="card card-flush h-xl-100">
+                    <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 p-3">♂️♀️ @Localize.Localize("Genderwise Distribution")</div>
+                    <canvas id="GenderData" style="height: 500px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12 mb-2">
+        <div class="card card-flush h-xl-100">
+            <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 pt-3"> 🗺️ @Localize.Localize("Members By District")</div>
+            <div style="height: 500px;">
+                <canvas id="DistrictBarChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-2">
+        <div class="col-md-6 mb-2">
+            <div class="card card-flush h-xl-100">
+                <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 p-3">🏢 @Localize.Localize("Wokplacewise Distribution")</div>
+                <canvas id="WokPlaceChart" style="height: 500px;"></canvas>
+                <div style="text-align: center; margin: 10px;">
+                    <button class="btn" id="btnViewAllWorkplaces"
+                            style="background-color: #cfe8fc; color: #0d47a1; border: none;">
+                        View All
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-2">
+            <div class="card card-flush h-xl-100">
+                <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 p-3">💼 @Localize.Localize("Professionwise Distribution")</div>
+                <canvas id="ProfessionChart" style="height: 500px;"></canvas>
+                <div style="text-align: center; margin: 10px;">
+                     <button class="btn" id="btnViewAllProfessions"
+                            style="background-color: #cfe8fc; color: #0d47a1; border: none;">
+                        View All 
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 mb-2">
+        <div class="card card-flush h-xl-100">
+            <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 pt-3"> 📈 @Localize.Localize("Members By Department")</div>
+            <div style="height: 500px;">
+                <canvas id="DepartmentData"></canvas>
+            </div>
+            <div style="text-align: center; margin: 10px;">
+                    <button class="btn" id="btnViewAllDepartmentData"
+                            style="background-color: #cfe8fc; color: #0d47a1; border: none;">
+                        View All
+                    </button>
+            </div>  
+        </div>
+    </div>
+
+    <div class="row g-2">
+        <div class="col-md-6 mb-2">
+        <div class="card card-flush h-xl-100">
+             <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 pt-3">⌛ @Localize.Localize("Members by Age Group")</div>
+             <div id="ageGroupChart" style="height: 500px;"></div>           
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-2">
+                <div class="card card-flush h-xl-100">
+                    <div class="text-center text-gray-700 fw-bolder d-block fs-3 lh-1 ls-n1 pt-3">🏆 @Localize.Localize("Members by Experience")</div>
+                    <div id="ExpGroupChart" style="height: 500px;"></div>           
+                </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+    <script>
+        const areaCtx = document.getElementById('areaBarChart').getContext('2d');
+        const areaLabels = @Html.Raw(JsonSerializer.Serialize(Model.AreaWiseData.Take(10).Select(x => x.AreaName)));
+        const areaPaid = @Html.Raw(JsonSerializer.Serialize(Model.AreaWiseData.Take(10).Select(x => x.PaidMembers)));
+        const areaUnpaid = @Html.Raw(JsonSerializer.Serialize(Model.AreaWiseData.Take(10).Select(x => x.UnpaidMembers)));
+
+        new Chart(areaCtx, {
+            type: 'bar',
+            data: {
+                labels: areaLabels,
+                datasets: [
+                    {
+                        label: 'Paid Members',
+                        data: areaPaid,
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+                    },
+                    {
+                        label: 'Unpaid Members',
+                        data: areaUnpaid,
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1200,
+                    easing: 'easeOutQuart'
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Members' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Area' },
+                        ticks: { autoSkip: false }
+                    }
+                }
+            }
+        });
+
+
+        const ctx = document.getElementById('DistrictBarChart').getContext('2d');
+        const labels = @Html.Raw(JsonSerializer.Serialize(Model.districtGenderDatas.Select(x => x.DistrictName)));
+        const maleData = @Html.Raw(JsonSerializer.Serialize(Model.districtGenderDatas.Select(x => x.MaleCount)));
+        const femaleData = @Html.Raw(JsonSerializer.Serialize(Model.districtGenderDatas.Select(x => x.FemaleCount)));
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Male',
+                        data: maleData,
+                        backgroundColor: 'rgba(72, 202, 228, 0.8)',
+                        borderRadius: 8,
+                        barThickness: 20,
+                        categoryPercentage: 0.4,
+                        barPercentage: 0.5
+                    },
+                    {
+                        label: 'Female',
+                        data: femaleData,
+                        backgroundColor: 'rgba(255, 127, 80, 0.8)',
+                        borderRadius: 8,
+                        barThickness: 20,
+                        categoryPercentage: 0.4,
+                        barPercentage: 0.5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutCubic'
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14,
+                                family: 'sans-serif'
+                            }
+                        }
+                    },
+                    title: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.7)',
+                        titleFont: { size: 14 },
+                        bodyFont: { size: 12 },
+                        cornerRadius: 6,
+                        padding: 10
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            font: { size: 12 },
+                            maxRotation: 45,
+                            minRotation: 45
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Members',
+                            font: {
+                                size: 14,
+                                family: 'sans-serif'
+                            }
+                        },
+                        ticks: {
+                            stepSize: 10,
+                            font: { size: 12 }
+                        },
+                        grid: {
+                            color: 'rgba(200, 200, 200, 0.2)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Reusable function to render sunburst
+        function renderSunburst(id, data) {
+            const chart = echarts.init(document.getElementById(id));
+            chart.setOption({
+                animationDuration: 1500,
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}: {c}'
+                },
+                series: {
+                    type: 'sunburst',
+                    radius: [0, '90%'],
+                    data: data,
+                    sort: null,
+                    emphasis: {
+                        focus: 'ancestor'
+                    },
+                    levels: [
+                        {
+                            itemStyle: { borderWidth: 2 },
+                            label: { rotate: 'radial' }
+                        },
+                        {
+                            r0: '15%',
+                            r: '50%',
+                            label: { rotate: 'tangential' }
+                        },
+                        {
+                            r0: '50%',
+                            r: '90%',
+                            label: { align: 'right' }
+                        }
+                    ]
+                }
+            });
+            // Resize chart to fit container
+            chart.resize();
+
+            // ✅ Optional: auto-resize on window resize
+            window.addEventListener('resize', () => {
+                chart.resize();
+            });
+        }
+
+        // Sunburst: Zone
+        const zoneData = @Html.Raw(JsonSerializer.Serialize(Model.ZoneWiseData, new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        }));
+        renderSunburst('zoneChart', zoneData);
+
+        // Sunburst: Unit
+        const unitData = @Html.Raw(JsonSerializer.Serialize(Model.UnitWiseData, new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        }));
+        renderSunburst('unitChart', unitData);
+
+        const bloodGroupLabels = @Html.Raw(JsonSerializer.Serialize(Model.BloodGroupedData.Select(x => x.Name)));
+        const bloodGroupCounts = @Html.Raw(JsonSerializer.Serialize(Model.BloodGroupedData.Select(x => x.Count)));
+
+        new Chart(document.getElementById('BloodGroupPieChart'), {
+            type: 'pie',
+            data: {
+                labels: bloodGroupLabels,
+                datasets: [{
+                    data: bloodGroupCounts,
+                    backgroundColor: [
+                        '#FFB5E8', '#B28DFF', '#85E3FF', '#AFF8DB',
+                        '#FFABAB', '#D5AAFF', '#FFDAC1', '#C4FAF8',
+                        '#FFFFD1', '#FFC9DE'
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }] 
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                const total = context.chart._metasets[0].total;
+                                const percent = ((value / total) * 100).toFixed(1);
+                                return `${label}: ${value} (${percent}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const departmentLabels = @Html.Raw(JsonSerializer.Serialize(Model.DepartmentData.Take(10).Select(x => x.DepartmentName)));
+        const maleCounts = @Html.Raw(JsonSerializer.Serialize(Model.DepartmentData.Take(10).Select(x => x.MaleCount)));
+        const femaleCounts = @Html.Raw(JsonSerializer.Serialize(Model.DepartmentData.Take(10).Select(x => x.FemaleCount)));
+
+        new Chart(document.getElementById('DepartmentData'), {
+            type: 'bar',
+            data: {
+                labels: departmentLabels,
+                datasets: [
+                    {
+                        label: 'Male',
+                        data: maleCounts,
+                        backgroundColor: '#C1F0DC', // pastel purple from your palette
+                        borderRadius: 10           // 🎯 Rounded corners
+                    },
+                    {
+                        label: 'Female',
+                        data: femaleCounts,
+                        backgroundColor: '#F7C5CC', // pastel rose
+                        borderRadius: 10           // 🎯 Rounded corners
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        title: {
+                            display: true,
+                            text: 'Department'
+                        },
+                        ticks: {
+                            autoSkip: false
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Members'
+                        },
+                        grid: {
+                            color: 'rgba(200,200,200,0.2)'
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+        const Gendernames = @Html.Raw(JsonSerializer.Serialize(Model.GenderData.Select(x => x.Name)));
+        const Gendecount = @Html.Raw(JsonSerializer.Serialize(Model.GenderData.Select(x => x.Count)));
+
+        new Chart(document.getElementById('GenderData'), {
+            type: 'pie',
+            data: {
+                labels: Gendernames,
+                datasets: [{
+                    data: Gendecount,
+                    backgroundColor: [
+                        '#D8A7B1', // Rose Dust
+                        '#A2D5F2', // Sky Blue
+                        '#FBC4AB', // Apricot Cream
+                        '#BDE0FE', // Powder Blue
+                        '#A9DEF9', // Pale Cyan
+                        '#E4C1F9', // Orchid
+                        '#C6DEF1', // Mist Blue
+                        '#FAEDCB'  // Eggshell
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                const total = context.chart._metasets[0].total;
+                                const percent = ((value / total) * 100).toFixed(1);
+                                return `${label}: ${value} (${percent}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const WPnames = @Html.Raw(JsonSerializer.Serialize(Model.WorkPlaceData.Take(10).Select(x => x.Name)));
+        const WPcount = @Html.Raw(JsonSerializer.Serialize(Model.WorkPlaceData.Take(10).Select(x => x.Count)));
+
+        new Chart(document.getElementById('WokPlaceChart'), {
+            type: 'pie',
+            data: {
+                labels: WPnames,
+                datasets: [{
+                    data: WPcount,
+                    backgroundColor: [
+                        '#FFADAD',  // Light Coral
+                        '#CAFFBF',  // Mint Green
+                        '#9BF6FF',  // Baby Blue
+                        '#A0C4FF',  // Periwinkle Blue
+                        '#BDB2FF',  // Soft Lavender
+                        '#FFC6FF',  // Pale Pink
+                        '#FFFFFC'   // Cream White
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                const total = context.chart._metasets[0].total;
+                                const percent = ((value / total) * 100).toFixed(1);
+                                return `${label}: ${value} (${percent}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const PDnames = @Html.Raw(JsonSerializer.Serialize(Model.ProffesionData.Take(10).Select(x => x.Name)));
+        const PDcount = @Html.Raw(JsonSerializer.Serialize(Model.ProffesionData.Take(10).Select(x => x.Count)));
+
+        new Chart(document.getElementById('ProfessionChart'), {
+            type: 'pie',
+            data: {
+                labels: PDnames,
+                datasets: [{
+                    data: PDcount,
+                    backgroundColor: [
+                      '#F6D186', // Pastel Yellow
+                      '#FFAAA7', // Light Salmon Pink
+                      '#A8E6CF', // Mint Green
+                      '#FFD3B6', // Light Apricot
+                      '#E2F0CB', // Pale Green
+                      '#CBAACB', // Soft Purple
+                      '#B5EAD7', // Aqua Mint
+                      '#FFDAC1', // Light Peach
+                      '#D6E2E9', // Ice Blue
+                      '#FFB7B2'  // Blush Pink
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                const total = context.chart._metasets[0].total;
+                                const percent = ((value / total) * 100).toFixed(1);
+                                return `${label}: ${value} (${percent}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const AgeGroupData = @Html.Raw(JsonSerializer.Serialize(Model.AgewiseCategory, new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        }));
+        renderSunburst('ageGroupChart', AgeGroupData);
+
+         const ExpData = @Html.Raw(JsonSerializer.Serialize(Model.ExpwiseCategory, new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        }));
+        renderSunburst('ExpGroupChart', ExpData);
+
+        const memberLabels = ["👥 Total Members", "✅ Active Members", "🆕 New Members", "📅 Recent Members"];
+        const memberCounts = @Html.Raw(JsonSerializer.Serialize(Model.AllMemberList.Select(x => x.Count)));
+
+        new Chart(document.getElementById('membershipBarChart'), {
+            type: 'bar',
+            data: {
+                labels: memberLabels,
+                datasets: [{
+                    label: 'Member Count',
+                    data: memberCounts,
+                    backgroundColor: ['#A8DADC', '#F4A261', '#B5E48C', '#FFC8DD'],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                indexAxis: 'y', // ⬅️ horizontal bar chart
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'center',
+                        align: 'center',
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        formatter: function (value) {
+                            return value;
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+
+        const allProfessions = @Html.Raw(JsonSerializer.Serialize(Model.ProffesionData));
+        const allWorkplaces = @Html.Raw(JsonSerializer.Serialize(Model.WorkPlaceData));
+        const departmentData = @Html.Raw(JsonSerializer.Serialize(Model.DepartmentData));
+        const AreaData = @Html.Raw(JsonSerializer.Serialize(Model.AreaWiseData));
+
+        function showDataPopup(dataArray, title, searchId, tableId, label) {
+            let tableHtml = `
+                <input type="text" id="${searchId}" placeholder="Search ${label}..." onkeyup="filterTable('${searchId}', '${tableId}')" class="form-control mb-2" />
+                <table id="${tableId}" class="table table-bordered table-striped">
+                    <thead>
+                        <tr><th>${label}</th><th>Count</th></tr>
+                    </thead>
+                    <tbody>
+                        ${dataArray.map(d => `
+                            <tr>
+                                <td>${d.Name}</td>
+                                <td class="${d.Count === 0 ? 'count-zero' : ''}">${d.Count}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            Swal.fire({
+                title: title,
+                html: tableHtml,
+                width: '800px',
+                showCloseButton: true,
+                customClass: {
+                    popup: 'swal2-overflow'
+                }
+            });
+        }
+
+        function filterTable(searchId, tableId) {
+            const input = document.getElementById(searchId).value.toLowerCase();
+            const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+            rows.forEach(row => {
+                const name = row.children[0].innerText.toLowerCase();
+                row.style.display = name.includes(input) ? '' : 'none';
+            });
+        }
+
+        document.getElementById("btnViewAllProfessions").addEventListener("click", function () {
+            showDataPopup(allProfessions, '💼 All Professions', 'searchProfession', 'professionTable', 'Profession');
+        });
+
+        document.getElementById("btnViewAllWorkplaces").addEventListener("click", function () {
+            showDataPopup(allWorkplaces, '🏢 All Workplaces', 'searchWorkplace', 'workplaceTable', 'Workplace');
+        });
+
+        document.getElementById("btnViewAllDepartmentData").addEventListener("click", function () {
+            showDepPopup(departmentData, '📈 All Department Data', 'searchDepartment', 'departmentTable', 'Department');
+        });
+
+        document.getElementById("btnViewAllAreaData").addEventListener("click", function () {
+            showAreaPopup(AreaData, '🗺️ All Area Data', 'searcArea', 'AreaTable', 'Area');
+        });
+
+         function showDepPopup(dataArray, title, searchId, tableId, label) {
+            let tableHtml = `
+                <input type="text" id="${searchId}" placeholder="Search ${label}..." onkeyup="filterTable('${searchId}', '${tableId}')" class="form-control mb-2" />
+                <table id="${tableId}" class="table table-bordered table-striped">
+                    <thead>
+                        <tr><th>${label}</th><th>Male</th><th>Female</th><th>Total</th></tr>
+                    </thead>
+                    <tbody>
+                        ${dataArray.map(d => `
+                            <tr>
+                                <td>${d.DepartmentName}</td>
+                                <td class="${d.MaleCount === 0 ? 'count-zero' : ''}">${d.MaleCount}</td>
+                                <td class="${d.FemaleCount === 0 ? 'count-zero' : ''}">${d.FemaleCount}</td>
+                                <td class="${d.FemaleCount === 0 && d.MaleCount === 0 ? 'count-zero' : ''}">${d.FemaleCount + d.MaleCount }</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            Swal.fire({
+                title: title,
+                html: tableHtml,
+                width: '800px',
+                showCloseButton: true,
+                customClass: {
+                    popup: 'swal2-overflow'
+                }
+            });
+        }
+
+        
+         function showAreaPopup(dataArray, title, searchId, tableId, label) {
+            let tableHtml = `
+                <input type="text" id="${searchId}" placeholder="Search ${label}..." onkeyup="filterTable('${searchId}', '${tableId}')" class="form-control mb-2" />
+                <table id="${tableId}" class="table table-bordered table-striped">
+                    <thead>
+                        <tr><th>${label}</th><th>Paid</th><th>Unpaid</th><th>Total</th></tr>
+                    </thead>
+                    <tbody>
+                        ${dataArray.map(d => `
+                            <tr>
+                                <td>${d.AreaName}</td>
+                                <td class="${d.PaidMembers === 0 ? 'count-zero' : ''}">${d.PaidMembers}</td>
+                                <td class="${d.UnpaidMembers === 0 ? 'count-zero' : ''}">${d.UnpaidMembers}</td>
+                                <td class="${d.PaidMembers === 0 && d.UnpaidMembers === 0 ? 'count-zero' : ''}">${d.PaidMembers + d.UnpaidMembers }</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            Swal.fire({
+                title: title,
+                html: tableHtml,
+                width: '800px',
+                showCloseButton: true,
+                customClass: {
+                    popup: 'swal2-overflow'
+                }
+            });
+        }
+    </script>
+
+    <style>
+        .swal2-overflow {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        #professionTable input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        .count-zero {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+
+}

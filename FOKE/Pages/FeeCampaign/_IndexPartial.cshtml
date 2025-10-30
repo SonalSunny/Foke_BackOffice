@@ -1,0 +1,567 @@
+﻿@model IndexModel
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+@inject ISharedLocalizer Localize
+<div class="table-responsive">
+    <input type="hidden" asp-for="pageNo" id="hidpageNo" />
+    <input type="hidden" asp-for="pageSize" id="hidpageSize" />
+    <input type="hidden" asp-for="sortColumn" id="hidSortColumn" />
+    <input type="hidden" asp-for="sortOrder" id="hidSortOrder" />
+    <form id="__ajaxTokenForm">
+        @Html.AntiForgeryToken()
+      
+
+    </form>
+    <table class="table table-hover table-rounded table-striped border gy-4 gs-7 table-sortable table-scroll">
+        <thead>
+            <tr>
+                <th class="sorting t-plr-sm-5">   @Localize.Localize("TABLE_ACTION_HEADER")</th>
+
+                <th class="sorting t-plr-sm-5" area-field="ProfessionName">
+                    @Localize.Localize("Campaign Name")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Description">
+                    @Localize.Localize("Start Date")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Status">
+                    @Localize.Localize("End Date")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Status">
+                    @Localize.Localize("Membership Fee")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Status">
+                    @Localize.Localize("Status")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.pagedListData != null && Model.pagedListData.Count() > 0)
+            {
+                @for (int i = 0; i < Model.pagedListData.Count(); i++)
+                {
+                    var item = Model.pagedListData[i];
+                    <tr>
+                        <td>
+                            <!-- Replace "Actions" button with a 3-dots horizontal icon -->
+                            <div class="test btn btn-icon btn-sm btn-light btn-center btn-active-light-primary"
+                                 data-kt-menu-trigger="click"
+                                 data-kt-menu-placement="bottom-end">
+                            </div>
+
+                           
+                                <!-- Menu items -->
+                              
+                                @if (item.CollectionAdded > 0)
+                                {
+                                   // <span class="badge bg-secondary">Locked</span>
+                                }
+                                else
+                                {
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                     data-kt-menu="true">
+                                      <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3 btnItemEdit" keyID="@item.CampaignId">@Localize.Localize("TABLE_BTN_TITLE_EDIT")</a>
+                                    </div>
+                                </div>
+                                }
+
+
+                              
+                           
+                        </td>
+                        <td>
+                            @item.CampaignName
+                        </td>
+                        <td>
+                            @item.StartDateFormatted
+                        </td>
+                        <td>
+                            @item.EndDateFormatted
+                        </td>
+                        <td>
+                            @item.MemberShipFee
+                        </td>
+                        <td>
+                            <label class="form-check form-switch form-check-custom form-check-solid">
+                                <input class="form-check-input campaignToggleSwitch"
+                                       type="checkbox"
+                                       data-campaign-id="@item.CampaignId"
+                                       data-campaign-active="@item.Active.ToString().ToLower()"
+                                @(item.Active ? "checked" : "") />
+                                <span class="form-check-label">
+                                    @Localize.Localize(item.Active ? "Active" : "Inactive")
+                                </span>
+                            </label>
+                 
+                        </td>
+                   @*      @{
+                            var today = DateTime.UtcNow.Date;
+                            var isEnded = item.EndDate < today;
+                        } *@
+
+                      @*   <td>
+                            @if (item.CollectionAdded > 0)
+                            {
+                                <button class="btn btn-sm btn-secondary" disabled>Campaign Started</button>
+                            }
+                            else if (isEnded)
+                            {
+                                <button class="btn btn-sm btn-dark" disabled>Campaign Ended</button>
+                            }
+                            else if (item.Active)
+                            {
+                                <a href="#"
+                                   class="btn btn-sm btn-success createCollectionSheetBtn"
+                                   data-campaign-id="@item.CampaignId"
+                                   data-start-date="@item.StartDateIso"
+                                   data-end-date="@item.EndDateIso">
+                                    Start Campaign
+                                </a>
+                            }
+                            else
+                            {
+                                <button class="btn btn-sm btn-secondary" disabled>Inactive</button>
+                            }
+                        </td> *@
+
+                        <td>
+                            @if (item.CollectionAdded > 0)
+                            {
+                                <button class="btn btn-sm btn-secondary" disabled>Campaign Started</button>
+                            }
+                            else
+                            {
+                                <a href="#"
+                                   class="btn btn-sm btn-success createCollectionSheetBtn @(item.Active ? "" : "disabled")"
+                                   data-campaign-id="@item.CampaignId"
+                                   data-start-date="@item.StartDateIso"
+                                   data-end-date="@item.EndDateIso">
+                                    Start Campaign
+                                </a>
+                            }
+                        </td>
+
+                      @*   <td>
+                        @if (item.CollectionAdded > 0)
+                        {
+                            <button class="btn btn-sm btn-secondary" disabled>Campaign Started</button>
+                        }
+                        else if (item.Active)
+                        {
+                            <a href="#" class="btn btn-sm btn-success createCollectionSheetBtn"
+                               data-campaign-id="@item.CampaignId"
+                               data-start-date="@item.StartDateIso"
+                               data-end-date="@item.EndDateIso">
+                                Start Campaign
+                            </a>
+                        } *@
+
+
+                      @*   <td>
+                          
+
+                    
+                                <a href="#" class="btn btn-sm btn-success createCollectionSheetBtn"
+                                   data-campaign-id="@item.CampaignId"
+                                   data-start-date="@item.StartDateIso"
+                                   data-end-date="@item.EndDateIso"
+                                @(item.Active ? "" : "disabled")>
+                                    Start Campaign
+                                </a> *@
+                         
+
+                      @*       @if (item.CollectionAdded > 0)
+                            {
+                                <button class="btn btn-sm btn-secondary" disabled>Collection Added</button>
+                            }
+                            else
+                            {
+                                <a href="#" class="btn btn-sm btn-success createCollectionSheetBtn"
+                                   data-campaign-id="@item.CampaignId">
+                                    Add Collection
+                                </a>
+                            } *@
+
+
+                         @*    <a href="#" class="btn btn-sm btn-success createCollectionSheetBtn" data-campaign-id="@item.CampaignId">
+                                Add Collection
+                            </a> *@
+
+                          @*   <a href="#" class="btn btn-sm btn-success" id="createCollectionSheetBtn">
+                                Add Collection
+                            </a> *@
+
+                        
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start pt-3">
+        <div class="dataTables_length" id="kt_datatable_fixed_header_length">
+            <label>
+                <select asp-for="pageSize" id="kt_datatable_page_size" class="form-select form-select-sm form-select-solid">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </label>
+        </div><div class="dataTables_info" id="kt_datatable_fixed_header_info" role="status" aria-live="polite">Showing @(Model?.pagedListData?.FirstItemOnPage ?? 0) to @(Model?.pagedListData?.LastItemOnPage ?? 0) of @(Model?.pagedListData?.TotalItemCount ?? 0) records</div>
+    </div><div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+        <div class="dataTables_paginate paging_simple_numbers" id="kt_datatable_fixed_header_paginate">
+            @if (Model.hasPagination)
+            {
+                <div>
+                    @Html.PagedListPager((IPagedList)Model.pagedListData, page => Url.Page("Index", "PagedList",
+                             new
+                             {
+                                 pn = page,
+                                 ps = Model.pageSize,
+                                 so = Model.sortOrder,
+                                 sc = Model.sortColumn,
+                                 nm = Model.globalSearch,
+                                 gs = Model.globalSearch,
+                                 gsc = Model.searchField
+                             }),
+                             PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions()
+                {
+                    PageClasses = new string[] { "page-link" },
+                    LiElementClasses = new string[] { "page-item" },
+                    UlElementClasses = new string[] { "pagination pagination-circle pagination-outline" },
+                    EllipsesElementClass = "ki-duotone ki-double-left fs-2",
+                    Display = PagedListDisplayMode.IfNeeded,
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    LinkToPreviousPageFormat = "<i class='fas fa-angle-left'></i>",
+                    LinkToNextPageFormat = "<i class='fas fa-angle-right'></i>",
+                    LinkToFirstPageFormat = "<i class='fas fa-step-backward'></i>",
+                    LinkToLastPageFormat = "<i class='fas fa-step-forward'></i>",
+                    MaximumPageNumbersToDisplay = 10, // Adjust this number as needed
+                }, new AjaxOptions()
+                { HttpMethod = "Get", UpdateTargetId = "_postList", OnBegin = "showInTableLoader()", OnSuccess = "", OnComplete = "hideInTableLoader()" }))
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="tableLoader" class="loader-container">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<script src="~/js/ktable.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // ✅ Toggle campaign active/inactive status
+        $(document).on('change', '.campaignToggleSwitch', function () {
+            const checkbox = $(this);
+            const campaignId = checkbox.data('campaign-id');
+            const wasActive = checkbox.data('campaign-active') === 'true';
+
+            const newStatus = checkbox.prop('checked'); // true if checked
+            const action = newStatus ? 'activate' : 'deactivate';
+
+            const confirmText = newStatus
+                ? 'Only 2 campaigns can be active at a time. Continue?'
+                : 'Are you sure you want to deactivate this campaign?';
+
+            Swal.fire({
+                title: 'Confirm',
+                text: confirmText,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: newStatus ? 'Yes, activate it!' : 'Yes, deactivate it!',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-secondary'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/FeeCampaign?handler=ToggleCampaignStatus`,
+                        type: "POST",
+                        data: {
+                            campaignId: campaignId,
+                            action: action
+                        },
+                        headers: {
+                            'XSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        success: function () {
+                            // ✅ Update status data and label
+                            checkbox.data('campaign-active', newStatus.toString());
+                            const label = checkbox.closest('.form-check').find('.form-check-label');
+                            label.text(newStatus ? 'Active' : 'Inactive');
+
+                            // ✅ Enable or disable the Start Campaign button
+                            const row = checkbox.closest('tr');
+                            const startButton = row.find('.createCollectionSheetBtn');
+                            if (newStatus) {
+                                startButton.removeClass('disabled');
+                            } else {
+                                startButton.addClass('disabled');
+                            }
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Campaign status updated.'
+                        }).then(() => {
+                        location.reload();
+
+                            });
+                        },
+                        error: function (xhr) {
+                            // ❌ Rollback
+                            checkbox.prop('checked', wasActive);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: xhr.responseText || 'Something went wrong.'
+                            });
+                        }
+                    });
+                } else {
+                    // ❌ Cancelled by user — revert toggle
+                    checkbox.prop('checked', wasActive);
+                }
+            });
+        });
+
+        // ✅ Handle Start Campaign button click
+        $(document).on('click', '.createCollectionSheetBtn', function (event) {
+            event.preventDefault();
+
+            const button = $(this);
+
+            // If button is disabled, do nothing
+            if (button.hasClass('disabled')) {
+                return;
+            }
+
+            const campaignId = button.data('campaign-id');
+            const startDateStr = button.data('start-date');
+            const endDateStr = button.data('end-date');
+
+         @*    const today = new Date();
+            today.setHours(0, 0, 0, 0);  *@// normalize
+
+            const startDate = new Date(startDateStr);
+           
+            const endDate = new Date(endDateStr);
+              
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+            if (today < startDate || today > endDate) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cannot Start Campaign',
+                    text: 'Today is not within the campaign period.'
+                });
+                return;
+            }
+
+            const activeCount = parseInt($('#activeCampaignCount').val(), 10) || 0;
+            if (activeCount > 2) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Too Many Active Campaigns',
+                    text: 'Only 2 active campaigns are allowed. Please deactivate one.'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Start Campaign?',
+                     html: `
+            <div style="
+                text-align: left;
+                color: #b30000;
+                font-weight: bold;
+                font-size: 15px;
+                line-height: 1.5;
+                padding-top: 10px;
+            ">
+                • Starting this campaign will end all previous campaigns.<br>
+                • All previous member payments will be <u>cleared</u>.<br>
+                • Members will be <u>reassigned</u> to this campaign.<br>
+                • A new <u>collection sheet</u> will be generated for all members.
+            </div>
+        `,
+               
+                  @*   text: 'Starting this campaign will end all previous campaigns. All previous member payments will be cleared, and members will be reassigned to this campaign. A new collection sheet will be generated for all members.', *@
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, start',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-secondary'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/FeeCampaign?handler=CreateCollectionSheet`,
+                        type: "POST",
+                        data: { campaignId: campaignId },
+                        headers: {
+                            'XSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: 'Collection sheet created.'
+                                }).then(() => {
+                                    location.reload(); // optional, for safety
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: response.message || 'Could not start campaign.'
+                                });
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: xhr.responseText || 'Something went wrong.'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+    });
+
+
+
+        $(function () {
+            $('.createCollectionSheetsBtn').on('click', function (event) {
+          event.preventDefault();
+
+                const val = $('#activeCampaignCount').val();
+      const activeCampaignCount = parseInt(val, 10) || 0;
+
+          if (activeCampaignCount > 2) {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Cannot Add Collection',
+                  text: 'Only 2 active campaigns are allowed. Please deactivate one before activating another.'
+              });
+              return;
+          }
+          const campaignId = $(this).data('campaign-id');
+
+          Swal.fire({
+              title: 'Are you sure?',
+              text: 'Members will be assigned to this campaign. A collection sheet will be created. Only 2 active campaigns are allowed.',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, generate it!',
+              cancelButtonText: 'No, cancel',
+              customClass: {
+                  confirmButton: 'btn btn-primary',
+                  cancelButton: 'btn btn-secondary'
+              }
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  $.ajax({
+                      url: `/FeeCampaign?handler=CreateCollectionSheet`,
+                      type: "POST",
+                      data: { campaignId: campaignId },
+                      headers: {
+                          'XSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val()
+                      },
+                      success: function (response) {
+    @*   Swal.fire({
+                          icon: 'success',
+                          title: 'Done!',
+                          text: 'Collection sheet created successfully.'
+                      }).then(() => {
+                          location.reload();
+                      });
+                  }, *@
+                           if (response.success) {
+                              Swal.fire({
+                                  icon: 'success',
+                                  title: 'Done!',
+                                  text: 'Collection sheet created successfully.'
+                              }).then(() => {
+                                  location.reload();
+                              });
+                          } else {
+                              Swal.fire({
+                                  icon: 'error',
+                                  title: 'Error',
+                                  text: response.message || 'Failed to create collection sheet.'
+                              });
+                          }
+                      },
+
+                      error: function (xhr, status, error) {
+                          let message = "Something went wrong. Please try again later.";
+
+                          if (xhr && xhr.responseText) {
+                              message = xhr.responseText;
+                          }
+
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Error',
+                              text: message
+                          });
+                      }
+                  });
+              }
+          });
+
+        });
+
+        
+        KTMenu.init();
+
+        // ✅ Loader toggle on page load
+        $(document).ready(function () {
+            $("#tableLoader").removeClass("hidden"); // Show
+            $("#tableLoader").addClass("hidden");    // Hide
+        });
+
+        // ✅ Edit button handler
+        $('.btnItemEdit').click(function () {
+            var modID = $(this).attr('keyID');
+            var url = $("#hidManagePageUrl").val() + "?id=" + modID + "&mode=edit";
+            top.showPopup("Update Fee Campaign", url, 600, 390, window.frameElement.id);
+            return false;
+        });
+    });
+
+
+
+</script>

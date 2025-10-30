@@ -1,0 +1,1428 @@
+{
+    "Module": "MasterData",
+    "Translations": [
+        {
+            "Name": "Area Master",
+            "Description": "Area Master",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "منطقة ماستر"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Area Master"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Area",
+            "Description": "Add New Area",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف منطقة جديدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Area"
+                }
+            ]
+        },
+
+        {
+            "Name": "Area Name",
+            "Description": "Area Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Area Name"
+                }
+            ]
+        },
+        {
+            "Name": "Assigned Users",
+            "Description": "Assigned Users",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "المستخدمون المعينون"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Assigned Users"
+                }
+            ]
+        },
+        {
+            "Name": "Zone Master",
+            "Description": "Zone Master",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "منطقة ماستر"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Zone Master"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Zone",
+            "Description": "Add New Zone",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف منطقة جديدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Zone"
+                }
+            ]
+        },
+        {
+            "Name": "Zone Name",
+            "Description": "Zone Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Zone Name"
+                }
+            ]
+        },
+
+        {
+            "Name": "Unit Name",
+            "Description": "Unit Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم الوحدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Unit Name"
+                }
+            ]
+        },
+        {
+            "Name": "Unit Master",
+            "Description": "Unit Master",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "وحدة ماستر"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Unit Master"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Unit",
+            "Description": "Add New Unit",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف وحدة جديدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Unit"
+                }
+            ]
+        },
+        {
+            "Name": "WorkPlace Master",
+            "Description": "WorkPlace Master",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "سيد مكان العمل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "WorkPlace Master"
+                }
+            ]
+        },
+
+        {
+            "Name": "Add New WorkPlace",
+            "Description": "Add New WorkPlace",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة مكان عمل جديد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New WorkPlace"
+                }
+            ]
+        },
+
+        {
+            "Name": "WorkPlace",
+            "Description": "WorkPlace",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مكان العمل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "WorkPlace"
+                }
+            ]
+        },
+        {
+            "Name": "Work Place",
+            "Description": "Work Place",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مكان العمل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Work Place"
+                }
+            ]
+        },
+        {
+            "Name": "Profession Master",
+            "Description": "Profession Master",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "ماجستير المهنة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Profession Master"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Profession",
+            "Description": "Add New Profession",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف مهنة جديدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Profession"
+                }
+            ]
+        },
+        {
+            "Name": "File Master",
+            "Description": "File Master",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مايندرج"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "File Master"
+                }
+            ]
+        },
+        {
+            "Name": "Add File",
+            "Description": "Add File",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة ملف"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add File"
+                }
+            ]
+        },
+        {
+            "Name": "Folder Name",
+            "Description": "Folder Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم المجلد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Folder Name"
+                }
+            ]
+        },
+        {
+            "Name": "File Name",
+            "Description": "File Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم الملف"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "File Name"
+                }
+            ]
+        },
+        {
+            "Name": "Upload File",
+            "Description": "Upload File",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رفع ملف"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Upload File"
+                }
+            ]
+        },
+        {
+            "Name": "Attachments",
+            "Description": "Attachments",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "المرفقات"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Attachments"
+                }
+            ]
+        },
+        {
+            "Name": "File Ref. Number",
+            "Description": "File Ref. Number",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رقم المرجع للملف"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "File Ref. Number"
+                }
+            ]
+        },
+        {
+            "Name": "Folder Master",
+            "Description": "Folder Master",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "ماستر المجلد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Folder Master"
+                }
+            ]
+        },
+        {
+            "Name": "Add Folder",
+            "Description": "Add Folder",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة مجلد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add Folder"
+                }
+            ]
+        },
+        {
+            "Name": "Department Master",
+            "Description": "Department Master",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إدارة ماستر"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Department Master"
+                }
+            ]
+        },
+        {
+            "Name": "Add Department",
+            "Description": "Add Department",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة قسم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add Department"
+                }
+            ]
+        },
+        {
+            "Name": "Department Name",
+            "Description": "Department Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم القسم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Department Name"
+                }
+            ]
+        },
+        {
+            "Name": "App-Info Master",
+            "Description": "App-Info Master",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "ماستر معلومات التطبيق"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "App-Info Master"
+                }
+            ]
+        },
+        {
+            "Name": "ADD_APP_INFO",
+            "Description": "ADD_APP_INFO",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف معلومات التطبيق"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add App Info"
+                }
+            ]
+        },
+        {
+            "Name": "Section Type",
+            "Description": "Section Type",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "نوع القسم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Section Type"
+                }
+            ]
+        },
+        {
+            "Name": "SHOW_IN_WEBSITE",
+            "Description": "SHOW_IN_WEBSITE",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "عرض في الموقع الإلكتروني"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "SHOW_IN_WEBSITE"
+                }
+            ]
+        },
+        {
+            "Name": "SHOW_IN_MOBILE",
+            "Description": "SHOW_IN_MOBILE",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "عرض في الجوال"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "SHOW_IN_MOBILE"
+                }
+            ]
+        },
+        {
+            "Name": "USER_LOGIN_LOG",
+            "Description": "USER_LOGIN_LOG",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "سجل دخول المستخدم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "User Login Log"
+                }
+            ]
+        },
+        {
+            "Name": "User Name",
+            "Description": "User Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم المستخدم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "User Name"
+                }
+            ]
+        },
+        {
+            "Name": "Role Name",
+            "Description": "Role Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم الدور"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Role Name"
+                }
+            ]
+        },
+        {
+            "Name": "Login Time",
+            "Description": "Login Time",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "وقت تسجيل الدخول"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Login Time"
+                }
+            ]
+        },
+        {
+            "Name": "Logout Time",
+            "Description": "Logout Time",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "وقت تسجيل الخروج"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Logout Time"
+                }
+            ]
+        },
+        {
+            "Name": "Active Members List",
+            "Description": "Active Members List",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "قائمة الأعضاء النشطين"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Active Members List"
+                }
+            ]
+        },
+        {
+            "Name": "Unpaid Members List",
+            "Description": "Unpaid Members List",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "قائمة الأعضاء غير المدفوعين"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Unpaid Members List"
+                }
+            ]
+        },
+        {
+            "Name": "Rejected Applicants List",
+            "Description": "Rejected Applicants List",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "قائمة المتقدمين الذين تم رفضهم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Rejected Applicants List"
+                }
+            ]
+        },
+        {
+            "Name": "Cancelled Members List",
+            "Description": "Cancelled Members List",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "قائمة الأعضاء الملغاة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Cancelled Members List"
+                }
+            ]
+        },
+        {
+            "Name": "Payment Summary Report",
+            "Description": "Payment Summary Report",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تقرير ملخص الدفع"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Payment Summary Report"
+                }
+            ]
+        },
+        {
+            "Name": "Amount",
+            "Description": "Amount",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مقدار"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Amount"
+                }
+            ]
+        },
+        {
+            "Name": "No of Members",
+            "Description": "No of Members",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "عدد الأعضاء"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "No of Members"
+                }
+            ]
+        },
+        {
+            "Name": "Detail",
+            "Description": "Detail",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تفصيل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Detail"
+                }
+            ]
+        },
+        {
+            "Name": "Payment Detail Report",
+            "Description": "Payment Detail Report",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تقرير تفاصيل الدفع"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Payment Detail Report"
+                }
+            ]
+        },
+        {
+            "Name": "Collected By",
+            "Description": "Collected By",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تم جمعه بواسطة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Collected By"
+                }
+            ]
+        },
+        {
+            "Name": "Collected Date",
+            "Description": "Collected Date",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تاريخ الجمع"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Collected Date"
+                }
+            ]
+        },
+        {
+            "Name": "Member Name",
+            "Description": "Member Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم العضو"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Member Name"
+                }
+            ]
+        },
+
+        {
+            "Name": "Role Administration",
+            "Description": "Role Administration",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إدارة الأدوار"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Role Administration"
+                }
+            ]
+        },
+        {
+            "Name": "Role",
+            "Description": "Role",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "دور"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Role"
+                }
+            ]
+        },
+        {
+            "Name": "Module",
+            "Description": "Module",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "وحدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Module"
+                }
+            ]
+        },
+
+        {
+            "Name": "Menu",
+            "Description": "Menu",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "قائمة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Menu"
+                }
+            ]
+        },
+        {
+            "Name": "Add User",
+            "Description": "Add User",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة مستخدم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add User"
+                }
+            ]
+        },
+        {
+            "Name": "Search Users",
+            "Description": "Search Users",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "بحث عن المستخدمين"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Search Users"
+                }
+            ]
+        },
+        {
+            "Name": "Assigned Users",
+            "Description": "Assigned Users",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "المستخدمون المعينون"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Assigned Users"
+                }
+            ]
+        },
+        {
+            "Name": "Fee Collection Report",
+            "Description": "Fee Collection Report",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تقرير جمع الرسوم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Fee Collection Report"
+                }
+            ]
+        },
+        {
+            "Name": "Pie Chart of Paid and Unpaid Members by Count",
+            "Description": "Pie Chart of Paid and Unpaid Members by Count",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مخطط دائري لعدد الأعضاء المدفوعين وغير المدفوعين"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Pie Chart of Paid and Unpaid Members by Count"
+                }
+            ]
+        },
+        {
+            "Name": "Collected By Report",
+            "Description": "Collected By Report",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تم جمعه بواسطة التقرير"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Collected By Report"
+                }
+            ]
+        },
+        {
+            "Name": "Zone-wise Paid and Unpaid Members",
+            "Description": "Zone-wise Paid and Unpaid Members",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء المدفوعين وغير المدفوعين حسب المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Zone-wise Paid and Unpaid Members"
+                }
+            ]
+        },
+        {
+            "Name": "Unit-wise Paid and Unpaid Members",
+            "Description": "Unit-wise Paid and Unpaid Members",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء المدفوعين وغير المدفوعين حسب الوحدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Unit-wise Paid and Unpaid Members"
+                }
+            ]
+        },
+        {
+            "Name": "Payment Type Wise",
+            "Description": "Payment Type Wise",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "حسب نوع الدفع"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Payment Type Wise"
+                }
+            ]
+        },
+        {
+            "Name": "Unpaid Members by Area",
+            "Description": "Unpaid Members by Area",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء غير المدفوعين حسب المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Unpaid Members by Area"
+                }
+            ]
+        },
+        {
+            "Name": "Bar Chart of Paid and Unpaid Members by Area",
+            "Description": "Bar Chart of Paid and Unpaid Members by Area",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مخطط العمود للأعضاء المدفوعين وغير المدفوعين حسب المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Bar Chart of Paid and Unpaid Members by Area"
+                }
+            ]
+        },
+        {
+            "Name": "Members By Zone",
+            "Description": "Members By Zone",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء حسب المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Members By Zone"
+                }
+            ]
+        },
+        {
+            "Name": "Members By Unit",
+            "Description": "Members By Unit",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء حسب الوحدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Members By Unit"
+                }
+            ]
+        },
+        {
+            "Name": "Members By Area",
+            "Description": "Members By Area",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء حسب المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Members By Area"
+                }
+            ]
+        },
+        {
+            "Name": "Blood Group Distribution",
+            "Description": "Blood Group Distribution",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "توزيع فصائل الدم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Blood Group Distribution"
+                }
+            ]
+        },
+        {
+            "Name": "Genderwise Distribution",
+            "Description": "Genderwise Distribution",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "التوزيع حسب الجنس"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Genderwise Distribution"
+                }
+            ]
+        },
+        {
+            "Name": "Members By District",
+            "Description": "Members By District",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء حسب المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Members By District"
+                }
+            ]
+        },
+        {
+            "Name": "Wokplacewise Distribution",
+            "Description": "Wokplacewise Distribution",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "توزيع مكان العمل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Wokplacewise Distribution"
+                }
+            ]
+        },
+        {
+            "Name": "Professionwise Distribution",
+            "Description": "Professionwise Distribution",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "التوزيع حسب المهنة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Professionwise Distribution"
+                }
+            ]
+        },
+        {
+            "Name": "Members By Department",
+            "Description": "Members By Department",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء حسب القسم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Members By Department"
+                }
+            ]
+        },
+        {
+            "Name": "Members by Age Group",
+            "Description": "Members by Age Group",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء حسب الفئة العمرية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Members by Age Group"
+                }
+            ]
+        },
+        {
+            "Name": "Members by Experience",
+            "Description": "Members by Experience",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء حسب الخبرة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Members by Experience"
+                }
+            ]
+        },
+        {
+            "Name": "Add New User",
+            "Description": "Add New User",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف مستخدم جديد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New User"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Role",
+            "Description": "Add New Role",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف دورًا جديدًا"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Role"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Lookup",
+            "Description": "Add New Lookup",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف استعلام جديد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Lookup"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Area",
+            "Description": "Add New Area",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف منطقة جديدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Area"
+                }
+            ]
+        },
+
+        {
+            "Name": "Add New Zone",
+            "Description": "Add New Zone",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف منطقة جديدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Zone"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Unit",
+            "Description": "Add New Unit",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف وحدة جديدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Unit"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Profession",
+            "Description": "Add New Profession",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف مهنة جديدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Profession"
+                }
+            ]
+        },
+        {
+            "Name": "Add New WorkPlace",
+            "Description": "Add New WorkPlace",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة مكان عمل جديد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New WorkPlace"
+                }
+            ]
+        },
+        {
+            "Name": "Add File",
+            "Description": "Add File",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة ملف"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add File"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Folder",
+            "Description": "Add New Folder",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف مجلد جديد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Folder"
+                }
+            ]
+        },
+        {
+            "Name": "Add New Department",
+            "Description": "Add New Department",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف قسم جديد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Department"
+                }
+            ]
+        },
+        {
+            "Name": "Add New WorkPlace",
+            "Description": "Add New WorkPlace",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة مكان عمل جديد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New WorkPlace"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Username",
+            "Description": "Enter Username",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل اسم المستخدم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Username"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Role Name",
+            "Description": "Enter Role Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل اسم الدور"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Role Name"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Description",
+            "Description": "Enter Description",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل الوصف"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Description"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Area",
+            "Description": "Enter Area",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Area"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Unit",
+            "Description": "Enter Unit",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل الوحدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Unit"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Zone",
+            "Description": "Enter Zone",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "ادخل المنطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Zone"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Profession",
+            "Description": "Enter Profession",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل المهنة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Profession"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Work Place",
+            "Description": "Enter Work Place",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل مكان العمل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Work Place"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Department Name",
+            "Description": "Enter Department Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل اسم القسم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Department Name"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Department Name",
+            "Description": "Enter Department Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل اسم القسم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Department Name"
+                }
+            ]
+        },
+        {
+            "Name": "Enter File Name",
+            "Description": "Enter File Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل اسم الملف"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter File Name"
+                }
+            ]
+        },
+        {
+            "Name": "Enter Folder Name",
+            "Description": "Enter Folder Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل اسم المجلد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter Folder Name"
+                }
+            ]
+        },
+        {
+            "Name": "Enter File ReferenceNumber",
+            "Description": "Enter File ReferenceNumber",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل رقم مرجع الملف"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter File ReferenceNumber"
+                }
+            ]
+        }
+
+
+    ]
+}

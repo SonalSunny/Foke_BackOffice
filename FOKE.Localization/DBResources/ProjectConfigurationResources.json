@@ -1,0 +1,103 @@
+{
+  "Module": "ProjectConfiguration",
+  "Translations": [
+    {
+      "Name": "PROJECT_CONFIGURATION_TITLE",
+      "Description": "ProjectConfiguration",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "تكوين المشروع "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Project Configuration"
+        }
+      ]
+    },
+    {
+      "Name": "PROJECT_CONFIGURATION_LIST",
+      "Description": "Project Configuration List",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "قائمة تكوين المشروع "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Project Configuration List"
+        }
+      ]
+    },
+    {
+      "Name": "CONFIGKEY",
+      "Description": "ConfigKey",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "مفتاح التكوين "
+        },
+        {
+          "Culture": "en-US",
+          "Value": "ConfigKey"
+        }
+      ]
+    },
+    {
+      "Name": "CONFIGCODE",
+      "Description": "ConfigCode",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "رمز التكوين"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "ConfigCode"
+        }
+      ]
+    },
+    {
+      "Name": "CONFIG_DESCRIPTION",
+      "Description": "Config Description",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "وصف"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Description"
+        }
+      ]
+    },
+    {
+      "Name": "CONFIG_VALUE",
+      "Description": "Value",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "قيمة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Value"
+        }
+      ]
+    },
+    {
+      "Name": "CONFIG_DEFAULT_VALUE",
+      "Description": "Default Value",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "القيمة الافتراضية"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Default Value"
+        }
+      ]
+    }
+  ]
+}

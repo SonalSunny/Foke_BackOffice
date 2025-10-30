@@ -1,0 +1,248 @@
+﻿	@page
+	@model FOKE.Pages.PayMembershipFee.PayFeeModel
+      @inject ISharedLocalizer Localize
+	@using FOKE.Localization
+	@using FOKE.Models.PageModels
+	@{
+	}
+	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <form method="post" id="crudForm" novalidate="novalidate" autocomplete="off">
+    @Html.AntiForgeryToken()
+    <!-- Hidden Campaign fields -->
+    <input type="hidden" asp-for="inputModel.CampaignId" />
+    <input type="hidden" asp-for="inputModel.CampaignName" />
+    <input type="hidden" asp-for="inputModel.StartDate" />
+    <input type="hidden" asp-for="inputModel.EndDate" />
+    <input type="hidden" asp-for="inputModel.MemberShipFee" />
+    <input type="hidden" asp-for="inputModel.Description" />
+    <input type="hidden" asp-for="PaymentInput.Campaign" />
+    <input type="hidden" asp-for="inputModel.loggedinUserId" value="@User.FindFirst("Userid")?.Value" />
+    <input type="hidden" asp-for="PaymentInput.loggedinUserId" value="@User.FindFirst("Userid")?.Value" />
+
+
+
+    <input type="hidden" asp-for="PaymentInput.MemberID" />
+    <input type="hidden" asp-for="Type" id="Type" />
+	<div id="kt_app_content" class="app-content flex-column-fluid">
+		<div id="kt_app_content_container" class="app-container container-xxl">
+			<div class="card">
+				<div class="container mt-4"> <!-- This adds spacing similar to the second section -->
+                    @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                    {
+                        <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                            <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                            <div class="flex-grow-1 fw-bold text-dark">@Model.pageErrorMessage</div>
+                            <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+
+
+
+				<div class="card shadow-lg rounded overflow-hidden mb-5">
+					<!-- Task Header with Gradient Background -->
+				@* 	<div class="p-4 text-white fw-bold fs-3" style="background: linear-gradient(to right, #4da0f3, #007bff);">
+						🧑‍💼  Membership Details
+					</div> *@
+					@* <div class="p-4 text-white fw-bold fs-3" style="background: linear-gradient(to right, #4da0f3, #007bff);">
+						<i class="bi bi-bullseye me-2"></i> Campaign Details
+					</div> *@
+					<div class="p-4 text-white fw-bold fs-3" style="background: linear-gradient(to right, #4da0f3, #007bff);">
+						<i class="bi bi-cash-stack me-2 text-white"></i>@Localize.Localize("Pay Membership Fee")
+					</div>
+
+
+
+                    <div class="card-body shadow-sm p-4 bg-white rounded">
+                        <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">@Localize.Localize("Current Campaign Info")</h4>
+
+                        <!-- Campaign Info Box -->
+                        <div class="container ms-5">
+                            <div class="border rounded p-4 bg-light mb-4">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label class="fw-semibold fs-7 text-gray-600">@Localize.Localize("Campaign Name:")</label>
+                                        <div class="fw-semibold fs-5 text-dark">@Model.inputModel.CampaignName</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="fw-semibold fs-7 text-gray-600">@Localize.Localize("Start Date:")</label>
+                                        <div class="fw-semibold fs-5 text-dark">@Model.inputModel.StartDateFormatted</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="fw-semibold fs-7 text-gray-600">@Localize.Localize("End Date:")</label>
+                                        <div class="fw-semibold fs-5 text-dark">@Model.inputModel.EndDateFormatted</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="fw-semibold fs-7 text-gray-600">@Localize.Localize("Amount:")</label>
+                                        <div class="fw-semibold fs-5 text-dark">@Model.inputModel.MemberShipFee</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="fw-semibold fs-7 text-gray-600">@Localize.Localize("Description:")</label>
+                                        <div class="fw-semibold fs-5 text-dark">@Model.inputModel.Description</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Separator -->
+                            <hr class="my-4" />
+
+                            <!-- Payment Fields -->
+                            <div class="row mb-3">
+                                <!-- Payment Type -->
+                                <div class="col-md-6">
+                                    <label for="PaymentType" class="fs-6 fw-semibold mb-2">@Localize.Localize("Payment Type")</label>
+
+                                        <select asp-for="PaymentInput.PaymentType" id="PaymentType"
+                                            class="form-select form-select-sm select2"
+                                            asp-items='@new SelectList(Model.PaymentTypeList, "keyID", "name")'>
+                                        <option value="">Select</option>
+                                    </select>
+                                        <span asp-validation-for="PaymentInput.PaymentType" class="text-danger"></span>
+                                </div>
+
+                                <!-- Amount -->
+                                <div class="col-md-6">
+                                        <label for="collectionAmount" class="fs-6 fw-semibold mb-2">@Localize.Localize("Enter Amount")</label>
+                                        <input asp-for="PaymentInput.PaidAmount" type="number" id="PaidAmount" class="form-control form-control-sm" placeholder="Enter amount" />
+                                        <span asp-validation-for="PaymentInput.PaidAmount" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Collection Remarks -->
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label for="collectionRemarks" class="fs-6 fw-semibold mb-2">@Localize.Localize("Collection Remarks")</label>
+                                        <textarea asp-for="PaymentInput.CollectionRemark" class="form-control" rows="2" placeholder="Enter remarks..." style="resize: none;"></textarea>
+                                    <span asp-for="PaymentInput.CollectionRemark" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Save Button Aligned Right -->
+                            <div class="row">
+                                <div class="col-12 text-end">
+   @*                                  <button type="button" class="btn btn-primary btn-sm btn-req-loader" >
+                                        <i class="bi bi-save me-1"></i> Save
+                                    </button> *@
+                                    <button type="submit" name="btnSubmit" value="btnSave" class="btn btn-primary btn-flat btn-sm btn-req-loader">
+                                        <i class="far fa-save"></i> @Localize.Localize("BTN_SAVE")
+                                    </button>
+                                    <button type="submit" name="btnSubmit" id="btnRefresh" value="btnRefresh"
+                                            class="btn btn-outline-primary btn-sm d-none btn-req-loader"
+                                            formnovalidate="formnovalidate">
+                                        @Localize.Localize("BTN_REFRESH")
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+<!-- Add SweetAlert2 CDN -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // Form Submission Validation
+            $('#crudForm').submit(function (e) {
+                const paidAmount = parseFloat($('#PaidAmount').val());
+                const campaignAmount = parseFloat($('#inputModel_MemberShipFee').val());
+                const PaymentType = parseFloat($('#PaymentType').val());
+
+                console.log(`pa: ${paidAmount}, ca: ${campaignAmount}, pt: ${PaymentType}`);
+
+                // Clear previous messages
+                $('span[data-valmsg-for="PaymentInput.PaymentType"]').text('');
+                $('span[data-valmsg-for="PaymentInput.PaidAmount"]').text('');
+
+                // Payment Type validation
+                if (isNaN(PaymentType)) {
+                    $('span[data-valmsg-for="PaymentInput.PaymentType"]').text('Select Payment Type');
+                    $('.btn-req-loader').removeClass('btn-req-loader');
+                    $('#divLoader').hide();
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Paid amount validations
+                if (isNaN(paidAmount) || paidAmount <= 0) {
+                    $('span[data-valmsg-for="PaymentInput.PaidAmount"]').text('Please enter a valid amount greater than 0.');
+                    $('.btn-req-loader').removeClass('btn-req-loader');
+                    $('#divLoader').hide();
+                    e.preventDefault();
+                    return false;
+                }
+
+                if (paidAmount > campaignAmount) {
+                    $('span[data-valmsg-for="PaymentInput.PaidAmount"]').text('Amount cannot be greater than the campaign fee.');
+                    $('.btn-req-loader').removeClass('btn-req-loader');
+                    $('#divLoader').hide();
+                    e.preventDefault();
+                    return false;
+                }
+
+                if (paidAmount !== campaignAmount) {
+                    $('#divLoader').hide();
+                    $('span[data-valmsg-for="PaymentInput.PaidAmount"]').text('Amount must equal to campaign amount.');
+                    $('.btn-req-loader').removeClass('btn-req-loader');
+                    $('#divLoader').hide();
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Loader will show only if validation passes (optional)
+                $('#divLoader').show();
+
+                return true;
+            });
+
+            // Show success alert and redirect if operation was successful
+            if ("@Model.IsSuccessReturn" === "True") {
+                var type = $('#Type').val(); // Hidden field value
+
+                top.Swal.fire({
+                    icon: 'success',
+                    buttonsStyling: false,
+                    title: "@Html.Raw(@Model.sucessMessage)",
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    top.hidePageLoader(); // Custom loader function (if defined)
+
+                    // Redirect based on type
+                    switch (type) {
+                        case "Area":
+                            window.location.href = '/MembersList/MembersByArea/Index';
+                            break;
+                        case "Zone":
+                            window.location.href = '/MembersList/MembersByZone/Index';
+                            break;
+                        case "Unit":
+                            window.location.href = '/MembersList/MembersByUnit/Index';
+                            break;
+                        default:
+                            window.location.href = '/PayMembershipFee/MemberSearchForm';
+                    }
+                });
+            }
+
+        });
+    </script>
+
+}
+
+

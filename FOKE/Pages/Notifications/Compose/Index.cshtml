@@ -1,0 +1,760 @@
+﻿@page
+@using FOKE.Entity.Notification.ViewModel
+@using FOKE.Localization
+@model FOKE.Pages.Notifications.Compose.IndexModel
+@{
+}
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/Notifications/Compose/Manage")" />
+<input type="hidden" id="hidDeletePageUrl" value="@Url.Content("~/Notifications/Compose/Index?handler=Delete")" />
+<form method="post" id="crudForm" novalidate="novalidate" autocomplete="off">
+    <div class="card mb-5 mb-xl-10 pb-5">
+        <div class="card-header cursor-pointer border-bottom" role="button">
+            <div class="card-title m-0">
+                <h3 class="fw-bold m-0"> @Localize.Localize("Notifications")</h3>
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <div class="m-0"></div>
+            </div>
+        </div>
+
+        <div class="card-body mx-5" style="padding: 0 10px !important;">
+            <br />
+            @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+            {
+                <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                    <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                    <div class="flex-grow-1 fw-bold text-dark">
+                        <strong></strong> @Model.pageErrorMessage
+                    </div>
+                    <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold fs-6 mb-1"><strong>@Localize.Localize("Notification Type:")</strong></label>
+                    <select asp-for="SelectedType" asp-items="Model.NotificationType"
+                            class="form-select form-select-sm form-select-solid"
+                            data-control="select2"
+                            data-placeholder="Select Notification"
+                            data-hide-search="true"
+                            id="SelectedType">
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="required form-label fw-semibold fs-6 mb-1"><strong>@Localize.Localize("Send To:")</strong></label>
+                    <select asp-for="inputModel.SendTo" class="form-select form-select-sm select2" asp-items='@new SelectList(Model.NotificationTypeList, "keyID", "name")' style="width: 100% !important;">
+                        <option value="">@Localize.Localize("DD_DEFAULT_OPTION_SELECT") @Localize.Localize("SEND TO")</option>
+                    </select>
+                    <span asp-validation-for="inputModel.SendTo" class="text-danger"></span>
+                </div>
+                <div class="col-md-4" id="divArea" style="display:none">
+                    <label class="form-label fw-semibold fs-6 mb-1"><strong>@Localize.Localize("AREA"):</strong></label>
+                    <select id="ddlArea" asp-for="inputModel.Area" class="form-select form-select-sm select2" asp-items='@new SelectList(Model.AreaList, "keyID", "name")' style="width: 100% !important;">
+                        <option value="">@Localize.Localize("DD_DEFAULT_OPTION_SELECT") @Localize.Localize("AREA")</option>
+                    </select>
+                </div>
+                <div class="col-md-4" id="divzone" style="display:none">
+                    <label class="form-label fw-semibold fs-6 mb-1"><strong>@Localize.Localize("ZONE"):</strong></label>
+                    <select id="ddlZone" asp-for="inputModel.Zone" class="form-select form-select-sm select2" asp-items='@new SelectList(Model.ZoneList, "keyID", "name")' style="width: 100% !important;">
+                        <option value="">@Localize.Localize("DD_DEFAULT_OPTION_SELECT") @Localize.Localize("ZONE")</option>
+                    </select>
+                </div>
+                <div class="col-md-4" id="divUnit" style="display:none">
+                    <label class="form-label fw-semibold fs-6 mb-1"><strong>@Localize.Localize("UNIT"):</strong></label>
+                    <select id="ddlUnit" asp-for="inputModel.Unit" class="form-select form-select-sm select2" asp-items='@new SelectList(Model.UnitList, "keyID", "name")' style="width: 100% !important;">
+                        <option value="">@Localize.Localize("DD_DEFAULT_OPTION_SELECT") @Localize.Localize("UNIT")</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 p-3" id="divspecMembers" style="display:none">
+                    <div class="form-inline">
+                        <select id="memberSearch" class="form-select form-select-sm" multiple="multiple" style="width: 100%"></select>
+                        <input type="hidden" asp-for="inputModel.SendToNumbers" id="SendToNumbers" />
+                        <input type="hidden" asp-for="inputModel.RemovedNumbers" id="RemovedNumbers" />
+                    </div>
+                </div>
+                <div class="col-md-12 p-3" id="divOtherMembers">
+                    <div class="input-group input-group-sm">
+                        <input asp-for="inputModel.Displaycontent"
+                               class="form-control"
+                               placeholder="This notification will be sent to 10 members"
+                               disabled />
+                        <button id="btnViewRecipients"
+                                type="button"
+                                class="btn btn-primary">
+                            @Localize.Localize("VIEW RECIPIENTS")
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Notification Header (Plain Text) -->
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="required form-label fw-semibold fs-6 mb-1"><strong>@Localize.Localize("Header:")</strong></label>
+                    <input asp-for="inputModel.Header" class="form-control form-control-sm" placeholder=@Localize.Localize("Enter header") />
+                    <span asp-validation-for="inputModel.Header" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Notification Content (Rich Text / HTML Editor) -->
+            <div class="row">
+                <div class="col-12 p-3">
+                    <!-- Quill Editor -->
+                    <div id="editor-container" style="height: 290px;"></div>
+                    <input type="hidden" asp-for="inputModel.NotificationContent" id="commentHtml" >
+                    <span asp-validation-for="inputModel.NotificationContent" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="card-footer text-end fixed-bottom bg-light">
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <button id="btnSave" type="submit" name="btnSubmit" value="btnSave" class="btn btn-primary btn-flat btn-sm"><i class="fas fa-paper-plane"></i>@Localize.Localize("Send")</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/kTable.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        // Global variables
+        let recipientList = @Html.Raw(Json.Serialize(Model.ReciepientData ?? new List<ReciepientData>()));
+        let ajaxRequest = null; // For canceling previous requests
+        let removedPhoneNumbers = ""; // NEW: Track removed phone numbers for non-specific selections
+
+        // Constants for member types
+        const MEMBER_TYPES = {
+            AREA: '46',
+            ZONE: '47',
+            UNIT: '48',
+            SPECIFIC: '49',
+            ALL: '42',
+            COMMITTEE: '43',
+            ACTIVE: '44',
+            INACTIVE: '45'
+        };
+
+        // Utility functions
+        const utils = {
+            // Unified function to update placeholder and recipient list
+            updateRecipientInfo: function(count, data) {
+                $("#inputModel_Displaycontent").attr("placeholder", `This notification will be sent to ${count} members`);
+                recipientList = data || [];
+            },
+
+            // Generic AJAX function
+            makeAjaxRequest: function(url, data, successCallback, errorCallback) {
+                // Cancel previous request if exists
+                if (ajaxRequest && ajaxRequest.readyState !== 4) {
+                    ajaxRequest.abort();
+                }
+
+                ajaxRequest = $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: data || {},
+                    success: successCallback,
+                    error: errorCallback || function() {
+                        $("#inputModel_Displaycontent").attr("placeholder", "Unable to fetch member count");
+                        recipientList = [];
+                    }
+                });
+            },
+
+            // Show/hide divs based on selection
+            toggleDivs: function(selectedId) {
+                const divs = ['#divArea', '#divzone', '#divUnit', '#divspecMembers'];
+                divs.forEach(div => $(div).hide());
+
+                switch(selectedId) {
+                    case MEMBER_TYPES.AREA:
+                        $('#divArea').show();
+                        break;
+                    case MEMBER_TYPES.ZONE:
+                        $('#divzone').show();
+                        break;
+                    case MEMBER_TYPES.UNIT:
+                        $('#divUnit').show();
+                        break;
+                    case MEMBER_TYPES.SPECIFIC:
+                        $('#divspecMembers').show();
+                        break;
+                }
+            }
+        };
+
+        // Member count handlers
+        const memberCountHandlers = {
+            [MEMBER_TYPES.ALL]: function() {
+                utils.makeAjaxRequest('@Url.Page("index", "AllMemberCount")', null, function(data) {
+                    if (data && data.status !== undefined) {
+                        utils.updateRecipientInfo(data.status, data.reciepientData);
+                    }
+                });
+            },
+            [MEMBER_TYPES.COMMITTEE]: function() {
+                utils.makeAjaxRequest('@Url.Page("index", "AllCommitteeMemberCount")', null, function(data) {
+                    if (data && data.status !== undefined) {
+                        utils.updateRecipientInfo(data.status, data.reciepientData);
+                    }
+                });
+            },
+            [MEMBER_TYPES.ACTIVE]: function() {
+                utils.makeAjaxRequest('@Url.Page("index", "AllActiveMemberCount")', null, function(data) {
+                    if (data && data.status !== undefined) {
+                        utils.updateRecipientInfo(data.status, data.reciepientData);
+                    }
+                });
+            },
+            [MEMBER_TYPES.INACTIVE]: function() {
+                utils.makeAjaxRequest('@Url.Page("index", "AllinActiveMemberCount")', null, function(data) {
+                    if (data && data.status !== undefined) {
+                        utils.updateRecipientInfo(data.status, data.reciepientData);
+                    }
+                });
+            }
+        };
+
+        // Event handlers
+        const eventHandlers = {
+            // Handle Send To dropdown change
+            handleSendToChange: function() {
+                const selectedId = this.value;
+
+                // Clear previous data when switching options
+                recipientList = [];
+                $("#inputModel_Displaycontent").attr("placeholder", "");
+
+                // NEW: Clear removed phone numbers when changing selection type
+                removedPhoneNumbers = "";
+
+                // Clear specific members selection if switching away from it
+                if (selectedId !== MEMBER_TYPES.SPECIFIC) {
+                    $('#memberSearch').val(null).trigger('change');
+                    $('#SendToNumbers').val('');
+                }
+
+                // Toggle divs based on selection
+                utils.toggleDivs(selectedId);
+
+                // Handle member count fetching
+                if (memberCountHandlers[selectedId]) {
+                    memberCountHandlers[selectedId]();
+                }
+            },
+
+            // Handle Area dropdown change
+            handleAreaChange: function() {
+                const areaId = $(this).val();
+                if (areaId) {
+                    // NEW: Clear removed numbers when area changes
+                    removedPhoneNumbers = "";
+                    utils.makeAjaxRequest('@Url.Page("index", "MemberCountArea")',
+                        { AreaId: areaId },
+                        function(data) {
+                            if (data && data.status !== undefined) {
+                                utils.updateRecipientInfo(data.status, data.reciepientData);
+                            }
+                        });
+                }
+            },
+
+            // Handle Zone dropdown change
+            handleZoneChange: function() {
+                const zoneId = $(this).val();
+                if (zoneId) {
+                    // NEW: Clear removed numbers when zone changes
+                    removedPhoneNumbers = "";
+                    utils.makeAjaxRequest('@Url.Page("index", "MemberCountZone")',
+                        { Zoneid: zoneId },
+                        function(data) {
+                            if (data && data.status !== undefined) {
+                                utils.updateRecipientInfo(data.status, data.reciepientData);
+                            }
+                        });
+                }
+            },
+
+            // Handle Unit dropdown change
+            handleUnitChange: function() {
+                const unitId = $(this).val();
+                if (unitId) {
+                    // NEW: Clear removed numbers when unit changes
+                    removedPhoneNumbers = "";
+                    $('#RemovedNumbers').val(''); // Clear the hidden input
+                    utils.makeAjaxRequest('@Url.Page("index", "MemberCountUnit")',
+                        { UnitID: unitId },
+                        function(data) {
+                            if (data && data.status !== undefined) {
+                                utils.updateRecipientInfo(data.status, data.reciepientData);
+                            }
+                        });
+                }
+            },
+
+            // Handle Save button validation
+            handleSaveValidation: function(e) {
+                const selectedText = $('#inputModel_SendTo option:selected').text().trim();
+                const validationRules = {
+                    'Members by Area': '#ddlArea',
+                    'Members by Zone': '#ddlZone',
+                    'Members by Unit': '#ddlUnit'
+                };
+
+                if (validationRules[selectedText]) {
+                    const selector = validationRules[selectedText];
+                    if (!$(selector).val()) {
+                        e.preventDefault();
+                        const fieldName = selectedText.split(' by ')[1];
+                        alert(`Please select a ${fieldName}.`);
+                        return false;
+                    }
+                }
+
+                // NEW: Log removed phone numbers for debugging (you can remove this)
+                if (removedPhoneNumbers) {
+                    console.log('Removed phone numbers being submitted:', removedPhoneNumbers);
+                    // You can add a hidden input to send this to backend if needed
+                    // $('#hiddenRemovedNumbers').val(removedPhoneNumbers);
+                }
+
+                return true;
+            },
+
+            // ENHANCED: Handle View Recipients with search and remove functionality
+            handleViewRecipients: function() {
+                if (!recipientList || recipientList.length === 0) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'No Data',
+                        text: 'No recipient data available to display.',
+                        showConfirmButton: true
+                    });
+                    return;
+                }
+
+                // Check if current selection is "Specific Members"
+                const selectedSendTo = $('#inputModel_SendTo option:selected').text().trim();
+                const isSpecificMembers = selectedSendTo === 'Specific Members'; // Adjust this text to match your actual option
+
+                // Generate table rows with remove buttons
+                const tableRows = recipientList.map((item, index) =>
+                    `<tr data-index="${index}" data-phone="${item.phoneNo || item.contactNo || ''}">
+                        <td>
+                             <img src="${item.imagePath || '/images/Default.jpg'}" alt="avatar"
+                             style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                        </td>
+                        <td>${item.refNo || 'N/A'}</td>
+                        <td class="searchable-name">${item.name || 'N/A'}</td>
+                        <td class="searchable-profession">    ${[item.proffession, item.workplace, item.department].filter(Boolean).join(' / ') || 'N/A'} </td>
+                        <td class="searchable-area">${item.area || 'N/A'}</td>
+                        <td class="searchable-unit">${item.unit || 'N/A'}</td>
+                        ${!isSpecificMembers ? `
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm remove-member-btn"
+                                    data-index="${index}" data-phone="${item.phoneNo || item.contactNo || ''}"
+                                    style="padding: 2px 8px; font-size: 12px;">
+                                <i class="fas fa-times"></i></button>
+                        </td>` : ''}
+                    </tr>`
+                ).join('');
+
+                // Create the enhanced popup HTML with search
+                const popupHtml = `
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" id="recipientSearch" class="form-control"
+                               placeholder="Search recipients by name, profession, workplace, etc..."
+                               style="border: 1px solid #ddd; border-radius: 4px; padding: 8px;">
+                    </div>
+                    <div style="max-height: 400px; overflow-y: auto;">
+                        <div style="overflow-x: auto; width: 100%;">
+                             <table class="table table-bordered table-sm table-striped" id="recipientsTable">
+                                <thead class="table-light" style="position: sticky; top: 0; z-index: 10;">
+                                    <tr>
+                                        <th>Photo</th>
+                                        <th style="width: 80px; white-space: nowrap;">ID</th>
+                                        <th>Name</th>
+                                        <th>Profession/Workplace/Department</th>
+                                        <th>Area</th>
+                                        <th>Unit</th>
+                                       ${!isSpecificMembers ? '<th style="width: 80px; white-space: nowrap;">Action</th>' : ''}
+                                    </tr>
+                                </thead>
+                                <tbody id="recipientsTableBody">
+                                    ${tableRows}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; padding: 8px; background-color: #f8f9fa; border-radius: 4px; font-size: 14px;">
+                        <strong>Total Recipients: <span id="totalCount">${recipientList.length}</span></strong>
+                        ${!isSpecificMembers ? '<br><small class="text-muted">Removed members will be excluded from notification</small>' : ''}
+                    </div>
+                    <div id="searchSection" style="display: none;">
+                            <select id="memberSearchInPopup" style="width: 100%;"></select>
+                    </div>
+
+                `;
+
+                // Show the popup
+                Swal.fire({
+                    title: '📋 Recipients List',
+                    html: popupHtml,
+                    width: '1200px',
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                    scrollbarPadding: false,
+                    customClass: {
+                        popup: 'swal2-overflow'
+                    },
+                    didOpen: () => {
+                        // Initialize search functionality
+                        const searchInput = document.getElementById('recipientSearch');
+                        const tableBody = document.getElementById('recipientsTableBody');
+                        const totalCountSpan = document.getElementById('totalCount');
+
+                            console.log("Search section exists:", $('#searchSection').length);
+                            console.log("Select2 input exists:", $('#memberSearchInPopup').length);
+
+                        // Search functionality
+                        searchInput.addEventListener('input', function() {
+                            const searchTerm = this.value.toLowerCase().trim();
+                            const rows = tableBody.querySelectorAll('tr');
+                            let visibleCount = 0;
+
+                            rows.forEach(row => {
+                                if (searchTerm === '') {
+                                    row.style.display = '';
+                                    visibleCount++;
+                                } else {
+                                    // Search in multiple columns
+                                    const searchableText = [
+                                        row.querySelector('.searchable-name')?.textContent || '',
+                                        row.querySelector('.searchable-profession')?.textContent || '',
+                                        row.querySelector('.searchable-workplace')?.textContent || '',
+                                        row.querySelector('.searchable-department')?.textContent || '',
+                                        row.querySelector('.searchable-area')?.textContent || '',
+                                        row.querySelector('.searchable-unit')?.textContent || ''
+                                    ].join(' ').toLowerCase();
+
+                                    if (searchableText.includes(searchTerm)) {
+                                        row.style.display = '';
+                                        visibleCount++;
+                                    } else {
+                                        row.style.display = 'none';
+                                    }
+                                }
+                            });
+
+                            // Update visible count
+                            totalCountSpan.textContent = visibleCount;
+                        });
+
+                        // Remove button functionality
+                        tableBody.addEventListener('click', function(e) {
+                            if (e.target.classList.contains('remove-member-btn') ||
+                                e.target.parentElement.classList.contains('remove-member-btn')) {
+
+                                const button = e.target.classList.contains('remove-member-btn') ?
+                                             e.target : e.target.parentElement;
+                                const index = parseInt(button.getAttribute('data-index'));
+                                const phoneNumber = button.getAttribute('data-phone');
+                                const row = button.closest('tr');
+                                const memberName = row.querySelector('.searchable-name').textContent;
+
+                                // Confirm removal
+                                Swal.fire({
+                                    title: 'Remove Member?',
+                                    text: `Are you sure you want to remove "${memberName}" from the recipients list?`,
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d33',
+                                    cancelButtonColor: '#3085d6',
+                                    confirmButtonText: 'Yes, remove',
+                                    cancelButtonText: 'Cancel'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Remove from recipientList array
+                                        recipientList.splice(index, 1);
+
+                                        // For non-specific selections, track removed phone numbers
+                                        if (!isSpecificMembers && phoneNumber && phoneNumber !== 'N/A') {
+                                            if (removedPhoneNumbers === "") {
+                                                removedPhoneNumbers = phoneNumber;
+                                            } else {
+                                                removedPhoneNumbers += "," + phoneNumber;
+                                            }
+                                            $('#RemovedNumbers').val(removedPhoneNumbers);
+
+                                            console.log('Removed phone numbers:', removedPhoneNumbers);
+                                            console.log('Updated RemovedNumbers field:', $('#RemovedNumbers').val());
+                                        }
+
+                                        // Update the main form's recipient count
+                                        const newCount = recipientList.length;
+                                        $("#inputModel_Displaycontent").attr("placeholder",
+                                            `This notification will be sent to ${newCount} member${newCount !== 1 ? 's' : ''}`);
+
+                                        // Remove the row from table with animation
+                                        row.style.transition = 'opacity 0.3s ease';
+                                        row.style.opacity = '0';
+
+                                        setTimeout(() => {
+                                            row.remove();
+
+                                            // Update data-index attributes for remaining rows
+                                            const remainingRows = tableBody.querySelectorAll('tr');
+                                            remainingRows.forEach((remainingRow, newIndex) => {
+                                                const removeBtn = remainingRow.querySelector('.remove-member-btn');
+                                                if (removeBtn) {
+                                                    removeBtn.setAttribute('data-index', newIndex);
+                                                    remainingRow.setAttribute('data-index', newIndex);
+                                                }
+                                            });
+
+                                            // Update total count
+                                            const currentVisibleRows = Array.from(tableBody.querySelectorAll('tr'))
+                                                .filter(r => r.style.display !== 'none').length;
+                                            totalCountSpan.textContent = currentVisibleRows;
+
+                                            // Show success message
+                                            // const Toast = Swal.mixin({
+                                            //     toast: true,
+                                            //     position: 'top-end',
+                                            //     showConfirmButton: false,
+                                            //     timer: 2000,
+                                            //     timerProgressBar: true
+                                            // });
+
+                                            // Toast.fire({
+                                            //     icon: 'success',
+                                            //     title: `${memberName} removed successfully`
+                                            // });
+
+                                        }, 300);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            },
+
+            // Handle member search change
+            handleMemberSearchChange: function() {
+                const data = $('#memberSearch').select2('data');
+
+                // Update recipientList with selected members data
+                recipientList = data.map(member => ({
+                    name: member.text,
+                    phoneNo: member.phone || 'N/A',
+                    name: member.text,
+                    contactNo: member.phone || 'N/A',
+                    imagePath: member.image || '/images/Default.jpg',
+                    refNo: member.refNo || 'N/A',
+                    proffession:  member.proffession || 'N/A',
+                    workplace:  member.workplace || 'N/A',
+                    department:  member.department || 'N/A',
+                    area: member.area || 'N/A',
+                    unit: member.unit || 'N/A',
+                }));
+
+                // Update count display
+                const count = recipientList.length;
+                if (count > 0) {
+                    $("#inputModel_Displaycontent").attr("placeholder", `This notification will be sent to ${count} member${count > 1 ? 's' : ''}`);
+                } else {
+                    $("#inputModel_Displaycontent").attr("placeholder", "No members selected");
+                }
+
+                // Update phone numbers for backend
+                const phoneNumbers = data.map(x => x.phone).filter(p => p);
+                $('#SendToNumbers').val(phoneNumbers.join(','));
+            },
+
+            // Handle member search selection (prevent duplicates)
+            handleMemberSearchSelect: function(e) {
+                const selectedData = e.params.data;
+                const currentSelections = $('#memberSearch').select2('data');
+
+                // Check for duplicates by ID
+                const duplicateCount = currentSelections.filter(item => item.id === selectedData.id).length;
+
+                if (duplicateCount > 1) {
+                    // Remove the duplicate selection
+                    const uniqueSelections = currentSelections.filter((item, index, self) =>
+                        self.findIndex(s => s.id === item.id) === index
+                    );
+
+                    // Update select2 with unique selections
+                    $('#memberSearch').val(uniqueSelections.map(s => s.id)).trigger('change');
+
+                    // Show warning message
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Duplicate Selection',
+                        text: `${selectedData.text} is already selected.`,
+                        showConfirmButton: false,
+                        timer: 2000,
+                        toast: true,
+                        position: 'top-end'
+                    });
+                }
+            }
+        };
+
+        // Initialize Select2 for member search
+        const initializeMemberSearch = function() {
+            $('#memberSearch').select2({
+                placeholder: 'Search for members...',
+                minimumInputLength: 2,
+                ajax: {
+                    url: '@Url.Page("Index", "GetDetails")',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            searchText: "All",
+                            keyword: params.term
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(member) {
+                                return {
+                                    id: member.issueId,
+                                    text: member.name,
+                                    phone: member.phoneNo,
+                                    image: member.profileImagePath,
+                                    refNo: member.refNo,
+                                    proffession: member.proffession,
+                                    workplace: member.workplace,
+                                    department: member.department,
+                                    area: member.area,
+                                    unit: member.unit,
+                                };
+                            })
+                        };
+                    }
+                },
+
+                templateResult: function(member) {
+                    if (!member.id) return member.text;
+                    return $(`
+                        <div style="display: flex; align-items: center;">
+                            <img src="${member.image || '/images/Default.jpg'}" alt="avatar"
+                                 style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                            <div>
+                                <strong>${member.text}</strong><br/>
+                                <small>${member.phone || ''}</small>
+                            </div>
+                        </div>
+                    `);
+                },
+                templateSelection: function(member) {
+                    return member.text;
+                },
+                escapeMarkup: function(markup) {
+                    return markup;
+                }
+            });
+        };
+
+        // Document ready
+        $(document).ready(function() {
+            // Initialize
+            $("#inputModel_Displaycontent").attr("placeholder", "");
+            initializeMemberSearch();
+
+            // Bind events
+            $('#inputModel_SendTo').on('change', eventHandlers.handleSendToChange);
+            $("#ddlArea").on('change', eventHandlers.handleAreaChange);
+            $("#ddlZone").on('change', eventHandlers.handleZoneChange);
+            $("#ddlUnit").on('change', eventHandlers.handleUnitChange);
+            $('#btnSave').on('click', eventHandlers.handleSaveValidation);
+            $('#btnViewRecipients').on('click', eventHandlers.handleViewRecipients);
+            $('#memberSearch').on('change', eventHandlers.handleMemberSearchChange);
+            $('#memberSearch').on('select2:select', eventHandlers.handleMemberSearchSelect);
+
+            // Handle success message
+            if ("@Model.IsSuccessReturn" == "True") {
+                Swal.fire({
+                    icon: 'success',
+                    buttonsStyling: false,
+                    title: "@Html.Raw(@Model.sucessMessage)",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                if (typeof top !== 'undefined' && top.hidePopupWithRefresh) {
+                    top.hidePopupWithRefresh('btnRefresh');
+                }
+            }
+        });
+
+        // NEW: Function to get removed phone numbers (you can call this from anywhere)
+        function getRemovedPhoneNumbers() {
+            return removedPhoneNumbers;
+        }
+
+        quill = new Quill('#editor-container', {
+                theme: 'snow',
+                  modules: {
+                    toolbar: [
+                    [{ 'font': [] }],
+                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                    ['bold', 'italic', 'underline'],        // toggled buttons
+                    ['blockquote', 'code-block'],
+
+                    [{ 'color': [] }, { 'background': [] }],          // dropdowns for color
+                      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+
+                      [{ 'align': [] }],                                // text align
+                      ['link', 'image', 'video'],                       // media
+                      ['clean']                                         // remove formatting
+                   ],
+                }
+         });
+
+        var existingHtml = $('#commentHtml').val();
+        if (existingHtml && existingHtml.trim() !== "") {
+           quill.clipboard.dangerouslyPasteHTML(existingHtml);
+        }
+
+        // When form is submitted
+        $('#crudForm').on('submit', function (e) {
+            var htmlContent = quill.root.innerHTML;
+            if (htmlContent.trim() === "<p><br></p>") {
+                    alert("Please enter some content before submitting.");
+                    e.preventDefault();
+                    return;
+            }
+            $('#commentHtml').val(htmlContent);
+        });
+    </script>
+}
+
+<style>
+    .swal2-overflow {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .swal2-popup table {
+        width: 100%;
+        font-size: 14px;
+    }
+</style>

@@ -1,0 +1,97 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.HomeModel
+
+@* @inject FOKE.Localization.Services.LanguageLCService Localizer
+ *@
+@* @{
+    var layDir = Localizer.GetLayOutDirection();
+} *@
+
+@inject ISharedLocalizer Localize
+<input type="hidden" id="hidManagePageUrl" value="/ChangePassword" />
+
+<script>
+      $(document).ready(function () {
+        $('#changePassword').click(function () {
+            var popupUrl = $('#hidManagePageUrl').val();
+            if (popupUrl) {
+                top.showPopup("Change Password", popupUrl, 600, 300, window.frameElement?.id);
+            } else {
+                alert("Popup URL not defined.");
+            }
+        }); 
+    });
+
+
+    var defaultThemeMode = "light";
+    var themeMode;
+    if (document.documentElement) {
+        if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+            themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+        } else {
+            if (localStorage.getItem("data-bs-theme") !== null) {
+                themeMode = localStorage.getItem("data-bs-theme");
+            } else {
+                themeMode = defaultThemeMode;
+            }
+        }
+        if (themeMode === "system") {
+            themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-bs-theme", themeMode);
+    }
+</script>
+
+<div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+    <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+        <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+            <div class="d-flex flex-column flex-column-fluid">
+                <div id="kt_app_toolbar" class="app-toolbar py-0 py-lg-0">
+                    <div id="kt_app_content" class="app-content flex-column-fluid pb-0">
+                        <div id="kt_app_content_container" class="app-container container-xxl">
+                            <div class="card mb-12">
+                                <div class="card-body flex-column p-5 d-flex flex-column">
+                                    <div class="d-flex align-items-center h-lg-300px p-5 p-lg-15 mb-10">
+                                        <div class="d-flex flex-column align-items-start justify-content-center flex-equal me-5">
+                                            <h1 class="fw-bold fs-2 text-gray-800">@Localize.Localize("Welcome Back! Admin")</h1>
+                                            <h1 class="fw-bold fs-4 text-gray-600  mb-5 mb-lg-10">
+                                               
+                                            </h1>
+
+                                            <div class="text-gray-600 fs-5 mt-5 mb-5 mb-lg-10">
+                                               
+                                                <p>@Localize.Localize("You Logged In at:") <span id="login-time">@Model?.LoginInfo?.CurrentLoginDatetimeFormatted</span></p>
+                                                <p>@Localize.Localize("Your Previous Login:") <span id="previous-login-time">@Model?.LoginInfo?.PreviousLoginDatetimeFormatted</span></p>
+                                                <p>@Localize.Localize("Your Password will expire on:") <span id="password-expiry">@Model?.LoginInfo?.PasswordExpiryDate?.ToString("d-MMM-yyyy") </span></p>
+                                                <p><a href="javascript:void(0);" id="changePassword" class="text-primary text-decoration-underline">Click here to change your password</a></p>
+                                        </div>
+                                        </div>
+
+
+                                        <div class="flex-equal d-flex justify-content-center align-items-end ms-5">
+                                            <img src="~/media/logos/FOKE_LOGO.png" alt="" class="mw-100 mh-125px mh-lg-275px mb-lg-n12">
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer inside the card at the bottom -->
+                                    <div class="mt-auto pt-5 text-center">
+                                        <footer class="app-footer  justify-content-center  text-center py-2">
+                                            <span class="text-muted fw-semibold">2025 ©</span>
+                                            <a href="#"  class="text-gray-800 text-hover-primary">
+                                                Developed with ❤ by Techno Care Team
+                                            </a>
+                                            @* <a href="#"  class="text-gray-800 text-hover-primary">
+                                                Share your idea <i class="far fa-lightbulb text-warning m-1"></i> with us today!
+                                            </a> *@
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

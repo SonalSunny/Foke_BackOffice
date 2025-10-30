@@ -1,0 +1,205 @@
+﻿@model IndexModel
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+@inject ISharedLocalizer Localize
+<div class="table-responsive">
+    <input type="hidden" asp-for="pageNo" id="hidpageNo" />
+    <input type="hidden" asp-for="pageSize" id="hidpageSize" />
+    <input type="hidden" asp-for="sortColumn" id="hidSortColumn" />
+    <input type="hidden" asp-for="sortOrder" id="hidSortOrder" />
+    <table class="table table-hover table-rounded table-striped border gy-4 gs-7 table-sortable table-scroll">
+        <thead>
+            <tr>
+                <th class="sorting t-plr-sm-5"></th>
+                <th class="sorting t-plr-sm-5" area-field="FolderName">
+                    @Localize.Localize("Heading")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Description">
+                    @Localize.Localize("Description")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Status">
+                    @Localize.Localize("To")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Status">
+                     @Localize.Localize("Type")
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+                <th class="sorting t-plr-sm-5" area-field="Status">
+                     @Localize.Localize("Sent Time") 
+                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.pagedListData != null && Model.pagedListData.Count() > 0)
+            {
+                @for (int i = 0; i < Model.pagedListData.Count(); i++)
+                {
+                    var item = Model.pagedListData[i];
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            @item.Header
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.NotificationContent) && item.NotificationContent.Length > 50)
+                            {
+                                var shortText = item.NotificationContent.Substring(0, 50) + "...";
+                                <span>@shortText</span>
+                                <a href="javascript:void(0);" class="read-more-link ms-2 text-primary" data-fullcontent="@item.NotificationContent">Read more</a>
+                            }
+                            else
+                            {
+                                <span>@item.NotificationContent</span>
+                            }
+                        </td>
+                        <td class="ps-4">
+                            <button class="btn btn-sm btn-light-primary fs-7 btnViewRecipients" data-keyid="@item.NotificationId">
+                                @Localize.Localize("VIEW")
+                            </button>
+                        </td>
+                        <td>
+                            @item.NotificationType
+                        </td>
+                        <td>
+                            @item.SendToTime
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start pt-3">
+        <div class="dataTables_length" id="kt_datatable_fixed_header_length">
+            <label>
+                <select asp-for="pageSize" id="kt_datatable_page_size" class="form-select form-select-sm form-select-solid">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </label>
+        </div><div class="dataTables_info" id="kt_datatable_fixed_header_info" role="status" aria-live="polite">Showing @(Model?.pagedListData?.FirstItemOnPage ?? 0) to @(Model?.pagedListData?.LastItemOnPage ?? 0) of @(Model?.pagedListData?.TotalItemCount ?? 0) records</div>
+    </div><div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+        <div class="dataTables_paginate paging_simple_numbers" id="kt_datatable_fixed_header_paginate">
+            @if (Model.hasPagination)
+            {
+                <div>
+                    @Html.PagedListPager((IPagedList)Model.pagedListData, page => Url.Page("Index", "PagedList",
+                    new
+                    {
+                        pn = page,
+                        ps = Model.pageSize,
+                        so = Model.sortOrder,
+                        sc = Model.sortColumn,
+                        nm = Model.globalSearch
+                    }),
+                                PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions()
+                                {
+                                    PageClasses = new string[] { "page-link" },
+                                    LiElementClasses = new string[] { "page-item" },
+                                    UlElementClasses = new string[] { "pagination pagination-circle pagination-outline" },
+                                    EllipsesElementClass = "ki-duotone ki-double-left fs-2",
+                                    Display = PagedListDisplayMode.IfNeeded,
+                                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                                    LinkToPreviousPageFormat = "<i class='fas fa-angle-left'></i>",
+                                    LinkToNextPageFormat = "<i class='fas fa-angle-right'></i>",
+                                    LinkToFirstPageFormat = "<i class='fas fa-step-backward'></i>",
+                                    LinkToLastPageFormat = "<i class='fas fa-step-forward'></i>",
+                                    MaximumPageNumbersToDisplay = 10, // Adjust this number as needed
+                                }, new AjaxOptions()
+                                { HttpMethod = "Get", UpdateTargetId = "_postList", OnBegin = "showInTableLoader()", OnSuccess = "", OnComplete = "hideInTableLoader()" }))
+            </div>
+                        }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="kt_modal_view_recipients" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content rounded">
+            <div class="modal-header">
+                <h3 class="fw-bold">Message Recipients</h3>
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                    <i class="ki-duotone ki-cross fs-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                </div>
+            </div>
+            <div class="modal-body" id="kt_modal_view_recipients_body">
+                <div class="d-flex justify-content-center py-10">
+                    <div class="spinner-border text-primary" role="status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tableLoader" class="loader-container">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<script src="~/js/ktable.js" asp-append-version="true"></script>
+<script type="text/javascript">
+
+     $(document).on('click', '.read-more-link', function () {
+        const fullContent = $(this).data('fullcontent');
+
+        Swal.fire({
+            title: '📩 Content',
+            html: `<div style="text-align: left;">${fullContent}</div>`,
+            width: '700px',
+            showCloseButton: true,
+            showConfirmButton: false
+        });
+    });
+
+    $(function () {
+        KTMenu.init();
+
+        // Simulate loading logic (if needed)
+        $("#tableLoader").removeClass("hidden");
+
+        // Simulate delayed table load
+        setTimeout(function () {
+            $("#tableLoader").addClass("hidden");
+        }, 500); // Optional delay
+    });
+
+    // Bind click event once on DOM ready
+        // First, unbind any existing handler before binding
+    $(document).off('click', '.btnViewRecipients').on('click', '.btnViewRecipients', function () {
+        const Notificationid = $(this).data('keyid');
+        const $modal = $('#kt_modal_view_recipients');
+
+        $('#kt_modal_view_recipients_body').html(`
+            <div class="d-flex justify-content-center py-10">
+                <div class="spinner-border text-primary" role="status"></div>
+            </div>
+        `);
+
+        $modal.modal('show');
+
+        $.get(`/Notifications/SentItems/Manage?id=${Notificationid}`, function (html) {
+            $('#kt_modal_view_recipients_body').html(html);
+        }).fail(function () {
+            $('#kt_modal_view_recipients_body').html('<div class="text-danger text-center">Failed to load recipients. Please try again.</div>');
+        });
+    });
+
+</script>

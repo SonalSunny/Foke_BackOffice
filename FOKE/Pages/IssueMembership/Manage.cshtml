@@ -1,0 +1,1067 @@
+﻿@page
+@model FOKE.Pages.IssueMembership.ManageModel
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+
+@inject ISharedLocalizer Localize
+<form method="post" id="crudForm" novalidate="novalidate" autocomplete="off" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/IssueMembership/Manage")" />
+    <div class="card">
+
+        <div class="card-header cursor-pointer border-bottom" role="button">
+            <div class="card-title m-0">
+                @if (Model.formMode.Equals(FormModeEnum.add))
+                {
+                     <h3 class="fw-bold m-0">
+                        @Localize.Localize("Issue Membership")
+                   
+                     </h3>
+                }
+                else
+                {
+                     <h3 class="fw-bold m-0">
+                        @Localize.Localize("Edit Registration Data")
+                     </h3>
+                }
+
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <div class="m-0">
+                </div>
+               
+            </div>
+        </div>
+
+
+
+        <div class="card-body">
+            <div class="col-12" id="response">
+                @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                {
+                    <input type="hidden" asp-for="Issueid" />
+                    <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                        <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                        <div class="flex-grow-1 fw-bold text-dark">
+                            <strong></strong> @Model.pageErrorMessage
+                        </div>
+                        <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+            </div>
+            <input type="hidden" asp-for="_formMode" />
+            <input type="hidden" asp-for="inputModel.IssueId" />
+            <input type="hidden" asp-for="inputModel.loggedinUserId" value="@User.FindFirst("Userid")?.Value" />
+            <input type="hidden" asp-for="inputModel.MembershipId" />
+         
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Name")</label>
+                            <input asp-for="inputModel.Name" class="form-control form-control-sm" id="NameInput" maxlength="100" />
+                        <span asp-validation-for="inputModel.Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Civil ID")</label>
+                        <input asp-for="inputModel.CivilId" class="form-control form-control-sm" id="CivilIdInput" maxlength="12" />
+                        <span id="civilIdError" class="text-danger" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.CivilId" class="text-danger"></span>
+                    </div>
+                </div>
+          
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Passport No")</label>
+                        <input asp-for="inputModel.PassportNo" class="form-control form-control-sm" id="PassportInput" maxlength="8" />
+                        <span id="PassportnoError" class="text-danger" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.PassportNo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @if (Model.formMode.Equals(FormModeEnum.add))
+                {
+                    
+                    <div class="col-md-4  mb-3">
+                        <div class="form-group">
+                            <label class="required form-label-new">@Localize.Localize("Date of Birth")</label>
+                            <input type="text" class="form-control form-control-sm" id="DOBDisplay" placeholder="DD-MM-YYYY" disabled />
+                            <input asp-for="inputModel.DateofBirth" type="hidden" id="DOBInput" />
+                            <span asp-validation-for="inputModel.DateofBirth" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-4  mb-3">
+                        <div class="form-group">
+                            <label class="required form-label-new">@Localize.Localize("Date of Birth")</label>
+                            <input asp-for="inputModel.DateofBirthString" class="form-control form-control-sm" placeholder="DD-MM-YYYY" disabled />
+                            <input asp-for="inputModel.DateofBirth" type="hidden" id="DOBInput" />
+                            <span asp-validation-for="inputModel.DateofBirthString" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Contact Number")</label>
+                        <div class="input-group">
+                            <select asp-for="inputModel.CountryCodeId" class="form-select form-select-sm NoDdl">
+                                <option value="+965">+965 🇰🇼</option>
+                                <option value="+91">+91 🇮🇳</option>
+                            </select>
+                            <input asp-for="inputModel.ContactNo" class="form-control form-control-sm" placeholder=@Localize.Localize("Enter phone number") />
+                        </div>
+
+                        <span id="ContactNoError" class="text-danger" style="display: none;"></span>
+                        <span asp-validation-for="inputModel.ContactNo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Email")</label>
+                        <input asp-for="inputModel.Email" class="form-control form-control-sm" id="EmailInput" />
+                        <span asp-validation-for="inputModel.Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Gender")</label>
+                        <select asp-for="inputModel.GenderId"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.GenderList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.GenderId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Blood Group")</label>
+                        <select asp-for="inputModel.BloodGroupId"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.BloodGroupList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.BloodGroupId" class="text-danger"></span>
+                    </div>
+                </div>
+         
+                <div class="col-md-4  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Profession")</label>
+                        <select asp-for="inputModel.ProfessionId"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.ProfesssionList, "keyID", "name")' id="ProfessionDDL">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.ProfessionId" class="text-danger"  id="ProfessionDDLError"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Workplace")</label>
+                        <select asp-for="inputModel.WorkPlaceId"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.WorkPlaceList, "keyID", "name")' id="WorkPlaceDDL">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.WorkPlaceId" class="text-danger" id="WorkPlaceError"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("District")</label>
+                        <select asp-for="inputModel.DistrictId"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.DistrictList, "keyID", "name")' id="DistrictDDl">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.DistrictId" class="text-danger" id="DistrictDDlError"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Area")</label>
+                        <select asp-for="inputModel.AreaId"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.AreaList, "keyID", "name")' id="AreaDDL"> 
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.AreaId" class="text-danger" id="AreaDDLError"></span>
+                    </div>
+                </div>
+
+                @if (Model.formMode.Equals(FormModeEnum.add))
+                {
+                    <div class="col-md-6  mb-3">
+                        <div class="form-group">
+                            <label class="required form-label-new"> @Localize.Localize("Department")</label>
+                            <select asp-for="inputModel.DepartmentId"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.DepartmentList, "keyID", "name")' id="DepartmentDDL">
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="inputModel.DepartmentId" class="text-danger" id="DepartmentDDLError"></span>
+                        </div>
+                    </div>                    
+                }
+                @if (Model.formMode.Equals(FormModeEnum.edit))
+                {
+                    <div class="col-md-12  mb-3">
+                        <div class="form-group">
+                            <label class="required form-label-new">@Localize.Localize("Department")</label>
+                            <select asp-for="inputModel.DepartmentId"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.DepartmentList, "keyID", "name")' id="DepartmentDDL">
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="inputModel.DepartmentId" class="text-danger" id="DepartmentDDLError"></span>
+                        </div>
+                    </div>                    
+                }
+
+
+                @if (Model.formMode.Equals(FormModeEnum.add))
+                {
+@*                     <div class="col-md-4  mb-3">
+                        <div class="form-group">
+                            <label class="required form-label-new">Hear About Us</label>
+                            <select asp-for="inputModel.HearAboutUsId"
+                                class="form-select form-select-sm select2"
+                                asp-items='@new SelectList(Model.HearAboutUsList, "keyID", "name")' id="HearAboutDDL">
+                            <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="inputModel.HearAboutUsId" class="text-danger" id="HearAboutDDLError"></span>
+                        </div>
+                    </div> *@
+
+                    <div class="col-md-6  mb-3">
+                        <div class="form-group">
+                            <label class="form-label-new">@Localize.Localize("Profile Image")</label>
+                            <input asp-for="inputModel.Attachment" id="pdfUpload" type="file" class="form-control form-control-sm" multiple />
+                            <span asp-validation-for="inputModel.Attachment" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+
+                <div class="col-md-12">
+                    <label class="required form-label-new">@Localize.Localize("In which year did you start working in the medical sector in Kuwait?")</label>
+                      <select asp-for="inputModel.WorkYear"
+                                class="form-select form-select-sm select2" id="WorkYearDDl"
+                                asp-items='@new SelectList(Model.YearList, "keyID", "name")'>
+                            <option value="">Select</option>
+                      </select>
+                    <span asp-validation-for="inputModel.WorkYear" class="text-danger" id="WorkYearDDlError"></span>
+                </div>
+            </div>
+
+            <br />
+
+            @if (Model.formMode.Equals(FormModeEnum.edit))
+            {
+                <div class="col-6 text-end">
+                    <button type="submit" name="btnSubmit" value="btnSave" id="btnSave" class="btn btn-primary btn-flat btn-sm btn-req-loader"><i class="far fa-save"></i> @Localize.Localize("SAVE")</button>
+                    <button type="submit" name="btnSubmit" id="btnRefresh" value="btnRefresh" class="btn btn-outline-primary btn-sm d-none btn-req-loader" formnovalidate="formnovalidate">btnRefresh</button>
+                </div>
+            }
+
+            @if (Model.formMode.Equals(FormModeEnum.add))
+            {
+                 <hr class="my-4" />
+
+            <div class="border rounded p-4 bg-light">
+                    <h5 class="fw-bold mb-4">@Localize.Localize("For Office Use Only")</h5>
+
+                <div class="row">
+
+                     <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <label class="form-label-new"> @Localize.Localize("Referred By")</label>
+                                <div class="input-group">
+                                    <select asp-for="inputModel.SearchText"  id="searchColumn" class="form-select form-select-sm"
+                                        asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+                                    </select>
+                                    <input type="text" id="referredByInput" class="form-control form-control-sm" placeholder=@Localize.Localize("Referred By") />
+                                    <input asp-for="inputModel.ReferredBy" type="hidden" id="SelectedMemberId" />
+                                </div>
+                                <span asp-validation-for="inputModel.ReferredBy" class="text-danger"></span>
+
+                                <!-- ✅ Add result container here -->
+                                <div id="resultsContainer" class="mt-2"></div>
+
+                                <!-- Hidden field to store selected ID -->
+                                <input type="hidden" id="SelectedMemberId" name="SelectedMemberId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-5">
+                        <div class="form-group">
+                                <label class="required form-label-new">@Localize.Localize("Zone")</label>
+                                <select asp-for="inputModel.ZoneId" id="ZoneId"
+                                        class="form-select form-select-sm select2"
+                                        asp-items='@new SelectList(Model.ZoneList, "keyID", "name")'>
+                                    <option value="">Select</option>
+                                </select>
+                                <span asp-validation-for="inputModel.ZoneId" class="text-danger" id="ZoneDDLError"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-5">
+                        <div class="form-group">
+                                <label class="required form-label-new"> @Localize.Localize("Unit")</label>
+                                <select asp-for="inputModel.UnitId"  id="UnitId"
+                                        class="form-select form-select-sm select2"
+                                        asp-items='@new SelectList(Model.UnitList, "keyID", "name")'>
+                                    <option value="">Select</option>
+                                </select>
+                                <span asp-validation-for="inputModel.UnitId" class="text-danger" id="UnitDDLError"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="border rounded p-4 bg-light">
+                    <h5 class="fw-bold mb-4"> @Localize.Localize("Fee Collection")</h5>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="form-group">
+                                <label class="required form-label-new"> @Localize.Localize("Campaign")</label>
+                            <select asp-for="inputModel.CampaignId"  id="CampaignDropdown"  class="form-select form-select-sm select2 "> 
+                                <option value="">Select</option>
+                                @foreach (var campaign in Model.CampaignList)
+                                {
+                                    <option value="@campaign.CampaignId" data-amount="@campaign.MemberShipFee">
+                                        @campaign.CampaignName
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="inputModel.CampaignId" class="text-danger" id="CampaignDDLError"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="form-group">
+                            <div class="form-group">
+                                    <label class="form-label-new"> @Localize.Localize("Campaign Amount")</label>
+                                <input asp-for="inputModel.CampaignAmount"  class="form-control form-control-sm" id="CampaignAmount"  disabled/>
+                                <span asp-validation-for="inputModel.CampaignAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="form-group">
+                            <div class="form-group">
+                                    <label class="form-label-new"> @Localize.Localize("Amount Received") </label>
+                                    <input asp-for="inputModel.AmountRecieved" class="form-control form-control-sm" id="RecievedAmount" placeholder=@Localize.Localize("Amount Received") />
+                                <span asp-validation-for="inputModel.AmountRecieved" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+              
+                    <div class="col-md-6 mb-4">
+                        <div class="form-group">
+                                <label class="form-label-new"> @Localize.Localize("Payment Type")</label>
+                            <select asp-for="inputModel.PaymentTypeId" id="PaymentType" 
+                                    class="form-select form-select-sm select2"
+                                    asp-items='@new SelectList(Model.PaymentTypeList, "keyID", "name")'>
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="inputModel.PaymentTypeId" class="text-danger" id="PaymentTypeDDLError"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        <div class="form-group">
+                                <label class=" form-label-new"> @Localize.Localize("Payment Remarks") </label>
+                            <textarea asp-for="inputModel.PaymentRemarks" class="form-control form-control-sm" id="PaymentRemark"  placeholder=@Localize.Localize("Payment Remarks")></textarea>
+                            <span asp-validation-for="inputModel.PaymentRemarks" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <hr class="my-4" />
+
+            <div class="border rounded p-4 bg-light" id="requestActionContainer">
+                <h5 class="fw-bold mb-4">@Localize.Localize("Request Action")</h5>
+
+                <!-- Action and Reason Row -->
+                <div class="row mb-4">
+                    <!-- Action Dropdown -->
+                    <div class="col-md-6">
+                            <label for="requestActionDropdown" class="form-label">@Localize.Localize("Action")</label>
+                        <select id="requestActionDropdown" class="form-select form-select-sm">
+                            <option value="" selected disabled>Select an action</option>
+                            <option value="accept">Accept</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                    </div>
+
+                    <!-- Reason Dropdown (only visible when rejected) -->
+                    <div class="col-md-6 d-none" id="rejectReasonCol">
+                            <label for="reqRejectionReason" class="form-label">@Localize.Localize("Reason")</label>
+							    <select asp-for="inputModel.RejectionReasonId" id="reqRejectionReason" class="form-select form-select-sm"
+                                        class="form-select form-select-sm select2"
+                                        asp-items='@new SelectList(Model.RejectedReasonList, "keyID", "name")'>
+                                    <option value="">Select</option>
+                                </select>
+                    </div>
+                </div>
+
+                <!-- Remarks Row -->
+                <div class="row mb-4 d-none" id="rejectRemarksRow">
+                    <div class="col-12">
+                            <label for="reqRejectionNotes" class="form-label">@Localize.Localize("Rejection Remarks")</label>
+                        <textarea id="reqRejectionNotes" class="form-control form-control-sm" rows="2" placeholder="Enter rejection remarks..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Accept Panel -->
+                <div id="reqAcceptDetails" class="d-none">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="reqTermsCheckbox">
+                        <label class="form-check-label" for="reqTermsCheckbox">
+                            Following the successful verification of the provided information, the membership is hereby approved and issued.
+                        </label>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-success" id="reqConfirmIssueBtn" disabled>Confirm Issue</button>
+                    </div>
+                </div>
+
+                <!-- Reject Button -->
+                <div class="text-center d-none" id="reqRejectBtnContainer">
+                    <button type="button" class="btn btn-danger" id="reqRejectConfirmBtn">Reject</button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <input type="hidden" name="ActionStatus" id="hiddenActionStatus" />
+    <input type="hidden" name="RejectionReason" id="hiddenRejectionReason" />
+    <input type="hidden" name="RejectionRemarks" id="hiddenRejectionRemarks" />
+</form>
+
+
+<link href="~/css/select2.min.css" rel="stylesheet" />
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script src="~/js/select2.min.js"></script>
+
+
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            const SelectedCampaign = parseInt('@ViewData["SelectedCampaign"]');
+                 // If a campaign is pre-selected (from server), set the amount
+        if (SelectedCampaign > 0) {
+            // Delay to ensure DOM and Select2 are ready
+            setTimeout(function () {
+                $('#CampaignDropdown').val(SelectedCampaign).trigger('change');
+
+                // Manually trigger select2:select to apply amount
+                $('#CampaignDropdown').trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: $('#CampaignDropdown').find('option:selected').data()
+                    }
+                });
+            }, 100);
+        }
+                    // Repopulate DOBDisplay on page load if DOBInput has a value
+        const hiddenDob = $("#DOBInput").val();
+        if (hiddenDob) {
+            // Convert from yyyy-MM-dd to dd-MM-yyyy
+            const parts = hiddenDob.split("-");
+            if (parts.length === 3) {
+                const formattedDob = `${parts[2]}-${parts[1]}-${parts[0]}`;
+                $("#DOBDisplay").val(formattedDob);
+                   // Edit Mode display
+        $("#inputModel_DateofBirthString").val(formattedDob);
+            }
+        }
+
+             $('#crudForm input').on('keypress', function(e) {
+                if (e.which === 13) { // Enter key code
+                    e.preventDefault();
+                    return false;
+                }
+            });
+       
+              $('#crudForm').on('submit', function (e) {
+          
+     
+            if (!$(this).valid()) {
+               
+                e.preventDefault();// Prevent submission if validation fails
+                       return false;
+
+
+
+
+
+
+
+
+
+
+            }
+       
+        });
+
+
+
+
+
+            $('.select2').select2();
+            
+            $('#WorkPlaceDDL').on('change', function () {
+              var selectedValue = $(this).val();
+              if (selectedValue) {
+                  $('#WorkPlaceError').text(''); // Clear validation message
+              }
+            });
+            $('#ProfessionDDL').on('change', function () {
+                var selectedValue1 = $(this).val();
+                  if (selectedValue1) {
+                      $('#ProfessionDDLError').text(''); // Clear validation message
+                }
+             });
+             $('#DistrictDDl').on('change', function () {
+                  var selectedValue1 = $(this).val();
+                    if (selectedValue1) {
+                          $('#DistrictDDlError').text(''); // Clear validation message
+                  }
+             });
+             $('#WorkYearDDl').on('change', function () {
+                    var selectedValue1 = $(this).val();
+                      if (selectedValue1) {
+                              $('#WorkYearDDlError').text(''); // Clear validation message
+                    }
+             });
+             $('#DepartmentDDL').on('change', function () {
+                      var selectedValue1 = $(this).val();
+                        if (selectedValue1) {
+                                  $('#DepartmentDDLError').text(''); // Clear validation message
+                      }
+             });
+             $('#AreaDDL').on('change', function () {
+                        var selectedValue1 = $(this).val();
+                          if (selectedValue1) {
+                                      $('#AreaDDLError').text(''); // Clear validation message
+                        }
+             });
+              $('#HearAboutDDL').on('change', function () {
+                        var selectedValue1 = $(this).val();
+                          if (selectedValue1) {
+                              $('#HearAboutDDLError').text(''); // Clear validation message
+                        }
+             });
+             $('#ZoneId').on('change', function () {
+                        var selectedValue1 = $(this).val();
+                          if (selectedValue1) {
+                                      $('#ZoneDDLError').text(''); // Clear validation message
+                        }
+             });
+
+             $('#UnitId').on('change', function () {
+                        var selectedValue1 = $(this).val();
+                          if (selectedValue1) {
+                                      $('#UnitDDLError').text(''); // Clear validation message
+                        }
+             });
+
+             $('#CampaignDropdown').on('change', function () {
+                        var selectedValue1 = $(this).val();
+                          if (selectedValue1) {
+                                      $('#CampaignDDLError').text(''); // Clear validation message
+                        }
+             });
+
+             $('#PaymentType').on('change', function () {
+                        var selectedValue1 = $(this).val();
+                          if (selectedValue1) {
+                                      $('#PaymentTypeDDLError').text(''); // Clear validation message
+                        }
+             });
+            // Hide both sections initially
+            $("#reqAcceptDetails").hide();
+            $("#reqRejectDetails").hide();
+
+            // Handle dropdown selection
+            $("#requestActionDropdown").change(function () {
+             const action = $(this).val();
+
+                if (action === "accept") {
+                    // Show Accept block
+                    $("#reqAcceptDetails").removeClass("d-none").show();
+
+                    // Hide Reject-related UI
+                    $("#rejectReasonCol, #rejectRemarksRow, #reqRejectBtnContainer").addClass("d-none").hide();
+                } else if (action === "reject") {
+                    // Hide Accept block
+                    $("#reqAcceptDetails").addClass("d-none").hide();
+
+                    // Show Reject-related UI
+                    $("#rejectReasonCol, #rejectRemarksRow, #reqRejectBtnContainer").removeClass("d-none").show();
+                } else {
+                    // Hide all
+                    $("#reqAcceptDetails").addClass("d-none").hide();
+                    $("#rejectReasonCol, #rejectRemarksRow, #reqRejectBtnContainer").addClass("d-none").hide();
+                }
+            });
+            // Enable/disable confirm button when checkbox is toggled
+            $('#reqTermsCheckbox').change(function () {
+                $('#reqConfirmIssueBtn').prop('disabled', !this.checked);
+            });
+
+            // Confirm Issue
+            $('#reqConfirmIssueBtn').click(function () {
+                $('#hiddenActionStatus').val('accept');
+                $('#hiddenRejectionReason').val('');
+                $('#hiddenRejectionRemarks').val('');
+                $('#crudForm').submit();
+            });
+
+            $('#reqRejectConfirmBtn').click(function () {
+                const reason = $('#reqRejectionReason').val();
+                const notes = $('#reqRejectionNotes').val();
+
+                if (!reason) {
+                    Swal.fire('Warning', 'Please select a reason.', 'warning');
+                    return;
+                }
+
+                $('#hiddenActionStatus').val('reject');
+                $('#hiddenRejectionReason').val(reason);
+                $('#hiddenRejectionRemarks').val(notes);
+                $('#crudForm').submit();
+            });
+
+            $("#btnClear").click(function () {
+                $("#crudForm")[0].reset();
+            });
+
+            top.hidePageLoader();
+        
+            $.validator.unobtrusive.parse("#crudForm");
+            $('.role-code').change(function () {
+                var selectedValue = $(this).val();
+                $("#btnRefresh").click();
+            });
+        });
+        
+        if ("@Model.IsSuccessReturn" == "True") {
+            top.Swal.fire({
+                   icon: 'success',
+                   buttonsStyling: false,
+                   title: "@Html.Raw(@Model.sucessMessage)",
+                   showConfirmButton: false,
+                   timer: 1500
+            })
+
+            setTimeout(function () {
+                      window.location.href = '/IssueMembership/Index';  // Redirect to Index page after 1.5 seconds
+            }, 1500);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const countryCodeSelect = document.querySelector('[name="inputModel.CountryCodeId"]');
+            const contactInput = document.querySelector('[name="inputModel.ContactNo"]');
+            const errorSpan = document.getElementById("ContactNoError");
+
+            function getMaxLength() {
+                return countryCodeSelect.value === "+91" ? 10 : 8;
+            }
+
+            function isDigitsOnly(value) {
+                return /^\d*$/.test(value);
+            }
+
+            function validateAndCheck() {
+                let value = contactInput.value.replace(/\D/g, '');
+                const maxLength = getMaxLength();
+
+                // Trim and enforce digit-only
+                if (!isDigitsOnly(value)) {
+                    value = value.replace(/\D/g, '');
+                }
+                if (value.length > maxLength) {
+                    value = value.substring(0, maxLength);
+                }
+
+                if (value.length < maxLength) {
+                    errorSpan.textContent = "Enter a valid contact number.";
+                    errorSpan.style.display = "block";
+                    return; // Stop further validation
+                }
+                    
+                contactInput.value = value;
+                  var membershipId = $("#inputModel_MembershipId").val() || 0;
+                if (value.length === maxLength) {
+                    
+                    // Valid length reached → check with backend
+                    $.ajax({
+                        url: '@Url.Page("Manage", "ValidateContactNo")',
+                        type: 'GET',
+                        data: { contactNo: value,membershipId:membershipId },
+                        success: function (data) {
+                            if (!data.isValid) {
+                                errorSpan.textContent = "Contact number already exists.";
+                                errorSpan.style.display = "block";
+                            } else {
+                                errorSpan.textContent = "";
+                                errorSpan.style.display = "none";
+                            }
+                        },
+                        error: function () {
+                            console.log("AJAX call failed.");
+                        }
+                    });
+                } else {
+                    // Not enough digits yet → don't check
+                    errorSpan.textContent = "";
+                    errorSpan.style.display = "none";
+                }
+            }   
+
+            contactInput.addEventListener("input", validateAndCheck);
+            countryCodeSelect.addEventListener("change", function () {
+                contactInput.value = ""; // reset input
+                validateAndCheck();      // recalculate length and error state
+            });
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+                const nameInput = document.getElementById("NameInput");
+
+                nameInput.addEventListener("input", function () {
+                    // Replace anything that's not a letter or space
+                    this.value = this.value.replace(/[^A-Za-z ]/g, '');
+                });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const civilIdInput = document.getElementById("CivilIdInput");
+
+            civilIdInput.addEventListener("input", function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+            $("#CivilIdInput").change(function () {
+               
+                  $("#DOBDisplay").val(""); // Clear DOB fields before validation
+        $("#DOBInput").val("");
+                var civilId = $(this).val();
+
+          
+
+                if (!/^\d+$/.test(civilId)) {
+                    $("#civilIdError").text("Only digits are allowed.").show();
+                    $(this).addClass("is-invalid");
+                     
+                    return;
+                } else {
+                    $("#civilIdError").text("").hide();
+                    $(this).removeClass("is-invalid");
+
+                }
+                var membershipId = $("#inputModel_MembershipId").val() || 0;
+
+                if (civilId) {
+                    $.ajax({
+                        url: '@Url.Page("Manage", "ValidateCivilId")',
+                        type: 'GET',
+                        data: { civilId: civilId , membershipId: membershipId },
+                        success: function (data) {
+                            console.log(data);
+                           
+                            switch (data.status) {
+                                case 1:
+                               
+                                    $("#civilIdError").text("Invalid Civil ID").show();
+                                    $("#CivilIdInput").addClass("is-invalid");
+                                  //  document.getElementById("DOBDisplay").value = "";
+                                     $("#DOBDisplay").val("");
+                                     $("#inputModel_DateofBirthString").val("");
+                                   //  $("#DOBInput").val("");
+                                      
+                                    break;
+
+                                case 2:
+                                    $("#civilIdError").text("Civil ID Already Exists").show();
+                                    $("#CivilIdInput").addClass("is-invalid");
+                                    document.getElementById("DOBDisplay").value = "";
+                                     $("#DOBInput").val("");
+                                        
+                                    break;
+
+                                case 3:
+                                    $("#civilIdError").text("").hide();
+                                    $("#CivilIdInput").removeClass("is-invalid");
+                                   
+                                    Extractdbo(civilId);
+                                         
+                                    break;
+
+                                default:
+                                    $("#civilIdError").text("Unknown validation response").show();
+                                    $("#CivilIdInput").addClass("is-invalid");
+                                    document.getElementById("DOBDisplay").value = "";
+                                      
+                                    break;
+                            }
+
+        // ✅ RE-PARSE VALIDATION RULES
+        $.validator.unobtrusive.parse("#crudForm");
+                        },
+                        error: function () {
+                            $("#civilIdError").text("Error Validating Civil ID").show();
+                            $("#CivilIdInput").addClass("is-invalid");
+                        }
+                    });
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const PassportInput = document.getElementById("PassportInput");
+
+            PassportInput.addEventListener("input", function () {
+                this.value = this.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(); // Auto-uppercase
+            });
+
+           $("#PassportInput").change(function () {
+                var passportNumber = $(this).val();
+                 var membershipId = $("#inputModel_MembershipId").val() || 0;
+                if (passportNumber) {
+                console.log(passportNumber);
+                $.ajax({
+                    url: '@Url.Page("Manage", "ValidatePassportNo")',
+                    type: 'GET',
+                    data: { passportNo : passportNumber,membershipId:membershipId},
+                    success: function (data) {
+                        switch (data.status) {
+                                case 1:
+                                    $("#PassportnoError").text("Invalid Passport No").show();
+                                    break;
+
+                                case 2:
+                                    $("#PassportnoError").text("PassportNo Already Exists").show();
+                                    break;
+
+                                case 3:
+                                    $("#PassportnoError").text("").hide();
+                                    break;
+
+                                default:
+                                    $("#PassportnoError").text("Unknown validation response").show();
+                                    break;
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const EmailInput = document.getElementById("EmailInput");
+
+            EmailInput.addEventListener("input", function () {
+                this.value = this.value.replace(/[^a-zA-Z0-9@@._-]/g, '');
+            });
+            EmailInput.addEventListener("change", function () {
+                const email = this.value;
+                const regex = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\..+$/;
+                if (!regex.test(email)) {
+                    $("#EmailidError").text("Invalid Emailid").show();
+                    $(this).addClass("is-invalid");
+                    return;
+                }
+                else {
+                    $("#EmailidError").text("").hide();
+                    $(this).removeClass("is-invalid");
+                }
+            });
+
+        });
+
+        function Extractdbo(civilId) {
+          
+            if (!/^[23]\d{11}$/.test(civilId)) return;
+
+            const dobPart = civilId.substring(1, 7); // YYMMDD
+            const yearPrefix = civilId.startsWith("2") ? "19" : "20";
+            const fullDateStr = yearPrefix + dobPart; // e.g. 19850715
+
+            const yyyy = fullDateStr.substring(0, 4);
+            const mm = fullDateStr.substring(4, 6);
+            const dd = fullDateStr.substring(6, 8);
+            const formattedDate = ` ${dd}-${mm}-${yyyy}`;
+           
+            // document.getElementById("DOBDisplay").value = formattedDate;
+            // document.getElementById("DOBInput").value = `${yyyy}-${mm}-${dd}`;
+                const isoDate = `${yyyy}-${mm}-${dd}`;
+
+        // ADD MODE
+        const dobDisplay = document.getElementById("DOBDisplay");
+        if (dobDisplay) dobDisplay.value = formattedDate;
+
+        // EDIT MODE
+        const dobEditDisplay = document.getElementById("inputModel_DateofBirthString");
+        if (dobEditDisplay) dobEditDisplay.value = formattedDate;
+
+        // Hidden input used for binding (shared in both modes)
+        const dobHidden = document.getElementById("DOBInput");
+        if (dobHidden) dobHidden.value = isoDate;
+
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const civilIdInput = document.getElementById("CivilIdInput");
+        });
+
+        $('#CampaignDropdown').select2();
+
+        $('#CampaignDropdown').on('select2:select', function (e) {
+            var selectedOption = $(this).find('option:selected');
+            var amount = selectedOption.data('amount');
+
+            console.log("Selected amount:", amount);
+
+            if (amount !== undefined) {
+                $('#CampaignAmount').val(amount);
+            } else {
+                $('#CampaignAmount').val(0);
+            }
+        });
+
+        function fetchAndShowResults() {
+            let keyword = $('#referredByInput').val().trim();
+            let selectedColumn = $('#searchColumn').val();
+            console.log(selectedColumn);
+            if (!keyword) return;
+
+            $.ajax({
+                url: '@Url.Page("Manage", "GetDetails")',
+                type: 'GET',
+                data: {
+                    keyword: keyword,
+                    searchText: selectedColumn
+                },
+                success: function (response) {
+                    if (response && response.returnData && response.returnData.length > 0) {
+                        const members = response.returnData;
+
+                        let table = `
+                        <table class="table table-bordered table-hover table-sm">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Membership ID</th>
+                                <th>Full Name</th>
+                                <th>Civil ID</th>
+                                <th>Phone Number</th>
+                            </tr>
+                            </thead>
+                        <tbody>
+                        `;
+
+                        members.forEach(member => {
+                            table += `
+                                <tr class="select-member" data-id="${member.issueId}" data-name="${member.name}" style="cursor:pointer;">
+                                    <td>${member.referenceNumber || ''}</td>
+                                    <td>${member.name}</td>
+                                    <td>${member.civilId || ''}</td>
+                                    <td>${member.contactNo || ''}</td>
+                                </tr>
+                            `;
+                        });
+
+                        table += '</tbody></table>';
+                        document.getElementById('resultsContainer').innerHTML = table;
+                    } else {
+                        document.getElementById('resultsContainer').innerHTML = `<p class="text-danger">No results found.</p>`;
+                    }
+                }, // ✅ ← Missing comma was here
+                error: function () {
+                    alert("An error occurred while fetching the member data.");
+                }
+            });
+        }
+
+        $('#referredByInput').on('blur', function () {
+            setTimeout(() => {
+            fetchAndShowResults();
+            }, 200); // Delay allows row click to register
+        });
+
+        // Trigger search on Enter key
+        $('#referredByInput').on('keypress', function (e) {
+            if (e.which === 13) {
+            e.preventDefault();
+            fetchAndShowResults();
+            }
+        });
+
+        // Handle selection of member from results
+        $(document).on('click', '.select-member', function () {
+            const name = $(this).data('name');
+            const id = $(this).data('id');
+
+            $('#referredByInput').val(name);
+            $('#SelectedMemberId').val(id);
+
+                // Replace the results container with the selected member only
+        $('#resultsContainer').html(`
+            <table class="table table-bordered table-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>Membership ID</th>
+                        <th>Full Name</th>
+                        <th>Civil ID</th>
+                        <th>Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="Unselect-member">
+                        <td>${$(this).closest('tr').find('td:eq(0)').text()}</td>
+                        <td>${name}</td>
+                        <td>${$(this).closest('tr').find('td:eq(2)').text()}</td>
+                        <td>${$(this).closest('tr').find('td:eq(3)').text()}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `);
+        });
+         $(document).on('click', '.Unselect-member', function () {
+
+         fetchAndShowResults();
+         });
+
+
+
+    </script>
+}

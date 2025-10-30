@@ -1,0 +1,58 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Home page";
+}
+
+
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/ChangePassword")" />
+
+<iframe id="ContFrame" src="/Blank" class="iframe-size" scrolling="yes" frameborder="0"></iframe>
+@section scripts {
+    <script type="text/javascript">
+        $('#logOutUser').click(function () {
+            Swal.fire({
+                title: 'Are you sure you want to log out?',
+                // text: "Make sure you have saved your updates and that your tasks are up to date!",
+                icon: 'warning',
+                showCancelButton: true,
+                 reverseButtons: true,
+                //confirmButtonColor: '#3085d6',
+                //cancelButtonColor: '#E4E6EF',
+                confirmButtonText: 'Log Me Out',
+                cancelButtonText: 'Stay Logged In',
+                 customClass: {
+                       confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-secondary' // Apply btn-secondary to the cancel button
+                    }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var url = "@Url.Content("~/SessionTracker?handler=LogOut")";
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        contentType: "application/json",
+                        dataType: "json"
+                    }).done(function (data) {
+                        if (data == true) {
+                            window.location.href = "/Login";
+                        }
+                    })
+                        .fail(function () {
+                            alert("error");
+                        });
+                }
+            })
+            return false;
+        });
+        $('#changePassword').click(function () {
+
+              top.showPopup("Change Password", $("#hidManagePageUrl").val(), 600, 300, window.frameElement?.id);
+
+
+
+              });
+
+    </script>
+}

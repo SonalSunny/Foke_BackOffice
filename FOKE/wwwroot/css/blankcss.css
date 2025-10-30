@@ -1,0 +1,57 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: radial-gradient(circle at top left, #f1ffdb 0%, #fffbe6 30%, transparent 70%), linear-gradient(135deg, #fffbe6, #aadafa);
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    overflow : hidden;
+    position: relative;
+}
+
+    /* Optional abstract shapes */
+    body::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url('/media/backgrounds/abstract-shape.svg') no-repeat center;
+        background-size: cover;
+        opacity: 0.1;
+        z-index: 0;
+    }
+
+.custom-gradient-background {
+    position: relative;
+    z-index: 1;
+    padding: 4rem 0;
+}
+
+.glass-container {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    animation: fadeInUp 1s ease forwards;
+}
+
+/* Logo size & spacing */
+.logo-image {
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

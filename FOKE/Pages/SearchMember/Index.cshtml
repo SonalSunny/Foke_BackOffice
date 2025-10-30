@@ -1,0 +1,116 @@
+﻿@page
+@using FOKE.Localization
+@model FOKE.Pages.SearchMember.IndexModel
+@{
+}
+@inject ISharedLocalizer Localize
+@Html.AntiForgeryToken()
+
+
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/IssueMembership/Manage")" />
+@* <input type="hidden" id="hidDeletePageUrl" value="@Url.Content("~/Profession/Index?handler=DeleteProfession")" /> *@
+
+<!-- Hidden Input for the URL -->
+<input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/IssueMembership/Manage")" />
+
+<!-- Tabs Section -->
+<div class="card mb-5 mb-xl-10 pb-5">
+    <div class="card-header cursor-pointer border-bottom" role="button">
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">
+                @Localize.Localize("Search Member")
+            </h3>
+        </div>
+    </div>
+    <div class="card-body mx-5" style="padding: 0 10px !important;">
+        <!-- Search Filters -->
+        <div class="d-flex align-items-center position-relative my-1 w-100 w-md-300px">
+            <input type="text" class="form-control form-control-sm" placeholder="Search" id="txtSearchInputField">
+            <button type="button" class="btn btn-sm btn-light-primary my-1 w-50" id="btnRefresh">
+                <i class="fas fa-search"></i> @Localize.Localize("BTN_SEARCH")
+            </button>
+        </div>
+
+        <!-- Tabs Header -->
+        <div class="card-header">
+            <ul class="nav nav-tabs" id="searchTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="tab1" data-bs-toggle="tab" href="#tabContent1" role="tab" aria-controls="tabContent1" aria-selected="true">
+                        Tab 1
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="tab2" data-bs-toggle="tab" href="#tabContent2" role="tab" aria-controls="tabContent2" aria-selected="false">
+                        Tab 2
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="tab3" data-bs-toggle="tab" href="#tabContent3" role="tab" aria-controls="tabContent3" aria-selected="false">
+                        Tab 3
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="tab4" data-bs-toggle="tab" href="#tabContent4" role="tab" aria-controls="tabContent4" aria-selected="false">
+                        Tab 4
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Tabs Content -->
+        <div class="card-body">
+            <div class="tab-content" id="searchTabContent">
+                <div class="tab-pane fade show active" id="tabContent1" role="tabpanel" aria-labelledby="tab1">
+                    <div id="tabContent1Details"></div>
+                </div>
+                <div class="tab-pane fade" id="tabContent2" role="tabpanel" aria-labelledby="tab2">
+                    <div id="tabContent2Details"></div>
+                </div>
+                <div class="tab-pane fade" id="tabContent3" role="tabpanel" aria-labelledby="tab3">
+                    <div id="tabContent3Details"></div>
+                </div>
+                <div class="tab-pane fade" id="tabContent4" role="tabpanel" aria-labelledby="tab4">
+                    <div id="tabContent4Details"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/kTable.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Handle Search Button Click
+            $('#btnRefresh').click(function () {
+                var searchQuery = $('#txtSearchInputField').val().trim();
+
+                // Check if the search query is empty
+                if (searchQuery === "") {
+                    alert("Please enter a search query.");
+                    return;
+                }
+
+                // Perform the search logic here (AJAX or search in existing data)
+                var searchResults = getSearchResults(searchQuery);
+
+                // Populate tab content with the results
+                $('#tabContent1Details').html(searchResults.tab1Content);
+                $('#tabContent2Details').html(searchResults.tab2Content);
+                $('#tabContent3Details').html(searchResults.tab3Content);
+                $('#tabContent4Details').html(searchResults.tab4Content);
+            });
+
+            // Simulated search results function
+            function getSearchResults(query) {
+                // Example response simulating search data
+                return {
+                    tab1Content: "<p>Tab 1 Content: Results for " + query + "</p>",
+                    tab2Content: "<p>Tab 2 Content: Results for " + query + "</p>",
+                    tab3Content: "<p>Tab 3 Content: Results for " + query + "</p>",
+                    tab4Content: "<p>Tab 4 Content: Results for " + query + "</p>"
+                };
+            }
+        });
+    </script>
+}
+

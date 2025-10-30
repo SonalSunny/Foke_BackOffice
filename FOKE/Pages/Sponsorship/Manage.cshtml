@@ -1,0 +1,262 @@
+﻿@page
+@model FOKE.Pages.Sponsorship.ManageModel
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+
+@inject ISharedLocalizer Localize
+<form method="post" id="crudForm" novalidate="novalidate" autocomplete="off" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="hidManagePageUrl" value="@Url.Content("~/Sponsorship/Manage")" />
+    <div class="card">
+
+        <div class="card-header cursor-pointer border-bottom" role="button">
+            <div class="card-title m-0">
+                @if (Model.formMode.Equals(FormModeEnum.add))
+                {
+                    <h3 class="fw-bold m-0">
+                        @Localize.Localize("Add Sponsor")
+                    </h3>
+                }
+                else
+                {
+                    <h3 class="fw-bold m-0">
+                        Edit Sponsor
+                    </h3>
+                }
+
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                <div class="m-0">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="col-12" id="response">
+                @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                {
+                    <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                        <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                        <div class="flex-grow-1 fw-bold text-dark">
+                            <strong></strong> @Model.pageErrorMessage
+                        </div>
+                        <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+            </div>
+            <input type="hidden" asp-for="_formMode" />
+            <input type="hidden" asp-for="inputModel.SponsorshipId" />
+            <input type="hidden" asp-for="inputModel.loggedinUserId" value="@User.FindFirst("Userid")?.Value" />         
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("NAME")</label>
+                            <input asp-for="inputModel.SponsorshipName" class="form-control form-control-sm" id="NameInput" maxlength="100" />
+                        <span asp-validation-for="inputModel.SponsorshipName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Contact")</label>
+                        <input asp-for="inputModel.ContactPerson" class="form-control form-control-sm" id="CivilIdInput" maxlength="12" />
+                     
+                        <span asp-validation-for="inputModel.ContactPerson" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("EMIAL")</label>
+                        <input asp-for="inputModel.Email" class="form-control form-control-sm" id="EmailInput" />
+                        <span asp-validation-for="inputModel.Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("MOBILE")</label>
+                        <div class="input-group">
+                            <input asp-for="inputModel.MobileNo" class="form-control form-control-sm" placeholder="@Localize.Localize("ENTER_PHONE")" />
+                        </div>
+
+                        <span id="ContactNoError" class="text-danger" style="display: none;"></span>
+                        <span asp-validation-for="inputModel.MobileNo" class="text-danger"></span>
+                    </div>
+                </div>          
+
+                <div class="col-md-6  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("CAMPAIGN")</label>
+                        <select asp-for="inputModel.CampaignId"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.CampaignList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.CampaignId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Sponsorship Label")</label>
+                        <input asp-for="inputModel.SponsorShipLabel" class="form-control form-control-sm" id="NameInput" maxlength="100" />
+                        <span asp-validation-for="inputModel.SponsorShipLabel" class="text-danger"></span>
+                    </div>
+                </div>
+                @if (Model.formMode.Equals(FormModeEnum.add))
+                {
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label class="required form-label-new">@Localize.Localize("SORT_ORDER")</label>
+                            <input asp-for="inputModel.SortOrder" class="form-control form-control-sm" id="NameInput" maxlength="100" />
+                            <span asp-validation-for="inputModel.SortOrder" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6  mb-3">
+                        <div id="pdfUploadDiv" class="col-12 mb-5">
+                            <div class="form-group">
+                                <label class="required form-label-new"> @Localize.Localize("ATTACHMENTS")</label>
+                                <input asp-for="inputModel.Image" id="pdfUpload" type="file" class="form-control form-control-sm" />
+                                @if (!string.IsNullOrEmpty(Model.inputModel.ImageName) && Model.inputModel.AttachmentAny)
+                                {
+                                    <div id="fileActions" class="mt-2 p-2 border rounded d-flex justify-content-between align-items-center fileActions"
+                                         style="background: #f8f9fa; border: 1px solid #ddd;">
+
+                                        <a href="@Url.Content("~" + Model.inputModel.ImagePath)"
+                                           class="text-primary menu-link viewAttachment"
+                                           data-url="@Url.Content("~" + Model.inputModel.ImagePath)"
+                                           target="_blank"
+                                           style="text-decoration: none;">
+                                            📄@Model.inputModel.ImageName
+                                        </a>
+                                    </div>
+                                }
+                                <span class="text-danger" data-valmsg-for="inputModel.Image" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <label class="required form-label-new">@Localize.Localize("Notes")</label>
+                            <textarea asp-for="inputModel.Notes" class="form-control form-control-sm" rows="5"></textarea>
+                            <span asp-validation-for="inputModel.Notes" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-6 mb-0">
+                        <div class="form-group">
+                            <label class="required form-label-new">@Localize.Localize("SORT_ORDER")</label>
+                            <input asp-for="inputModel.SortOrder" class="form-control form-control-sm" id="NameInput" maxlength="100" />
+                            <span asp-validation-for="inputModel.SortOrder" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6  mb-0">
+                        <div id="pdfUploadDiv" class="col-12 mb-5">
+                            <div class="form-group">
+                                <label class="required form-label-new"> @Localize.Localize("ATTACHMENTS")</label>
+                                <input asp-for="inputModel.Image" id="pdfUpload" type="file" class="form-control form-control-sm" />
+                                @if (!string.IsNullOrEmpty(Model.inputModel.ImageName) && Model.inputModel.AttachmentAny)
+                                {
+                                    <div id="fileActions" class="mt-2 p-2 border rounded d-flex justify-content-between align-items-center fileActions"
+                                         style="background: #f8f9fa; border: 1px solid #ddd;">
+
+                                        <a href="@Url.Content("~" + Model.inputModel.ImagePath)"
+                                           class="text-primary menu-link viewAttachment"
+                                           data-url="@Url.Content("~" + Model.inputModel.ImagePath)"
+                                           target="_blank"
+                                           style="text-decoration: none;">
+                                            📄@Model.inputModel.ImageName
+                                        </a>
+                                    </div>
+                                }
+                                <span class="text-danger" data-valmsg-for="inputModel.Image" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <label class="required form-label-new">@Localize.Localize("Notes")</label>
+                            <textarea asp-for="inputModel.Notes" class="form-control form-control-sm" rows="3"></textarea>
+                            <span asp-validation-for="inputModel.Notes" class="text-danger"></span>
+                        </div>
+                    </div>
+                }  
+            </div>
+
+            <br />
+            <div class="card-footer fixed-bottom bg-light pt-4">
+                <div class="row">
+                    <div class="col-6 text-start">
+                        <button type="button" class="btn btn-secondary btn-flat btn-sm" id="btnClear"><i class="fas fa-times"></i> @Localize.Localize("BACK") </button>
+
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="submit" name="btnSubmit" value="btnSave" id="btnSave" class="btn btn-primary btn-flat btn-sm btn-req-loader"><i class="far fa-save"></i> @Localize.Localize("SAVE")</button>
+                        <button type="submit" name="btnSubmit" id="btnRefresh" value="btnRefresh" class="btn btn-outline-primary btn-sm d-none btn-req-loader" formnovalidate="formnovalidate">btnRefresh</button>
+                    </div>
+                </div>
+            </div>           
+        </div>
+    </div>
+</form>
+
+
+<link href="~/css/select2.min.css" rel="stylesheet" />
+<script src="~/js/jquery-3.6.0.min.js"></script>
+<script src="~/js/select2.min.js"></script>
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $("#btnClear").click(function () {
+                    $("#crudForm")[0].reset(); // Reset the form fields
+
+                     $(".select2").val(null).trigger("change");
+                     $("#inputModel_Username").val("");
+                     $(".expiry").val("");
+            });
+            top.hidePageLoader();
+            $('#dt_datepicker .input-group.date').datepicker({
+                    format: "dd-M-yyyy",
+                    autoclose: true,
+                    todayHighlight: true,
+                    daysOfWeekDisabled: [],  // Ensure no days are disabled
+                    keepEmptyValues: false,
+                    templates: {
+                        leftArrow: '«',
+                        rightArrow: '»'
+                    }
+            });
+        });
+        // Trigger refresh on role change
+        $('.role-code').change(function () {
+            var selectedValue = $(this).val();
+            $("#btnRefresh").click();
+        });
+        if ("@Model.IsSuccessReturn" == "True") {
+            top.Swal.fire({
+                icon: 'success',
+                buttonsStyling: false,
+                title: "@Html.Raw(@Model.sucessMessage)",
+                showConfirmButton: false,
+                timer: 1500
+            })
+             setTimeout(function () {
+                      window.location.href = '/Sponsorship/Index';  // Redirect to Index page after 1.5 seconds
+            }, 1500);
+        }
+
+        let pdfUploadDiv = document.getElementById("pdfUploadDiv");
+
+    </script>
+
+}

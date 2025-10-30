@@ -1,0 +1,127 @@
+﻿@page
+@model FOKE.Pages.SearchMember.MemberDetailsViewModel
+@inject ISharedLocalizer Localize
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+
+
+<div class="container px-3 mt-4">
+    <h2 class="mb-4 fw-bold text-primary">🧑‍💼 Membership Details</h2>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="membershipTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="tab-member-tab" data-bs-toggle="tab" data-bs-target="#tab-member" type="button" role="tab">Member Details</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-membership-tab" data-bs-toggle="tab" data-bs-target="#tab-membership" type="button" role="tab">Membership Info</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-payment-tab" data-bs-toggle="tab" data-bs-target="#tab-payment" type="button" role="tab">Payment Info</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-digital-tab" data-bs-toggle="tab" data-bs-target="#tab-digital" type="button" role="tab">Digital ID</button>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content mt-4">
+        <!-- Member Details -->
+        <div class="tab-pane fade show active" id="tab-member" role="tabpanel">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">👤 Personal Information</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Name:</strong> Dominic</li>
+                        <li class="list-group-item"><strong>Civil ID:</strong>234-567-890123</li>
+                        <li class="list-group-item"><strong>Passport No:</strong> K1234567</li>
+                        <li class="list-group-item"><strong>Date of Birth:</strong>09-03-1995</li>
+                        <li class="list-group-item"><strong>Gender:</strong> Male</li>
+                        <li class="list-group-item"><strong>Blood Group:</strong> A+</li>
+                        <li class="list-group-item"><strong>Profession:</strong> Doctor</li>
+                        <li class="list-group-item"><strong>Work Place:</strong> Kuwait Hospital</li>
+                        <li class="list-group-item"><strong>Contact Number:</strong> +965 99887766</li>
+                        <li class="list-group-item"><strong>Email:</strong> dominic@example.com</li>
+                        <li class="list-group-item"><strong>District:</strong>Farwaniya</li>
+                        <li class="list-group-item"><strong>Area:</strong> Farwaniya</li>
+                    </ul>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Membership Info -->
+        <div class="tab-pane fade" id="tab-membership" role="tabpanel">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">📄 Membership Info</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Status:</strong> Active</li>
+                        <li class="list-group-item"><strong>Membership Number:</strong> M123456</li>
+                        <li class="list-group-item"><strong>Member From:</strong> 2024-01-01</li>
+                        <li class="list-group-item"><strong>Membership Requested Date:</strong> 2024-01-01</li>
+                        <li class="list-group-item"><strong>Membership Approved By:</strong> Admin</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Info -->
+        <div class="tab-pane fade" id="tab-payment" role="tabpanel">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">💳 Payment Info</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Campaign:</strong> Summer Drive</li>
+                        <li class="list-group-item"><strong>Amount:</strong> $100</li>
+                        <li class="list-group-item"><strong>Payment Type:</strong> Online</li>
+                        <li class="list-group-item"><strong>Received Date:</strong> 2024-05-01</li>
+                        <li class="list-group-item"><strong>Received By:</strong> Staff A</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Digital ID -->
+        <div class="tab-pane fade" id="tab-digital" role="tabpanel">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">🔐 Digital ID</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Digital ID Key:</strong> 9ab23d8c-efg5</li>
+                        <li class="list-group-item"><strong>Device:</strong> iPhone 14</li>
+                        <li class="list-group-item"><strong>Activation Date:</strong> 2024-05-10</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts Section -->
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+}
+
+<!-- Optional: Custom Tab Style -->
+<style>
+    .nav-tabs .nav-link.active {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        border-radius: 0;
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+</style>
+

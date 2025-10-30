@@ -1,0 +1,103 @@
+{
+  "Module": "Validation",
+  "Translations": [
+    {
+      "Name": "TRANS_UPDATE_TITLE",
+      "Description": "Translation Page Title",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الترجمات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Translations"
+        }
+      ]
+    },
+    {
+      "Name": "TRANSLATION_MODULE",
+      "Description": "Transalation Module",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الترجمات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Module"
+        }
+      ]
+    },
+    {
+      "Name": "TRANSLATION_HEADING",
+      "Description": "Transalation",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "ترجمة"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Transalation"
+        }
+      ]
+    },
+    {
+      "Name": "TRANSLATION_FIELD_NAME",
+      "Description": "Transalation Field Name",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الترجمات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Name"
+        }
+      ]
+    },
+    {
+      "Name": "TRANSLATION_FIELD_DESCRIPTION",
+      "Description": "Transalation Field Description",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الترجمات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Description"
+        }
+      ]
+    },
+    {
+      "Name": "TRANSLATION_LANGUAGE_ENGLISH",
+      "Description": "Transalation Page Title",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الترجمات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "English"
+        }
+      ]
+    },
+    {
+      "Name": "TRANSLATION_LANGUAGE_ARABIC",
+      "Description": "Transalation Page Title",
+      "Localizations": [
+        {
+          "Culture": "ar-AE",
+          "Value": "الترجمات"
+        },
+        {
+          "Culture": "en-US",
+          "Value": "Arabic"
+        }
+      ]
+    }
+  ]
+}

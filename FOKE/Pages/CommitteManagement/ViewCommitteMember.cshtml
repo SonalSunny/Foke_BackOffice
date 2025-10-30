@@ -1,0 +1,68 @@
+﻿@page
+@model FOKE.Pages.CommitteManagement.ViewCommitteMemberModel
+@{
+    Layout = "_LayoutStandaloneContent";
+}
+
+<div class="container mt-4" style="max-width: 960px;">
+    <div class="card shadow-lg rounded mb-5">
+        <div class="p-4 text-white fs-4 fw-bold" style="background: linear-gradient(to right, #4da0f3, #007bff);">
+            🧑‍💼 Member Details
+        </div>
+
+        <div class="card-body px-5 py-4">
+            <!-- Row 1 -->
+            <div class="row mb-4 align-items-center">
+                <div class="col-6 d-flex">
+                    <label class="fw-bold me-2" style="min-width: 130px;">Name:</label>
+                    <span>@Model.Member.Name</span>
+                </div>
+                <div class="col-6 d-flex">
+                    <label class="fw-bold me-2" style="min-width: 130px;">Position:</label>
+                    <span>@Model.Member.Position</span>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row mb-4 align-items-center">
+                <div class="col-6 d-flex">
+                    <label class="fw-bold me-2" style="min-width: 130px;">Contact No:</label>
+                    <span>@Model.Member.PhoneNo</span>
+                </div>
+                <div class="col-6 d-flex">
+                    <label class="fw-bold me-2" style="min-width: 130px;">Sort Order:</label>
+                    <span>@Model.Member.SortOrder</span>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="row mb-4 align-items-center">
+                <div class="col-6 d-flex">
+                    <label class="fw-bold me-2" style="min-width: 130px;">Group:</label>
+                    <span>@Model.Member.GroupName</span>
+                </div>
+                <div class="col-6 d-flex">
+                    <label class="fw-bold me-2" style="min-width: 130px;">Committee:</label>
+                    <span>@Model.Member.CommitteeName</span>
+                </div>
+            </div>
+
+            <!-- Photo -->
+            @if (Model.Member.AttachmentAny)
+            {
+                <div class="mt-5">
+                    <div class="fw-bold mb-2">Photo:</div>
+                    <img src="@Model.Member.ImagePath"
+                         alt="Member Photo"
+                         class="img-thumbnail shadow"
+                         style="width: 180px; height: auto; border-radius: 8px;" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+

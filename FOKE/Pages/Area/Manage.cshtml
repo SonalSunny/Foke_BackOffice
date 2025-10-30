@@ -1,0 +1,121 @@
+﻿@page
+@model FOKE.Pages.Area.ManageModel
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+@{
+    Layout = "_LayoutStandaloneContent";
+}
+
+@inject ISharedLocalizer Localize
+<form method="post" id="crudForm" novalidate="novalidate" autocomplete="off">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-body">
+            <div class="col-12" id="response">
+                @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                {
+                    <div class="alert alert-dismissible fade show bg-light-danger border border-light-danger shadow-lg rounded-3 p-3 w-100 d-flex flex-column align-items-center text-center" role="alert">
+                        <i class="ki-duotone ki-info-circle fs-2 text-danger me-3"></i>
+                        <div class="flex-grow-1 fw-bold text-dark">
+                            <strong></strong> @Model.pageErrorMessage
+                        </div>
+                        <button type="button" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+            </div>
+            <input type="hidden" asp-for="_formMode" />
+            <input type="hidden" asp-for="inputModel.AreaId" />
+            <input type="hidden" asp-for="inputModel.loggedinUserId" value="@User.FindFirst("Userid")?.Value" />
+            <div class="row">
+              
+                <div class="col-12 mb-5">
+                    <div class="form-group">
+                        <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("Area")</label>
+
+                        <input asp-for="inputModel.AreaName" class="form-control form-control-sm" placeholder="@Localize.Localize("Enter Area")" />
+
+                        <span asp-validation-for="inputModel.AreaName" class="text-danger"></span>
+                    </div>
+                </div>
+            
+                <div class="col-12 mb-5">
+                    <div class="form-group">
+                        <label class="fs-6 fw-semibold mb-2">@Localize.Localize("Description")</label>
+                        <textarea asp-for="inputModel.Description" class="form-control form-control-sm" placeholder="@Localize.Localize("Enter Description")"></textarea>
+                        <span asp-validation-for="inputModel.Description" class="text-danger"></span>
+      
+                    </div>
+                </div>
+               
+               @if (Model.formMode != FormModeEnum.add)
+               {
+                <div class="mb-3">
+                    <label class="fs-6 fw-semibold mb-2">Assign Users</label>
+                    <div style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+                        @foreach (var user in Model.inputModel.AllUsers)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       name="inputModel.AssignedUserIds"
+                                       value="@user.UserId"
+                                       id="user_@user.UserId"
+                                @(Model.inputModel.AssignedUserIds.Contains(user.UserId) ? "checked" : "") />
+                                <label class="form-check-label" for="user_@user.UserId">@user.UserName</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                }
+              
+                <div class="card-footer fixed-bottom bg-light">
+                    <div class="row">
+                        <div class="col-6 text-start">
+                            <button type="button" class="btn btn-secondary btn-flat btn-sm" id="btnClear"><i class="fas fa-times"></i>  @Localize.Localize("BTN_CLEAR")</button>
+
+                        </div>
+                        <div class="col-6 text-end">
+                            <button type="submit" name="btnSubmit" value="btnSave" class="btn btn-primary btn-flat btn-sm btn-req-loader"><i class="far fa-save"></i> @Localize.Localize("BTN_SAVE")</button>
+                            <button type="submit" name="btnSubmit" id="btnRefresh" value="btnRefresh" class="btn btn-outline-primary btn-sm d-none btn-req-loader" formnovalidate="formnovalidate">@Localize.Localize("BTN_REFRESH")</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function (e) {
+            $("#btnClear").click(function () {
+
+                $("#crudForm")[0].reset();
+                    $("#inputModel_AreaName").val("");
+                $("#inputModel_Description").val("");
+            });
+
+            top.hidePageLoader();
+            $.validator.unobtrusive.parse("#crudForm");
+
+            $('.role-code').change(function () {
+                var selectedValue = $(this).val();
+                $("#btnRefresh").click();
+            });
+        });
+        if ("@Model.IsSuccessReturn" == "True") {
+            top.Swal.fire({
+                icon: 'success',
+                buttonsStyling: false,
+                title: "@Html.Raw(@Model.sucessMessage)",
+                showConfirmButton: false,
+                timer: 1500
+            })
+            top.hidePopupWithRefresh('btnRefresh');
+        }
+
+
+    </script>
+}

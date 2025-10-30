@@ -1,0 +1,186 @@
+﻿@page
+@* @using static FOKE.Localization.ISharedLocalizer *@
+@using FOKE.Localization
+@model FOKE.Pages.Role.RoleModuleAccessModel
+@inject ISharedLocalizer Localize
+@{
+}
+
+<form method="post" id="crudForm" novalidate="novalidate">
+    <div class="card  mb-5 mb-xl-10">
+        <!--begin::Card header-->
+        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_signin_method">
+            <div class="card-title m-0">
+                <h3 class="fw-bold m-0">
+                 @Localize.Localize("Role Administration")
+                </h3>
+            </div>
+        </div>
+
+        <div class="card-body border-top p-9">
+
+            <div class="row col-12">
+                @if (!string.IsNullOrEmpty(Model.pageErrorMessage))
+                {
+                    <div class="alert alert-dismissible bg-light-danger d-flex flex-column flex-sm-row w-100 p-5 mb-10">
+                        <!--begin::Icon-->
+                        <i class="ki-duotone ki-message-text-2 fs-2hx text-danger me-4 mb-5 mb-sm-0"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>                    <!--end::Icon-->
+                        <!--begin::Content-->
+                        <div class="d-flex flex-column pe-0 pe-sm-10">
+                            <h4 class="fw-semibold">This is an alert</h4>
+                            <span>The alert component can be used to highlight certain parts of your page for higher content visibility.</span>
+                        </div>
+                        <!--end::Content-->
+                        <!--begin::Close-->
+                        <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                            <i class="ki-duotone ki-cross fs-1 text-danger"><span class="path1"></span><span class="path2"></span></i>
+                        </button>
+                        <!--end::Close-->
+                    </div>
+                }
+            </div>
+            <div class="row g-9 mb-8">
+                <div class="col-md-6 fv-row fv-plugins-icon-container">
+                   
+                    <label class="required fs-6 fw-semibold mb-2">@Localize.Localize("Role")</label>
+                    <select asp-for="roleAdministrationModel.RoleId" class="form-select form-select-sm dd-role" asp-items='@new SelectList(Model.roleGroupList, "keyID", "name")'>
+                        <option value="">--Select Role --</option>
+                    </select>
+                    <span asp-validation-for="roleAdministrationModel.RoleId" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="row g-9 mb-8">
+                <div class="col-md-12 fv-row fv-plugins-icon-container">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-hover gy-3 gs-3">
+                            <thead>
+                                <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                                    <th style="width: 20%">@Localize.Localize("Module")</th>
+                                    <th style="width: 20%">@Localize.Localize("Menu")</th>
+                                  @*   <th style="width: 60%">Permission</th> *@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.roleAdministrationModel?.MenuGroups?.Count(); i++)
+                                {
+                                    <input type="hidden" asp-for="roleAdministrationModel.MenuGroups[i].GroupTitle" />
+                                    @if (!string.IsNullOrEmpty(Model.roleAdministrationModel.MenuGroups[i].GroupTitle))
+                                    {
+                                        <tr>
+                                            <td colspan="3">
+                                                <span>@Model.roleAdministrationModel.MenuGroups[i].GroupTitle</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                    @for (int j = 0; j < Model.roleAdministrationModel?.MenuGroups[i]?.Menus.Count(); j++)
+                                    {
+                                        var mnu = Model.roleAdministrationModel.MenuGroups[i].Menus[j];
+                                        <tr>
+                                            <input type="hidden" asp-for="roleAdministrationModel.MenuGroups[i].Menus[j].ParentMenuId" />
+                                            <input type="hidden" asp-for="roleAdministrationModel.MenuGroups[i].Menus[j].PageCode" />
+                                            <input type="hidden" asp-for="roleAdministrationModel.MenuGroups[i].Menus[j].MenuTitle" />
+                                            @if (mnu.ParentMenuId == null)
+                                            {
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-12 d-flex">
+                                                            <div class="form-check form-check-custom me-10">
+                                                                <input class="form-check-input" asp-for="roleAdministrationModel.MenuGroups[i].Menus[j].Selected" type="checkbox" id="chk_@Model.roleAdministrationModel.MenuGroups[i].Menus[j].PageCode">
+                                                                <label class="form-check-label" for="chk_@Model.roleAdministrationModel.MenuGroups[i].Menus[j].PageCode">
+                                                                    @mnu.MenuTitle
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                                <td>
+                                                    <div class="form-check form-check-custom me-10">
+                                                        <input class="form-check-input" asp-for="roleAdministrationModel.MenuGroups[i].Menus[j].Selected" type="checkbox" id="chk_@Model.roleAdministrationModel.MenuGroups[i].Menus[j].PageCode">
+                                                        <label class="form-check-label" for="chk_@Model.roleAdministrationModel.MenuGroups[i].Menus[j].PageCode">
+                                                            @mnu.MenuTitle
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            }
+                                           @*  <td>
+                                                @if (mnu.MenuClaims?.Count() > 0)
+                                                {
+                                                    <div class="col-12 d-flex">
+                                                        @for (int k = 0; k < mnu.MenuClaims.Count(); k++)
+                                                        {
+                                                            var clm = mnu.MenuClaims[k];
+                                                            <input type="hidden" asp-for="roleAdministrationModel.MenuGroups[i].Menus[j].MenuClaims[k].ClaimType" />
+                                                            <input type="hidden" asp-for="roleAdministrationModel.MenuGroups[i].Menus[j].MenuClaims[k].ClaimName" />
+                                                           
+                                                        }
+                                                    </div>
+                                                }
+                                            </td> *@
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer text-end fixed-bottom bg-light">
+            <button type="submit" name="btnSubmit" value="btnSave" class="btn btn-primary btn-flat btn-sm "><i class="far fa-save"></i> Save</button>
+            <button type="submit" name="btnSubmit" id="btnGetRoleInfo" value="btnGetRoleInfo" class="btn btn-outline-primary btn-sm d-none " formnovalidate="formnovalidate">Search</button>
+
+        </div>
+
+    </div>
+
+    <div id="tableLoader" class="loader-container" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <input type="hidden" id="btnSubmitHidden" name="btnSubmit" value="" />
+
+    @section scripts {
+        <script>
+            $(document).ready(function (e) {
+               top.hidePageLoader();
+               $("button[name='btnSubmit']").on("click", function () {
+                        $("#tableLoader").show();
+                        $("#btnSubmitHidden").val("btnSave");
+                        $("#crudForm").submit();
+                        $(this).prop("disabled", true);
+                });
+                $(".dd-role").change(function () {
+                   if ($(this).val() !== "") {
+                         $("#tableLoader").show();
+                         $("#btnSubmitHidden").val("btnGetRoleInfo");
+                         $("#crudForm").submit();
+
+                 }
+                });
+            });
+            if ("@Model.IsSuccessReturn" == "True") {
+
+                Swal.fire({
+                    icon: 'success',
+                    buttonsStyling: false,
+                    title: "@Html.Raw(@Model.sucessMessage)",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        </script>
+    }
+</form>
+
+
+

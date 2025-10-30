@@ -1,0 +1,69 @@
+﻿<!--begin::Sidebar-->
+<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+    <!--begin::Logo-->
+    <div class="app-sidebar-logo d-flex justify-content-start align-items-center px-1 gap-1" id="kt_app_sidebar_logo">
+        <!--begin::Logo image-->
+        <a href="javascript:void(0);" onclick="location.reload();" class="me-1">
+            <img alt="Logo" src="~/media/logos/FOKE_LOGO.png" class="app-sidebar-logo-default margin-logo logosize" />
+        </a>
+
+        <!--begin::FOKE Text-->
+        <span class="fw-bolder fs-2 text-white">
+            FOKE
+        </span>
+        <!--end::FOKE Text-->
+        <!--begin::Sidebar toggle-->
+        <div id="kt_app_sidebar_toggle" class="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary body-bg h-30px w-30px position-absolute top-50 start-100 translate-middle rotate" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="app-sidebar-minimize">
+            <i class="ki-duotone ki-double-left fs-2 rotate-180">
+                <span class="path1"></span>
+                <span class="path2"></span>
+            </i>
+        </div>
+        <!--end::Sidebar toggle-->
+    </div>
+    <!--end::Logo-->
+    <!--begin::sidebar menu-->
+    <div class="app-sidebar-menu overflow-hidden flex-column-fluid">
+        <!--begin::Menu wrapper-->
+        <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+            <!--begin::Menu-->
+            <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
+                <div class=".menu .menu-item.active">
+                    @await Component.InvokeAsync("NavigationMenu")
+                </div>
+               
+             
+            </div>
+            <!--end::Menu-->
+        </div>
+        <!--end::Menu wrapper-->
+    </div>
+</div>
+<!--end::Sidebar-->
+<script>
+    document.querySelectorAll('.menu-item').forEach((item) => {
+        item.addEventListener('click', () => {
+            // Check if the clicked tab is already active
+            const isActive = item.classList.contains('active');
+
+            // Reset all menu items to default color and remove 'active' class
+            document.querySelectorAll('.menu-item').forEach((el) => {
+                // Main menu items should always remain white
+                if (!el.classList.contains('main-menu')) {
+                    el.style.setProperty('--bs-primary-inverse', '#ffffff'); // Reset to default color
+                }
+                el.classList.remove('active');  // Remove the 'active' class
+            });
+
+            // If the clicked item is not already active, make it active and change color
+            if (!isActive) {
+                item.style.setProperty('--bs-primary-inverse', '#ffffff'); // Change color to active
+                item.classList.add('active');  // Add the 'active' class
+            } else {
+                // If the item was already active, reset it to default color
+                item.style.setProperty('--bs-primary-inverse', '#ffffff'); // Reset color
+                item.classList.remove('active');  // Remove the 'active' class
+            }
+        });
+    });
+</script>

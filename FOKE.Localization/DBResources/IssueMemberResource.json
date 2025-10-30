@@ -1,0 +1,737 @@
+{
+    "Module": "IssueMembership",
+    "Translations": [
+        {
+            "Name": "ADD_NEW_MEMBER",
+            "Description": "Add New Member",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أضف عضو جديد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Member"
+                }
+            ]
+        },
+        {
+            "Name": "DESIGNATION_ADD_NEW",
+            "Description": "Designation Add",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إضافة تسمية جديدة "
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Add New Designation"
+                }
+            ]
+        },
+        {
+            "Name": "DESIGNATION_NAME",
+            "Description": "Designation Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم التعيين "
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Designation Name"
+                }
+            ]
+        },
+        {
+            "Name": "Department",
+            "Description": "Department",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "قسم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Department"
+                }
+            ]
+        },
+        {
+            "Name": "Issue Membership",
+            "Description": "Issue Membership",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إصدار العضوية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Issue Membership"
+                }
+            ]
+        },
+
+        {
+            "Name": "Edit Registration Data",
+            "Description": "Edit Registration Data",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تحرير بيانات التسجيل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Edit Registration Data"
+                }
+            ]
+        },
+        {
+            "Name": "Name",
+            "Description": "Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "اسم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Name"
+                }
+            ]
+        },
+        {
+            "Name": "Full Name",
+            "Description": "Full Name",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الاسم الكامل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Full Name"
+                }
+            ]
+        },
+        {
+            "Name": "Civil ID",
+            "Description": "Civil ID",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الهوية المدنية"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Civil ID"
+                }
+            ]
+        },
+        {
+            "Name": "Passport No",
+            "Description": "Passport No",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رقم الجواز"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Passport No"
+                }
+            ]
+        },
+        {
+            "Name": "Passport Number",
+            "Description": "Passport Number",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رقم الجواز"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Passport Number"
+                }
+            ]
+        },
+        {
+            "Name": "Date of Birth",
+            "Description": "Date of Birth",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تاريخ الميلاد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Date of Birth"
+                }
+            ]
+        },
+        {
+            "Name": "Contact Number",
+            "Description": "Contact Number",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رقم الاتصال"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Contact Number"
+                }
+            ]
+        },
+
+        {
+            "Name": "Email",
+            "Description": "Email",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "بريد إلكتروني"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Email"
+                }
+            ]
+        },
+        {
+            "Name": "Gender",
+            "Description": "Gender",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "جنس"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Gender"
+                }
+            ]
+        },
+        {
+            "Name": "Blood Group",
+            "Description": "Blood Group",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "فصيلة الدم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Blood Group"
+                }
+            ]
+        },
+        {
+            "Name": "Profession",
+            "Description": "Profession",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مهنة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Profession"
+                }
+            ]
+        },
+        {
+            "Name": "Workplace",
+            "Description": "Workplace",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مكان العمل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Workplace"
+                }
+            ]
+        },
+        {
+            "Name": "Area",
+            "Description": "Area",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "منطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Area"
+                }
+            ]
+        },
+        {
+            "Name": "District",
+            "Description": "District",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "منطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "District"
+                }
+            ]
+        },
+        {
+            "Name": "Profile Image",
+            "Description": "Profile Image",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "صورة الملف الشخصي"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Profile Image"
+                }
+            ]
+        },
+        {
+            "Name": "In which year did you start working in the medical sector in Kuwait?",
+            "Description": "In which year did you start working in the medical sector in Kuwait?",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "في أي سنة بدأت العمل في القطاع الطبي في الكويت؟"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "In which year did you start working in the medical sector in Kuwait?"
+                }
+            ]
+        },
+        {
+            "Name": "For Office Use Only",
+            "Description": "For Office Use Only",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "للاستخدام الداخلي فقط"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "For Office Use Only"
+                }
+            ]
+        },
+
+        {
+            "Name": "Referred By",
+            "Description": "Referred By",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تم الإحالة بواسطة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Referred By"
+                }
+            ]
+        },
+        {
+            "Name": "Zone",
+            "Description": "Zone",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "منطقة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Zone"
+                }
+            ]
+        },
+        {
+            "Name": "Unit",
+            "Description": "Unit",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "وحدة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Unit"
+                }
+            ]
+        },
+        {
+            "Name": "Fee Collection",
+            "Description": "Fee Collection",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "جمع الرسوم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Fee Collection"
+                }
+            ]
+        },
+        {
+            "Name": "Campaign",
+            "Description": "Campaign",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "حملة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Campaign"
+                }
+            ]
+        },
+        {
+            "Name": "Campaign Amount",
+            "Description": "Campaign Amount",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "جمبلغ الحملة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Campaign Amount"
+                }
+            ]
+        },
+        {
+            "Name": "Amount Received",
+            "Description": "Amount Received",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "المبلغ المستلم"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Amount Received"
+                }
+            ]
+        },
+        {
+            "Name": "Payment Type",
+            "Description": "Payment Type",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "نوع الدفع"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Payment Type"
+                }
+            ]
+        },
+        {
+            "Name": "Payment Remarks",
+            "Description": "Payment Remarks",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "ملاحظات الدفع"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Payment Remarks"
+                }
+            ]
+        },
+        {
+            "Name": "Request Action",
+            "Description": "Request Action",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "طلب إجراء"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Request Action"
+                }
+            ]
+        },
+        {
+            "Name": "Reason",
+            "Description": "Reason",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "سبب"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Reason"
+                }
+            ]
+        },
+        {
+            "Name": "Rejection Remarks",
+            "Description": "Rejection Remarks",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "ملاحظات الرفض"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Rejection Remarks"
+                }
+            ]
+        },
+        {
+            "Name": "Action",
+            "Description": "Action",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "عمل"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Action"
+                }
+            ]
+        },
+        {
+            "Name": "Search Member",
+            "Description": "Search Member",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "بحث عن عضو"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Search Member"
+                }
+            ]
+        },
+        {
+            "Name": "All Members List",
+            "Description": "All Members List",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "قائمة جميع الأعضاء"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "All Members List"
+                }
+            ]
+        },
+        {
+            "Name": "Member ID",
+            "Description": "Member ID",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رقم العضو"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Member ID"
+                }
+            ]
+        },
+        {
+            "Name": "Update",
+            "Description": "Update",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تحديث"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Update"
+                }
+            ]
+        },
+        {
+            "Name": "Paid Status",
+            "Description": "Paid Status",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "حالة مدفوعة"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Paid Status"
+                }
+            ]
+        },
+        {
+            "Name": "Paid",
+            "Description": "Paid",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "مدفوع"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Paid"
+                }
+            ]
+        },
+        {
+            "Name": "Unpaid",
+            "Description": "Unpaid",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "غير مدفوع"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Unpaid"
+                }
+            ]
+        },
+        {
+            "Name": "Requested Date",
+            "Description": "Requested Date",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "تاريخ الطلب"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Requested Date"
+                }
+            ]
+        },
+        {
+            "Name": "Members Data",
+            "Description": "Members Data",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "بيانات الأعضاء"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Members Data"
+                }
+            ]
+        },
+        {
+            "Name": "See All Data Related To Members Here",
+            "Description": "See All Data Related To Members Here",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "رؤية جميع البيانات المتعلقة بالأعضاء هنا"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "See All Data Related To Members Here"
+                }
+            ]
+        },
+        {
+            "Name": "Total Members",
+            "Description": "Total Members",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "إجمالي الأعضاء"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Total Members"
+                }
+            ]
+        },
+        {
+            "Name": "Active Members",
+            "Description": "Active Members",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أعضاء نشطون"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Active Members"
+                }
+            ]
+        },
+        {
+            "Name": "New Members",
+            "Description": "New Members",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أعضاء جدد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "New Members"
+                }
+            ]
+        },
+        {
+            "Name": "Recent Members",
+            "Description": "Recent Members",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "الأعضاء الجدد"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Recent Members"
+                }
+            ]
+        },
+        {
+            "Name": "Enter phone number",
+            "Description": "Enter phone number",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل رقم الهاتف"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter phone number"
+                }
+            ]
+        },
+        {
+            "Name": "Enter search keyword",
+            "Description": "Enter search keyword",
+            "Localizations": [
+                {
+                    "Culture": "ar-AE",
+                    "Value": "أدخل كلمة البحث"
+                },
+                {
+                    "Culture": "en-US",
+                    "Value": "Enter search keyword"
+                }
+            ]
+        }
+
+    ]
+}

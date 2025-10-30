@@ -1,0 +1,392 @@
+﻿@page
+@model FOKE.Pages.AllMembersList.MemberDetailsViewModel
+@inject ISharedLocalizer Localize
+@using FOKE.Localization
+@using FOKE.Models.PageModels
+@using FOKE.Localization
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@inject ISharedLocalizer Localize
+
+<div class="container px-3 mt-4">
+    <div class="d-flex align-items-center mb-4">
+        <img src="@Url.Content("~" + Model.inputModel.ProfileImagePath)"
+             alt="Profile Image"
+             class="rounded-circle me-3"
+             style="width: 80px; height: 80px; object-fit: cover; border: 2px solid #0d6efd;" />
+        <h2 class="fw-bold text-primary mb-0"> @Model.inputModel.Name</h2>
+    </div>
+
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="membershipTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="tab-member-tab" data-bs-toggle="tab" data-bs-target="#tab-member" type="button" role="tab">Member Details</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-membership-tab" data-bs-toggle="tab" data-bs-target="#tab-membership" type="button" role="tab">Membership Info</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-payment-tab" data-bs-toggle="tab" data-bs-target="#tab-payment" type="button" role="tab">Payment Info</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-digital-tab" data-bs-toggle="tab" data-bs-target="#tab-digital" type="button" role="tab">Digital ID</button>
+        </li>
+        <li class="ms-auto d-flex align-items-center gap-2" style="list-style: none;">
+            @if (Model.inputModel?.DeviceData?.Any() == true)
+            {
+                @for (int i = 0; i < Model.inputModel.DeviceData.Count(); i++)
+                {
+                    var item = Model.inputModel.DeviceData[i];
+                    <a href="@Url.Content("~" + item.FilePath)" target="_blank" class="avatar">
+                        <img src="@Url.Content("~" + item.FilePath)" />
+                    </a>
+                }
+            }
+        </li>
+
+    </ul>   
+
+    @{
+        var Workplace = Model.inputModel.WorkplaceOther != null ? (Model.inputModel.WorkPlace + " - " + Model.inputModel.WorkplaceOther) : Model.inputModel.WorkPlace;
+        var Profession = Model.inputModel.ProffessionOther != null ? (Model.inputModel.Profession + " - " + Model.inputModel.ProffessionOther) : Model.inputModel.Profession;
+    }
+
+
+    <!-- Tab Content -->
+    <div class="tab-content mt-4">
+        <!-- Member Details -->
+        <div class="tab-pane fade show active" id="tab-member" role="tabpanel">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">👤 Personal Information</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Name:</strong> @Model.inputModel.Name </li>
+                        <li class="list-group-item"><strong>Civil ID:</strong>  @Model.inputModel.CivilId </li>
+                        <li class="list-group-item"><strong>Passport No:</strong>  @Model.inputModel.PassportNo </li>
+                        <li class="list-group-item"><strong>Date of Birth:</strong> @Model.inputModel.DateofBirthString </li>
+                        <li class="list-group-item"><strong>Gender:</strong>  @Model.inputModel.Gender </li>
+                        <li class="list-group-item"><strong>Blood Group:</strong>  @Model.inputModel.BloodGroup </li>
+                        <li class="list-group-item"><strong>Profession:</strong>  @Profession  </li>
+                        <li class="list-group-item"><strong>Work Place:</strong>  @Workplace </li>
+                        <li class="list-group-item"><strong>Contact Number:</strong>  @Model.inputModel.PhoneNo </li>
+                        <li class="list-group-item"><strong>Email:</strong>  @Model.inputModel.Email </li>
+                        <li class="list-group-item"><strong>District:</strong> @Model.inputModel.District </li>
+                        <li class="list-group-item"><strong>Area:</strong>  @Model.inputModel.Area </li>
+                        <li class="list-group-item"><strong>Zone:</strong>  @Model.inputModel.Zone </li>
+                        <li class="list-group-item"><strong>Unit:</strong>  @Model.inputModel.Unit </li>
+                        <li class="list-group-item"><strong>Department:</strong> @Model.inputModel.DepartmentName</li>
+                        <li class="list-group-item"><strong>Year Started Working:</strong> @Model.inputModel.WorkYear</li>
+                        <li class="list-group-item d-flex align-items-center gap-2">
+                            <strong class="me-2">Upload Profile Picture:</strong>
+                            <form id="uploadForm" method="post" enctype="multipart/form-data" class="d-flex align-items-center gap-2 mb-0">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" id="MemberId" name="MemberId" value="@Model.inputModel.IssueId" />
+
+                                <input type="file" id="profilePic" name="ProfileImage" accept="image/*"
+                                       class="form-control form-control-sm" style="max-width: 250px;" />
+
+                                <button type="button" class="btn btn-primary btn-sm" onclick="uploadFile()">
+                                    <i class="bi bi-upload"></i> Upload
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Membership Info -->
+        @{
+                var MemberStatus = @Model.inputModel.PaymentDone ? "Active" : "Payment Pending";
+        }
+        <div class="tab-pane fade" id="tab-membership" role="tabpanel">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">📄 Membership Info</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Status:</strong> @MemberStatus</li>
+                        <li class="list-group-item"><strong>Membership Number:</strong> @Model.inputModel.ReferenceNumber</li>
+                        <li class="list-group-item"><strong>Member From:</strong> @Model.inputModel.MemberfromString</li>
+                        <li class="list-group-item"><strong>Membership Requested Date:</strong> @Model.inputModel.MembershipRequestedDateString</li>
+                        <li class="list-group-item"><strong>Membership Approved By:</strong> @Model.inputModel.ApprovedByName</li>
+                        <li class="list-group-item"><strong>Referred By:</strong> @Model.inputModel.ReferredByName</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Info -->
+        <div class="tab-pane fade" id="tab-payment" role="tabpanel">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">💳 Payment Info</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Campaign:</strong> @Model.inputModel.CampaignName</li>
+                        <li class="list-group-item"><strong>Amount:</strong> @Model.inputModel.CampaignAmount</li>
+                        <li class="list-group-item"><strong>Recieved Amount:</strong> @Model.inputModel.AmountRecieved</li>
+                        <li class="list-group-item"><strong>Payment Type:</strong> @Model.inputModel.PaymentType</li>
+                        <li class="list-group-item"><strong>Received Date:</strong> @Model.inputModel.PaymentRecievedDate</li>
+                        <li class="list-group-item"><strong>Received By:</strong> @Model.inputModel.PaymentRecievedBy</li>
+                    </ul>
+                </div>
+            </div>
+            <br />
+            <div class="card shadow-sm mt-6">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">🕘 Payment History</h5>
+
+                    <table class="table table-hover table-rounded table-striped border gy-4 gs-7 ">
+                    <thead>
+                            <tr class="fs-6 text-white" style="background-color: #0d6efd;">
+                            <th class="ps-4 t-plr-sm-5 sorting" area-field="Campaign">
+                                @Localize.Localize("Campaign")
+                                <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                            </th>
+                            <th class="ps-4 t-plr-sm-5 sorting" area-field="Amount">
+                                @Localize.Localize("Amount")
+                                <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                            </th>
+                            <th class="ps-4 t-plr-sm-5 sorting" area-field="RecievedAmount">
+                                @Localize.Localize("Recieved Amount")
+                                <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
+                            </th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td>
+                               
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Digital ID -->
+        <div class="tab-pane fade" id="tab-digital" role="tabpanel">
+            <table class="table table-bordered table-sm mb-0">
+               <thead >
+                   <tr class="fs-6 text-white" style="background-color :#0d6efd ">
+                       <th>Image</th>
+                       <th>Device Type</th>
+                       <th>Device Model</th>
+                       <th>Activation Date</th>
+                       <th>Last Opened</th>
+                       <th>Last Closed</th>
+                       <th>Logged Out</th>
+                       <th>Status</th>
+                   </tr>
+               </thead>
+               <tbody>
+               @if (Model.inputModel.DeviceData != null && Model.inputModel.DeviceData.Count() > 0)
+               {
+                    @for (int i = 0; i < Model.inputModel.DeviceData.Count(); i++)
+                    {
+                        var item = Model.inputModel.DeviceData[i];
+                        var deviceIdSafe = @item.DeviceId?.Replace("-", "").Replace(" ", "") ?? Guid.NewGuid().ToString("N");
+                        <tr>
+                            <td>
+                                  <h5 class="card-title mb-3">                               
+                                        <a href="@Url.Content("~/" + item.FilePath)" target="_blank">
+                                            <img src="@Url.Content("~/" + item.FilePath)"
+                                                 alt="Device Icon"
+                                                 style="height: 32px; width: 32px; margin-right: 8px; border-radius: 50%; object-fit: cover; border : 2px solid #0d6efd" />
+                                        </a>                                
+                                  </h5> 
+                            </td>
+                            <td>
+                                @item.DeviceType
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);"
+                                   onclick="showHistory('@deviceIdSafe')">
+                                    @item.DeviceModel
+                                </a>
+                            </td>
+                            <td>
+                                @item.CreatedDateTimeString
+                            </td>
+                            <td>
+                                @item.LastOpenDateTimeString
+                            </td>
+                            <td>
+                                @item.LastClosedDateTimeString
+                            </td>
+                            <td>
+                                    @if (item.ForceLogOut)
+                                    {
+                                        <span class="badge badge-success">True</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">False</span>
+                                    }                 
+                            </td>
+                            <td>
+                                    @if (item.Active)
+                                    {
+                                        <span class="badge badge-success">True</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">False</span>
+                                    }                 
+                            </td>
+                        </tr>
+                
+                        <!-- Hidden History Table -->
+                        <tr id="history-table-@deviceIdSafe" style="display:none;">
+                            <td colspan="10">      
+                                <table class="table table-bordered table-sm mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Device Name</th>
+                                            <th>Opened</th>
+                                            <th>Closed</th>
+                                            <th>Logged Out</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if (@item.HistoryList != null && @item.HistoryList.Any())
+                                    {
+                                        foreach (var h in @item.HistoryList)
+                                        {
+                                           <tr>
+                                               <td>     
+                                                   <a href="@Url.Content("~" + h.FilePath)" target="_blank">
+                                                       <img src="@Url.Content("~" + h.FilePath)"
+                                                       class="rounded-circle border border-primary"
+                                                       style="height: 32px; width: 32px; object-fit: cover;" />
+                                                   </a> 
+                                               </td>
+                                               <td>@h.DeviceName</td>
+                                               <td>@h.LastOpenDateTimeString</td>
+                                               <td>@h.LastClosedDateTimeString</td>
+                                               <td>@h.LogOutDateTimeString</td>
+                                           </tr>
+                                        }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="4">No history available.</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>                                                
+                        </tr>  
+                        <!-- Hidden History Table -->
+                    }
+               }
+               </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts Section -->
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function showHistory(deviceId) {
+            const tableHtml = document.getElementById('history-table-' + deviceId).innerHTML;
+
+            Swal.fire({
+                title: 'Device History',
+                html: tableHtml,
+                width: '700px',
+                confirmButtonText: 'Close',
+                customClass: {
+                    popup: 'text-start'
+                }
+            });
+        }
+
+        document.getElementById("profilePic").addEventListener("change", function () {
+            document.getElementById("fileName").textContent = this.files[0]?.name || "";
+        });
+
+        function uploadFile() {
+            const fileInput = document.getElementById("profilePic");
+            const memberId = document.getElementById("MemberId").value; // get hidden field value
+
+            if (fileInput.files.length === 0) {
+                alert("Please select a file.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("ProfileImage", fileInput.files[0]);
+            formData.append("MemberId", memberId); // use the variable we just defined
+
+            // include XSRF token
+            formData.append("__RequestVerificationToken",
+                document.querySelector('#uploadForm input[name="__RequestVerificationToken"]').value);
+
+            fetch('@Url.Page("MemberDetailsView", "UploadProfileImage")', {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) throw new Error("Network error");
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.message,
+                        confirmButtonText: 'Try Again'
+                    });
+                }
+            })
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "Something went wrong while uploading the profile image."
+                });
+            });
+        }
+
+    </script>
+}
+
+<!-- Optional: Custom Tab Style -->
+<style>
+    .nav-tabs .nav-link.active {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        border-radius: 0;
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+</style>
+

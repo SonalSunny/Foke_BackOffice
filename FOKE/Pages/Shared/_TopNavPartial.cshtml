@@ -1,0 +1,187 @@
+﻿ @inject FOKE.Localization.Services.LanguageLCService Localizer
+@* @inject InfoRealtor.Services.Interface.IUserRepository UserInfo *@
+@{
+}
+@using FOKE.Localization
+@inject ISharedLocalizer Localize
+<div id="kt_app_header" class="app-header">
+    <div class="app-container container-fluid d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
+
+        <!-- Sidebar toggle for mobile -->
+        <div class="d-flex align-items-center d-lg-none ms-n3 me-1 me-md-2" title="Show sidebar menu">
+            <div class="btn btn-icon btn-active-color-primary w-35px h-35px" id="kt_app_sidebar_mobile_toggle">
+                <i class="ki-duotone ki-abstract-14 fs-2 fs-md-1">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i>
+            </div>
+        </div>
+
+        <!-- Logo -->
+        <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
+            <a href="#" class="d-lg-none">
+                <img alt="Logo" src="~/media/logos/FOKE_LOGO.png" class="h-30px" />
+            </a>
+        </div>
+
+        <!-- Header content wrapper -->
+        <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
+
+            <!-- Left side menu (desktop only) -->
+            <div class="app-header-menu d-none d-lg-flex align-items-left px-3">
+                <!-- Membership Form -->
+                <div class="menu-item pt-5">
+                    <div class="menu-content">
+                        <a href="/NewMember" target="_blank" class="menu-heading fw-bold fs-7 text-decoration-none text-dark">
+                            📝 @Localize.Localize("Membership_Form") 
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Website -->
+                <div class="menu-item pt-5">
+                    <div class="menu-content">
+                        <a href="http://FOKEkuwait.com" target="_blank" class="menu-heading fw-bold fs-7 text-decoration-none text-dark">
+                            🌐 @Localize.Localize("Website")
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile Apps -->
+                <div class="menu-item pt-5 dropdown">
+                    <div class="menu-content dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="#" class="menu-heading fw-bold fs-7 text-decoration-none text-dark">
+                            📱 @Localize.Localize("Mobile_Apps")
+                        </a>
+                    </div>
+                    <ul class="dropdown-menu shadow rounded" style="min-width: 200px;">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="https://apps.apple.com/" target="_blank">
+                                <i class="ki-duotone ki-apple fs-4 me-2"></i> @Localize.Localize("App_Store")
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="https://play.google.com/" target="_blank">
+                                <i class="ki-duotone ki-google-play fs-4 me-2"></i> @Localize.Localize("Play_Store")
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right side: language switcher + user -->
+            <div class="app-navbar d-flex align-items-center ms-auto">
+
+                <!-- Language Switcher -->
+                <div class="d-flex align-items-center me-3">
+                    <form>
+                        @if (@Localizer.GetCurrentCulture() == "ar-AE")
+                        {
+                            <a href="/Index?handler=ChangeLanguage&culture=en-US" class="dropdown-item">
+                                <img class="w-20px h-20px rounded-1" src="~/media/flags/united-states.svg" alt="EN">
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/Index?handler=ChangeLanguage&culture=ar-AE" class="dropdown-item">
+                                <img class="w-20px h-20px rounded-1" src="~/media/flags/kuwait.svg" alt="AR">
+                            </a>
+                        }
+                    </form>
+                </div>
+
+                <!-- Username Dropdown -->
+                <div class="app-navbar-item" id="kt_header_user_menu_toggle">
+                    <div class="cursor-pointer d-flex align-items-center gap-2" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                        <span class="text-muted fw-semibold pe-4">@User?.FindFirst("Username")?.Value</span>
+                        @* <img src="@(await UserInfo.GetLoggedinUserPhoto(Entities.fileSizeEnum.sizeSmall))" class="symbol symbol-30px symbol-md-40px" alt="User" /> *@
+                    </div>
+
+                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
+                        <div class="menu-item px-3">
+                            <div class="menu-content d-flex align-items-center px-3">
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold d-flex align-items-center fs-5">
+                                        @User?.FindFirst("Username")?.Value
+                                    </div>
+                                    <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">@User?.FindFirst("Email")?.Value</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separator my-2"></div>
+                        <div class="menu-item px-5">
+                            <a href="#" id="changePassword" class="menu-link ">@Localize.Localize("Change_Password")</a>
+                          @*   <a href="javascript:;" class="menu-link">Change Password</a> *@
+                        </div>
+                        <div class="menu-item px-5">
+                            <a href="#" id="logOutUser" class="menu-link px-5">@Localize.Localize("Log_Out")</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Header Menu Toggle Button -->
+                <div class="app-navbar-item d-lg-none ms-2 me-n2" title="Show header menu">
+                    <div class="btn btn-flex btn-icon btn-active-color-primary w-30px h-30px" id="kt_app_header_menu_toggle">
+                        <i class="ki-duotone ki-element-4 fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
+                </div>
+
+                <!-- ✅ Mobile Menu Drawer (Place this right after the toggle) -->
+                <div class="app-header-mobile-drawer d-lg-none"
+                     data-kt-drawer="true"
+                     data-kt-drawer-name="app-header-menu"
+                     data-kt-drawer-activate="{default: true, lg: false}"
+                     data-kt-drawer-overlay="true"
+                     data-kt-drawer-width="250px"
+                     data-kt-drawer-direction="end"
+                     data-kt-drawer-toggle="#kt_app_header_menu_toggle">
+
+                    <div class="menu menu-column px-3 py-3" id="kt_mobile_menu">
+                        <div class="menu-item menu-accordion" data-kt-menu-trigger="click">
+                        <a href="/MembershipForm/index" target="_blank" class="menu-link mb-2">📝 Membership Form</a>
+                        <a href="http://FOKEkuwait.com" target="_blank" class="menu-link mb-2">🌐 Website</a>
+
+                        <!-- Mobile Apps Accordion -->
+                       
+                            <span class="menu-link">
+                                <span class="menu-title">📱 Mobile Apps</span>
+                                <span class="menu-arrow"></span>
+                            </span>
+
+                            <div class="menu-sub menu-sub-accordion">
+                                <div class="menu-item">
+                                    <a class="menu-link" href="https://apps.apple.com/" target="_blank">
+                                        <span class="menu-title"> App Store</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link" href="https://play.google.com/" target="_blank">
+                                        <span class="menu-title">▶ Play Store</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* <script>
+    function changeLanguage(culture) {
+        // Redirect to the Razor Page handler with the specified culture
+        window.location.href = '@Url.Page("Index", "ChangeLanguage")' + '?culture=' + culture;
+    }
+</script> *@
+
+
+
