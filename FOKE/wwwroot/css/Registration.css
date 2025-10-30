@@ -17,12 +17,13 @@
 }
 
 .btn-purple {
-    background-color: #5e60ce;
+    background-color: #1a61ad;
     color: #fff;
 }
 
+
     .btn-purple:hover {
-        background-color: #4b4db6;
+        background-color: #007bff;
     }
 
 .logo {
