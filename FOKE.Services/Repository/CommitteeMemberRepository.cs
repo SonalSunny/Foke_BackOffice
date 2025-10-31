@@ -414,7 +414,7 @@ namespace FOKE.Services.Repository
             return retModel;
         }
 
-        public async Task<ResponseEntity<List<CommitteByGroupDto>>> GetCommitteDetailsByGroup()
+        public async Task<ResponseEntity<List<CommitteByGroupDto>>> GetCommitteDetailsByGroup(long? GroupId)
         {
             var Retundata = new ResponseEntity<List<CommitteByGroupDto>>();
             try
@@ -422,7 +422,7 @@ namespace FOKE.Services.Repository
                 var ObjData = _dbContext.CommitteMembers.Where(i => i.Active).ToList();
                 if (ObjData != null)
                 {
-                    var CommitteeData = _dbContext.CommitteeGroups.Where(i => i.Active).
+                    var CommitteeData = _dbContext.CommitteeGroups.Where(i => i.Active && i.GroupId == GroupId).
                             Select(i => new CommitteByGroupDto
                             {
                                 GroupName = i.GroupName,
@@ -437,6 +437,38 @@ namespace FOKE.Services.Repository
                             }).ToList();
                     Retundata.transactionStatus = System.Net.HttpStatusCode.OK;
                     Retundata.returnData = CommitteeData;
+                    Retundata.returnMessage = "Success";
+                }
+                else
+                {
+                    Retundata.transactionStatus = System.Net.HttpStatusCode.NoContent;
+                    Retundata.returnMessage = "No Data Found";
+                }
+            }
+            catch (Exception ex)
+            {
+                Retundata.transactionStatus = System.Net.HttpStatusCode.InternalServerError;
+                Retundata.returnMessage = $"Internal Server Error: {ex.Message}";
+            }
+            return Retundata;
+        }
+
+        public async Task<ResponseEntity<List<CommitteeGroupList>>> GetAllGroupData()
+        {
+            var Retundata = new ResponseEntity<List<CommitteeGroupList>>();
+            try
+            {
+                var CommitteeGroupData = _dbContext.CommitteeGroups.Where(i => i.Active).ToList();
+                if (CommitteeGroupData != null)
+                {
+                    var GroupData = CommitteeGroupData.Where(i => i.Active).
+                            Select(i => new CommitteeGroupList
+                            {
+                                GroupId = i.GroupId,
+                                GroupName = i.GroupName,
+                            }).ToList();
+                    Retundata.transactionStatus = System.Net.HttpStatusCode.OK;
+                    Retundata.returnData = GroupData;
                     Retundata.returnMessage = "Success";
                 }
                 else

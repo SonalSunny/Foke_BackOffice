@@ -281,11 +281,37 @@ namespace FOKE.APIControllers
 
         [HttpGet("GetCommitteDetailsByGroup")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> GetCommitteDetailsByGroup()
+        public async Task<ActionResult> GetCommitteDetailsByGroup(long? GroupId)
         {
             try
             {
-                var Data = await _committeRepo.GetCommitteDetailsByGroup();
+                var Data = await _committeRepo.GetCommitteDetailsByGroup(GroupId);
+                if (Data.transactionStatus == HttpStatusCode.OK)
+                {
+                    return Ok(Data.returnData);
+                }
+                else if (Data.transactionStatus == HttpStatusCode.NoContent)
+                {
+                    return BadRequest(Data.returnMessage ?? "No Data Found.");
+                }
+                else
+                {
+                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetAllGroups")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> GetAllGroups()
+        {
+            try
+            {
+                var Data = await _committeRepo.GetAllGroupData();
                 if (Data.transactionStatus == HttpStatusCode.OK)
                 {
                     return Ok(Data.returnData);
@@ -442,5 +468,6 @@ namespace FOKE.APIControllers
                 return BadRequest(ex.Message);
             }
         }
+
     }
 }

@@ -11,6 +11,7 @@ namespace FOKE.Services.Interface
         ResponseEntity<CommitteMemberViewModel> GetCommitteeMemberById(long memberId);
         ResponseEntity<List<CommitteMemberViewModel>> GetAllCommitteeMembers(long? Status, long? CommitteSearch, long? GroupSearch);
         ResponseEntity<bool> DeleteMember(CommitteMemberViewModel objModel);
-        Task<ResponseEntity<List<CommitteByGroupDto>>> GetCommitteDetailsByGroup();
+        Task<ResponseEntity<List<CommitteByGroupDto>>> GetCommitteDetailsByGroup(long? GroupId);
+        Task<ResponseEntity<List<CommitteeGroupList>>> GetAllGroupData();
     }
 }
