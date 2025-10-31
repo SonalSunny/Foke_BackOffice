@@ -25,10 +25,10 @@ namespace FOKE.Startup
         {
             if (FirebaseApp.DefaultInstance == null)
             {
-                //FirebaseApp.Create(new AppOptions
-                //{
-                //    Credential = GoogleCredential.FromFile("Secrets/FOKE-digital-id-firebase-adminsdk-fbsvc-471ae58d90.json")
-                //});
+                FirebaseApp.Create(new AppOptions
+                {
+                    Credential = GoogleCredential.FromFile("Secrets/foke-6ae48-firebase-adminsdk-fbsvc-630df44bde.json")
+                });
             }
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
