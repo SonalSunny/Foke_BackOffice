@@ -109,23 +109,29 @@ namespace FOKE.Entity.MembershipRegistration.ViewModel
 
         [Required(ErrorMessage = "REQUIRED")]
         public long? RelationType { get; set; }
+        public string? RelationTypeName { get; set; }
 
         [Required(ErrorMessage = "REQUIRED")]
         public string CivilId { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
+
+        public string? DateofBirthString { get; set; }
+
         public long? GenderId { get; set; }
+        public string? GenderString { get; set; }
 
         [Required(ErrorMessage = "REQUIRED")]
         public string? PassportNo { get; set; }
 
         [Required(ErrorMessage = "REQUIRED")]
         public long? BloodGroupid { get; set; }
-
+        public string? BloodGroup { get; set; }
         public long? CountryCodeid { get; set; }
 
         [RegularExpression(@"^\d+$", ErrorMessage = "Only digits are allowed.")]
         public long? MobileNoRelative { get; set; }
+        public string? MobileNoRelativeString { get; set; }
         public string? EmailRelative { get; set; }
 
         [Required(ErrorMessage = "REQUIRED")]

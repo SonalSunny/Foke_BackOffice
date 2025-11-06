@@ -42,6 +42,7 @@ namespace FOKE.Pages.IssueMembership
         public List<DropDownViewModel> DepartmentList { get; set; }
         public List<DropDownViewModel> YearList { get; set; }
         public List<DropDownViewModel> RejectedReasonList { get; set; }
+        public List<DropDownViewModel> RelationTypeList { get; set; }
 
 
         public string? pageErrorMessage { get; set; }
@@ -274,6 +275,7 @@ namespace FOKE.Pages.IssueMembership
             DepartmentList = _dropDownRepository.GetDepartmentList();
             YearList = _dropDownRepository.GetYearList();
             RejectedReasonList = _dropDownRepository.GetRejectedReasonList();
+            RelationTypeList = _dropDownRepository.GetRelationTypes();
         }
 
         public void setPagedListColumns()

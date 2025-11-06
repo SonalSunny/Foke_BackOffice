@@ -6,6 +6,7 @@ namespace FOKE.Entity.MembershipRegistration.DTO
     {
         [Key]
         public long MembershipId { get; set; }
+        public long? RelationType { get; set; }
         public string? Name { get; set; }
         public string? CivilId { get; set; }
         public string? PassportNo { get; set; }
@@ -18,5 +19,9 @@ namespace FOKE.Entity.MembershipRegistration.DTO
         public string? Email { get; set; }
         public long? AreaId { get; set; }
         public string? ProffessionOther { get; set; }
+        public string? KuwaitAddres { get; set; }
+        public string? PermenantAddress { get; set; }
+        public string? Pincode { get; set; }
+        public long? ParentId { get; set; }
     }
 }

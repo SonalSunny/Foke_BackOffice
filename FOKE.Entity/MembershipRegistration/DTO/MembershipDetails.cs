@@ -30,8 +30,7 @@ namespace FOKE.Entity.MembershipRegistration.DTO
         public long? EmergencyContactCountryCodeid { get; set; }
         public long? EmergencyContactNumber { get; set; }
         public string? EmergencyContactEmail { get; set; }
-
-
+        public long? ParentId { get; set; }
 
         public long? WorkPlaceId { get; set; }
         public long? DepartmentId { get; set; }

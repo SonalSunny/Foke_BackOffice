@@ -39,10 +39,6 @@
                     @Localize.Localize("Profession")
                     <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
                 </th>
-                <th class="sorting t-plr-sm-5" area-field="WorkPlace">
-                    @Localize.Localize("Workplace")
-                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
-                </th>
                 <th class="sorting t-plr-sm-5" area-field="CreatedDate">
                     @Localize.Localize("Requested Date")
                     <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
@@ -90,9 +86,6 @@
                         </td>
                         <td>
                             @item.Proffession
-                        </td>
-                        <td>
-                            @item.WorkPlace
                         </td>
                         <td>
                             @item.CreatedDate.Value.ToString("dd-MMM-yyyy").ToUpper()

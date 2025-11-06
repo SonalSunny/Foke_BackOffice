@@ -300,28 +300,30 @@
                                     </div>
 
                                     <div class="row mb-3">
+
                                         <div class="col-md-6">
                                             <label class="required form-label">Email</label>
-                                        <input asp-for="inputModel.FamilyData[0].EmailRelative" class="form-control form-control-sm" id="EmailInput" placeholder="Enter Email" />
-                                        <span id="EmailRelativeError" class="text-danger" style="display:none;"></span>
-                                        <span asp-validation-for="inputModel.FamilyData[0].EmailRelative" class="text-danger"></span>
+                                            <input asp-for="inputModel.FamilyData[0].EmailRelative" class="form-control form-control-sm" id="EmailInput" placeholder="Enter Email" />
+                                            <span id="EmailRelativeError" class="text-danger" style="display:none;"></span>
+                                            <span asp-validation-for="inputModel.FamilyData[0].EmailRelative" class="text-danger"></span>
                                         </div>
+
                                         <div class="col-md-6">
-                                            <label class="required form-label">Profession</label>
-                                        <select asp-for="inputModel.FamilyData[0].Professionid"
+                                            <label class="form-label">Profession</label>
+                                            <select asp-for="inputModel.FamilyData[0].Professionid"
                                                     class="form-select form-select-sm"
                                                     asp-items='@new SelectList(Model.ProffessionList, "keyID", "name")'>
                                                 <option value="">Select</option>
                                             </select>
-                                        <span asp-validation-for="inputModel.FamilyData[0].Professionid" class="text-danger"></span>
+                                            <span asp-validation-for="inputModel.FamilyData[0].Professionid" class="text-danger"></span>
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <div class="col-md-12">
-                                            <label class="required form-label">Company</label>
-                                        <input asp-for="inputModel.FamilyData[0].CompanyName" class="form-control form-control-sm" placeholder="Enter Company Name" />
-                                        <span asp-validation-for="inputModel.FamilyData[0].CompanyName" class="text-danger"></span>
+                                            <label class="form-label">Company</label>
+                                            <input asp-for="inputModel.FamilyData[0].CompanyName" class="form-control form-control-sm" placeholder="Enter Company Name" />
+                                            <span asp-validation-for="inputModel.FamilyData[0].CompanyName" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -375,7 +377,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label class="required form-label">Name</label>
-                                        <input asp-for="inputModel.EmergencyContactName" class="form-control form-control-sm" id="EmergencyContactNameInput" maxlength="100" placeholder="Enter Name" />
+                                            <input asp-for="inputModel.EmergencyContactName" class="form-control form-control-sm" id="EmergencyContactNameInput" maxlength="100" placeholder="Enter Name" />
                                             <span asp-validation-for="inputModel.EmergencyContactName" class="text-danger"></span>
                                         </div>
 

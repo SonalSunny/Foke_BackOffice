@@ -57,6 +57,11 @@
          
 
             <div class="row">
+
+                <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+                    <i class="bi bi-person-lines-fill me-2"></i> Personal Information
+                </h4>
+
                 <div class="col-md-4 mb-3">
                     <div class="form-group">
                         <label class="required form-label-new">@Localize.Localize("Name")</label>
@@ -71,15 +76,6 @@
                         <input asp-for="inputModel.CivilId" class="form-control form-control-sm" id="CivilIdInput" maxlength="12" />
                         <span id="civilIdError" class="text-danger" style="display:none;"></span>
                         <span asp-validation-for="inputModel.CivilId" class="text-danger"></span>
-                    </div>
-                </div>
-          
-                <div class="col-md-4 mb-3">
-                    <div class="form-group">
-                        <label class="required form-label-new">@Localize.Localize("Passport No")</label>
-                        <input asp-for="inputModel.PassportNo" class="form-control form-control-sm" id="PassportInput" maxlength="8" />
-                        <span id="PassportnoError" class="text-danger" style="display:none;"></span>
-                        <span asp-validation-for="inputModel.PassportNo" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -110,27 +106,13 @@
 
                 <div class="col-md-4 mb-3">
                     <div class="form-group">
-                        <label class="required form-label-new">@Localize.Localize("Contact Number")</label>
-                        <div class="input-group">
-                            <select asp-for="inputModel.CountryCodeId" class="form-select form-select-sm NoDdl">
-                                <option value="+965">+965 🇰🇼</option>
-                                <option value="+91">+91 🇮🇳</option>
-                            </select>
-                            <input asp-for="inputModel.ContactNo" class="form-control form-control-sm" placeholder=@Localize.Localize("Enter phone number") />
-                        </div>
-
-                        <span id="ContactNoError" class="text-danger" style="display: none;"></span>
-                        <span asp-validation-for="inputModel.ContactNo" class="text-danger"></span>
+                        <label class="required form-label-new">@Localize.Localize("Passport No")</label>
+                        <input asp-for="inputModel.PassportNo" class="form-control form-control-sm" id="PassportInput" maxlength="8" />
+                        <span id="PassportnoError" class="text-danger" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.PassportNo" class="text-danger"></span>
                     </div>
                 </div>
 
-                <div class="col-md-4  mb-3">
-                    <div class="form-group">
-                        <label class="required form-label-new">@Localize.Localize("Email")</label>
-                        <input asp-for="inputModel.Email" class="form-control form-control-sm" id="EmailInput" />
-                        <span asp-validation-for="inputModel.Email" class="text-danger"></span>
-                    </div>
-                </div>
 
                 <div class="col-md-4  mb-3">
                     <div class="form-group">
@@ -155,6 +137,47 @@
                         <span asp-validation-for="inputModel.BloodGroupId" class="text-danger"></span>
                     </div>
                 </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Contact Number")</label>
+                        <div class="input-group">
+                            <select asp-for="inputModel.CountryCodeId" class="form-select form-select-sm NoDdl">
+                                <option value="+965">+965 🇰🇼</option>
+                                <option value="+91">+91 🇮🇳</option>
+                            </select>
+                            <input asp-for="inputModel.ContactNo" class="form-control form-control-sm" placeholder=@Localize.Localize("Enter phone number") />
+                        </div>
+
+                        <span id="ContactNoError" class="text-danger" style="display: none;"></span>
+                        <span asp-validation-for="inputModel.ContactNo" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("WhatsApp Number")</label>             
+                        <div class="input-group">
+                            <select asp-for="inputModel.WhatsAppNoCountryCodeid" class="form-select form-select-sm NoDdl">
+                                <option value="+965">+965 🇰🇼</option>
+                                <option value="+91">+91 🇮🇳</option>
+                            </select>
+                            <input asp-for="inputModel.WhatsAppNo" class="form-control form-control-sm" placeholder=@Localize.Localize("Enter WhatsApp number") />
+                        </div>
+                        <span id="WhatsAppNoError" class="text-danger" style="display: none;"></span>
+                        <span asp-validation-for="inputModel.WhatsAppNo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Email")</label>
+                        <input asp-for="inputModel.Email" class="form-control form-control-sm" id="EmailInput" />
+                        <span asp-validation-for="inputModel.Email" class="text-danger"></span>
+                    </div>
+                </div>
+
          
                 <div class="col-md-4  mb-3">
                     <div class="form-group">
@@ -170,25 +193,9 @@
 
                 <div class="col-md-4  mb-3">
                     <div class="form-group">
-                        <label class="required form-label-new">@Localize.Localize("Workplace")</label>
-                        <select asp-for="inputModel.WorkPlaceId"
-                                class="form-select form-select-sm select2"
-                                asp-items='@new SelectList(Model.WorkPlaceList, "keyID", "name")' id="WorkPlaceDDL">
-                            <option value="">Select</option>
-                        </select>
-                        <span asp-validation-for="inputModel.WorkPlaceId" class="text-danger" id="WorkPlaceError"></span>
-                    </div>
-                </div>
-
-                <div class="col-md-4  mb-3">
-                    <div class="form-group">
-                        <label class="required form-label-new">@Localize.Localize("District")</label>
-                        <select asp-for="inputModel.DistrictId"
-                                class="form-select form-select-sm select2"
-                                asp-items='@new SelectList(Model.DistrictList, "keyID", "name")' id="DistrictDDl">
-                            <option value="">Select</option>
-                        </select>
-                        <span asp-validation-for="inputModel.DistrictId" class="text-danger" id="DistrictDDlError"></span>
+                        <label class="required form-label-new">@Localize.Localize("Company Name")</label>
+                        <input asp-for="inputModel.Company" class="form-control form-control-sm" placeholder="Enter Company Name" />
+                        <span asp-validation-for="inputModel.Company" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -204,50 +211,15 @@
                     </div>
                 </div>
 
+                <div class="col-md-12  mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Address in Kuwait")</label>
+                        <textarea asp-for="inputModel.KuwaitAddress" class="form-control form-control-sm" placeholder="Enter Kuwait Address"></textarea>
+                        <span asp-validation-for="inputModel.KuwaitAddress" class="text-danger"></span>
+                    </div>
+                </div>
                 @if (Model.formMode.Equals(FormModeEnum.add))
                 {
-                    <div class="col-md-6  mb-3">
-                        <div class="form-group">
-                            <label class="required form-label-new"> @Localize.Localize("Department")</label>
-                            <select asp-for="inputModel.DepartmentId"
-                                class="form-select form-select-sm select2"
-                                asp-items='@new SelectList(Model.DepartmentList, "keyID", "name")' id="DepartmentDDL">
-                                <option value="">Select</option>
-                            </select>
-                            <span asp-validation-for="inputModel.DepartmentId" class="text-danger" id="DepartmentDDLError"></span>
-                        </div>
-                    </div>                    
-                }
-                @if (Model.formMode.Equals(FormModeEnum.edit))
-                {
-                    <div class="col-md-12  mb-3">
-                        <div class="form-group">
-                            <label class="required form-label-new">@Localize.Localize("Department")</label>
-                            <select asp-for="inputModel.DepartmentId"
-                                class="form-select form-select-sm select2"
-                                asp-items='@new SelectList(Model.DepartmentList, "keyID", "name")' id="DepartmentDDL">
-                                <option value="">Select</option>
-                            </select>
-                            <span asp-validation-for="inputModel.DepartmentId" class="text-danger" id="DepartmentDDLError"></span>
-                        </div>
-                    </div>                    
-                }
-
-
-                @if (Model.formMode.Equals(FormModeEnum.add))
-                {
-@*                     <div class="col-md-4  mb-3">
-                        <div class="form-group">
-                            <label class="required form-label-new">Hear About Us</label>
-                            <select asp-for="inputModel.HearAboutUsId"
-                                class="form-select form-select-sm select2"
-                                asp-items='@new SelectList(Model.HearAboutUsList, "keyID", "name")' id="HearAboutDDL">
-                            <option value="">Select</option>
-                            </select>
-                            <span asp-validation-for="inputModel.HearAboutUsId" class="text-danger" id="HearAboutDDLError"></span>
-                        </div>
-                    </div> *@
-
                     <div class="col-md-6  mb-3">
                         <div class="form-group">
                             <label class="form-label-new">@Localize.Localize("Profile Image")</label>
@@ -256,19 +228,190 @@
                         </div>
                     </div>
                 }
+            </div>
 
-                <div class="col-md-12">
-                    <label class="required form-label-new">@Localize.Localize("In which year did you start working in the medical sector in Kuwait?")</label>
-                      <select asp-for="inputModel.WorkYear"
-                                class="form-select form-select-sm select2" id="WorkYearDDl"
-                                asp-items='@new SelectList(Model.YearList, "keyID", "name")'>
-                            <option value="">Select</option>
-                      </select>
-                    <span asp-validation-for="inputModel.WorkYear" class="text-danger" id="WorkYearDDlError"></span>
+            <div class="row">
+
+                <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+                    <i class="fa fa-users me-2"></i>Family Details
+                </h4>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Name")</label>
+                        <input asp-for="inputModel.FamilyData[0].Name" class="form-control form-control-sm" placeholder="Enter family member name" />
+                        <span asp-validation-for="inputModel.FamilyData[0].Name" class="text-danger"></span>
+                    </div>
                 </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Relation")</label>
+                        <select asp-for="inputModel.EmergencyContactRelation"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.RelationTypeList, "keyID", "name")' id="RelationDDL">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.EmergencyContactRelation" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Civil ID")</label>
+                        <input asp-for="inputModel.FamilyData[0].CivilId" class="form-control form-control-sm family-civilid" maxlength="12" placeholder="Enter Civil ID" />
+                        <span class="text-danger civilIdErrorFamily" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.FamilyData[0].CivilId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Passport No")</label>
+                        <input asp-for="inputModel.FamilyData[0].PassportNo" class="form-control form-control-sm family-passport" id="RelativePassportInput" maxlength="8" placeholder="Enter Passport No" />
+                        <span class="text-danger passportErrorFamily" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.FamilyData[0].PassportNo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Blood Group")</label>
+                        <select asp-for="inputModel.FamilyData[0].BloodGroupid"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.BloodGroupList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.FamilyData[0].BloodGroupid" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Mobile Number")</label>
+                        <div class="input-group">
+                            <select asp-for="inputModel.FamilyData[0].CountryCodeid" class="form-select form-select-sm NoDdl">
+                                <option value="+965">+965 🇰🇼</option>
+                                <option value="+91">+91 🇮🇳</option>
+                            </select>
+                            <input asp-for="inputModel.FamilyData[0].MobileNoRelative" class="form-control form-control-sm" placeholder="Enter phone number" />
+                        </div>
+
+                        <span id="RelativeNoError" class="text-danger" style="display: none;"></span>
+                        <span asp-validation-for="inputModel.FamilyData[0].MobileNoRelative" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Email")</label>
+                        <input asp-for="inputModel.FamilyData[0].EmailRelative" class="form-control form-control-sm" id="EmailInput" placeholder="Enter Email" />
+                        <span id="EmailRelativeError" class="text-danger" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.FamilyData[0].EmailRelative" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Profession")</label>
+                        <select asp-for="inputModel.FamilyData[0].Professionid"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.ProfesssionList, "keyID", "name")'>
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.FamilyData[0].Professionid" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Company")</label>
+                        <input asp-for="inputModel.FamilyData[0].CompanyName" class="form-control form-control-sm" placeholder="Enter Company Name" />
+                        <span asp-validation-for="inputModel.FamilyData[0].CompanyName" class="text-danger"></span>
+                    </div>
+                </div>
+
             </div>
 
             <br />
+
+            <div class="row">
+
+                <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+                    <i class="fa fa-home me-2"></i>Kerela Details
+                </h4>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Blood Group")</label>
+                        <label class="required form-label"> Permenant Address</label>
+                        <textarea asp-for="inputModel.PermenantAddress" class="form-control form-control-sm" placeholder="Enter Permenant Address"></textarea>
+                        <span asp-validation-for="inputModel.PermenantAddress" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Pincode")</label>
+                        <input asp-for="inputModel.Pincode" class="form-control form-control-sm" placeholder="Enter Pincode" />
+                        <span asp-validation-for="inputModel.Pincode" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+                    <i class="bi bi-person-rolodex"></i> Emergency contact Details
+                </h4>
+
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Name")</label>
+                        <input asp-for="inputModel.EmergencyContactName" class="form-control form-control-sm" id="EmergencyContactNameInput" maxlength="100" placeholder="Enter Name" />
+                        <span asp-validation-for="inputModel.EmergencyContactName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Relation")</label>
+                        <select asp-for="inputModel.EmergencyContactRelation"
+                                class="form-select form-select-sm"
+                                asp-items='@new SelectList(Model.RelationTypeList, "keyID", "name")' id="RelationDDL">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="inputModel.EmergencyContactRelation" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Mobile Number")</label>
+                        <div class="input-group">
+                            <select asp-for="inputModel.EmergencyContactCountryCodeid" class="form-select form-select-sm NoDdl">
+                                <option value="+965">+965 🇰🇼</option>
+                                <option value="+91">+91 🇮🇳</option>
+                            </select>
+                            <input asp-for="inputModel.EmergencyContactNumber" class="form-control form-control-sm" placeholder="Enter phone number" />
+                        </div>
+
+                        <span id="emergencyContactNoError" class="text-danger" style="display: none;"></span>
+                        <span asp-validation-for="inputModel.EmergencyContactNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                        <label class="required form-label-new">@Localize.Localize("Email")</label>
+                        <input asp-for="inputModel.EmergencyContactEmail" class="form-control form-control-sm" id="EmailInputEmergencyContact" placeholder="Enter Email" />
+                        <span id="EmergencyContactEmailError" class="text-danger" style="display:none;"></span>
+                        <span asp-validation-for="inputModel.EmergencyContactEmail" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+
 
             @if (Model.formMode.Equals(FormModeEnum.edit))
             {
@@ -282,177 +425,177 @@
             {
                  <hr class="my-4" />
 
-            <div class="border rounded p-4 bg-light">
+                <div class="border rounded p-4 bg-light">
                     <h5 class="fw-bold mb-4">@Localize.Localize("For Office Use Only")</h5>
 
-                <div class="row">
+                    <div class="row">
 
-                     <div class="col-md-4 mb-3">
-                        <div class="form-group">
-                            <label class="form-label-new"> @Localize.Localize("Referred By")</label>
-                                <div class="input-group">
-                                    <select asp-for="inputModel.SearchText"  id="searchColumn" class="form-select form-select-sm"
-                                        asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+                         <div class="col-md-4 mb-3">
+                            <div class="form-group">
+                                <label class="form-label-new"> @Localize.Localize("Referred By")</label>
+                                    <div class="input-group">
+                                        <select asp-for="inputModel.SearchText"  id="searchColumn" class="form-select form-select-sm"
+                                            asp-items='@new SelectList(Model.pageListFilterColumns, "ColumName", "ColumnDescription")'>
+                                        </select>
+                                        <input type="text" id="referredByInput" class="form-control form-control-sm" placeholder=@Localize.Localize("Referred By") />
+                                        <input asp-for="inputModel.ReferredBy" type="hidden" id="SelectedMemberId" />
+                                    </div>
+                                    <span asp-validation-for="inputModel.ReferredBy" class="text-danger"></span>
+
+                                    <!-- ✅ Add result container here -->
+                                    <div id="resultsContainer" class="mt-2"></div>
+
+                                    <!-- Hidden field to store selected ID -->
+                                    <input type="hidden" id="SelectedMemberId" name="SelectedMemberId" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-5">
+                            <div class="form-group">
+                                    <label class="required form-label-new">@Localize.Localize("Zone")</label>
+                                    <select asp-for="inputModel.ZoneId" id="ZoneId"
+                                            class="form-select form-select-sm select2"
+                                            asp-items='@new SelectList(Model.ZoneList, "keyID", "name")'>
+                                        <option value="">Select</option>
                                     </select>
-                                    <input type="text" id="referredByInput" class="form-control form-control-sm" placeholder=@Localize.Localize("Referred By") />
-                                    <input asp-for="inputModel.ReferredBy" type="hidden" id="SelectedMemberId" />
+                                    <span asp-validation-for="inputModel.ZoneId" class="text-danger" id="ZoneDDLError"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-5">
+                            <div class="form-group">
+                                    <label class="required form-label-new"> @Localize.Localize("Unit")</label>
+                                    <select asp-for="inputModel.UnitId"  id="UnitId"
+                                            class="form-select form-select-sm select2"
+                                            asp-items='@new SelectList(Model.UnitList, "keyID", "name")'>
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span asp-validation-for="inputModel.UnitId" class="text-danger" id="UnitDDLError"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="border rounded p-4 bg-light">
+                        <h5 class="fw-bold mb-4"> @Localize.Localize("Fee Collection")</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="form-group">
+                                    <label class="required form-label-new"> @Localize.Localize("Campaign")</label>
+                                <select asp-for="inputModel.CampaignId"  id="CampaignDropdown"  class="form-select form-select-sm select2 "> 
+                                    <option value="">Select</option>
+                                    @foreach (var campaign in Model.CampaignList)
+                                    {
+                                        <option value="@campaign.CampaignId" data-amount="@campaign.MemberShipFee">
+                                            @campaign.CampaignName
+                                        </option>
+                                    }
+                                </select>
+                                <span asp-validation-for="inputModel.CampaignId" class="text-danger" id="CampaignDDLError"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="form-group">
+                                <div class="form-group">
+                                        <label class="form-label-new"> @Localize.Localize("Campaign Amount")</label>
+                                    <input asp-for="inputModel.CampaignAmount"  class="form-control form-control-sm" id="CampaignAmount"  disabled/>
+                                    <span asp-validation-for="inputModel.CampaignAmount" class="text-danger"></span>
                                 </div>
-                                <span asp-validation-for="inputModel.ReferredBy" class="text-danger"></span>
-
-                                <!-- ✅ Add result container here -->
-                                <div id="resultsContainer" class="mt-2"></div>
-
-                                <!-- Hidden field to store selected ID -->
-                                <input type="hidden" id="SelectedMemberId" name="SelectedMemberId" />
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 mb-5">
-                        <div class="form-group">
-                                <label class="required form-label-new">@Localize.Localize("Zone")</label>
-                                <select asp-for="inputModel.ZoneId" id="ZoneId"
-                                        class="form-select form-select-sm select2"
-                                        asp-items='@new SelectList(Model.ZoneList, "keyID", "name")'>
-                                    <option value="">Select</option>
-                                </select>
-                                <span asp-validation-for="inputModel.ZoneId" class="text-danger" id="ZoneDDLError"></span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 mb-5">
-                        <div class="form-group">
-                                <label class="required form-label-new"> @Localize.Localize("Unit")</label>
-                                <select asp-for="inputModel.UnitId"  id="UnitId"
-                                        class="form-select form-select-sm select2"
-                                        asp-items='@new SelectList(Model.UnitList, "keyID", "name")'>
-                                    <option value="">Select</option>
-                                </select>
-                                <span asp-validation-for="inputModel.UnitId" class="text-danger" id="UnitDDLError"></span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <hr class="my-4" />
-
-            <div class="border rounded p-4 bg-light">
-                    <h5 class="fw-bold mb-4"> @Localize.Localize("Fee Collection")</h5>
-
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <div class="form-group">
-                                <label class="required form-label-new"> @Localize.Localize("Campaign")</label>
-                            <select asp-for="inputModel.CampaignId"  id="CampaignDropdown"  class="form-select form-select-sm select2 "> 
-                                <option value="">Select</option>
-                                @foreach (var campaign in Model.CampaignList)
-                                {
-                                    <option value="@campaign.CampaignId" data-amount="@campaign.MemberShipFee">
-                                        @campaign.CampaignName
-                                    </option>
-                                }
-                            </select>
-                            <span asp-validation-for="inputModel.CampaignId" class="text-danger" id="CampaignDDLError"></span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-4">
-                        <div class="form-group">
-                            <div class="form-group">
-                                    <label class="form-label-new"> @Localize.Localize("Campaign Amount")</label>
-                                <input asp-for="inputModel.CampaignAmount"  class="form-control form-control-sm" id="CampaignAmount"  disabled/>
-                                <span asp-validation-for="inputModel.CampaignAmount" class="text-danger"></span>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-6 mb-4">
-                        <div class="form-group">
+                        <div class="col-md-6 mb-4">
                             <div class="form-group">
-                                    <label class="form-label-new"> @Localize.Localize("Amount Received") </label>
-                                    <input asp-for="inputModel.AmountRecieved" class="form-control form-control-sm" id="RecievedAmount" placeholder=@Localize.Localize("Amount Received") />
-                                <span asp-validation-for="inputModel.AmountRecieved" class="text-danger"></span>
+                                <div class="form-group">
+                                        <label class="form-label-new"> @Localize.Localize("Amount Received") </label>
+                                        <input asp-for="inputModel.AmountRecieved" class="form-control form-control-sm" id="RecievedAmount" placeholder=@Localize.Localize("Amount Received") />
+                                    <span asp-validation-for="inputModel.AmountRecieved" class="text-danger"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
               
-                    <div class="col-md-6 mb-4">
-                        <div class="form-group">
-                                <label class="form-label-new"> @Localize.Localize("Payment Type")</label>
-                            <select asp-for="inputModel.PaymentTypeId" id="PaymentType" 
-                                    class="form-select form-select-sm select2"
-                                    asp-items='@new SelectList(Model.PaymentTypeList, "keyID", "name")'>
-                                <option value="">Select</option>
-                            </select>
-                            <span asp-validation-for="inputModel.PaymentTypeId" class="text-danger" id="PaymentTypeDDLError"></span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mb-4">
-                        <div class="form-group">
-                                <label class=" form-label-new"> @Localize.Localize("Payment Remarks") </label>
-                            <textarea asp-for="inputModel.PaymentRemarks" class="form-control form-control-sm" id="PaymentRemark"  placeholder=@Localize.Localize("Payment Remarks")></textarea>
-                            <span asp-validation-for="inputModel.PaymentRemarks" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <hr class="my-4" />
-
-            <div class="border rounded p-4 bg-light" id="requestActionContainer">
-                <h5 class="fw-bold mb-4">@Localize.Localize("Request Action")</h5>
-
-                <!-- Action and Reason Row -->
-                <div class="row mb-4">
-                    <!-- Action Dropdown -->
-                    <div class="col-md-6">
-                            <label for="requestActionDropdown" class="form-label">@Localize.Localize("Action")</label>
-                        <select id="requestActionDropdown" class="form-select form-select-sm">
-                            <option value="" selected disabled>Select an action</option>
-                            <option value="accept">Accept</option>
-                            <option value="reject">Reject</option>
-                        </select>
-                    </div>
-
-                    <!-- Reason Dropdown (only visible when rejected) -->
-                    <div class="col-md-6 d-none" id="rejectReasonCol">
-                            <label for="reqRejectionReason" class="form-label">@Localize.Localize("Reason")</label>
-							    <select asp-for="inputModel.RejectionReasonId" id="reqRejectionReason" class="form-select form-select-sm"
+                        <div class="col-md-6 mb-4">
+                            <div class="form-group">
+                                    <label class="form-label-new"> @Localize.Localize("Payment Type")</label>
+                                <select asp-for="inputModel.PaymentTypeId" id="PaymentType" 
                                         class="form-select form-select-sm select2"
-                                        asp-items='@new SelectList(Model.RejectedReasonList, "keyID", "name")'>
+                                        asp-items='@new SelectList(Model.PaymentTypeList, "keyID", "name")'>
                                     <option value="">Select</option>
                                 </select>
+                                <span asp-validation-for="inputModel.PaymentTypeId" class="text-danger" id="PaymentTypeDDLError"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mb-4">
+                            <div class="form-group">
+                                    <label class=" form-label-new"> @Localize.Localize("Payment Remarks") </label>
+                                <textarea asp-for="inputModel.PaymentRemarks" class="form-control form-control-sm" id="PaymentRemark"  placeholder=@Localize.Localize("Payment Remarks")></textarea>
+                                <span asp-validation-for="inputModel.PaymentRemarks" class="text-danger"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Remarks Row -->
-                <div class="row mb-4 d-none" id="rejectRemarksRow">
-                    <div class="col-12">
-                            <label for="reqRejectionNotes" class="form-label">@Localize.Localize("Rejection Remarks")</label>
-                        <textarea id="reqRejectionNotes" class="form-control form-control-sm" rows="2" placeholder="Enter rejection remarks..."></textarea>
-                    </div>
-                </div>
 
-                <!-- Accept Panel -->
-                <div id="reqAcceptDetails" class="d-none">
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="reqTermsCheckbox">
-                        <label class="form-check-label" for="reqTermsCheckbox">
-                            Following the successful verification of the provided information, the membership is hereby approved and issued.
-                        </label>
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-success" id="reqConfirmIssueBtn" disabled>Confirm Issue</button>
-                    </div>
-                </div>
+                <hr class="my-4" />
 
-                <!-- Reject Button -->
-                <div class="text-center d-none" id="reqRejectBtnContainer">
-                    <button type="button" class="btn btn-danger" id="reqRejectConfirmBtn">Reject</button>
+                <div class="border rounded p-4 bg-light" id="requestActionContainer">
+                    <h5 class="fw-bold mb-4">@Localize.Localize("Request Action")</h5>
+
+                    <!-- Action and Reason Row -->
+                    <div class="row mb-4">
+                        <!-- Action Dropdown -->
+                        <div class="col-md-6">
+                                <label for="requestActionDropdown" class="form-label">@Localize.Localize("Action")</label>
+                            <select id="requestActionDropdown" class="form-select form-select-sm">
+                                <option value="" selected disabled>Select an action</option>
+                                <option value="accept">Accept</option>
+                                <option value="reject">Reject</option>
+                            </select>
+                        </div>
+
+                        <!-- Reason Dropdown (only visible when rejected) -->
+                        <div class="col-md-6 d-none" id="rejectReasonCol">
+                                <label for="reqRejectionReason" class="form-label">@Localize.Localize("Reason")</label>
+							        <select asp-for="inputModel.RejectionReasonId" id="reqRejectionReason" class="form-select form-select-sm"
+                                            class="form-select form-select-sm select2"
+                                            asp-items='@new SelectList(Model.RejectedReasonList, "keyID", "name")'>
+                                        <option value="">Select</option>
+                                    </select>
+                        </div>
+                    </div>
+
+                    <!-- Remarks Row -->
+                    <div class="row mb-4 d-none" id="rejectRemarksRow">
+                        <div class="col-12">
+                                <label for="reqRejectionNotes" class="form-label">@Localize.Localize("Rejection Remarks")</label>
+                            <textarea id="reqRejectionNotes" class="form-control form-control-sm" rows="2" placeholder="Enter rejection remarks..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Accept Panel -->
+                    <div id="reqAcceptDetails" class="d-none">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="reqTermsCheckbox">
+                            <label class="form-check-label" for="reqTermsCheckbox">
+                                Following the successful verification of the provided information, the membership is hereby approved and issued.
+                            </label>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success" id="reqConfirmIssueBtn" disabled>Confirm Issue</button>
+                        </div>
+                    </div>
+
+                    <!-- Reject Button -->
+                    <div class="text-center d-none" id="reqRejectBtnContainer">
+                        <button type="button" class="btn btn-danger" id="reqRejectConfirmBtn">Reject</button>
+                    </div>
                 </div>
-            </div>
             }
         </div>
     </div>

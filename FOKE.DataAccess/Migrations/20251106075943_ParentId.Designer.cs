@@ -4,6 +4,7 @@ using FOKE.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FOKE.DataAccess.Migrations
 {
     [DbContext(typeof(FOKEDBContext))]
-    partial class FOKEDBContextModelSnapshot : ModelSnapshot
+    [Migration("20251106075943_ParentId")]
+    partial class ParentId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1604,9 +1607,6 @@ namespace FOKE.DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("ParentId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("PassportNo")
                         .HasColumnType("nvarchar(max)");
 
@@ -1621,9 +1621,6 @@ namespace FOKE.DataAccess.Migrations
 
                     b.Property<string>("ProffessionOther")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("RelationType")
-                        .HasColumnType("bigint");
 
                     b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");

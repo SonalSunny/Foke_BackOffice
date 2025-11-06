@@ -80,8 +80,9 @@ namespace FOKE.Services.Repository
                 using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
                 var MembershipAcceptedDataList = _dbContext.MembershipAcceptedDatas.Where(i => i.Active).ToList();
+                var memberShipRequestList = _dbContext.MembershipRequestDetails.Where(i => i.Active).ToList();
                 var AcceptedMemberExists = MembershipAcceptedDataList.Any(u => u.CivilId == model.CivilId || u.ContactNo == model.ContactNo || u.PassportNo == model.PassportNo);
-                var existingRequestMember = await _dbContext.MembershipRequestDetails.FirstOrDefaultAsync(u => u.CivilId == model.CivilId || u.ContactNo == model.ContactNo || u.PassportNo == model.PassportNo);
+                var existingRequestMember = memberShipRequestList.FirstOrDefault(u => u.CivilId == model.CivilId || u.ContactNo == model.ContactNo || u.PassportNo == model.PassportNo);
 
                 var Member = new MembershipDetails();
 
@@ -108,6 +109,7 @@ namespace FOKE.Services.Repository
                     existingRequestMember.ProffessionOther = model.ProffessionOther;
                     existingRequestMember.WhatsAppNo = model.WhatsAppNo;
                     existingRequestMember.WhatsAppNoCountryCodeid = model.WhatsAppNoCountryCodeid;
+                    existingRequestMember.Company = model.CompanyName;
                     existingRequestMember.KuwaitAddres = model.KuwaitAddres;
                     existingRequestMember.MembershipType = model.MembershipType; //1 - Single, 2 - Family
                     existingRequestMember.PermenantAddress = model.PermenantAddress;
@@ -151,7 +153,8 @@ namespace FOKE.Services.Repository
                         WhatsAppNo = model.WhatsAppNo,
                         WhatsAppNoCountryCodeid = model.WhatsAppNoCountryCodeid,
                         KuwaitAddres = model.KuwaitAddres,
-                        //MembershipType = model.MembershipType, // Membership type 1 - Single, 2 - Family, MEmber Type - 1 - Parent 2- Dependant
+                        Company = model.CompanyName,
+                         //MembershipType = model.MembershipType, // Membership type 1 - Single, 2 - Family, MEmber Type - 1 - Parent 2- Dependant
                         PermenantAddress = model.PermenantAddress,
                         Pincode = model.Pincode,
                         EmergencyContactName = model.EmergencyContactName,
@@ -159,6 +162,7 @@ namespace FOKE.Services.Repository
                         EmergencyContactCountryCodeid = model.EmergencyContactCountryCodeid,
                         EmergencyContactNumber = model.EmergencyContactNumber,
                         EmergencyContactEmail = model.EmergencyContactEmail,
+                        ParentId = 0,
                         CreatedDate = DateTime.UtcNow,
                         CreatedBy = loggedInUser,
                         Active = true,
@@ -186,19 +190,19 @@ namespace FOKE.Services.Repository
                         {
                             ErrorMessage.Add("CivilId Given For Member " + item.Name + "is Invalid");
                         }
-                        else if (MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId || u.ContactNo == item.MobileNoRelative || u.PassportNo == item.PassportNo))
+                        else if ((MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId || u.ContactNo == item.MobileNoRelative || u.PassportNo == item.PassportNo)) || (memberShipRequestList.Any(u => u.CivilId == item.CivilId || u.ContactNo == item.MobileNoRelative || u.PassportNo == item.PassportNo)))
                         {
-                            if (MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId))
+                            if ((MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId)) || (memberShipRequestList.Any(u => u.CivilId == item.CivilId)))
                             {
-                                retModel.returnMessage = "CivilId Given For the Member " + item.Name + "Already Exists";
+                                retModel.returnMessage = "Civil ID Given For the Family Member " + item.Name + " " + "Already Exists";
                             }
-                            else if (MembershipAcceptedDataList.Any(u => u.ContactNo == item.MobileNoRelative))
+                            else if ((MembershipAcceptedDataList.Any(u => u.ContactNo == item.MobileNoRelative)) || (memberShipRequestList.Any(u => u.ContactNo == item.MobileNoRelative)))
                             {
-                                retModel.returnMessage = "Contact No Given For Member " + item.Name + "Already Exists";
+                                retModel.returnMessage = "Contact No Given For Family Member " + item.Name + " " + "Already Exists";
                             }
-                            else if (MembershipAcceptedDataList.Any(u => u.PassportNo == item.PassportNo))
+                            else if ((MembershipAcceptedDataList.Any(u => u.PassportNo == item.PassportNo)) || (memberShipRequestList.Any(u => u.ContactNo == item.MobileNoRelative)))
                             {
-                                retModel.returnMessage = "Passport No Given For Member " + item.Name + "Already Exists";
+                                retModel.returnMessage = "Passport No Given For Family Member " + item.Name + " " + "Already Exists";
                             }
                             retModel.transactionStatus = System.Net.HttpStatusCode.InternalServerError;
                             return retModel;
@@ -243,8 +247,13 @@ namespace FOKE.Services.Repository
                             ContactNo = f.MobileNoRelative,
                             Email = f.EmailRelative,
                             AreaId = model.Areaid,
+                            Company = f.CompanyName,
+                            KuwaitAddres = model.KuwaitAddres,
+                            PermenantAddress = model.PermenantAddress,
+                            Pincode = model.Pincode,
+                            ParentId = f.ParentId,
                             Active = true,
-                            CreatedDate = DateTime.UtcNow,
+                            CreatedDate = DateTime.UtcNow, 
                             CreatedBy = loggedInUser,
                         }).ToList();
 
@@ -266,6 +275,10 @@ namespace FOKE.Services.Repository
                             ContactNo = model.ContactNo,
                             Email = model.Email,
                             AreaId = model.Areaid,
+                            KuwaitAddres = model.KuwaitAddres,
+                            PermenantAddress = model.PermenantAddress,
+                            Pincode = model.Pincode,
+                            ParentId = f.ParentId,
                             Active = true,
                             CreatedDate = DateTime.UtcNow,
                             CreatedBy = loggedInUser,
@@ -274,10 +287,10 @@ namespace FOKE.Services.Repository
                         _dbContext.MinorApplicantDetails.AddRange(MembersList);
                         _dbContext.SaveChanges();
                     }
-                    retModel.transactionStatus = System.Net.HttpStatusCode.OK;
-                    retModel.returnMessage = "Registered Successfully";
                 }
-                
+
+                retModel.transactionStatus = System.Net.HttpStatusCode.OK;
+                retModel.returnMessage = "Registered Successfully";
                 await transaction.CommitAsync();
             }
             catch (Exception ex)
@@ -409,9 +422,8 @@ namespace FOKE.Services.Repository
             try
             {
                 var objModel = new PostMembershipViewModel();
-
+                var MinorApplicantList = new List<FamilyMembersData>();
                 var retData = _dbContext.MembershipRequestDetails.FirstOrDefault(c => c.MembershipId == id);
-
                 objModel = new PostMembershipViewModel()
                 {
                     MembershipId = retData.MembershipId,
@@ -421,53 +433,68 @@ namespace FOKE.Services.Repository
                     DateofBirth = retData.DateofBirth,
                     DateofBirthString = retData.DateofBirth != null ? retData.DateofBirth.Value.Date.ToString("dd-MM-yyyy") : null,
                     GenderId = retData.GenderId,
-                    Gender = _dbContext.LookupMasters
-                            .Where(r => r.LookUpId == retData.GenderId)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault(),
+                    Gender = _dbContext.LookupMasters .Where(r => r.LookUpId == retData.GenderId).Select(r => r.LookUpName).FirstOrDefault(),
                     BloodGroupId = retData.BloodGroupId,
-                    BloodGroup = _dbContext.LookupMasters
-                            .Where(r => r.LookUpId == retData.BloodGroupId)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault(),
+                    BloodGroup = _dbContext.LookupMasters .Where(r => r.LookUpId == retData.BloodGroupId).Select(r => r.LookUpName).FirstOrDefault(),
                     ProfessionId = retData.ProffessionId,
-                    Profession = _dbContext.Professions
-                            .Where(r => r.ProfessionId == retData.ProffessionId)
-                            .Select(r => r.ProffessionName)
-                            .FirstOrDefault(),
-                    WorkPlaceId = retData.WorkPlaceId,
-                    WorkPlace = _dbContext.WorkPlace
-                            .Where(r => r.WorkPlaceId == retData.WorkPlaceId)
-                            .Select(r => r.WorkPlaceName)
-                            .FirstOrDefault(),
+                    Profession = _dbContext.Professions.Where(r => r.ProfessionId == retData.ProffessionId).Select(r => r.ProffessionName).FirstOrDefault(),
                     CountryCodeId = retData.CountryCode,
                     ContactNo = retData.ContactNo,
-                    PhoneNo = "+" + retData.CountryCode + retData.ContactNo,
+                    PhoneNo = $"+{retData.CountryCode} {retData.ContactNo}",
+                    WhatsAppNoCountryCodeid = retData.WhatsAppNoCountryCodeid,
+                    WhatsAppNo = retData.WhatsAppNo,
+                    WhatsappNoString = $"+{retData.CountryCode} {retData.ContactNo}",
                     Email = retData.Email,
-                    DistrictId = retData.DistrictId != null ? (long)retData.DistrictId : 0,
-                    District = retData.DistrictId != null ? _dbContext.LookupMasters
-                            .Where(r => r.LookUpId == retData.DistrictId)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault() : null,
-                    AreaId = retData.AreaId != null ? (long)retData.AreaId : 0,
-                    Area = retData.AreaId != null ? _dbContext.AreaDatas
-                        .Where(e => e.AreaId == retData.AreaId)
-                        .Select(e => e.AreaName)
-                        .FirstOrDefault() : null,
-                    CreatedDate = retData.CreatedDate,
-                    HearAboutUsId = retData.HearAboutus,
-                    DepartmentId = retData.DepartmentId,
-                    DepartmentName = retData.DepartmentId != null ? _dbContext.Departments.FirstOrDefault(i => i.DepartmentId == retData.DepartmentId).DepartmentName : "",
-                    HearAboutUs = retData.HearAboutus != null ? _dbContext.LookupMasters
-                            .Where(r => r.LookUpId == retData.HearAboutus)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault() : null,
-                    WorkYear = retData.WorkYear,
+                    Company = retData.Company,
+                    KuwaitAddress = retData.KuwaitAddres,
+                    PermenantAddress = retData.PermenantAddress,
+                    Pincode = retData.Pincode,
+                    EmergencyContactName = retData.EmergencyContactName,
+                    EmergencyContactRelation = retData.EmergencyContactRelation,
+                    EmergencyContactRelationString = _dbContext.LookupMasters.Any(r => r.LookUpId == retData.EmergencyContactRelation) ? _dbContext.LookupMasters.Where(r => r.LookUpId == retData.EmergencyContactRelation).Select(r => r.LookUpName).FirstOrDefault() : null,
+                    EmergencyContactEmail = retData.EmergencyContactEmail,
+                    EmergencyContactCountryCodeid = retData.EmergencyContactCountryCodeid,
+                    EmergencyContactNumber = retData.EmergencyContactNumber,
+                    EmergencyContactNumberString  = $"+{retData.CountryCode} {retData.ContactNo}",
                     ProffessionOther = retData.ProffessionOther,
-                    WorkplaceOther = retData.WorkplaceOther,
-
+                    AreaId = retData.AreaId != null ? (long)retData.AreaId : 0,
+                    Area = retData.AreaId != null ? _dbContext.AreaDatas.Where(e => e.AreaId == retData.AreaId).Select(e => e.AreaName).FirstOrDefault() : null,
+                    CreatedDate = retData.CreatedDate,
+                    //HearAboutUsId = retData.HearAboutus,
+                    //DepartmentId = retData.DepartmentId,
+                    //DepartmentName = retData.DepartmentId != null ? _dbContext.Departments.FirstOrDefault(i => i.DepartmentId == retData.DepartmentId).DepartmentName : "",
+                    //HearAboutUs = retData.HearAboutus != null ? _dbContext.LookupMasters.Where(r => r.LookUpId == retData.HearAboutus).Select(r => r.LookUpName).FirstOrDefault() : null,
+                    //WorkYear = retData.WorkYear,
+                    //DistrictId = retData.DistrictId != null ? (long)retData.DistrictId : 0,
+                    //District = retData.DistrictId != null ? _dbContext.LookupMasters.Where(r => r.LookUpId == retData.DistrictId).Select(r => r.LookUpName).FirstOrDefault() : null,
+                    //WorkplaceOther = retData.WorkplaceOther,
+                    //WorkPlaceId = retData.WorkPlaceId,
+                    //WorkPlace = _dbContext.WorkPlace.Where(r => r.WorkPlaceId == retData.WorkPlaceId).Select(r => r.WorkPlaceName).FirstOrDefault(),
                 };
-
+                var MinorRelativeData = _dbContext.MinorApplicantDetails.Where(i => i.Active && i.ParentId == objModel.MembershipId).ToList();
+                if(MinorRelativeData.Any())
+                {
+                    MinorApplicantList = MinorRelativeData.Select(
+                    i => new FamilyMembersData
+                    {
+                        Name = i.Name,
+                        RelationType = i.RelationType,
+                        RelationTypeName = i.RelationType != null ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.RelationType).LookUpName : null,
+                        CivilId = i.CivilId,
+                        PassportNo = i.PassportNo,
+                        DateOfBirth = i.DateofBirth,
+                        DateofBirthString = i.DateofBirth != null ? i.DateofBirth.Value.Date.ToString("dd-MM-yyyy") : null,
+                        GenderId = i.GenderId,
+                        GenderString = i.GenderId != null ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.GenderId).LookUpName : null,
+                        BloodGroupid = i.BloodGroupId,
+                        BloodGroup = i.BloodGroupId != null ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.BloodGroupId).LookUpName : null,
+                        CountryCodeid = i.CountryCode,
+                        MobileNoRelative = i.ContactNo,
+                        MobileNoRelativeString = $"+{i.CountryCode} {i.ContactNo}",
+                        EmailRelative = i.Email,
+                    }).ToList();
+                    objModel.FamilyData = MinorApplicantList;
+                }
                 retModel.transactionStatus = System.Net.HttpStatusCode.OK;
                 retModel.returnData = objModel;
             }
@@ -4181,8 +4208,8 @@ namespace FOKE.Services.Repository
                 var GenderTypes = _dbContext.LookupMasters.Where(i => i.LookUpTypeId == 4 && i.Active).ToList();
                 if (GenderTypes.Any())
                 {
-                    var maleTypes = new List<string> { "Father", "Husband", "Brother", "Son", "Uncle", "Grandfather" };
-                    var femaleTypes = new List<string> { "Mother", "Wife", "Sister", "Daughter", "Aunt", "Grandmother" };
+                    var maleTypes = new List<string> { "father", "husband", "brother", "son", "uncle", "grandfather" };
+                    var femaleTypes = new List<string> { "mother", "wife", "sister", "daughter", "aunt", "grandmother" };
                     if (maleTypes.Contains(RelationType))
                     {
                         GenderId = GenderTypes.FirstOrDefault(i => i.LookUpName == "male").LookUpId;

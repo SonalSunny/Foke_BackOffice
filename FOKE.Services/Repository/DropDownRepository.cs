@@ -791,7 +791,7 @@ namespace FOKE.Services.Repository
                 var retData = _dbContext.LookupMasters.Where(c => c.Active == true && c.LookUpTypeId == 11);
                 objModel = retData.Select(static c => new DropDownViewModel()
                 {
-                    keyID = (long)c.LookUpTypeId,
+                    keyID = (long)c.LookUpId,
                     name = c.LookUpName,
                 }).ToList();
                 retModel = objModel;
