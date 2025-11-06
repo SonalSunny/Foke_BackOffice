@@ -1456,6 +1456,9 @@ namespace FOKE.DataAccess.Migrations
                     b.Property<string>("CivilId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Company")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("ContactNo")
                         .HasColumnType("bigint");
 
@@ -1480,10 +1483,116 @@ namespace FOKE.DataAccess.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("EmergencyContactCountryCodeid")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("EmergencyContactEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmergencyContactName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("EmergencyContactNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("EmergencyContactRelation")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("GenderId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("HearAboutus")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("KuwaitAddres")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("MembershipType")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassportNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PermenantAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pincode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ProffessionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ProffessionOther")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("WhatsAppNo")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("WhatsAppNoCountryCodeid")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("WorkPlaceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("WorkYear")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("WorkplaceOther")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MembershipId");
+
+                    b.ToTable("MembershipRequestDetails");
+                });
+
+            modelBuilder.Entity("FOKE.Entity.MembershipRegistration.DTO.MinorApplicantDetails", b =>
+                {
+                    b.Property<long>("MembershipId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MembershipId"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("AreaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BloodGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CivilId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ContactNo")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CountryCode")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateofBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("GenderId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
@@ -1504,18 +1613,9 @@ namespace FOKE.DataAccess.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("WorkPlaceId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("WorkYear")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("WorkplaceOther")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("MembershipId");
 
-                    b.ToTable("MembershipRequestDetails");
+                    b.ToTable("MinorApplicantDetails");
                 });
 
             modelBuilder.Entity("FOKE.Entity.NewsAndEventsData.DTO.NewsAndEvent", b =>

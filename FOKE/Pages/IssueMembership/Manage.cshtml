@@ -475,64 +475,48 @@
         $(document).ready(function (e) {
             const SelectedCampaign = parseInt('@ViewData["SelectedCampaign"]');
                  // If a campaign is pre-selected (from server), set the amount
-        if (SelectedCampaign > 0) {
-            // Delay to ensure DOM and Select2 are ready
-            setTimeout(function () {
-                $('#CampaignDropdown').val(SelectedCampaign).trigger('change');
+            if (SelectedCampaign > 0) {
+                // Delay to ensure DOM and Select2 are ready
+                setTimeout(function () {
+                    $('#CampaignDropdown').val(SelectedCampaign).trigger('change');
 
-                // Manually trigger select2:select to apply amount
-                $('#CampaignDropdown').trigger({
-                    type: 'select2:select',
-                    params: {
-                        data: $('#CampaignDropdown').find('option:selected').data()
-                    }
-                });
-            }, 100);
-        }
-                    // Repopulate DOBDisplay on page load if DOBInput has a value
-        const hiddenDob = $("#DOBInput").val();
-        if (hiddenDob) {
-            // Convert from yyyy-MM-dd to dd-MM-yyyy
-            const parts = hiddenDob.split("-");
-            if (parts.length === 3) {
-                const formattedDob = `${parts[2]}-${parts[1]}-${parts[0]}`;
-                $("#DOBDisplay").val(formattedDob);
-                   // Edit Mode display
-        $("#inputModel_DateofBirthString").val(formattedDob);
+                    // Manually trigger select2:select to apply amount
+                    $('#CampaignDropdown').trigger({
+                        type: 'select2:select',
+                        params: {
+                            data: $('#CampaignDropdown').find('option:selected').data()
+                        }
+                    });
+                }, 100);
             }
-        }
+                    // Repopulate DOBDisplay on page load if DOBInput has a value
+            const hiddenDob = $("#DOBInput").val();
+            if (hiddenDob) {
+                // Convert from yyyy-MM-dd to dd-MM-yyyy
+                const parts = hiddenDob.split("-");
+                if (parts.length === 3) {
+                    const formattedDob = `${parts[2]}-${parts[1]}-${parts[0]}`;
+                    $("#DOBDisplay").val(formattedDob);
+                       // Edit Mode display
+                    $("#inputModel_DateofBirthString").val(formattedDob);
+                }
+            }
 
-             $('#crudForm input').on('keypress', function(e) {
+            $('#crudForm input').on('keypress', function(e) {
                 if (e.which === 13) { // Enter key code
                     e.preventDefault();
                     return false;
                 }
             });
        
-              $('#crudForm').on('submit', function (e) {
-          
-     
-            if (!$(this).valid()) {
+            $('#crudForm').on('submit', function (e) {
+         
+                if (!$(this).valid()) {
                
-                e.preventDefault();// Prevent submission if validation fails
-                       return false;
-
-
-
-
-
-
-
-
-
-
-            }
-       
-        });
-
-
-
-
+                    e.preventDefault();// Prevent submission if validation fails
+                           return false;
+                }     
+            });
 
             $('.select2').select2();
             
@@ -547,7 +531,7 @@
                   if (selectedValue1) {
                       $('#ProfessionDDLError').text(''); // Clear validation message
                 }
-             });
+            });
              $('#DistrictDDl').on('change', function () {
                   var selectedValue1 = $(this).val();
                     if (selectedValue1) {

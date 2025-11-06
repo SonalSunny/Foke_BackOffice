@@ -464,7 +464,7 @@ td.answer-wrap {
 .registration-card {
     max-width: 800px;
     margin: auto;
-    background: radial-gradient(circle at top left, #ffffff 0%, #fffbe6 30%, transparent 70%), linear-gradient(135deg, #fffbe6, #e0f2fe);
+    background: radial-gradient(circle at top left, #FFFFFF 0%, #FFF8E7 30%, transparent 70%), linear-gradient(135deg, #FFF8E7, #FFE8D1);
     background-blend-mode: screen;
     border-radius: 12px;
     padding: 40px;

@@ -782,5 +782,26 @@ namespace FOKE.Services.Repository
             return retModel;
         }
 
+        public List<DropDownViewModel> GetRelationTypes()
+        {
+            var retModel = new List<DropDownViewModel>();
+            try
+            {
+                var objModel = new List<DropDownViewModel>();
+                var retData = _dbContext.LookupMasters.Where(c => c.Active == true && c.LookUpTypeId == 11);
+                objModel = retData.Select(static c => new DropDownViewModel()
+                {
+                    keyID = (long)c.LookUpTypeId,
+                    name = c.LookUpName,
+                }).ToList();
+                retModel = objModel;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return retModel;
+        }
+
     }
 }

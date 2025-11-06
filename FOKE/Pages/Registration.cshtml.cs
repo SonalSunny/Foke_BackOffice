@@ -31,6 +31,7 @@ namespace FOKE.Pages
         public List<DropDownViewModel> HearaboutUsList { get; set; }
         public List<DropDownViewModel> YearList { get; set; }
         public List<DropDownViewModel> DepartmentList { get; set; }
+        public List<DropDownViewModel> RelationTypeList { get; set; }
 
 
         public RegistrationModel(IMembershipFormRepository membershipFormRepository, IDropDownRepository dropDownRepository)
@@ -48,24 +49,24 @@ namespace FOKE.Pages
 
             var civilIdStatus = _membershipFormRepository.IsValidKuwaitCivilID(inputModel.CivilId);
 
-            if (civilIdStatus == 1)
-            {
-                ModelState.AddModelError("inputModel.CivilId", "Invalid Civil ID.");
-            }
-            else if (civilIdStatus == 2)
-            {
-                ModelState.AddModelError("inputModel.CivilId", "Civil ID already exists.");
+            //if (civilIdStatus == 1)
+            //{
+            //    ModelState.AddModelError("inputModel.CivilId", "Invalid Civil ID.");
+            //}
+            //else if (civilIdStatus == 2)
+            //{
+            //    ModelState.AddModelError("inputModel.CivilId", "Civil ID already exists.");
                 
                 
-            }
-            else if (civilIdStatus == 3)
-            {
-                // Clear existing errors (especially useful on Edit)
-                if (ModelState.ContainsKey("inputModel.CivilId"))
-                {
-                    ModelState["inputModel.CivilId"].Errors.Clear();
-                }
-            }
+            //}
+            //else if (civilIdStatus == 3)
+            //{
+            //    // Clear existing errors (especially useful on Edit)
+            //    if (ModelState.ContainsKey("inputModel.CivilId"))
+            //    {
+            //        ModelState["inputModel.CivilId"].Errors.Clear();
+            //    }
+            //}
             if (inputModel.DOB != null)
             {
                 if (ModelState.ContainsKey("inputModel.DOB"))
@@ -97,7 +98,6 @@ namespace FOKE.Pages
 
             if (ModelState.IsValid)
             {
-
                 retData = await _membershipFormRepository.RegisterMember(inputModel);
                 if (retData.transactionStatus != HttpStatusCode.OK)
                 {
@@ -110,7 +110,7 @@ namespace FOKE.Pages
                     IsSuccessReturn = true;
                     sucessMessage = retData.returnMessage;
                     BindDropdowns();
-                    return Page();
+                    return RedirectToPage("/Thankyou");
                 }
             }
             else
@@ -150,8 +150,8 @@ namespace FOKE.Pages
             HearaboutUsList = _dropDownRepository.GetHearAboutUs();
             YearList = _dropDownRepository.GetYearList();
             DepartmentList = _dropDownRepository.GetDepartmentList();
+            DepartmentList = _dropDownRepository.GetDepartmentList();
+            RelationTypeList = _dropDownRepository.GetRelationTypes();
         }
-
-
     }
 }

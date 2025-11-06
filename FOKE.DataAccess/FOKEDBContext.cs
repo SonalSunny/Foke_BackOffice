@@ -101,6 +101,8 @@ namespace FOKE.DataAccess
         public DbSet<Sponsorship> Sponsorships { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<ContactForm> ContactForms { get; set; }
+        public DbSet<MinorApplicantDetails> MinorApplicantDetails { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

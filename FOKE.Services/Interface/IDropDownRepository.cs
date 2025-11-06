@@ -36,6 +36,7 @@ namespace FOKE.Services.Interface
         List<DropDownViewModel> GetAccountTypes();
         List<DropDownViewModel> GetCategoryTypes();
         List<DropDownViewModel> GetallCampaignYears();
+        List<DropDownViewModel> GetRelationTypes();
     }
 }
 
