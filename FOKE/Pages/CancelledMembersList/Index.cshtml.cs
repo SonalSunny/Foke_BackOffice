@@ -132,21 +132,5 @@ namespace FOKE.Pages.CancelledMembersList
             var data = _membershipFormRepository.ExportCancelledMemberstoPdf(Areaid, 0, 0, request.GlobalSearchColumn, request.GlobalSearch);
             return new JsonResult(new { tFileName = data.returnData, fileName = "CancelledMembersList.pdf" });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

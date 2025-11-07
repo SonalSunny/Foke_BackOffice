@@ -399,7 +399,7 @@ namespace FOKE.Services.Repository
                       l => l.LookUpTypeId,
                       ly => ly.LookUpTypeId,
                       (l, ly) => new { l, ly })
-                .Where(x => x.ly.LookUpTypeId == 6)
+                .Where(x => x.ly.LookUpTypeId == 12)
                 .Select(x => x.l)
                 .ToList();
                 objModel = retData.Select(static c => new DropDownViewModel()

@@ -103,6 +103,7 @@ namespace FOKE.Entity.MembershipRegistration.ViewModel
 
     public class FamilyMembersData
     {
+        public long? MembershipId { get; set; }
         [Required(ErrorMessage = "REQUIRED")]
         [RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters and spaces are allowed.")]
         public string Name { get; set; }

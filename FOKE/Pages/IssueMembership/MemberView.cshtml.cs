@@ -75,7 +75,7 @@ namespace FOKE.Pages.IssueMembership
             var ValidForApproval = false;
             if (ActionStatus == "accept")
             {
-                if (inputModel.ZoneId != null && inputModel.UnitId != null && inputModel.CampaignId != null)
+                if ( inputModel.CampaignId != null)
                 {
                     ValidForApproval = true;
                 }

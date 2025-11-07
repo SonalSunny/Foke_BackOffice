@@ -118,6 +118,7 @@ namespace FOKE.Entity.MembershipIssuedData.ViewModel
         public string? PermenantAddress { get; set; }
         [Required(ErrorMessage = "REQUIRED")]
         public string? Pincode { get; set; }
+        public long? MembershipType { get; set; }
 
         #endregion
 

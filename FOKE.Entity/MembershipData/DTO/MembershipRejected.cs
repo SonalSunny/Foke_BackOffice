@@ -1,5 +1,4 @@
 ﻿using FOKE.Entity.AreaMaster.DTO;
-using FOKE.Entity.MembershipRegistration.DTO;
 using FOKE.Entity.ProfessionData.DTO;
 using FOKE.Entity.UnitData.DTO;
 using FOKE.Entity.WorkPlaceData.DTO;
@@ -13,51 +12,38 @@ namespace FOKE.Entity.MembershipData.DTO
     {
         [Key]
         public long IssueId { get; set; }
-
-        public long? RegistrationId { get; set; }
-        [ForeignKey("RegistrationId")]
-        public virtual MembershipDetails MembershipDetails { get; set; }
-
         public string? ReferanceNo { get; set; }
         public string? Name { get; set; }
-
         public string? CivilId { get; set; }
-
-        public string? PassportNo { get; set; }
-
         public DateTime? DateofBirth { get; set; }
-
+        public string? PassportNo { get; set; }
         public long? GenderId { get; set; }
-
         public long? BloodGroupId { get; set; }
-
+        public long? CountryCodeId { get; set; }
+        public long? ContactNo { get; set; }
+        public long? WhatsAppNoCountryCodeid { get; set; }
+        public long? WhatsAppNo { get; set; }
+        public string? Email { get; set; }
         public long? ProfessionId { get; set; }
         [ForeignKey("ProfessionId")]
         public virtual Profession Profession { get; set; }
-
-        public long? WorkPlaceId { get; set; }
-        [ForeignKey("WorkPlaceId")]
-        public virtual WorkPlace WorkPlace { get; set; }
-
-        public long? CountryCodeId { get; set; }
-
-        public long? ContactNo { get; set; }
-
-        public string? Email { get; set; }
-
-        public long? DistrictId { get; set; }
-
+        public string? ProffessionOther { get; set; }
+        public string? Company { get; set; }
         public long? AreaId { get; set; }
         [ForeignKey("AreaId")]
         public virtual AreaData AreaData { get; set; }
+        public string? KuwaitAddres { get; set; }
+        public long? MembershipType { get; set; }
 
-        public long? ZoneId { get; set; }
-        [ForeignKey("ZoneId")]
-        public virtual Zone Zone { get; set; }
+        public string? PermenantAddress { get; set; }
+        public string? Pincode { get; set; }
 
-        public long? UnitId { get; set; }
-        [ForeignKey("UnitId")]
-        public virtual Unit Unit { get; set; }
+        public string? EmergencyContactName { get; set; }
+        public long? EmergencyContactRelation { get; set; }
+        public long? EmergencyContactCountryCodeid { get; set; }
+        public long? EmergencyContactNumber { get; set; }
+        public string? EmergencyContactEmail { get; set; }
+        public long? ParentId { get; set; }
 
         public long? CampaignId { get; set; }
         [Column(TypeName = "decimal(18,3)")]
@@ -66,14 +52,25 @@ namespace FOKE.Entity.MembershipData.DTO
         public decimal? AmountRecieved { get; set; }
         public long? PaymentTypeId { get; set; }
         public string? PaymentRemarks { get; set; }
-        public long? HearAboutUsId { get; set; }
         public long? RejectionReasonId { get; set; }
         public string? RejectionReason { get; set; }
         public string? RejectionRemarks { get; set; }
-        public long? WorkYear { get; set; }
-        public string? ProffessionOther { get; set; }
-        public string? WorkplaceOther { get; set; }
+
+
         public long? DepartmentId { get; set; }
+        public string? WorkplaceOther { get; set; }
+        public long? WorkYear { get; set; }
+        public long? HearAboutUsId { get; set; }
+        public long? ZoneId { get; set; }
+        [ForeignKey("ZoneId")]
+        public virtual Zone Zone { get; set; }
+        public long? UnitId { get; set; }
+        [ForeignKey("UnitId")]
+        public virtual Unit Unit { get; set; }
+        public long? DistrictId { get; set; }
+        public long? WorkPlaceId { get; set; }
+        [ForeignKey("WorkPlaceId")]
+        public virtual WorkPlace WorkPlace { get; set; }
 
     }
 }

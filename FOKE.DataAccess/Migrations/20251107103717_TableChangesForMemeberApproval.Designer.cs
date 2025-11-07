@@ -4,6 +4,7 @@ using FOKE.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FOKE.DataAccess.Migrations
 {
     [DbContext(typeof(FOKEDBContext))]
-    partial class FOKEDBContextModelSnapshot : ModelSnapshot
+    [Migration("20251107103717_TableChangesForMemeberApproval")]
+    partial class TableChangesForMemeberApproval
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

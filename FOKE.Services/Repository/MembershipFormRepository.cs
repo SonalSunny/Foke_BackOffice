@@ -266,6 +266,7 @@ namespace FOKE.Services.Repository
                         {
                             Name = f.Name,
                             CivilId = f.CivilId,
+                            RelationType = f.RelationType,
                             PassportNo = f.PassportNo,
                             DateofBirth = f.DateOfBirth,
                             GenderId = f.GenderId,
@@ -477,6 +478,7 @@ namespace FOKE.Services.Repository
                     MinorApplicantList = MinorRelativeData.Select(
                     i => new FamilyMembersData
                     {
+                        MembershipId = i.MembershipId,
                         Name = i.Name,
                         RelationType = i.RelationType,
                         RelationTypeName = i.RelationType != null ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.RelationType).LookUpName : null,
@@ -485,7 +487,7 @@ namespace FOKE.Services.Repository
                         DateOfBirth = i.DateofBirth,
                         DateofBirthString = i.DateofBirth != null ? i.DateofBirth.Value.Date.ToString("dd-MM-yyyy") : null,
                         GenderId = i.GenderId,
-                        GenderString = i.GenderId != null ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.GenderId).LookUpName : null,
+                        GenderString = i.GenderId != null && i.GenderId != 0 ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.GenderId).LookUpName : null,
                         BloodGroupid = i.BloodGroupId,
                         BloodGroup = i.BloodGroupId != null ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.BloodGroupId).LookUpName : null,
                         CountryCodeid = i.CountryCode,
@@ -543,31 +545,75 @@ namespace FOKE.Services.Repository
                                 DateofBirth = model.DateofBirth,
                                 GenderId = model.GenderId,
                                 BloodGroupId = model.BloodGroupId,
-                                ProfessionId = model.ProfessionId,
-                                WorkPlaceId = model.WorkPlaceId,
                                 CountryCodeId = model.CountryCodeId,
                                 ContactNo = model.ContactNo,
+                                WhatsAppNoCountryCodeid = model.WhatsAppNoCountryCodeid,
+                                WhatsAppNo = model.WhatsAppNo,
                                 Email = model.Email,
-                                DistrictId = model.DistrictId,
+                                ProfessionId = model.ProfessionId,
+                                ProffessionOther = model.ProffessionOther,
+                                Company = model.Company,
                                 AreaId = model.AreaId,
-                                ZoneId = model.ZoneId,
-                                UnitId = model.UnitId,
+                                KuwaitAddres = model.KuwaitAddress,
+
+                                PermenantAddress = model.PermenantAddress,
+                                Pincode = model.Pincode,
+
+                                EmergencyContactName = model.EmergencyContactName,
+                                EmergencyContactRelation = model.EmergencyContactRelation,
+                                EmergencyContactCountryCodeid = model.EmergencyContactCountryCodeid,
+                                EmergencyContactNumber = model.EmergencyContactNumber,
+                                EmergencyContactEmail = model.EmergencyContactEmail,
+
                                 CampaignId = model.CampaignId,
                                 CampaignAmount = _dbContext.Campaigns.Where(c => c.CampaignId == model.CampaignId).Select(c => c.MemberShipFee).FirstOrDefault(),
                                 MembershipRequestedDate = model.MembershipRequestedDate,
                                 Memberfrom = DateTime.UtcNow,
                                 ApprovedBy = loggedInUser,
-                                ReferredBy = model.ReferredBy,
-                                WorkYear = model.WorkYear,
-                                WorkplaceOther = model.WorkplaceOther,
-                                ProffessionOther = model.ProffessionOther,
-                                DepartmentId = model.DepartmentId,
                                 Active = true
-                            };
 
+                                //WorkplaceOther = model.WorkplaceOther,
+                                //DistrictId = model.DistrictId,
+                                //ReferredBy = model.ReferredBy,
+                                //WorkYear = model.WorkYear,
+                                //ZoneId = model.ZoneId,
+                                //UnitId = model.UnitId,
+                                //WorkPlaceId = model.WorkPlaceId,
+                                //DepartmentId = model.DepartmentId,
+                            };
                             await _dbContext.MembershipAcceptedDatas.AddAsync(Member);
                             await _dbContext.SaveChangesAsync();
                             model.IssueId = Member.IssueId;
+
+                            if(model.FamilyData != null && model.FamilyData.Any())
+                            {
+                                var MembersList = model.FamilyData.Select(f => new MinorApplicantsAcceptedData
+                                {
+                                    Name = f.Name,
+                                    CivilId = f.CivilId,
+                                    RelationType = f.RelationType,
+                                    PassportNo = f.PassportNo,
+                                    DateofBirth = f.DateOfBirth,
+                                    GenderId = f.GenderId,
+                                    BloodGroupId = f.BloodGroupid,
+                                    ProffessionId = f.Professionid,
+                                    CountryCode = model.CountryCodeId,
+                                    ContactNo = model.ContactNo,
+                                    Email = model.Email,
+                                    AreaId = model.AreaId,
+                                    KuwaitAddres = model.KuwaitAddress,
+                                    PermenantAddress = model.PermenantAddress,
+                                    Pincode = model.Pincode,
+                                    ParentId = Member.IssueId,
+                                    Active = true,
+                                    CreatedDate = DateTime.UtcNow,
+                                    CreatedBy = loggedInUser,
+                                }).ToList();
+
+                                _dbContext.MinorApplicantsAcceptedDatas.AddRange(MembersList);
+                                _dbContext.SaveChanges();
+                            }
+                         
 
                             if (model.Attachment != null)
                             {
@@ -626,19 +672,27 @@ namespace FOKE.Services.Repository
                         ReferanceNo = GenerateReferanceNumber(false),
                         Name = model.Name,
                         CivilId = model.CivilId,
-                        PassportNo = model.PassportNo,
                         DateofBirth = model.DateofBirth,
+                        PassportNo = model.PassportNo,
                         GenderId = model.GenderId,
                         BloodGroupId = model.BloodGroupId,
-                        ProfessionId = model.ProfessionId,
-                        WorkPlaceId = model.WorkPlaceId,
                         CountryCodeId = model.CountryCodeId,
+                        WhatsAppNoCountryCodeid = model.WhatsAppNoCountryCodeid,
+                        WhatsAppNo = model.WhatsAppNo,
                         ContactNo = model.ContactNo,
                         Email = model.Email,
-                        DistrictId = model.DistrictId,
+                        ProfessionId = model.ProfessionId,
+                        ProffessionOther = model.ProffessionOther,
+                        Company = model.Company,
                         AreaId = model.AreaId,
-                        ZoneId = model.ZoneId,
-                        UnitId = model.UnitId,
+                        KuwaitAddres = model.KuwaitAddress,
+                        PermenantAddress = model.PermenantAddress,
+                        Pincode = model.Pincode,
+                        EmergencyContactName = model.EmergencyContactName,
+                        EmergencyContactRelation = model.EmergencyContactRelation,
+                        EmergencyContactCountryCodeid = model.EmergencyContactCountryCodeid,
+                        EmergencyContactNumber = model.EmergencyContactNumber,
+                        EmergencyContactEmail = model.EmergencyContactEmail,
                         CampaignId = model.CampaignId,
                         CampaignAmount = model.CampaignAmount,
                         AmountRecieved = model.AmountRecieved,
@@ -646,13 +700,37 @@ namespace FOKE.Services.Repository
                         PaymentRemarks = model.PaymentRemarks,
                         RejectionReason = model.RejectionReason,
                         RejectionRemarks = model.RejectionRemarks,
-                        WorkYear = model.WorkYear,
-                        WorkplaceOther = model.WorkplaceOther,
-                        ProffessionOther = model.ProffessionOther,
-                        DepartmentId = model.DepartmentId,
                         Active = true,
                         RejectionReasonId = model.RejectionReasonId,
                     };
+
+                    if (model.FamilyData != null && model.FamilyData.Any())
+                    {
+                        var MembersList = model.FamilyData.Select(f => new MinorApplicantRejectedData
+                        {
+                            Name = f.Name,
+                            CivilId = f.CivilId,
+                            RelationType = f.RelationType,
+                            PassportNo = f.PassportNo,
+                            DateofBirth = f.DateOfBirth,
+                            GenderId = f.GenderId,
+                            BloodGroupId = f.BloodGroupid,
+                            CountryCode = model.CountryCodeId,
+                            ContactNo = model.ContactNo,
+                            Email = model.Email,
+                            AreaId = model.AreaId,
+                            KuwaitAddres = model.KuwaitAddress,
+                            PermenantAddress = model.PermenantAddress,
+                            Pincode = model.Pincode,
+                            ParentId = Member.IssueId,
+                            Active = true,
+                            CreatedDate = DateTime.UtcNow,
+                            CreatedBy = loggedInUser,
+                        }).ToList();
+
+                        _dbContext.MinorApplicantRejectedDatas.AddRange(MembersList);
+                        _dbContext.SaveChanges();
+                    }
 
                     await _dbContext.MembershipRejectedDatas.AddAsync(Member);
                     await _dbContext.SaveChangesAsync();
@@ -1259,35 +1337,40 @@ namespace FOKE.Services.Repository
                         {
                             Name = MemberData.returnData.Name,
                             CivilId = MemberData.returnData.CivilId,
-                            PassportNo = MemberData.returnData.PassportNo,
                             DateofBirth = MemberData.returnData.DateofBirth,
+                            PassportNo = MemberData.returnData.PassportNo,
                             GenderId = MemberData.returnData.GenderId,
                             BloodGroupId = MemberData.returnData.BloodGroupId,
-                            ProfessionId = MemberData.returnData.ProfessionId,
-                            WorkPlaceId = MemberData.returnData.WorkPlaceId,
                             CountryCodeId = MemberData.returnData.CountryCodeId,
                             ContactNo = MemberData.returnData.ContactNo,
+                            WhatsAppNoCountryCodeid = MemberData.returnData.WhatsAppNoCountryCodeid,
+                            WhatsAppNo = MemberData.returnData.WhatsAppNo,
                             Email = MemberData.returnData.Email,
-                            DistrictId = MemberData.returnData.DistrictId,
+                            ProfessionId = MemberData.returnData.ProfessionId,
+                            Company = MemberData.returnData.Company,
                             AreaId = MemberData.returnData.AreaId,
-                            ZoneId = model.ZoneId,
-                            UnitId = model.UnitId,
+                            KuwaitAddress = MemberData.returnData.KuwaitAddress,
+                            MembershipType = MemberData.returnData.MembershipType,
+                            FamilyData = MemberData.returnData.FamilyData,
+                            PermenantAddress = MemberData.returnData.PermenantAddress,
+                            Pincode = MemberData.returnData.Pincode,
+                            EmergencyContactName = MemberData.returnData.EmergencyContactName,
+                            EmergencyContactRelation = MemberData.returnData.EmergencyContactRelation,
+                            EmergencyContactCountryCodeid = MemberData.returnData.EmergencyContactCountryCodeid,
+                            EmergencyContactNumber = MemberData.returnData.EmergencyContactNumber,
+                            EmergencyContactEmail = MemberData.returnData.EmergencyContactEmail,
+
                             CampaignId = model.CampaignId,
                             CampaignAmount = _dbContext.Campaigns.Where(c => c.CampaignId == model.CampaignId).Select(c => c.MemberShipFee).FirstOrDefault(),
                             AmountRecieved = model.AmountRecieved,
                             PaymentTypeId = model.PaymentTypeId,
                             PaymentRemarks = model.PaymentRemarks,
                             MembershipStatus = model.MembershipStatus,
-                            HearAboutUsId = MemberData.returnData.HearAboutUsId,
+                            RejectionReasonId = model.RejectionReasonId,
                             MembershipRequestedDate = MemberData.returnData.CreatedDate,
-                            ReferredBy = model.ReferredBy,
                             RejectionReason = model.RejectionReason,
                             RejectionRemarks = model.RejectionRemarks,
-                            WorkYear = MemberData.returnData.WorkYear,
-                            ProffessionOther = MemberData.returnData.ProffessionOther,
-                            WorkplaceOther = MemberData.returnData.WorkplaceOther,
-                            DepartmentId = MemberData.returnData.DepartmentId,
-                            RejectionReasonId = model.RejectionReasonId,
+                            ProffessionOther = MemberData.returnData.ProffessionOther
                         };
 
                         var IsMemberIssued = await IssueMember(Member);
@@ -1323,6 +1406,9 @@ namespace FOKE.Services.Repository
                                 if (membership != null)
                                 {
                                     _dbContext.MembershipRequestDetails.Remove(membership);
+                                    var FamilyMembersID = Member.FamilyData.Select(i => i.MembershipId).ToList();
+                                    var minorsToRemove = _dbContext.MinorApplicantDetails.Where(i => FamilyMembersID.Contains(i.MembershipId)).ToList();
+                                    _dbContext.MinorApplicantDetails.RemoveRange(minorsToRemove);   
                                     _dbContext.SaveChanges();
                                 }
                                 retModel.transactionStatus = System.Net.HttpStatusCode.OK;
@@ -1394,8 +1480,8 @@ namespace FOKE.Services.Repository
                             .FirstOrDefault(),
                         ProfessionId = ObjData.ProfessionId,
                         Profession = ObjData.Profession.ProffessionName,
-                        WorkPlaceId = ObjData.WorkPlaceId,
-                        WorkPlace = ObjData.WorkPlace.WorkPlaceName,
+                        //WorkPlaceId = ObjData.WorkPlaceId,
+                        //WorkPlace = ObjData.WorkPlace.WorkPlaceName,
                         CountryCodeId = ObjData.CountryCodeId,
                         ContactNo = ObjData.ContactNo,
                         PhoneNo = "+" + ObjData.CountryCodeId + ObjData.ContactNo,
@@ -1407,10 +1493,10 @@ namespace FOKE.Services.Repository
                             .FirstOrDefault(),
                         AreaId = (long)ObjData.AreaId,
                         Area = ObjData.AreaData.AreaName,
-                        ZoneId = ObjData.ZoneId,
-                        Zone = ObjData.Zone.ZoneName,
-                        UnitId = ObjData.UnitId,
-                        Unit = ObjData.Unit.UnitName,
+                        //ZoneId = ObjData.ZoneId,
+                        //Zone = ObjData.Zone.ZoneName,
+                        //UnitId = ObjData.UnitId,
+                        //Unit = ObjData.Unit.UnitName,
                         CampaignId = ObjData.CampaignId,
                         CampaignName = ObjData.Campaign.CampaignName,
                         CampaignAmount = ObjData.CampaignAmount,
@@ -1572,8 +1658,7 @@ namespace FOKE.Services.Repository
             }
             return retModel;
         }
-        #endregion Issue_Memebrship
-
+        #endregion Issue_Memebrship    
 
         #region MemeberShipValidations
         public long IsValidKuwaitCivilID(string civilId)
@@ -2874,14 +2959,14 @@ namespace FOKE.Services.Repository
         public async Task<ResponseEntity<bool>> CancelMembershipAsync(long memberId, string? reason, string? description)
         {
             var response = new ResponseEntity<bool>();
-
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
             try
             {
                 // Step 1: Find member in Accepted table
                 var member = await _dbContext.MembershipAcceptedDatas
                     .FirstOrDefaultAsync(m => m.IssueId == memberId);
+
+                var FamilyData = await _dbContext.MinorApplicantsAcceptedDatas.Where(f => f.ParentId == memberId && f.Active).ToListAsync();
 
                 if (member == null)
                 {
@@ -2904,19 +2989,27 @@ namespace FOKE.Services.Repository
                     ReferanceNo = member.ReferanceNo,
                     Name = member.Name,
                     CivilId = member.CivilId,
-                    PassportNo = member.PassportNo,
                     DateofBirth = member.DateofBirth,
+                    PassportNo = member.PassportNo,
                     GenderId = member.GenderId,
                     BloodGroupId = member.BloodGroupId,
-                    ProfessionId = member.ProfessionId,
-                    WorkPlaceId = member.WorkPlaceId,
                     CountryCode = member.CountryCodeId,
                     ContactNo = member.ContactNo,
+                    WhatsAppNoCountryCodeid = member.WhatsAppNoCountryCodeid,
+                    WhatsAppNo = member.WhatsAppNo,
                     Email = member.Email,
-                    DistrictId = member.DistrictId,
+                    ProfessionId = member.ProfessionId,
                     AreaId = member.AreaId,
-                    ZoneId = member.ZoneId,
-                    UnitId = member.UnitId,
+                    Company = member.Company,
+                    KuwaitAddres = member.KuwaitAddres,
+                    PermenantAddress = member.PermenantAddress,
+                    Pincode = member.Pincode,
+                    EmergencyContactName = member.EmergencyContactName,
+                    EmergencyContactRelation = member.EmergencyContactRelation,
+                    EmergencyContactCountryCodeid = member.EmergencyContactCountryCodeid,
+                    EmergencyContactNumber = member.EmergencyContactNumber,
+                    EmergencyContactEmail = member.EmergencyContactEmail,
+
                     CampaignId = member.CampaignId,
                     CampaignAmount = member.CampaignAmount,
                     AmountRecieved = member.AmountRecieved,
@@ -2926,11 +3019,7 @@ namespace FOKE.Services.Repository
                     Memberfrom = member.Memberfrom,
                     MembershipRequestedDate = member.MembershipRequestedDate,
                     ApprovedBy = member.ApprovedBy,
-                    DepartmentId = member.DepartmentId,
-                    WorkYear = member.WorkYear,
-                    ReferredBy = member.ReferredBy,
                     ProffessionOther = member.ProffessionOther,
-                    WorkplaceOther = member.WorkplaceOther,
                     CancelReasonId = parsedReasonId,
                     CancellationRemarks = description,
                     CancelledBy = loggedInUser,
@@ -2938,13 +3027,42 @@ namespace FOKE.Services.Repository
                     PaidDate = member.PaidDate,
                     PaymentReceivedBy = member.PaymentReceivedBy,
                     EmailOtp = member.EmailOtp,
-                    MobileOtp = member.MobileOtp
+                    MobileOtp = member.MobileOtp,
+                    WorkPlaceId = member.WorkPlaceId,
+                    Active = true
                 };
-
 
                 await _dbContext.MemberShipCancelledDatas.AddAsync(cancelledMember);
                 int insertResult = await _dbContext.SaveChangesAsync();
 
+                if (FamilyData != null && FamilyData.Any())
+                {
+                    foreach (var familyMember in FamilyData)
+                    {
+                        var cancelledFamilyMember = new MinorApplicantsCancelledData
+                        {
+                            ParentId = cancelledMember.IssueId,
+                            RelationType = familyMember.RelationType,
+                            Name = familyMember.Name,
+                            CivilId = familyMember.CivilId,
+                            DateofBirth = familyMember.DateofBirth,
+                            PassportNo = familyMember.PassportNo,
+                            GenderId = familyMember.GenderId,
+                            BloodGroupId = familyMember.BloodGroupId,
+                            CountryCode = familyMember.CountryCode,
+                            ContactNo = familyMember.ContactNo,
+                            Email = familyMember.Email,
+                            AreaId = familyMember.AreaId,
+                            KuwaitAddres = familyMember.KuwaitAddres,
+                            PermenantAddress = familyMember.PermenantAddress,
+                            Pincode = familyMember.Pincode,
+                            Active = true
+                        };
+
+                        await _dbContext.MinorApplicantsCancelledDatas.AddAsync(cancelledFamilyMember);
+                        _dbContext.MinorApplicantsAcceptedDatas.Remove(familyMember);
+                    }
+                }
 
                 if (insertResult > 0)
                 {

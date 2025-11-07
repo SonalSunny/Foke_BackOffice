@@ -102,7 +102,9 @@ namespace FOKE.DataAccess
         public DbSet<Account> Accounts { get; set; }
         public DbSet<ContactForm> ContactForms { get; set; }
         public DbSet<MinorApplicantDetails> MinorApplicantDetails { get; set; }
-
+        public DbSet<MinorApplicantsAcceptedData> MinorApplicantsAcceptedDatas { get; set; }
+        public DbSet<MinorApplicantsCancelledData> MinorApplicantsCancelledDatas { get; set; }
+        public DbSet<MinorApplicantRejectedData> MinorApplicantRejectedDatas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

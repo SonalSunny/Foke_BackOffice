@@ -36,29 +36,19 @@ namespace FOKE.Entity.MembershipData.DTO
         [ForeignKey("ProfessionId")]
         public virtual Profession Profession { get; set; }
 
-        public long? WorkPlaceId { get; set; }
-        [ForeignKey("WorkPlaceId")]
-        public virtual WorkPlace WorkPlace { get; set; }
-
         public long? CountryCode { get; set; }
 
         public long? ContactNo { get; set; }
 
-        public string? Email { get; set; }
+        public long? WhatsAppNoCountryCodeid { get; set; }
 
-        public long? DistrictId { get; set; }
+        public long? WhatsAppNo { get; set; }
+
+        public string? Email { get; set; }
 
         public long? AreaId { get; set; }
         [ForeignKey("AreaId")]
         public virtual AreaData AreaData { get; set; }
-
-        public long? ZoneId { get; set; }
-        [ForeignKey("ZoneId")]
-        public virtual Zone Zone { get; set; }
-
-        public long? UnitId { get; set; }
-        [ForeignKey("UnitId")]
-        public virtual Unit Unit { get; set; }
 
         public long? CampaignId { get; set; }
         [Column(TypeName = "decimal(18,3)")]
@@ -94,5 +84,32 @@ namespace FOKE.Entity.MembershipData.DTO
         public bool? EmailOtp { get; set; }
         public bool? MobileOtp { get; set; }
 
+        public string? Company { get; set; }
+
+        public string? KuwaitAddres { get; set; }
+        public long? MembershipType { get; set; }
+
+        public string? PermenantAddress { get; set; }
+        public string? Pincode { get; set; }
+
+        public string? EmergencyContactName { get; set; }
+        public long? EmergencyContactRelation { get; set; }
+        public long? EmergencyContactCountryCodeid { get; set; }
+        public long? EmergencyContactNumber { get; set; }
+        public string? EmergencyContactEmail { get; set; }
+        public long? ParentId { get; set; }
+
+
+        public long? ZoneId { get; set; }
+        [ForeignKey("ZoneId")]
+        public virtual Zone Zone { get; set; }
+
+        public long? UnitId { get; set; }
+        [ForeignKey("UnitId")]
+        public virtual Unit Unit { get; set; }
+        public long? WorkPlaceId { get; set; }
+        [ForeignKey("WorkPlaceId")]
+        public virtual WorkPlace WorkPlace { get; set; }
+        public long? DistrictId { get; set; }
     }
 }

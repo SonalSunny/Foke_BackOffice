@@ -136,11 +136,13 @@
 
 							<hr class="my-4" />
 							@* Family Details *@
-							<h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
-								<i class="fa fa-users me-2"></i>Family Details
-							</h4>
+
 							@if (Model.inputModel.FamilyData != null && Model.inputModel.FamilyData.Any())
 							{
+								<h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+									<i class="fa fa-users me-2"></i>Family Details
+								</h4>
+
 								foreach (var item in Model.inputModel.FamilyData)
 								{
 									<div class="container border-bottom pb-2 ms-5">
@@ -212,9 +214,9 @@
 										</div>
 									</div>
 								}
+								<hr class="my-4" />
 							}			
 							@* Family Details *@
-							<hr class="my-4" />
 							@* Kerela Details *@
 							<h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
 								<i class="fa fa-home me-2"></i>Kerela Details
