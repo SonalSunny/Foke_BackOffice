@@ -19,222 +19,292 @@
 
 					<!-- Task Content (Unchanged, but now with shadow) -->
 					<div class="card-body shadow-sm p-4">
-						<div class="row g-4 mb-0 p-1">
 
-							<div class="col-4 p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Name") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">
-										@Model.inputModel.Name
-									</div>
-								</div>
-							</div>
+						<div class="card shadow-sm p-4 mb-4">
 
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Civil ID") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">
-										@Model.inputModel.CivilId
-									</div>
-								</div>
-							</div>
+							<h5 class="card-title mb-3">
+								👤 Personal Information
+							</h5>
 
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Passport No") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">
-										@Model.inputModel.PassportNo
+							<div class="row g-4 mb-0 p-1">
+								<div class="col-4 p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Name") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.Name
+										</div>
 									</div>
 								</div>
-							</div>
 
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Date of Birth") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">
-										@Model.inputModel.DateofBirthString
-									</div>
-								</div>
-							</div>
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Contact Number") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.ContactNo</div>
-								</div>
-							</div>
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Email") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.Email</div>
-								</div>
-							</div>
-							
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Gender") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">
-										@Model.inputModel.Gender
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Civil ID") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.CivilId
+										</div>
 									</div>
 								</div>
-							</div>
-                            <div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
+
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Passport No") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.PassportNo
+										</div>
+									</div>
+								</div>
+
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Date of Birth") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.DateofBirthString
+										</div>
+									</div>
+								</div>
+
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Gender") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.Gender
+										</div>
+									</div>
+								</div>
+
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Contact Number") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.ContactNo</div>
+									</div>
+								</div>
+
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("WhatsApp Number") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.WhatsappNoString</div>
+									</div>
+								</div>
+
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Email") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.Email</div>
+									</div>
+								</div>
+
+
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
 											@Localize.Localize("Blood Group") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">
-										@Model.inputModel.BloodGroup
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.BloodGroup
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
 											@Localize.Localize("Profession") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">
-										@Model.inputModel.Profession
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.Profession
+										</div>
 									</div>
 								</div>
-							</div>
 
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-											@Localize.Localize("Workplace") :
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Area") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800"> @Model.inputModel.Area </div>
 									</div>
-									<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.WorkPlace </div>
 								</div>
-							</div>
 
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("District") :
+								<div class="col-4  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Company") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800"> @Model.inputModel.Company </div>
 									</div>
-									<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.District</div>
 								</div>
-							</div>
 
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Area") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800"> @Model.inputModel.Area </div>
-								</div>
-							</div>
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Department") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800"> @Model.inputModel.DepartmentName </div>
-								</div>
-							</div>
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Started Medical Work (Kuwait)") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800"> @Model.inputModel.WorkYear </div>
-								</div>
-							</div>
-
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Referred By") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800"> @Model.inputModel.ReferredByName </div>
-								</div>
-							</div>
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Zone") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.Zone</div>
-								</div>
-							</div>
-
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Unit") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.Unit</div>
-								</div>
-							</div>
-
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Campaign") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.CampaignName</div>
-								</div>
-							</div>
-
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Campaign Amount") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">
-										@Model.inputModel.CampaignAmount
+								<div class="col-12  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Kuwait Address") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800"> @Model.inputModel.KuwaitAddress </div>
 									</div>
 								</div>
 							</div>
-							<div class="col-4 p-3">
-								<div class="col-sm-6">
-								<div class="fw-semibold fs-7 text-gray-600 mb-1">
-									@Localize.Localize("Received Amount") :
-								</div>
-								<div class="fw-bold fs-6 text-gray-800">
-									@Model.inputModel.AmountRecieved
-								</div>
-								</div>
-							</div>
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Payment Type") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">
-										@Model.inputModel.PaymentType
-
-									</div>
-								</div>
-							</div>
-							<div class="col-4  p-3">
-								<div class="col-sm-6">
-									<div class="fw-semibold fs-7 text-gray-600 mb-1">
-										@Localize.Localize("Payment Remarks") :
-									</div>
-									<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.PaymentRemarks </div>
-								</div>
-							</div>
-
 						</div>
 
 
+						<div class="card shadow-sm p-4 mb-4">
+
+							<h5 class="card-title mb-3">
+								🏠 Kerela Details
+							</h5>
+
+							<div class="row g-4 mb-0 p-1">
+								<div class="col-12  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Permenant Address") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.PermenantAddress
+										</div>
+									</div>
+								</div>
+								<div class="col-12 p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Pincode") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.Pincode
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card shadow-sm p-4 mb-4">
+
+							<h5 class="card-title mb-3">
+								⚠️ Emergency Contact Details
+							</h5>
+
+							<div class="row g-4 mb-0 p-1">
+								<div class="col-6  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Name") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.EmergencyContactName
+										</div>
+									</div>
+								</div>
+								<div class="col-6 p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Relation") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.EmergencyContactRelationString
+										</div>
+									</div>
+								</div>
+								<div class="col-6  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Contact No") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.EmergencyContactNumberString
+										</div>
+									</div>
+								</div>
+								<div class="col-6  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Email") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.EmergencyContactEmail
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card shadow-sm p-4 mb-4">
+
+							<h5 class="card-title mb-3">
+								👤 Campaign Details
+							</h5>
+
+							<div class="row g-4 mb-0 p-1">
+
+								<div class="col-6  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Campaign") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.CampaignName</div>
+									</div>
+								</div>
+
+								<div class="col-6  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Campaign Amount") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.CampaignAmount
+										</div>
+									</div>
+								</div>
+
+								<div class="col-6 p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Received Amount") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.AmountRecieved
+										</div>
+									</div>
+								</div>
+
+								<div class="col-6  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Payment Type") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">
+											@Model.inputModel.PaymentType
+
+										</div>
+									</div>
+								</div>
+
+								<div class="col-12  p-3">
+									<div class="col-sm-6">
+										<div class="fw-semibold fs-7 text-gray-600 mb-1">
+											@Localize.Localize("Payment Remarks") :
+										</div>
+										<div class="fw-bold fs-6 text-gray-800">@Model.inputModel.PaymentRemarks </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
 						<div class="col-12 d-flex justify-content-end">
-							<div class="d-flex flex-stack pb-2">
+							<div class="d-flex flex-stack p-2">
 								<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal">
 									<i class="fas fa-user-times"></i> Cancel Membership
 								</button>

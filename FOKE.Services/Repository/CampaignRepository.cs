@@ -6,7 +6,6 @@ using FOKE.Entity.MembershipFee.ViewModel;
 using FOKE.Entity.MembershipIssuedData.ViewModel;
 using FOKE.Services.Interface;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Security.Claims;
@@ -244,13 +243,13 @@ namespace FOKE.Services.Repository
                 if (activeCampaigns.Count >= 2)
                     return false;
 
-              
+
                 var members = await _dbContext.MembershipAcceptedDatas.ToListAsync();
                 foreach (var member in members)
                 {
                     bool hasPaid = member.CampaignId == campaignId && member.AmountRecieved > 0;
 
-                   
+
                     bool feeAlreadyExists = await _dbContext.MembershipFees
                         .AnyAsync(f => f.MemberID == member.IssueId && f.Campaign == campaignId);
 
@@ -274,7 +273,7 @@ namespace FOKE.Services.Repository
 
                     _dbContext.MembershipFees.Add(feeEntry);
 
-                 
+
                     if (!hasPaid)
                     {
                         member.CampaignId = campaignId;
@@ -290,12 +289,12 @@ namespace FOKE.Services.Repository
                     member.UpdatedDate = now;
                 }
 
-              
+
                 await _dbContext.SaveChangesAsync();
 
                 var existingCollections = await _dbContext.Campaigns
-      .Where(c => c.CollectionAdded == 1 && c.CampaignId != campaignId)
-      .ToListAsync();
+                  .Where(c => c.CollectionAdded == 1 && c.CampaignId != campaignId)
+                  .ToListAsync();
 
                 foreach (var campaign in existingCollections)
                 {
@@ -321,91 +320,6 @@ namespace FOKE.Services.Repository
                 return false;
             }
         }
-
-        
-
-        //public async Task<bool> CreateCollectionSheetAsync(long campaignId)
-        //{
-        //    var now = DateTime.UtcNow;
-
-        //    using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
-        //    try
-        //    {
-        //        // 1️⃣ Activate selected campaign and deactivate others
-        //        var allCampaigns = await _dbContext.Campaigns.ToListAsync();
-        //        foreach (var campaign in allCampaigns)
-        //        {
-        //            if (campaign.CampaignId == campaignId)
-        //            {
-        //                campaign.Active = true;
-        //                campaign.CollectionAdded = 1;
-        //            }
-        //            else
-        //            {
-        //                campaign.Active = false;
-        //                campaign.CollectionAdded = 0;
-        //            }
-
-        //            campaign.UpdatedBy = loggedInUser;
-        //            campaign.UpdatedDate = DateTime.UtcNow;
-        //        }
-        //        await _dbContext.SaveChangesAsync();
-
-        //        var selectedCampaign = allCampaigns.FirstOrDefault(c => c.CampaignId == campaignId);
-        //        if (selectedCampaign == null)
-        //        {
-        //            await transaction.RollbackAsync();
-        //            return false;
-        //        }
-
-
-        //        var members = await _dbContext.MembershipAcceptedDatas.ToListAsync();
-        //        foreach (var member in members)
-        //        {
-        //            member.CampaignId = selectedCampaign.CampaignId;
-
-
-        //            // member.CampaignAmount = long.TryParse(selectedCampaign.MemberShipFee, out var fee) ? fee : 0;
-        //            member.CampaignAmount = selectedCampaign.MemberShipFee;
-        //            member.AmountRecieved = 0;
-        //            member.PaidDate = null;
-        //            member.PaymentTypeId = null;
-        //            member.PaymentReceivedBy = null;
-        //            member.UpdatedBy = loggedInUser;
-        //            member.UpdatedDate = DateTime.UtcNow;
-
-
-        //            //  decimal amountToPay = 0;
-        //            // decimal.TryParse(selectedCampaign.MemberShipFee, out amountToPay);
-
-        //            _dbContext.MembershipFees.Add(new MembershipFee
-        //            {
-        //                MemberID = member.IssueId,
-        //                Campaign = selectedCampaign.CampaignId,
-        //                AmountToPay = selectedCampaign.MemberShipFee,
-        //                PaidAmount = 0,
-        //                PaidDate = null,
-        //                PaymentType = null,
-        //                PaymentReceivedBy = null,
-        //                CollectionRemark = null,
-        //                Active = true,
-        //                CreatedBy = loggedInUser,
-        //                CreatedDate = DateTime.UtcNow
-        //            });
-        //        }
-
-        //        await _dbContext.SaveChangesAsync();
-        //        await transaction.CommitAsync();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        await transaction.RollbackAsync();
-        //        // TODO: log exception if needed
-        //        return false;
-        //    }
-        //}
 
 
         public async Task<ResponseEntity<bool>> UpdateMembershipFeeAsync(MembershipFeeViewModel model)

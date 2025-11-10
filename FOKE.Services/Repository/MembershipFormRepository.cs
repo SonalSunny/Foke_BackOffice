@@ -75,10 +75,9 @@ namespace FOKE.Services.Repository
         public async Task<ResponseEntity<MembershipViewModel>> RegisterMember(MembershipViewModel model)
         {
             var retModel = new ResponseEntity<MembershipViewModel>();
+            using var transaction = await _dbContext.Database.BeginTransactionAsync();
             try
             {
-                using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
                 var MembershipAcceptedDataList = _dbContext.MembershipAcceptedDatas.Where(i => i.Active).ToList();
                 var memberShipRequestList = _dbContext.MembershipRequestDetails.Where(i => i.Active).ToList();
                 var AcceptedMemberExists = MembershipAcceptedDataList.Any(u => u.CivilId == model.CivilId || u.ContactNo == model.ContactNo || u.PassportNo == model.PassportNo);
@@ -296,6 +295,7 @@ namespace FOKE.Services.Repository
             }
             catch (Exception ex)
             {
+                await transaction.RollbackAsync();
                 retModel.transactionStatus = System.Net.HttpStatusCode.InternalServerError;
                 retModel.returnMessage = "Server Error";
             }
@@ -527,11 +527,14 @@ namespace FOKE.Services.Repository
                         {
                             retModel.transactionStatus = HttpStatusCode.BadRequest;
                             retModel.returnMessage = "Member Already Exists With Either Same CivilId Or PhoneNo";
+                            return retModel;
+
                         }
-                        if (model.AreaId == 0 || model.ZoneId == 0 || model.UnitId == 0 || model.WorkPlaceId == 0 || model.ProfessionId == 0)
+                        if (model.AreaId == 0 || model.ProfessionId == 0)
                         {
                             retModel.transactionStatus = HttpStatusCode.BadRequest;
                             retModel.returnMessage = "Required details are missing. Kindly provide all the necessary information.";
+                            return retModel;
                         }
                         await using var transaction = await _dbContext.Database.BeginTransactionAsync();
                         try
@@ -1406,9 +1409,12 @@ namespace FOKE.Services.Repository
                                 if (membership != null)
                                 {
                                     _dbContext.MembershipRequestDetails.Remove(membership);
-                                    var FamilyMembersID = Member.FamilyData.Select(i => i.MembershipId).ToList();
-                                    var minorsToRemove = _dbContext.MinorApplicantDetails.Where(i => FamilyMembersID.Contains(i.MembershipId)).ToList();
-                                    _dbContext.MinorApplicantDetails.RemoveRange(minorsToRemove);   
+                                    var FamilyMembersID = Member.FamilyData != null ?  Member.FamilyData.Select(i => i.MembershipId).ToList() : null;
+                                    if(FamilyMembersID != null)
+                                    {
+                                        var minorsToRemove = _dbContext.MinorApplicantDetails.Where(i => FamilyMembersID.Contains(i.MembershipId)).ToList();
+                                        _dbContext.MinorApplicantDetails.RemoveRange(minorsToRemove);
+                                    }
                                     _dbContext.SaveChanges();
                                 }
                                 retModel.transactionStatus = System.Net.HttpStatusCode.OK;
@@ -1469,100 +1475,108 @@ namespace FOKE.Services.Repository
                         PassportNo = ObjData.PassportNo,
                         DateofBirth = ObjData.DateofBirth,
                         GenderId = ObjData.GenderId,
-                        Gender = LookUpMasterData
-                            .Where(r => r.LookUpId == ObjData.GenderId)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault(),
+                        Gender = LookUpMasterData.Where(r => r.LookUpId == ObjData.GenderId).Select(r => r.LookUpName).FirstOrDefault(),
                         BloodGroupId = ObjData.BloodGroupId,
-                        BloodGroup = LookUpMasterData
-                            .Where(r => r.LookUpId == ObjData.BloodGroupId)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault(),
+                        BloodGroup = LookUpMasterData.Where(r => r.LookUpId == ObjData.BloodGroupId).Select(r => r.LookUpName).FirstOrDefault(),
                         ProfessionId = ObjData.ProfessionId,
                         Profession = ObjData.Profession.ProffessionName,
-                        //WorkPlaceId = ObjData.WorkPlaceId,
-                        //WorkPlace = ObjData.WorkPlace.WorkPlaceName,
                         CountryCodeId = ObjData.CountryCodeId,
                         ContactNo = ObjData.ContactNo,
-                        PhoneNo = "+" + ObjData.CountryCodeId + ObjData.ContactNo,
+                        PhoneNo = $"+{ ObjData.CountryCodeId} { ObjData.ContactNo}",
+                        WhatsappNoString = $"+{ObjData.WhatsAppNoCountryCodeid} {ObjData.WhatsAppNo}",
                         Email = ObjData.Email,
-                        DistrictId = (long)ObjData.DistrictId,
-                        District = LookUpMasterData
-                            .Where(r => r.LookUpId == ObjData.DistrictId)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault(),
                         AreaId = (long)ObjData.AreaId,
                         Area = ObjData.AreaData.AreaName,
-                        //ZoneId = ObjData.ZoneId,
-                        //Zone = ObjData.Zone.ZoneName,
-                        //UnitId = ObjData.UnitId,
-                        //Unit = ObjData.Unit.UnitName,
                         CampaignId = ObjData.CampaignId,
                         CampaignName = ObjData.Campaign.CampaignName,
                         CampaignAmount = ObjData.CampaignAmount,
                         AmountRecieved = ObjData.AmountRecieved,
                         PaymentTypeId = ObjData.PaymentTypeId,
-                        PaymentType = LookUpMasterData
-                            .Where(r => r.LookUpId == ObjData.PaymentTypeId)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault(),
+                        PaymentType = LookUpMasterData.Where(r => r.LookUpId == ObjData.PaymentTypeId).Select(r => r.LookUpName).FirstOrDefault(),
                         PaymentRemarks = ObjData.PaymentRemarks,
-                        HearAboutUsId = ObjData.HearAboutUsId,
-                        HearAboutUs = LookUpMasterData
-                            .Where(r => r.LookUpId == ObjData.HearAboutUsId)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault(),
                         DateofBirthString = ObjData.DateofBirth != null ? ObjData.DateofBirth.Value.Date.ToString("dd-MM-yyyy") : null,
                         Active = ObjData.Active,
                         MemberfromString = ObjData.Memberfrom != null && ObjData.Memberfrom != DateTime.MinValue ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(ObjData.Memberfrom, GenericUtilities.dateTimeFormat) : "",
                         MembershipRequestedDateString = ObjData.MembershipRequestedDate != null && ObjData.MembershipRequestedDate != DateTime.MinValue ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(ObjData.MembershipRequestedDate, GenericUtilities.dateTimeFormat) : "",
                         ApprovedByName = ObjData.ApprovedBy != null ? _dbContext.Users.FirstOrDefault(i => i.UserId == ObjData.ApprovedBy).UserName : null,
                         ProfileImagePath = ProfileData != null ? ProfileData.FileStorage.FilePath : "/images/Default.jpg",
-                        DepartmentId = ObjData.DepartmentId,
-                        DepartmentName = ObjData.DepartmentId != null ? _dbContext.Departments.FirstOrDefault(i => i.DepartmentId == ObjData.DepartmentId).DepartmentName : "",
-                        WorkYear = ObjData.WorkYear,
                         PaymentRecievedBy = ObjData.AmountRecieved != null && ObjData.ApprovedBy != null ? _dbContext.Users.FirstOrDefault(i => i.UserId == ObjData.ApprovedBy).UserName : null,
                         PaymentRecievedDate = ObjData.AmountRecieved != null && ObjData.CreatedDate != null ? ObjData.CreatedDate.Value.Date.ToString("dd-MM-yyyy") : null,
                         PaymentDone = ObjData.AmountRecieved == 0 ? false : true,
-                        // ReferredByName = ObjData.ReferredBy != null ? _dbContext.MembershipAcceptedDatas.FirstOrDefault(i => i.ReferredBy == ObjData.ReferredBy).Name : null,
                         ReferredByName = ObjData.ReferredBy != null ? _dbContext.MembershipAcceptedDatas.FirstOrDefault(i => i.IssueId == ObjData.ReferredBy)?.Name : null,
                         ProffessionOther = ObjData.ProffessionOther,
-                        WorkplaceOther = ObjData.WorkplaceOther,
+                        Company = ObjData.Company,
+                        KuwaitAddress = ObjData.KuwaitAddres,
+                        PermenantAddress = ObjData.PermenantAddress,
+                        Pincode = ObjData.Pincode,
+                        EmergencyContactName = ObjData.EmergencyContactName,
+                        EmergencyContactRelationString = ObjData.EmergencyContactRelation != null ? LookUpMasterData.SingleOrDefault(i=>i.LookUpId == ObjData.EmergencyContactRelation).LookUpName : null,
+                        EmergencyContactNumberString = $"+{ObjData.EmergencyContactCountryCodeid} {ObjData.EmergencyContactNumber}",
+                        EmergencyContactEmail = ObjData.EmergencyContactEmail,
                     };
 
                     var AllDeviceData = _dbContext.DeviceDetails.Where(i => i.CivilId.Trim().ToLower() == retData.CivilId.Trim().ToLower()).OrderByDescending(i => i.DeviceDetailId).ToList();
 
-                    var DeviceListOfMember = AllDeviceData.DistinctBy(i => i.DeviceId).Select(
-                        i => new DeviceDetailViewModel
-                        {
-                            DeviceDetailId = i.DeviceDetailId,
-                            DeviceType = i.DeviceType,
-                            DeviceId = i.DeviceId,
-                            Token = i.FCMToken,
-                            DeviceName = i.DeviceName,
-                            DeviceModel = i.DeviceModel,
-                            OrgFileName = i.OrgFileName,
-                            FilePath = i.FilePath != null ? i.FilePath : "/images/default.jpg",
-                            LastOpenDateTimeString = i.LastOpenDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(i.LastOpenDateTime, GenericUtilities.dateTimeFormat) : null,
-                            LastClosedDateTimeString = i.LastClosedDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(i.LastClosedDateTime, GenericUtilities.dateTimeFormat) : null,
-                            CreatedDateTimeString = AllDeviceData.Where(k => k.DeviceId == i.DeviceId).Any() ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(AllDeviceData.Where(k => k.DeviceId.Trim().ToLower() == i.DeviceId.Trim().ToLower()).OrderBy(k => k.DeviceDetailId).FirstOrDefault().CreatedDate, GenericUtilities.dateTimeFormat) : null,
-                            LogOutDateTimeString = i.LogOutDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(i.LogOutDateTime, GenericUtilities.dateTimeFormat) : null,
-                            Active = i.Active,
-                            ForceLogOut = i.IsForceLogout,
-                            HistoryList = AllDeviceData.Where(s => s.DeviceId.Trim().ToLower() == i.DeviceId.Trim().ToLower() && (s.DeviceDetailId != i.DeviceDetailId)).Select
-                            (d => new DeviceDetailHistoryList
-                            {
-                                DeviceName = d.DeviceName,
-                                OrgFileName = d.OrgFileName,
-                                FilePath = d.FilePath,
-                                LastOpenDateTimeString = d.LastOpenDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(d.LastOpenDateTime, GenericUtilities.dateTimeFormat) : null,
-                                LastClosedDateTimeString = d.LastClosedDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(d.LastClosedDateTime, GenericUtilities.dateTimeFormat) : null,
-                                CreatedDateTimeString = d.CreatedDate != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(d.CreatedDate, GenericUtilities.dateTimeFormat) : null,
-                                LogOutDateTimeString = d.LogOutDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(d.LogOutDateTime, GenericUtilities.dateTimeFormat) : null,
-                            }).ToList(),
+                    if(AllDeviceData.Any())
+                    {
+                       var DeviceListOfMember = AllDeviceData.DistinctBy(i => i.DeviceId).Select(
+                       i => new DeviceDetailViewModel
+                       {
+                           DeviceDetailId = i.DeviceDetailId,
+                           DeviceType = i.DeviceType,
+                           DeviceId = i.DeviceId,
+                           Token = i.FCMToken,
+                           DeviceName = i.DeviceName,
+                           DeviceModel = i.DeviceModel,
+                           OrgFileName = i.OrgFileName,
+                           FilePath = i.FilePath != null ? i.FilePath : "/images/default.jpg",
+                           LastOpenDateTimeString = i.LastOpenDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(i.LastOpenDateTime, GenericUtilities.dateTimeFormat) : null,
+                           LastClosedDateTimeString = i.LastClosedDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(i.LastClosedDateTime, GenericUtilities.dateTimeFormat) : null,
+                           CreatedDateTimeString = AllDeviceData.Where(k => k.DeviceId == i.DeviceId).Any() ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(AllDeviceData.Where(k => k.DeviceId.Trim().ToLower() == i.DeviceId.Trim().ToLower()).OrderBy(k => k.DeviceDetailId).FirstOrDefault().CreatedDate, GenericUtilities.dateTimeFormat) : null,
+                           LogOutDateTimeString = i.LogOutDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(i.LogOutDateTime, GenericUtilities.dateTimeFormat) : null,
+                           Active = i.Active,
+                           ForceLogOut = i.IsForceLogout,
+                           HistoryList = AllDeviceData.Where(s => s.DeviceId.Trim().ToLower() == i.DeviceId.Trim().ToLower() && (s.DeviceDetailId != i.DeviceDetailId)).Select
+                           (d => new DeviceDetailHistoryList
+                           {
+                               DeviceName = d.DeviceName,
+                               OrgFileName = d.OrgFileName,
+                               FilePath = d.FilePath,
+                               LastOpenDateTimeString = d.LastOpenDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(d.LastOpenDateTime, GenericUtilities.dateTimeFormat) : null,
+                               LastClosedDateTimeString = d.LastClosedDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(d.LastClosedDateTime, GenericUtilities.dateTimeFormat) : null,
+                               CreatedDateTimeString = d.CreatedDate != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(d.CreatedDate, GenericUtilities.dateTimeFormat) : null,
+                               LogOutDateTimeString = d.LogOutDateTime != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(d.LogOutDateTime, GenericUtilities.dateTimeFormat) : null,
+                           }).ToList(),
+                       }).ToList();
+                       retData.DeviceData = DeviceListOfMember;
+                    }
 
-                        }).ToList();
-                    retData.DeviceData = DeviceListOfMember;
+                    var MinorRelativeData = _dbContext.MinorApplicantsAcceptedDatas.Where(i => i.Active && i.ParentId == retData.IssueId).ToList();
+                    if(MinorRelativeData != null && MinorRelativeData.Any())
+                    {
+                        var MinorApplicantList = MinorRelativeData.Select(
+                            i => new FamilyMembersData
+                            {
+                                MembershipId = i.MembershipId,
+                                Name = i.Name,
+                                RelationType = i.RelationType,
+                                RelationTypeName = i.RelationType != null ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.RelationType).LookUpName : null,
+                                CivilId = i.CivilId,
+                                PassportNo = i.PassportNo,
+                                DateOfBirth = i.DateofBirth,
+                                DateofBirthString = i.DateofBirth != null ? i.DateofBirth.Value.Date.ToString("dd-MM-yyyy") : null,
+                                GenderId = i.GenderId,
+                                GenderString = i.GenderId != null && i.GenderId != 0 ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.GenderId).LookUpName : null,
+                                BloodGroupid = i.BloodGroupId,
+                                BloodGroup = i.BloodGroupId != null ? _dbContext.LookupMasters.SingleOrDefault(r => r.LookUpId == i.BloodGroupId).LookUpName : null,
+                                CountryCodeid = i.CountryCode,
+                                MobileNoRelative = i.ContactNo,
+                                MobileNoRelativeString = $"+{i.CountryCode} {i.ContactNo}",
+                                EmailRelative = i.Email,
+                            }).ToList();
+                        retData.FamilyData = MinorApplicantList;
+                    }
+
                     retModel.returnData = retData;
                     retModel.transactionStatus = System.Net.HttpStatusCode.OK;
                 }
@@ -1609,16 +1623,13 @@ namespace FOKE.Services.Repository
                             .FirstOrDefault() : "",
                         ProfessionId = ObjData.ProfessionId,
                         Profession = ObjData.Profession.ProffessionName,
-                        WorkPlaceId = ObjData.WorkPlaceId,
-                        WorkPlace = ObjData.WorkPlace.WorkPlaceName,
+                        //WorkPlaceId = ObjData.WorkPlaceId,
+                        //WorkPlace = ObjData.WorkPlace.WorkPlaceName,
                         CountryCodeId = ObjData.CountryCodeId,
                         ContactNo = ObjData.ContactNo,
                         Email = ObjData.Email,
-                        DistrictId = (long)ObjData.DistrictId,
-                        District = ObjData.DistrictId != null ? LookUpMasterData
-                            .Where(r => r.LookUpId == ObjData.DistrictId)
-                            .Select(r => r.LookUpName)
-                            .FirstOrDefault() : "",
+                        //DistrictId = (long)ObjData.DistrictId,
+                        //District = ObjData.DistrictId != null ? LookUpMasterData.Where(r => r.LookUpId == ObjData.DistrictId).Select(r => r.LookUpName).FirstOrDefault() : "",
                         AreaId = (long)ObjData.AreaId,
                         Area = ObjData.AreaData.AreaName,
                         CampaignId = ObjData.CampaignId,
@@ -1642,11 +1653,11 @@ namespace FOKE.Services.Repository
                         RejectionRemarks = ObjData.RejectionRemarks,
                         PhoneNo = "+" + ObjData.CountryCodeId + ObjData.ContactNo,
                         RejectedByName = ObjData.CreatedBy != null ? _dbContext.Users.FirstOrDefault(i => i.UserId == ObjData.CreatedBy).UserName : null,
-                        WorkYear = ObjData.WorkYear,
-                        DepartmentName = ObjData.DepartmentId != null ? _dbContext.Departments.FirstOrDefault(i => i.DepartmentId == ObjData.DepartmentId).DepartmentName : "",
+                        //WorkYear = ObjData.WorkYear,
+                        //DepartmentName = ObjData.DepartmentId != null ? _dbContext.Departments.FirstOrDefault(i => i.DepartmentId == ObjData.DepartmentId).DepartmentName : "",
                         PaymentDone = ObjData.AmountRecieved == 0 ? false : true,
                         ProffessionOther = ObjData.ProffessionOther,
-                        WorkplaceOther = ObjData.WorkplaceOther,
+                        //WorkplaceOther = ObjData.WorkplaceOther,
                     };
                     retModel.returnData = retData;
                     retModel.transactionStatus = System.Net.HttpStatusCode.OK;

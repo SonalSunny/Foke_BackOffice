@@ -72,37 +72,38 @@ namespace FOKE.Services.ApplicationMenu.CoreModuleMenus
                         new MenuClaim() { ClaimType = ClaimStructs.ViewCode, ClaimName = ClaimStructs.ViewDescription }
 
                     }
-                },new AppMenu()
-                 {
-                    MenuId = MenuMasterStructs.MembershipByZone,
-                    ParentMenuId = MenuMasterStructs.AllMemberssList,
-                    MenuIcon = "",
-                    MenuTitle = "MENU_MEMBERS_BY_ZONE",
-                    MenuDescription = "Members By Zone",
-                    Path = "MembersList/MembersByZone/Index",
-                    PageCode = "Members By Zone",
-                    DisplayOrder = 1,
-                    GroupBy="Settings",
-                    MenuClaims= new List<MenuClaim>() {
-                        new MenuClaim() { ClaimType = ClaimStructs.ViewCode, ClaimName = ClaimStructs.ViewDescription }
-
-                    }
-                },new AppMenu()
-                 {
-                    MenuId = MenuMasterStructs.MembershipByUnit,
-                    ParentMenuId = MenuMasterStructs.AllMemberssList,
-                    MenuIcon = "",
-                    MenuTitle = "MENU_MEMBERS_BY_UNIT",
-                    MenuDescription = "Members By Unit",
-                    Path = "MembersList/MembersByUnit/Index",
-                    PageCode = "Members By Unit",
-                    DisplayOrder = 1,
-                    GroupBy="Settings",
-                    MenuClaims= new List<MenuClaim>() {
-                        new MenuClaim() { ClaimType = ClaimStructs.ViewCode, ClaimName = ClaimStructs.ViewDescription }
-
-                    }
                 }
+                //new AppMenu()
+                // {
+                //    MenuId = MenuMasterStructs.MembershipByZone,
+                //    ParentMenuId = MenuMasterStructs.AllMemberssList,
+                //    MenuIcon = "",
+                //    MenuTitle = "MENU_MEMBERS_BY_ZONE",
+                //    MenuDescription = "Members By Zone",
+                //    Path = "MembersList/MembersByZone/Index",
+                //    PageCode = "Members By Zone",
+                //    DisplayOrder = 1,
+                //    GroupBy="Settings",
+                //    MenuClaims= new List<MenuClaim>() {
+                //        new MenuClaim() { ClaimType = ClaimStructs.ViewCode, ClaimName = ClaimStructs.ViewDescription }
+
+                //    }
+                //},new AppMenu()
+                // {
+                //    MenuId = MenuMasterStructs.MembershipByUnit,
+                //    ParentMenuId = MenuMasterStructs.AllMemberssList,
+                //    MenuIcon = "",
+                //    MenuTitle = "MENU_MEMBERS_BY_UNIT",
+                //    MenuDescription = "Members By Unit",
+                //    Path = "MembersList/MembersByUnit/Index",
+                //    PageCode = "Members By Unit",
+                //    DisplayOrder = 1,
+                //    GroupBy="Settings",
+                //    MenuClaims= new List<MenuClaim>() {
+                //        new MenuClaim() { ClaimType = ClaimStructs.ViewCode, ClaimName = ClaimStructs.ViewDescription }
+
+                //    }
+                //}
             };
         }
 

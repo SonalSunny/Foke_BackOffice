@@ -23,6 +23,12 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="tab-member-tab" data-bs-toggle="tab" data-bs-target="#tab-member" type="button" role="tab">Member Details</button>
         </li>
+        @if (Model.inputModel.FamilyData != null && Model.inputModel.FamilyData.Any())
+        {
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-Family-tab" data-bs-toggle="tab" data-bs-target="#tab-family" type="button" role="tab">Family Details</button>
+            </li>
+        }
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="tab-membership-tab" data-bs-toggle="tab" data-bs-target="#tab-membership" type="button" role="tab">Membership Info</button>
         </li>
@@ -44,7 +50,6 @@
                 }
             }
         </li>
-
     </ul>   
 
     @{
@@ -57,28 +62,26 @@
     <div class="tab-content mt-4">
         <!-- Member Details -->
         <div class="tab-pane fade show active" id="tab-member" role="tabpanel">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm mb-3">
                 <div class="card-body">
                     <h5 class="card-title mb-3">👤 Personal Information</h5>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Name:</strong> @Model.inputModel.Name </li>
-                        <li class="list-group-item"><strong>Civil ID:</strong>  @Model.inputModel.CivilId </li>
-                        <li class="list-group-item"><strong>Passport No:</strong>  @Model.inputModel.PassportNo </li>
-                        <li class="list-group-item"><strong>Date of Birth:</strong> @Model.inputModel.DateofBirthString </li>
-                        <li class="list-group-item"><strong>Gender:</strong>  @Model.inputModel.Gender </li>
-                        <li class="list-group-item"><strong>Blood Group:</strong>  @Model.inputModel.BloodGroup </li>
-                        <li class="list-group-item"><strong>Profession:</strong>  @Profession  </li>
-                        <li class="list-group-item"><strong>Work Place:</strong>  @Workplace </li>
-                        <li class="list-group-item"><strong>Contact Number:</strong>  @Model.inputModel.PhoneNo </li>
-                        <li class="list-group-item"><strong>Email:</strong>  @Model.inputModel.Email </li>
-                        <li class="list-group-item"><strong>District:</strong> @Model.inputModel.District </li>
-                        <li class="list-group-item"><strong>Area:</strong>  @Model.inputModel.Area </li>
-                        <li class="list-group-item"><strong>Zone:</strong>  @Model.inputModel.Zone </li>
-                        <li class="list-group-item"><strong>Unit:</strong>  @Model.inputModel.Unit </li>
-                        <li class="list-group-item"><strong>Department:</strong> @Model.inputModel.DepartmentName</li>
-                        <li class="list-group-item"><strong>Year Started Working:</strong> @Model.inputModel.WorkYear</li>
+                        <li class="list-group-item"><strong>Name :</strong> @Model.inputModel.Name </li>
+                        <li class="list-group-item"><strong>Civil ID :</strong>  @Model.inputModel.CivilId </li>
+                        <li class="list-group-item"><strong>Passport No :</strong>  @Model.inputModel.PassportNo </li>
+                        <li class="list-group-item"><strong>Date of Birth :</strong> @Model.inputModel.DateofBirthString </li>
+                        <li class="list-group-item"><strong>Gender :</strong>  @Model.inputModel.Gender </li>
+                        <li class="list-group-item"><strong>Blood Group :</strong>  @Model.inputModel.BloodGroup </li>
+                        <li class="list-group-item"><strong>Profession :</strong>  @Profession  </li>
+                        <li class="list-group-item"><strong>Contact Number :</strong>  @Model.inputModel.PhoneNo </li>
+                        <li class="list-group-item"><strong>WhatsApp Number :</strong>  @Model.inputModel.WhatsappNoString </li>
+                        <li class="list-group-item"><strong>Email :</strong>  @Model.inputModel.Email </li>
+                        <li class="list-group-item"><strong>Profession :</strong>  @Model.inputModel.Profession </li>
+                        <li class="list-group-item"><strong>Company :</strong>  @Model.inputModel.Company </li>
+                        <li class="list-group-item"><strong>Area :</strong>  @Model.inputModel.Area </li>
+                        <li class="list-group-item"><strong>Kuwait Address :</strong>  @Model.inputModel.KuwaitAddress </li>
                         <li class="list-group-item d-flex align-items-center gap-2">
-                            <strong class="me-2">Upload Profile Picture:</strong>
+                            <strong class="me-2">Upload Profile Picture :</strong>
                             <form id="uploadForm" method="post" enctype="multipart/form-data" class="d-flex align-items-center gap-2 mb-0">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" id="MemberId" name="MemberId" value="@Model.inputModel.IssueId" />
@@ -91,6 +94,28 @@
                                 </button>
                             </form>
                         </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">🏠 Kerela Details</h5>
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item"><strong>Permenant Address :</strong> @Model.inputModel.PermenantAddress </li>
+                        <li class="list-group-item"><strong>Pincode :</strong>  @Model.inputModel.CivilId </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">⚠️ Emergency Contact Details</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Name :</strong> @Model.inputModel.EmergencyContactName </li>
+                        <li class="list-group-item"><strong>Relation :</strong>  @Model.inputModel.EmergencyContactRelationString </li>
+                        <li class="list-group-item"><strong>Contact No :</strong>  @Model.inputModel.EmergencyContactNumberString </li>
+                        <li class="list-group-item"><strong>Email :</strong>  @Model.inputModel.EmergencyContactEmail </li>
                     </ul>
                 </div>
             </div>
@@ -110,7 +135,6 @@
                         <li class="list-group-item"><strong>Member From:</strong> @Model.inputModel.MemberfromString</li>
                         <li class="list-group-item"><strong>Membership Requested Date:</strong> @Model.inputModel.MembershipRequestedDateString</li>
                         <li class="list-group-item"><strong>Membership Approved By:</strong> @Model.inputModel.ApprovedByName</li>
-                        <li class="list-group-item"><strong>Referred By:</strong> @Model.inputModel.ReferredByName</li>
                     </ul>
                 </div>
             </div>
@@ -289,6 +313,34 @@
                </tbody>
             </table>
         </div>
+
+        <!-- Family -->
+        @if (Model.inputModel.FamilyData != null && Model.inputModel.FamilyData.Any())
+        {
+            <div class="tab-pane fade" id="tab-family" role="tabpanel">
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">👥 Family Members</h5>
+                        <ul class="list-group list-group-flush">
+                            @foreach(var item in Model.inputModel.FamilyData)
+                            {
+                                 <div class="card shadow-sm mb-3">
+                                    <li class="list-group-item"><strong>Name :</strong> @item.Name</li>
+                                    <li class="list-group-item"><strong>Relation :</strong> @item.RelationTypeName</li>
+                                    <li class="list-group-item"><strong>Civil Id :</strong> @item.CivilId</li>
+                                    <li class="list-group-item"><strong>Passport No :</strong> @item.PassportNo</li>
+                                    <li class="list-group-item"><strong>Date Of Birth :</strong> @item.DateofBirthString</li>
+                                    <li class="list-group-item"><strong>Gender :</strong> @item.GenderString</li>
+                                    <li class="list-group-item"><strong>Blood Group :</strong> @item.BloodGroup</li>
+                                    <li class="list-group-item"><strong>Contact No :</strong> @item.MobileNoRelativeString</li>
+                                    <li class="list-group-item"><strong>Email :</strong> @item.EmailRelative</li>
+                                 </div>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>            
+        }
     </div>
 </div>
 

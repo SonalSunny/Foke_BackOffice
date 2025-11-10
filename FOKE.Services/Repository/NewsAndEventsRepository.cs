@@ -293,19 +293,6 @@ namespace FOKE.Services.Repository
                     retData = retData.Where(c => c.Active);
                 }
 
-                // Filter by NewsDate
-                //if (NewsDate.HasValue)
-                //{
-                //    retData = retData.Where(c => c.Date == NewsDate.Value);
-
-                //}
-
-                //// Filter by NewsHeadingId (if implemented)
-                //if (NewsHeadingId > 0)
-                //{
-                //    retData = retData.Where(c => c.Id == NewsHeadingId); // Update this if it's actually matching on a different field
-                //}
-
                 // Project to ViewModel
                 var objModel = retData
                     .OrderByDescending(c => c.Id)
@@ -335,74 +322,74 @@ namespace FOKE.Services.Repository
             return retModel;
         }
 
-        public async Task<ResponseEntity<FileStorage>> SaveAttachment(IFormFile fileInput, long? CreatedBy)
-        {
-            var objResponse = new ResponseEntity<FileStorage>();
+        //public async Task<ResponseEntity<FileStorage>> SaveAttachment(IFormFile fileInput, long? CreatedBy)
+        //{
+        //    var objResponse = new ResponseEntity<FileStorage>();
 
-            try
-            {
-                if (fileInput == null || fileInput.Length == 0)
-                {
-                    objResponse.transactionStatus = HttpStatusCode.BadRequest;
-                    objResponse.returnMessage = "No file was uploaded.";
-                    return objResponse;
-                }
-
-
-                string baseFolder = "FileStorage";
+        //    try
+        //    {
+        //        if (fileInput == null || fileInput.Length == 0)
+        //        {
+        //            objResponse.transactionStatus = HttpStatusCode.BadRequest;
+        //            objResponse.returnMessage = "No file was uploaded.";
+        //            return objResponse;
+        //        }
 
 
-                string fileExtension = Path.GetExtension(fileInput.FileName).ToLower();
-                string[] allowedExtensions = { ".jpeg", ".jpg", ".png", ".gif", ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".txt" };
-
-                if (!allowedExtensions.Contains(fileExtension))
-                {
-                    objResponse.transactionStatus = HttpStatusCode.BadRequest;
-                    objResponse.returnMessage = "Invalid file type.";
-                    return objResponse;
-                }
+        //        string baseFolder = "FileStorage";
 
 
-                string yearFolder = DateTime.Now.ToString("yyyy");
-                string relativeFolderPath = Path.Combine(baseFolder, "NewsMainImages", yearFolder);
+        //        string fileExtension = Path.GetExtension(fileInput.FileName).ToLower();
+        //        string[] allowedExtensions = { ".jpeg", ".jpg", ".png", ".gif", ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".txt" };
+
+        //        if (!allowedExtensions.Contains(fileExtension))
+        //        {
+        //            objResponse.transactionStatus = HttpStatusCode.BadRequest;
+        //            objResponse.returnMessage = "Invalid file type.";
+        //            return objResponse;
+        //        }
 
 
-                string absoluteFolderPath = Path.Combine(_env.WebRootPath, relativeFolderPath);
-
-                // Create directory if not exists
-                if (!Directory.Exists(absoluteFolderPath))
-                    Directory.CreateDirectory(absoluteFolderPath);
+        //        string yearFolder = DateTime.Now.ToString("yyyy");
+        //        string relativeFolderPath = Path.Combine(baseFolder, "NewsMainImages", yearFolder);
 
 
-                string uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
-                string fullFilePath = Path.Combine(absoluteFolderPath, uniqueFileName);
+        //        string absoluteFolderPath = Path.Combine(_env.WebRootPath, relativeFolderPath);
 
-                // Save the file to disk
-                using (var stream = new FileStream(fullFilePath, FileMode.Create))
-                {
-                    await fileInput.CopyToAsync(stream);
-                }
+        //        // Create directory if not exists
+        //        if (!Directory.Exists(absoluteFolderPath))
+        //            Directory.CreateDirectory(absoluteFolderPath);
 
-                // Build relative URL path for web access
-                string relativeFilePath = Path.Combine("/", relativeFolderPath.Replace("\\", "/"), uniqueFileName);
 
-                objResponse.returnData = new FileStorage
-                {
-                    FilePath = relativeFilePath,
-                    FileName = fileInput.FileName
-                };
+        //        string uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
+        //        string fullFilePath = Path.Combine(absoluteFolderPath, uniqueFileName);
 
-                objResponse.transactionStatus = HttpStatusCode.OK;
-                objResponse.returnMessage = "File uploaded successfully.";
-            }
-            catch (Exception ex)
-            {
-                objResponse.transactionStatus = HttpStatusCode.InternalServerError;
-                objResponse.returnMessage = $"An error occurred: {ex.Message}";
-            }
+        //        // Save the file to disk
+        //        using (var stream = new FileStream(fullFilePath, FileMode.Create))
+        //        {
+        //            await fileInput.CopyToAsync(stream);
+        //        }
 
-            return objResponse;
-        }
+        //        // Build relative URL path for web access
+        //        string relativeFilePath = Path.Combine("/", relativeFolderPath.Replace("\\", "/"), uniqueFileName);
+
+        //        objResponse.returnData = new FileStorage
+        //        {
+        //            FilePath = relativeFilePath,
+        //            FileName = fileInput.FileName
+        //        };
+
+        //        objResponse.transactionStatus = HttpStatusCode.OK;
+        //        objResponse.returnMessage = "File uploaded successfully.";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        objResponse.transactionStatus = HttpStatusCode.InternalServerError;
+        //        objResponse.returnMessage = $"An error occurred: {ex.Message}";
+        //    }
+
+        //    return objResponse;
+        //}
 
         public async Task<ResponseEntity<bool>> DeleteAttachment(long attachmentId)
         {
@@ -510,14 +497,14 @@ namespace FOKE.Services.Repository
             {
                 int pageSize = 20; // How many items per page
                 var ReturnPageData = new NewsAndEventsPageData();
-                Pagenumber = Pagenumber != null ? Pagenumber : 1;
+                Pagenumber = Pagenumber != null ? Pagenumber : Pagenumber >= 1 ? Pagenumber : 1;
                 var PageData = new List<NewsAndEvent>();
                 var DeviceData = _dbContext.DeviceDetails.FirstOrDefault(i => i.DeviceDetailId == devicePrimaryID && !(i.IsForceLogout));
                 if (DeviceData != null)
                 {
                     if (Pagenumber != null)
                     {
-                        PageData = _dbContext.NewsAndEvents.Where(i => i.Active && i.ShowInMobile).OrderByDescending(i => i.Date).Skip((Pagenumber - 1) * pageSize).Take(pageSize).ToList();
+                        PageData = _dbContext.NewsAndEvents.Any(i => i.Active && i.ShowInMobile) ? _dbContext.NewsAndEvents.Where(i => i.Active && i.ShowInMobile).OrderByDescending(i => i.Date).Skip((Pagenumber - 1) * pageSize).Take(pageSize).ToList() : null;
                     }
                     if (PageData != null)
                     {

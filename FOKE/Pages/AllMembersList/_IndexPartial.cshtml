@@ -56,28 +56,12 @@
                     @Localize.Localize("Full Name")
                     <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
                 </th>
-               @*  <th class="ps-4 t-plr-sm-5 sorting" area-field="CivilId">
-                    @Localize.Localize("Civil ID")
-                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
-                </th> *@
                 <th class="ps-4 t-plr-sm-5 sorting" area-field="CivilId">
                     @Localize.Localize("Profession")
                     <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
                 </th>
-                <th class="ps-4 t-plr-sm-5 sorting" area-field="CivilId">
-                    @Localize.Localize("Workplace")
-                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
-                </th>
-                <th class="ps-4 t-plr-sm-5 sorting" area-field="CivilId">
-                    @Localize.Localize("Department")
-                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
-                </th>
                 <th class="ps-4 t-plr-sm-5 sorting" area-field="Area">
                     @Localize.Localize("Area")
-                    <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
-                </th>
-                <th class="ps-4 t-plr-sm-5 sorting" area-field="Area">
-                    @Localize.Localize("Unit")
                     <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
                 </th>
                 <th class="ps-4 t-plr-sm-5 sorting" area-field="Status">
@@ -92,11 +76,10 @@
                     @Localize.Localize("Last Membership Added")
                     <span><i class="fas fa-sort text-white" aria-hidden="true"></i></span>
                 </th>
-
-
             </tr>
         </thead>
-         <tbody>
+
+        <tbody>
         @if (Model.pagedListData != null && Model.pagedListData.Count() > 0)
         {
             @for (int i = 0; i < Model.pagedListData.Count(); i++)
@@ -127,30 +110,19 @@
                     <td>
                         @item.ReferenceNumber
                     </td>
-               
-
-                        <td>
-                            @item.Name
-                            <a href="javascript:void(0);"
-                               onclick="showContactPopup('@item.Email', '@item.PhoneNo')"
-                               title="View Contact Info"
-                               class="ms-2">
-                                <i class="fas fa-info-circle text-primary" style="font-size: 1.2rem;"></i>
-                            </a>
-                        </td>
-
-                     <td>@item.Profession</td>
                     <td>
-                        @item.WorkPlace
+                        @item.Name
+                        <a href="javascript:void(0);"
+                           onclick="showContactPopup('@item.Email', '@item.PhoneNo')"
+                           title="View Contact Info"
+                           class="ms-2">
+                            <i class="fas fa-info-circle text-primary" style="font-size: 1.2rem;"></i>
+                        </a>
                     </td>
-
-                        <td>
-                            @item.DepartmentName
-                        </td>
+                    <td>@item.Profession</td>
                     <td>
                         @item.Area
                     </td>
-                    <td>@item.Unit</td>
                     <td>
                             @if (item.PaymentDone)
                             {
@@ -160,7 +132,7 @@
                             {
                                 <span class="badge badge-danger">Payment Pending</span>
                             }                 
-                    </td>
+                    </td>    
                     <td>
                           @item.Memberfrom?.ToString("dd-MM-yyyy")
 
