@@ -4262,7 +4262,7 @@ namespace FOKE.Services.Repository
                     MemberData.Zone = memberDetails.ZoneId != null ? memberDetails?.Zone.ZoneName : "";
                     MemberData.Unit = memberDetails.UnitId != null ? memberDetails?.Unit.UnitName : "";
                     MemberData.Profession = memberDetails.ProfessionId != null ?  memberDetails?.Profession.ProffessionName : "";
-                    MemberData.WorkPlace = memberDetails.WorkPlaceId != null ? memberDetails?.WorkPlace.WorkPlaceName : null ;
+                    //MemberData.WorkPlace = memberDetails.WorkPlaceId != null ? memberDetails?.WorkPlace.WorkPlaceName : null ;
                     MemberData.MobileNo = memberDetails.ContactNo != null ? memberDetails.ContactNo.ToString() : null;
                     MemberData.Email = memberDetails?.Email ?? "";
                     MemberData.BloodGroup = memberDetails.BloodGroupId != null ? _dbContext.LookupMasters.FirstOrDefault(i => i.LookUpId == memberDetails.BloodGroupId)?.LookUpName : null;

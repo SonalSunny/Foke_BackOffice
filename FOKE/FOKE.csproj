@@ -35,7 +35,6 @@
     <Folder Include="Pages\ExpiredMembersList\" />
     <Folder Include="Pages\CancelledMembersList\" />
     <Folder Include="Pages\Report_AllMembers\" />
-    <Folder Include="Secrets\" />
   </ItemGroup>
 
 </Project>

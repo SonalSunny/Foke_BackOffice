@@ -11,7 +11,7 @@
         public string? Zone { get; set; }
         public string? Unit { get; set; }
         public string? Profession { get; set; }
-        public string? WorkPlace { get; set; }
+        //public string? WorkPlace { get; set; }
         public string? MobileNo { get; set; }
         public string? Email { get; set; }
         public string? BloodGroup { get; set; }

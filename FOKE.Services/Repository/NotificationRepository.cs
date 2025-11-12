@@ -310,8 +310,8 @@ namespace FOKE.Services.Repository
                                  Area = x.Member.AreaData.AreaName,
                                  Zone = x.Member.Zone.ZoneName,
                                  Unit = x.Member.Unit.UnitName,
-                                 Department = x.Member.DepartmentId != null ? departmentData.FirstOrDefault(c => c.DepartmentId == x.Member.DepartmentId).DepartmentName : null,
-                                 Workplace = x.Member.WorkPlace.WorkPlaceName,
+                                 //Department = x.Member.DepartmentId != null ? departmentData.FirstOrDefault(c => c.DepartmentId == x.Member.DepartmentId).DepartmentName : null,
+                                 //Workplace = x.Member.WorkPlace.WorkPlaceName,
                                  Proffession = x.Member.Profession.ProffessionName,
                                  ImagePath = profileDatas.Any(i => i.MemberId == x.Member.IssueId) ? profileDatas.FirstOrDefault(i => i.MemberId == x.Member.IssueId).FileStorage.FilePath : "/images/Default.jpg",
                              }).DistinctBy(i => i.IssueId).ToList();
