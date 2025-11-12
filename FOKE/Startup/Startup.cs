@@ -27,7 +27,7 @@ namespace FOKE.Startup
             {
                 FirebaseApp.Create(new AppOptions
                 {
-                    Credential = GoogleCredential.FromFile("Secrets/foke-6ae48-firebase-adminsdk-fbsvc-5b27ea3b9f.json")
+                    Credential = GoogleCredential.FromFile("Secrets/foke-6ae48-firebase-adminsdk-fbsvc-d5ad419b1d.json")
                 });
             }
             services.AddDistributedMemoryCache();
