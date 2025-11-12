@@ -69,6 +69,7 @@ namespace FOKE.Entity.MembershipIssuedData.ViewModel
         public string? Area { get; set; }
         public string? Company { get; set; }
         public string? KuwaitAddress { get; set; }
+        public string? MembershipNo { get; set; }
         public string? CampaignName { get; set; }
         public string? CampaignEndDateString { get; set; }
         public string? PaymentType { get; set; }
@@ -145,7 +146,6 @@ namespace FOKE.Entity.MembershipIssuedData.ViewModel
 
 
         #region OldVariables That are not needed now
-        [Required(ErrorMessage = "REQUIRED")]
         public long? DepartmentId { get; set; }
         public string? WorkplaceOther { get; set; }
         public string? HearAboutUs { get; set; }
@@ -153,7 +153,6 @@ namespace FOKE.Entity.MembershipIssuedData.ViewModel
         public long? ReferredBy { get; set; }
         public long? HearAboutUsId { get; set; }
 
-        [Required(ErrorMessage = "REQUIRED")]
         public long? WorkPlaceId { get; set; }
 
         [Required(ErrorMessage = "REQUIRED")]
@@ -175,12 +174,8 @@ namespace FOKE.Entity.MembershipIssuedData.ViewModel
         }
         public string? Zone { get; set; }
         public string? Unit { get; set; }
-
-        [Required(ErrorMessage = "REQUIRED")]
         public long? WorkYear { get; set; }
         public string? District { get; set; }
-
-        [Required(ErrorMessage = "REQUIRED")]
         public long DistrictId { get; set; }
 
         #endregion

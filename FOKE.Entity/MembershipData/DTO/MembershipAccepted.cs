@@ -99,6 +99,7 @@ namespace FOKE.Entity.MembershipData.DTO
         public long? HearAboutUsId { get; set; }
         public DateTime? Memberfrom { get; set; }
         public long? DistrictId { get; set; }
+        public string? MembershipNo { get; set; }
 
     }
 }

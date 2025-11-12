@@ -283,16 +283,14 @@
 							</div>
 							@* Emergency contact *@
 
-							<hr class="my-4" />
-
 							<div class="px-0 mt-4">
-								@*<hr class="my-4" />
+								<hr class="my-4" />
 
 								 <div class="border rounded p-4 bg-light">
 									<h5 class="fw-bold mb-4">For Office Use Only</h5>
 
 									<div class="row">
-										<div class="col-md-4 mb-3">
+										<div class="col-md-6 mb-3">
 											<div class="form-group">
 												<label class="form-label-new"> @Localize.Localize("Referred By")</label>
 												<div class="input-group">
@@ -313,7 +311,7 @@
 										</div>
 
 
-										<div class="col-md-4 mb-5">
+										<div class="col-md-6 mb-5">
 											<div class="form-group">
 												<label class="required form-label-new">Zone</label>
 												<select asp-for="inputModel.ZoneId" id="ZoneId"
@@ -325,7 +323,7 @@
 											</div>
 										</div>
 
-										<div class="col-md-4 mb-5">
+										<div class="col-md-6 mb-5">
 											<div class="form-group">
 												<label class="required form-label-new">Unit</label>
 												<select asp-for="inputModel.UnitId" id="UnitId"
@@ -337,12 +335,20 @@
 											</div>
 										</div>
 
+										<div class="col-md-6  mb-3">
+											<div class="form-group">
+												<label class="required form-label-new">@Localize.Localize("Membership No")</label>
+												<input asp-for="inputModel.MembershipNo" class="form-control form-control-sm" placeholder="Enter Membership No" />
+												<span asp-validation-for="inputModel.MembershipNo" class="text-danger"></span>
+											</div>
+										</div>
+
 										
 									</div>
 								</div> 
 
 								<hr class="my-4" />
-								*@
+								
 								<!-- Fee Collection -->
 
 								<div class="border rounded p-4 bg-light mb-4">

@@ -37,8 +37,7 @@ namespace FOKE.Pages.EditMembership
         public List<DropDownViewModel> DepartmentList { get; set; }
         public List<DropDownViewModel> YearList { get; set; }
         public List<DropDownViewModel> RejectedReasonList { get; set; }
-
-
+        public List<DropDownViewModel> RelationTypeList { get; set; }
 
         public ManageModel(IDropDownRepository dropDownRepository, IMembershipFormRepository membershipFormRepository, ISharedLocalizer sharedLocalizer, IAttachmentRepository attachmentRepository)
         {
@@ -84,26 +83,24 @@ namespace FOKE.Pages.EditMembership
             // Remove fields from ModelState that are not relevant for this edit form, if needed
             var fieldsToSkip = new[]
             {
-
-        "inputModel.CampaignId",
-        "inputModel.CampaignAmount",
-        "inputModel.AmountRecieved",
-        "inputModel.PaymentTypeId",
-        "inputModel.PaymentRemarks",
-        "inputModel.Attachment",
-        "sortColumn",
-        "sortOrder",
-        "searchField",
-        "globalSearch",
-        "globalSearchColumn"
-    };
+                "inputModel.CampaignId",
+                "inputModel.CampaignAmount",
+                "inputModel.AmountRecieved",
+                "inputModel.PaymentTypeId",
+                "inputModel.PaymentRemarks",
+                "inputModel.Attachment",
+                "sortColumn",
+                "sortOrder",
+                "searchField",
+                "globalSearch",
+                "globalSearchColumn"
+            };
 
             foreach (var field in fieldsToSkip)
             {
                 if (ModelState.ContainsKey(field))
                     ModelState.Remove(field);
             }
-
 
             var civilIdStatus = _membershipFormRepository.IsValidKuwaitCivilIDforEdit(inputModel.CivilId, inputModel.IssueId);
 
@@ -232,6 +229,7 @@ namespace FOKE.Pages.EditMembership
             DepartmentList = _dropDownRepository.GetDepartmentList();
             YearList = _dropDownRepository.GetYearList();
             RejectedReasonList = _dropDownRepository.GetRejectedReasonList();
+            RelationTypeList = _dropDownRepository.GetRelationTypes();
         }
     }
 }

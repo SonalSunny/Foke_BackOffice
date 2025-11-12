@@ -1,4 +1,4 @@
-﻿using FOKE.Entity;
+﻿    using FOKE.Entity;
 using FOKE.Entity.CampaignData.ViewModel;
 using FOKE.Entity.Common;
 using FOKE.Entity.MembershipIssuedData.ViewModel;
@@ -107,7 +107,12 @@ namespace FOKE.Pages.IssueMembership
                     "sortOrder",
                     "searchField",
                     "globalSearch",
-                    "globalSearchColumn"
+                    "globalSearchColumn",
+                    "inputModel.WorkYear",
+                    "inputModel.DistrictId",
+                    "inputModel.PaymentTypeId",
+                    "inputModel.PaymentTypeId",
+
                 };
 
                 foreach (var field in fieldsToSkip)
@@ -245,11 +250,12 @@ namespace FOKE.Pages.IssueMembership
         public IActionResult OnGetValidateCivilId(string civilId, long? membershipId)
         {
             var status = _membershipFormRepository.IsValidateKuwaitCivilID(civilId, membershipId);
+            //long Status = _membershipFormRepository.IsValidKuwaitCivilID(civilId);
             return new JsonResult(new { status });
         }
-        public IActionResult OnGetValidateContactNo(long ContactNo, long? membershipId)
+        public IActionResult OnGetValidateContactNo(long contactNo, long? membershipId)
         {
-            bool isValid = _membershipFormRepository.IsValidEditIssueContactNo(ContactNo, membershipId);
+            bool isValid = _membershipFormRepository.IsValidEditIssueContactNo(contactNo, membershipId);
             return new JsonResult(new { isValid });
         }
 

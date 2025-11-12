@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using FOKE.DataAccess;
 using FOKE.Entity;
 using FOKE.Entity.API.DeviceData.DTO;
@@ -189,16 +190,16 @@ namespace FOKE.Services.Repository
                         {
                             ErrorMessage.Add("CivilId Given For Member " + item.Name + "is Invalid");
                         }
-                        else if ((MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId || u.ContactNo == item.MobileNoRelative || u.PassportNo == item.PassportNo)) || (memberShipRequestList.Any(u => u.CivilId == item.CivilId || u.ContactNo == item.MobileNoRelative || u.PassportNo == item.PassportNo)))
+                        else if ((MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId || u.PassportNo == item.PassportNo)) || (memberShipRequestList.Any(u => u.CivilId == item.CivilId  || u.PassportNo == item.PassportNo)))
                         {
                             if ((MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId)) || (memberShipRequestList.Any(u => u.CivilId == item.CivilId)))
                             {
                                 retModel.returnMessage = "Civil ID Given For the Family Member " + item.Name + " " + "Already Exists";
                             }
-                            else if ((MembershipAcceptedDataList.Any(u => u.ContactNo == item.MobileNoRelative)) || (memberShipRequestList.Any(u => u.ContactNo == item.MobileNoRelative)))
-                            {
-                                retModel.returnMessage = "Contact No Given For Family Member " + item.Name + " " + "Already Exists";
-                            }
+                            //else if ((MembershipAcceptedDataList.Any(u => u.ContactNo == item.MobileNoRelative)) || (memberShipRequestList.Any(u => u.ContactNo == item.MobileNoRelative)))
+                            //{
+                            //    retModel.returnMessage = "Contact No Given For Family Member " + item.Name + " " + "Already Exists";
+                            //}
                             else if ((MembershipAcceptedDataList.Any(u => u.PassportNo == item.PassportNo)) || (memberShipRequestList.Any(u => u.ContactNo == item.MobileNoRelative)))
                             {
                                 retModel.returnMessage = "Passport No Given For Family Member " + item.Name + " " + "Already Exists";
@@ -259,7 +260,7 @@ namespace FOKE.Services.Repository
                         _dbContext.MembershipRequestDetails.AddRange(MembersList);
                         _dbContext.SaveChanges();
                     }
-                    else if (MinorMembersList.Any())
+                    if (MinorMembersList.Any())
                     {
                         var MembersList = MinorMembersList.Select(f => new MinorApplicantDetails
                         {
@@ -299,7 +300,7 @@ namespace FOKE.Services.Repository
                 retModel.transactionStatus = System.Net.HttpStatusCode.InternalServerError;
                 retModel.returnMessage = "Server Error";
             }
-            return retModel;
+            return retModel;    
         }
 
         public async Task<ResponseEntity<PostMembershipViewModel>> UpdateRegisterdMember(PostMembershipViewModel model)
@@ -322,23 +323,189 @@ namespace FOKE.Services.Repository
                     memberData.DateofBirth = model.DateofBirth;
                     memberData.GenderId = model.GenderId;
                     memberData.BloodGroupId = model.BloodGroupId;
-                    memberData.ProffessionId = model.ProfessionId;
-                    memberData.WorkPlaceId = model.WorkPlaceId;
-                    memberData.ContactNo = model.ContactNo;
-                    memberData.Email = model.Email;
-                    memberData.DistrictId = model.DistrictId;
-                    memberData.AreaId = model.AreaId;
                     memberData.CountryCode = model.CountryCodeId;
+                    memberData.ContactNo = model.ContactNo;
+                    memberData.WhatsAppNoCountryCodeid = model.WhatsAppNoCountryCodeid;
+                    memberData.WhatsAppNo = model.WhatsAppNo;   
+                    memberData.Email = model.Email;
+                    memberData.AreaId = model.AreaId; 
+                    memberData.ProffessionId = model.ProfessionId;
+                    memberData.Company = model.Company; 
+                    memberData.KuwaitAddres = model.KuwaitAddress;
+
+                    memberData.PermenantAddress = model.PermenantAddress;
+                    memberData.Pincode = model.Pincode;
+
+                    memberData.EmergencyContactName = model.EmergencyContactName;
+                    memberData.EmergencyContactRelation = model.EmergencyContactRelation;
+                    memberData.EmergencyContactCountryCodeid = model.EmergencyContactCountryCodeid;
+                    memberData.EmergencyContactNumber = model.EmergencyContactNumber;
+                    memberData.EmergencyContactEmail = model.EmergencyContactEmail;
+
                     memberData.UpdatedDate = DateTime.UtcNow;
                     memberData.UpdatedBy = loggedInUser;
-                    memberData.HearAboutus = model.HearAboutUsId;
-                    memberData.DepartmentId = model.DepartmentId;
-                    memberData.WorkYear = model.WorkYear;
+
+
+                    if(model.FamilyData != null && model.FamilyData.Any())
+                    {
+                        var ErrorMessage = new List<string>();
+                        var AdultMembersList = new List<FamilyMembersData>();
+                        var MinorMembersList = new List<FamilyMembersData>();
+                        var MembershipAcceptedDataList = _dbContext.MembershipAcceptedDatas.Where(i => i.Active).ToList();
+                        var memberShipRequestList = _dbContext.MembershipRequestDetails.Where(i => i.Active).ToList();
+
+                        var ExistingMembers = _dbContext.MinorApplicantDetails.Where(i => i.Active && i.ParentId == model.MembershipId).ToList();
+
+                        var AddedmembersId = model.FamilyData.Select(i => i.MembershipId).ToList();
+
+                        var ExistingMembers3 =  ExistingMembers.Where(i => AddedmembersId.Contains(i.MembershipId)).ToList();
+
+                        foreach (var item in model.FamilyData)
+                        {
+                            if(item.IsChanged || item.IsNew)
+                            {
+                                var GenderId = new long();
+                                var DobData = GenerateDobFromCivilId(item.CivilId);
+                                if (DobData.transactionStatus != HttpStatusCode.OK)
+                                {
+                                    ErrorMessage.Add("CivilId Given For Member " + item.Name + "is Invalid");
+                                }
+                                else if ((MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId ||  u.PassportNo == item.PassportNo)) || (memberShipRequestList.Any(u => u.CivilId == item.CivilId || u.PassportNo == item.PassportNo)))
+                                {
+                                    if ((MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId)) || (memberShipRequestList.Any(u => u.CivilId == item.CivilId)))
+                                    {
+                                        retModel.returnMessage = "Civil ID Given For the Family Member " + item.Name + " " + "Already Exists";
+                                    }
+                                    //else if ((MembershipAcceptedDataList.Any(u => u.ContactNo == item.MobileNoRelative)) || (memberShipRequestList.Any(u => u.ContactNo == item.MobileNoRelative)))
+                                    //{
+                                    //    retModel.returnMessage = "Contact No Given For Family Member " + item.Name + " " + "Already Exists";
+                                    //}
+                                    else if ((MembershipAcceptedDataList.Any(u => u.PassportNo == item.PassportNo)) || (memberShipRequestList.Any(u => u.ContactNo == item.MobileNoRelative)))
+                                    {
+                                        retModel.returnMessage = "Passport No Given For Family Member " + item.Name + " " + "Already Exists";
+                                    }
+                                    retModel.transactionStatus = System.Net.HttpStatusCode.InternalServerError;
+                                    return retModel;
+                                }
+                                else
+                                {
+                                    item.DateOfBirth = DobData.returnData;
+                                }
+                                var relationName = _dbContext.LookupMasters.FirstOrDefault(r => r.LookUpId == item.RelationType)?.LookUpName;
+
+                                if (relationName != null)
+                                {
+                                    GenderId = GetGenderId(relationName.ToLower()) ?? 0;
+                                }
+
+                                item.GenderId = GenderId;
+                                item.ParentId = memberData.MembershipId;
+
+                                var MemberAge = DateTime.UtcNow.Year - item.DateOfBirth.Value.Year;
+
+                                if (item.IsChanged && item.IsNew)
+                                {
+                                    if (MemberAge > 18)
+                                    {
+                                        AdultMembersList.Add(item);
+                                    }
+                                    else if (MemberAge < 18)
+                                    {
+                                        MinorMembersList.Add(item);
+                                    }
+                                }
+                                else if (item.IsChanged && !item.IsNew)
+                                {
+                                    var ExistingMember = ExistingMembers3.FirstOrDefault(i => i.MembershipId == item.MembershipId);
+                                    if (ExistingMember != null)
+                                    {
+                                        ExistingMember.Name = item.Name;
+                                        ExistingMember.CivilId = item.CivilId;
+                                        ExistingMember.PassportNo = item.PassportNo;
+                                        ExistingMember.DateofBirth = item.DateOfBirth;
+                                        ExistingMember.RelationType = item.RelationType;
+                                        ExistingMember.GenderId = item.GenderId;
+                                        ExistingMember.BloodGroupId = item.BloodGroupid;
+                                        ExistingMember.CountryCode = model.CountryCodeId;
+                                        ExistingMember.ContactNo = model.ContactNo;
+                                        ExistingMember.Email = model.Email;
+                                        ExistingMember.AreaId = model.AreaId;
+                                        ExistingMember.KuwaitAddres = model.KuwaitAddress;
+                                        ExistingMember.PermenantAddress = model.PermenantAddress;
+                                        ExistingMember.Pincode = model.Pincode;
+                                        ExistingMember.ParentId = item.ParentId;
+                                        ExistingMember.Active = true;
+                                        ExistingMember.UpdatedDate = DateTime.UtcNow;
+                                        ExistingMember.UpdatedBy = loggedInUser;
+                                    }
+                                    _dbContext.MinorApplicantDetails.Update(ExistingMember);
+                                    _dbContext.SaveChanges();
+                                }
+                            }
+
+                        }
+
+                        if (AdultMembersList.Any())
+                        {
+                            var MembersList = AdultMembersList.Select(f => new MembershipDetails
+                            {
+                                Name = f.Name,
+                                CivilId = f.CivilId,
+                                PassportNo = f.PassportNo,
+                                DateofBirth = f.DateOfBirth,
+                                GenderId = f.GenderId,
+                                BloodGroupId = f.BloodGroupid,
+                                ProffessionId = f.Professionid,
+                                CountryCode = f.CountryCodeid,
+                                ContactNo = f.MobileNoRelative,
+                                Email = f.EmailRelative,
+                                AreaId = model.AreaId,
+                                Company = f.CompanyName,
+                                KuwaitAddres = model.KuwaitAddress,
+                                PermenantAddress = model.PermenantAddress,
+                                Pincode = model.Pincode,
+                                ParentId = f.ParentId,
+                                Active = true,
+                                CreatedDate = DateTime.UtcNow,
+                                CreatedBy = loggedInUser,
+                            }).ToList();
+
+                            _dbContext.MembershipRequestDetails.AddRange(MembersList);
+                            _dbContext.SaveChanges();
+                        }
+                        if (MinorMembersList.Any())
+                        {
+                            var MembersList = MinorMembersList.Select(f => new MinorApplicantDetails
+                            {
+                                Name = f.Name,
+                                CivilId = f.CivilId,
+                                RelationType = f.RelationType,
+                                PassportNo = f.PassportNo,
+                                DateofBirth = f.DateOfBirth,
+                                GenderId = f.GenderId,
+                                BloodGroupId = f.BloodGroupid,
+                                CountryCode = model.CountryCodeId,
+                                ContactNo = model.ContactNo,
+                                Email = model.Email,
+                                AreaId = model.AreaId,
+                                KuwaitAddres = model.KuwaitAddress,
+                                PermenantAddress = model.PermenantAddress,
+                                Pincode = model.Pincode,
+                                ParentId = f.ParentId,
+                                Active = true,
+                                CreatedDate = DateTime.UtcNow,
+                                CreatedBy = loggedInUser,
+                            }).ToList();
+
+                            _dbContext.MinorApplicantDetails.AddRange(MembersList);
+                            _dbContext.SaveChanges();
+                        }
+                    }
 
                     await _dbContext.SaveChangesAsync();
                     retModel.returnData = model;
                     retModel.transactionStatus = System.Net.HttpStatusCode.OK;
-                    retModel.returnMessage = "Updates Successfully";
+                    retModel.returnMessage = "Updated Successfully";
                 }
             }
             catch (Exception ex)
@@ -567,6 +734,10 @@ namespace FOKE.Services.Repository
                                 EmergencyContactCountryCodeid = model.EmergencyContactCountryCodeid,
                                 EmergencyContactNumber = model.EmergencyContactNumber,
                                 EmergencyContactEmail = model.EmergencyContactEmail,
+
+                                ZoneId = model.ZoneId,
+                                UnitId = model.UnitId,
+                                ReferredBy = model.ReferredBy,
 
                                 CampaignId = model.CampaignId,
                                 CampaignAmount = _dbContext.Campaigns.Where(c => c.CampaignId == model.CampaignId).Select(c => c.MemberShipFee).FirstOrDefault(),
@@ -1362,7 +1533,9 @@ namespace FOKE.Services.Repository
                             EmergencyContactCountryCodeid = MemberData.returnData.EmergencyContactCountryCodeid,
                             EmergencyContactNumber = MemberData.returnData.EmergencyContactNumber,
                             EmergencyContactEmail = MemberData.returnData.EmergencyContactEmail,
-
+                            ZoneId = model.ZoneId,
+                            UnitId = model.UnitId,
+                            ReferredBy = model.ReferredBy,
                             CampaignId = model.CampaignId,
                             CampaignAmount = _dbContext.Campaigns.Where(c => c.CampaignId == model.CampaignId).Select(c => c.MemberShipFee).FirstOrDefault(),
                             AmountRecieved = model.AmountRecieved,
@@ -1482,10 +1655,14 @@ namespace FOKE.Services.Repository
                         Profession = ObjData.Profession.ProffessionName,
                         CountryCodeId = ObjData.CountryCodeId,
                         ContactNo = ObjData.ContactNo,
+                        WhatsAppNoCountryCodeid = ObjData.WhatsAppNoCountryCodeid,
+                        WhatsAppNo = ObjData.WhatsAppNo,
                         PhoneNo = $"+{ ObjData.CountryCodeId} { ObjData.ContactNo}",
                         WhatsappNoString = $"+{ObjData.WhatsAppNoCountryCodeid} {ObjData.WhatsAppNo}",
                         Email = ObjData.Email,
                         AreaId = (long)ObjData.AreaId,
+                        ZoneId = ObjData.ZoneId,
+                        UnitId = ObjData.UnitId,
                         Area = ObjData.AreaData.AreaName,
                         CampaignId = ObjData.CampaignId,
                         CampaignName = ObjData.Campaign.CampaignName,
@@ -1510,9 +1687,14 @@ namespace FOKE.Services.Repository
                         PermenantAddress = ObjData.PermenantAddress,
                         Pincode = ObjData.Pincode,
                         EmergencyContactName = ObjData.EmergencyContactName,
+                        EmergencyContactRelation = ObjData.EmergencyContactRelation,
                         EmergencyContactRelationString = ObjData.EmergencyContactRelation != null ? LookUpMasterData.SingleOrDefault(i=>i.LookUpId == ObjData.EmergencyContactRelation).LookUpName : null,
                         EmergencyContactNumberString = $"+{ObjData.EmergencyContactCountryCodeid} {ObjData.EmergencyContactNumber}",
                         EmergencyContactEmail = ObjData.EmergencyContactEmail,
+                        EmergencyContactCountryCodeid = ObjData.EmergencyContactCountryCodeid,
+                        EmergencyContactNumber = ObjData.EmergencyContactNumber,
+                        MembershipNo = ObjData.MembershipNo,
+                        ReferredBy = ObjData.ReferredBy,
                     };
 
                     var AllDeviceData = _dbContext.DeviceDetails.Where(i => i.CivilId.Trim().ToLower() == retData.CivilId.Trim().ToLower()).OrderByDescending(i => i.DeviceDetailId).ToList();
@@ -1674,7 +1856,7 @@ namespace FOKE.Services.Repository
         #region MemeberShipValidations
         public long IsValidKuwaitCivilID(string civilId)
         {
-            // civilId = civilId?.Trim();
+             civilId = civilId?.Trim();
             if (string.IsNullOrEmpty(civilId) || !Regex.IsMatch(civilId, @"^[1-3]\d{11}$"))
                 return 1;
 
@@ -1682,7 +1864,7 @@ namespace FOKE.Services.Repository
             string yearPrefix;
 
             var AcceptedMemberExists = _dbContext.MembershipAcceptedDatas.Any(u => u.CivilId == civilId);
-            //var MemberExists = _dbContext.MembershipRequestDetails.Any(u => u.CivilId == civilId);
+            var MemberExists = _dbContext.MembershipRequestDetails.Any(u => u.CivilId == civilId);
             if (AcceptedMemberExists)
             {
                 return 2;
@@ -1774,6 +1956,42 @@ namespace FOKE.Services.Repository
             if (checksum == 10) return 1;
 
             return (civilId[11] - '0') == checksum ? 3 : 1;
+
+
+
+            //switch (civilId[0])
+            //{
+            //    case '2':
+            //        yearPrefix = "19";
+            //        break;
+            //    case '3':
+            //        yearPrefix = "20";
+            //        break;
+            //    default:
+            //        return 1;
+            //}
+
+            //string year = yearPrefix + dobPart.Substring(0, 2);
+            //string month = dobPart.Substring(2, 2);
+            //string day = dobPart.Substring(4, 2);
+
+            //if (!DateTime.TryParseExact($"{year}-{month}-{day}", "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out _))
+            //    return 1;
+
+            //int[] weights = { 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 };
+            //int sum = 0;
+
+            //for (int i = 0; i < 11; i++)
+            //{
+            //    sum += (civilId[i] - '0') * weights[i];
+            //}
+
+            //int checksum = 11 - (sum % 11);
+            //if (checksum == 11) checksum = 0;
+
+            //if (checksum == 10) return 1;
+
+            //return (civilId[11] - '0') == checksum ? 3 : 1;
         }
 
         public long IsValidateEditIssuePassportNo(string passportNo, long? membershipId = null)
@@ -2901,20 +3119,191 @@ namespace FOKE.Services.Repository
                 member.GenderId = model.GenderId;
                 member.BloodGroupId = model.BloodGroupId;
                 member.ProfessionId = model.ProfessionId;
-                member.WorkPlaceId = model.WorkPlaceId;
+                member.CountryCodeId = model.CountryCodeId;
                 member.ContactNo = model.ContactNo;
+                member.WhatsAppNoCountryCodeid = model.WhatsAppNoCountryCodeid;
+                member.WhatsAppNo = model.WhatsAppNo;
                 member.Email = model.Email;
-                member.DistrictId = model.DistrictId;
                 member.AreaId = model.AreaId;
                 member.ZoneId = model.ZoneId;
                 member.UnitId = model.UnitId;
-                member.CountryCodeId = model.CountryCodeId;
-                member.HearAboutUsId = model.HearAboutUsId;
-                member.DepartmentId = model.DepartmentId;
-                member.WorkYear = model.WorkYear;
-                member.ReferredBy = model.ReferredBy;
+                member.Company = model.Company;
+                member.KuwaitAddres = model.KuwaitAddress;
+
+                member.PermenantAddress = model.PermenantAddress;
+                member.Pincode = model.Pincode;
+
+                member.EmergencyContactName = model.EmergencyContactName;
+                member.EmergencyContactRelation = model.EmergencyContactRelation;
+                member.EmergencyContactCountryCodeid = model.EmergencyContactCountryCodeid;
+                member.EmergencyContactNumber = model.EmergencyContactNumber;
+                member.EmergencyContactEmail = model.EmergencyContactEmail;
+
+                member.MembershipNo = model.MembershipNo;
+
                 member.UpdatedBy = model.loggedinUserId;
                 member.UpdatedDate = DateTime.UtcNow;
+                //member.WorkPlaceId = model.WorkPlaceId;
+                //member.DistrictId = model.DistrictId;
+                //member.HearAboutUsId = model.HearAboutUsId;
+                ///member.DepartmentId = model.DepartmentId;
+                //member.WorkYear = model.WorkYear;
+                //member.ReferredBy = model.ReferredBy;
+
+
+
+                if (model.FamilyData != null && model.FamilyData.Any())
+                {
+                    var ErrorMessage = new List<string>();
+                    var AdultMembersList = new List<FamilyMembersData>();
+                    var MinorMembersList = new List<FamilyMembersData>();
+                    var MembershipAcceptedDataList = _dbContext.MembershipAcceptedDatas.Where(i => i.Active).ToList();
+                    var memberShipRequestList = _dbContext.MembershipRequestDetails.Where(i => i.Active).ToList();
+
+                    var ExistingMembers = _dbContext.MinorApplicantsAcceptedDatas.Where(i => i.Active && i.ParentId == member.IssueId).ToList();
+
+                    var AddedmembersId = model.FamilyData.Select(i => i.MembershipId).ToList();
+
+                    var ExistingMembers3 = ExistingMembers.Where(i => AddedmembersId.Contains(i.MembershipId)).ToList();
+
+                    foreach (var item in model.FamilyData)
+                    {
+                        if (item.IsChanged || item.IsNew)
+                        {
+                            var GenderId = new long();
+                            var DobData = GenerateDobFromCivilId(item.CivilId);
+                            if (DobData.transactionStatus != HttpStatusCode.OK)
+                            {
+                                ErrorMessage.Add("CivilId Given For Member " + item.Name + "is Invalid");
+                            }
+                            else if ((MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId || u.PassportNo == item.PassportNo)) || (memberShipRequestList.Any(u => u.CivilId == item.CivilId || u.PassportNo == item.PassportNo)))
+                            {
+                                if ((MembershipAcceptedDataList.Any(u => u.CivilId == item.CivilId)) || (memberShipRequestList.Any(u => u.CivilId == item.CivilId)))
+                                {
+                                    retModel.returnMessage = "Civil ID Given For the Family Member " + item.Name + " " + "Already Exists";
+                                }
+                                else if ((MembershipAcceptedDataList.Any(u => u.PassportNo == item.PassportNo)) || (memberShipRequestList.Any(u => u.ContactNo == item.MobileNoRelative)))
+                                {
+                                    retModel.returnMessage = "Passport No Given For Family Member " + item.Name + " " + "Already Exists";
+                                }
+                                retModel.transactionStatus = System.Net.HttpStatusCode.InternalServerError;
+                                return retModel;
+                            }
+                            else
+                            {
+                                item.DateOfBirth = DobData.returnData;
+                            }
+                            var relationName = _dbContext.LookupMasters.FirstOrDefault(r => r.LookUpId == item.RelationType)?.LookUpName;
+
+                            if (relationName != null)
+                            {
+                                GenderId = GetGenderId(relationName.ToLower()) ?? 0;
+                            }
+
+                            item.GenderId = GenderId;
+                            item.ParentId = member.IssueId;
+
+                            var MemberAge = DateTime.UtcNow.Year - item.DateOfBirth.Value.Year;
+
+                            if (item.IsChanged && item.IsNew)
+                            {
+                                if (MemberAge > 18)
+                                {
+                                    AdultMembersList.Add(item);
+                                }
+                                else if (MemberAge < 18)
+                                {
+                                    MinorMembersList.Add(item);
+                                }
+                            }
+                            else if (item.IsChanged && !item.IsNew)
+                            {
+                                var ExistingMember = ExistingMembers3.FirstOrDefault(i => i.MembershipId == item.MembershipId);
+                                if (ExistingMember != null)
+                                {
+                                    ExistingMember.Name = item.Name;
+                                    ExistingMember.CivilId = item.CivilId;
+                                    ExistingMember.PassportNo = item.PassportNo;
+                                    ExistingMember.DateofBirth = item.DateOfBirth;
+                                    ExistingMember.RelationType = item.RelationType;
+                                    ExistingMember.GenderId = item.GenderId;
+                                    ExistingMember.BloodGroupId = item.BloodGroupid;
+                                    ExistingMember.CountryCode = model.CountryCodeId;
+                                    ExistingMember.ContactNo = model.ContactNo;
+                                    ExistingMember.Email = model.Email;
+                                    ExistingMember.AreaId = model.AreaId;
+                                    ExistingMember.KuwaitAddres = model.KuwaitAddress;
+                                    ExistingMember.PermenantAddress = model.PermenantAddress;
+                                    ExistingMember.Pincode = model.Pincode;
+                                    ExistingMember.ParentId = item.ParentId;
+                                    ExistingMember.Active = true;
+                                    ExistingMember.UpdatedDate = DateTime.UtcNow;
+                                    ExistingMember.UpdatedBy = loggedInUser;
+                                }
+                                _dbContext.MinorApplicantsAcceptedDatas.Update(ExistingMember);
+                                _dbContext.SaveChanges();
+                            }
+                        }
+
+                    }
+
+                    //if (AdultMembersList.Any())
+                    //{
+                    //    var MembersList = AdultMembersList.Select(f => new MembershipDetails
+                    //    {
+                    //        Name = f.Name,
+                    //        CivilId = f.CivilId,
+                    //        PassportNo = f.PassportNo,
+                    //        DateofBirth = f.DateOfBirth,
+                    //        GenderId = f.GenderId,
+                    //        BloodGroupId = f.BloodGroupid,
+                    //        ProffessionId = f.Professionid,
+                    //        CountryCode = f.CountryCodeid,
+                    //        ContactNo = f.MobileNoRelative,
+                    //        Email = f.EmailRelative,
+                    //        AreaId = model.AreaId,
+                    //        Company = f.CompanyName,
+                    //        KuwaitAddres = model.KuwaitAddress,
+                    //        PermenantAddress = model.PermenantAddress,
+                    //        Pincode = model.Pincode,
+                    //        ParentId = f.ParentId,
+                    //        Active = true,
+                    //        CreatedDate = DateTime.UtcNow,
+                    //        CreatedBy = loggedInUser,
+                    //    }).ToList();
+
+                    //    _dbContext.MembershipRequestDetails.AddRange(MembersList);
+                    //    _dbContext.SaveChanges();
+                    //}
+                    //if (MinorMembersList.Any())
+                    //{
+                    //    var MembersList = MinorMembersList.Select(f => new MinorApplicantDetails
+                    //    {
+                    //        Name = f.Name,
+                    //        CivilId = f.CivilId,
+                    //        RelationType = f.RelationType,
+                    //        PassportNo = f.PassportNo,
+                    //        DateofBirth = f.DateOfBirth,
+                    //        GenderId = f.GenderId,
+                    //        BloodGroupId = f.BloodGroupid,
+                    //        CountryCode = model.CountryCodeId,
+                    //        ContactNo = model.ContactNo,
+                    //        Email = model.Email,
+                    //        AreaId = model.AreaId,
+                    //        KuwaitAddres = model.KuwaitAddress,
+                    //        PermenantAddress = model.PermenantAddress,
+                    //        Pincode = model.Pincode,
+                    //        ParentId = f.ParentId,
+                    //        Active = true,
+                    //        CreatedDate = DateTime.UtcNow,
+                    //        CreatedBy = loggedInUser,
+                    //    }).ToList();
+
+                    //    _dbContext.MinorApplicantDetails.AddRange(MembersList);
+                    //    _dbContext.SaveChanges();
+                    //}
+                }
+
                 if (model.Attachment != null)
                 {
 
@@ -3869,13 +4258,13 @@ namespace FOKE.Services.Repository
                     MemberData.PaymentStatus = memberDetails.AmountRecieved != 0 && memberDetails.ApprovedBy != null ? true : false;
                     MemberData.MembershipNo = memberDetails.ReferanceNo;
                     MemberData.CivilId = memberDetails.CivilId;
-                    MemberData.Area = memberDetails.AreaData.AreaName;
-                    MemberData.Zone = memberDetails.Zone.ZoneName;
-                    MemberData.Unit = memberDetails.Unit.UnitName;
-                    MemberData.Profession = memberDetails.Profession.ProffessionName;
-                    MemberData.WorkPlace = memberDetails.WorkPlace.WorkPlaceName;
+                    MemberData.Area = memberDetails.AreaId != null ?  memberDetails.AreaData.AreaName : null;
+                    MemberData.Zone = memberDetails.ZoneId != null ? memberDetails?.Zone.ZoneName : "";
+                    MemberData.Unit = memberDetails.UnitId != null ? memberDetails?.Unit.UnitName : "";
+                    MemberData.Profession = memberDetails.ProfessionId != null ?  memberDetails?.Profession.ProffessionName : "";
+                    MemberData.WorkPlace = memberDetails.WorkPlaceId != null ? memberDetails?.WorkPlace.WorkPlaceName : null ;
                     MemberData.MobileNo = memberDetails.ContactNo != null ? memberDetails.ContactNo.ToString() : null;
-                    MemberData.Email = memberDetails.Email;
+                    MemberData.Email = memberDetails?.Email ?? "";
                     MemberData.BloodGroup = memberDetails.BloodGroupId != null ? _dbContext.LookupMasters.FirstOrDefault(i => i.LookUpId == memberDetails.BloodGroupId)?.LookUpName : null;
                     returnData.returnData = MemberData;
                     returnData.transactionStatus = System.Net.HttpStatusCode.OK;
@@ -4341,7 +4730,7 @@ namespace FOKE.Services.Repository
                     var femaleTypes = new List<string> { "mother", "wife", "sister", "daughter", "aunt", "grandmother" };
                     if (maleTypes.Contains(RelationType))
                     {
-                        GenderId = GenderTypes.FirstOrDefault(i => i.LookUpName == "male").LookUpId;
+                        GenderId = GenderTypes.FirstOrDefault(i => i.LookUpName.ToLower() == "male").LookUpId;
                     }
                     else if (femaleTypes.Contains(RelationType))
                     {

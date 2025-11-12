@@ -106,7 +106,7 @@ namespace FOKE.Entity.MembershipRegistration.ViewModel
         public long? MembershipId { get; set; }
         [Required(ErrorMessage = "REQUIRED")]
         [RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters and spaces are allowed.")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required(ErrorMessage = "REQUIRED")]
         public long? RelationType { get; set; }
@@ -135,9 +135,11 @@ namespace FOKE.Entity.MembershipRegistration.ViewModel
         public string? MobileNoRelativeString { get; set; }
         public string? EmailRelative { get; set; }
 
-        [Required(ErrorMessage = "REQUIRED")]
+        //[Required(ErrorMessage = "REQUIRED")]
         public long? Professionid { get; set; }
         public string? CompanyName { get; set; }
         public long? ParentId { get; set; }
+        public bool IsChanged { get; set; }
+        public bool IsNew { get; set; }
     }
 }

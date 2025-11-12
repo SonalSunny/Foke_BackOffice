@@ -54,31 +54,56 @@
 
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
-                        <label class="required fw-bold form-label-new">@Localize.Localize("Civil ID")</label>
-                        <input asp-for="inputModel.CivilId" class="form-control form-control-sm" id="CivilIdInput" maxlength="12" />
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Civil ID")</label>
+                            <input asp-for="inputModel.CivilId" class="form-control form-control-sm" id="CivilIdInput" maxlength="12" />
 
-                        <span id="civilIdError" class="text-danger" style="display:none;"></span>
-                        <span asp-validation-for="inputModel.CivilId" class="text-danger"></span>
-                    </div>
+                            <span id="civilIdError" class="text-danger" style="display:none;"></span>
+                            <span asp-validation-for="inputModel.CivilId" class="text-danger"></span>
+                        </div>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
-                        <label class="required fw-bold form-label-new">@Localize.Localize("Passport No")</label>
-                    <input asp-for="inputModel.PassportNo" class="form-control form-control-sm" id="PassportInput" maxlength="8" />
-                    <span id="PassportnoError" class="text-danger" style="display:none;"></span>
-                    <span asp-validation-for="inputModel.PassportNo" class="text-danger"></span>
-                    </div>
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Passport No")</label>
+                            <input asp-for="inputModel.PassportNo" class="form-control form-control-sm" id="PassportInput" maxlength="8" />
+                            <span id="PassportnoError" class="text-danger" style="display:none;"></span>
+                            <span asp-validation-for="inputModel.PassportNo" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
-                        <label class="required fw-bold form-label-new">@Localize.Localize("Date of Birth")</label>
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Date of Birth")</label>
                             <input asp-for="inputModel.DateofBirthString" class="form-control form-control-sm" id="DOBDisplay" placeholder="DD-MM-YYYY" disabled />
-                    <input asp-for="inputModel.DateofBirth" type="hidden" id="DOBInput" />
-                    <span asp-validation-for="inputModel.DateofBirthString" class="text-danger"></span>
+                            <input asp-for="inputModel.DateofBirth" type="hidden" id="DOBInput" />
+                            <span asp-validation-for="inputModel.DateofBirthString" class="text-danger"></span>
                       
+                        </div>
                     </div>
+
+                    <div class="col-md-4  mb-3">
+                        <div class="form-group">
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Gender")</label>
+                            <select asp-for="inputModel.GenderId"
+                                    class="form-select form-select-sm"
+                                    asp-items='@new SelectList(Model.GenderList, "keyID", "name")'>
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="inputModel.GenderId" class="text-danger"></span>
+                        </div>
                     </div>
+
+                    <div class="col-md-4  mb-3">
+                        <div class="form-group">
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Blood Group")</label>
+                            <select asp-for="inputModel.BloodGroupId"
+                                    class="form-select form-select-sm"
+                                    asp-items='@new SelectList(Model.BloodGroupList, "keyID", "name")'>
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="inputModel.BloodGroupId" class="text-danger"></span>
+                        </div>
+                    </div>
+
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
                         <label class="required fw-bold form-label-new">@Localize.Localize("Contact Number")</label>
@@ -94,44 +119,35 @@
                             <span asp-validation-for="inputModel.ContactNo" class="text-danger"></span>
                         </div>
                     </div>
+
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <label class="required fw-bold form-label-new">@Localize.Localize("WhatsApp Number")</label>
+                            <div class="input-group">
+                                <select asp-for="inputModel.WhatsAppNoCountryCodeid" class="form-select form-select-sm NoDdl">
+                                    <option value="+965">+965 🇰🇼</option>
+                                    <option value="+91">+91 🇮🇳</option>
+                                </select>
+                                <input asp-for="inputModel.WhatsAppNo" class="form-control form-control-sm" placeholder=@Localize.Localize("Enter WhatsApp number") />
+                            </div>
+                            <span id="WhatsAppNoError" class="text-danger" style="display: none;"></span>
+                            <span asp-validation-for="inputModel.WhatsAppNo" class="text-danger"></span>
+                        </div>
+                    </div>
                       
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
-                            <label class="required form-label-new">@Localize.Localize("Email")</label>
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Email")</label>
                             <input asp-for="inputModel.Email" class="form-control form-control-sm" id="EmailInput" />
                             <span asp-validation-for="inputModel.Email" class="text-danger"></span>
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-3">
-                        <div class="form-group">
-                            <label class="required form-label-new">@Localize.Localize("Gender")</label>
-                            <select asp-for="inputModel.GenderId"
-                                    class="form-select form-select-sm"
-                                    asp-items='@new SelectList(Model.GenderList, "keyID", "name")'>
-                                <option value="">Select</option>
-                            </select>
-                            <span asp-validation-for="inputModel.GenderId" class="text-danger"></span>
-                        </div>
-
-                      
-                    </div>
+                   
 
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
-                            <label class="required form-label-new">@Localize.Localize("Blood Group")</label>
-                            <select asp-for="inputModel.BloodGroupId"
-                                    class="form-select form-select-sm"
-                                    asp-items='@new SelectList(Model.BloodGroupList, "keyID", "name")'>
-                                <option value="">Select</option>
-                            </select>
-                            <span asp-validation-for="inputModel.BloodGroupId" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <div class="form-group">
-                            <label class="required form-label-new">@Localize.Localize("Profession")</label>
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Profession")</label>
                             <select asp-for="inputModel.ProfessionId"
                                     class="form-select form-select-sm select2"
                                     asp-items='@new SelectList(Model.ProfesssionList, "keyID", "name")' id="ProfessionDDL">
@@ -141,34 +157,17 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-4  mb-3">
                         <div class="form-group">
-                            <label class="required form-label-new">@Localize.Localize("Workplace")</label>
-                            <select asp-for="inputModel.WorkPlaceId"
-                                    class="form-select form-select-sm select2"
-                                    asp-items='@new SelectList(Model.WorkPlaceList, "keyID", "name")' id="WorkPlaceDDL">
-                                <option value="">Select</option>
-                            </select>
-                            <span asp-validation-for="inputModel.WorkPlaceId" class="text-danger" id="WorkPlaceError"></span>
-                        </div>
-                    </div>
-
-                  
-                    <div class="col-md-4 mb-3">
-                        <div class="form-group">
-                            <label class="required form-label-new">@Localize.Localize("District")</label>
-                            <select asp-for="inputModel.DistrictId"
-                                    class="form-select form-select-sm select2"
-                                    asp-items='@new SelectList(Model.DistrictList, "keyID", "name")' id="DistrictDDl">
-                                <option value="">Select</option>
-                            </select>
-                            <span asp-validation-for="inputModel.DistrictId" class="text-danger" id="DistrictDDlError"></span>
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Company Name")</label>
+                            <input asp-for="inputModel.Company" class="form-control form-control-sm" placeholder="Enter Company Name" />
+                            <span asp-validation-for="inputModel.Company" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
-                            <label class="required form-label-new">@Localize.Localize("Area")</label>
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Area")</label>
                             <select asp-for="inputModel.AreaId"
                                     class="form-select form-select-sm select2"
                                     asp-items='@new SelectList(Model.AreaList, "keyID", "name")' id="AreaDDL">
@@ -178,50 +177,341 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12  mb-3">
                         <div class="form-group">
-                            <label class="required form-label-new">@Localize.Localize("Department")</label>
-                            <select asp-for="inputModel.DepartmentId"
-                                    class="form-select form-select-sm select2"
-                                    asp-items='@new SelectList(Model.DepartmentList, "keyID", "name")' id="DepartmentDDL">
-                                <option value="">Select</option>
-                            </select>
-                            <span asp-validation-for="inputModel.DepartmentId" class="text-danger" id="DepartmentDDLError"></span>
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Address in Kuwait")</label>
+                            <textarea asp-for="inputModel.KuwaitAddress" class="form-control form-control-sm" placeholder="Enter Kuwait Address"></textarea>
+                            <span asp-validation-for="inputModel.KuwaitAddress" class="text-danger"></span>
                         </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <div class="form-group">
-                            <label class="form-label-new">@Localize.Localize("Profile Image")</label>
+                            <label class="fw-bold form-label-new">@Localize.Localize("Profile Image")</label>
                             <input asp-for="inputModel.Attachment" id="pdfUpload" type="file" class="form-control form-control-sm" accept="image/*" multiple />
                             <span asp-validation-for="inputModel.Attachment" class="text-danger"></span>
                         </div>
-
-                      
-
-                    </div>
-                    <div class="col-md-12">
-                        <label class="required form-label-new">@Localize.Localize("In which year did you start working in the medical sector in Kuwait?")</label>
-                        <select asp-for="inputModel.WorkYear"
-                                class="form-select form-select-sm select2" id="WorkYearDDl"
-                                asp-items='@new SelectList(Model.YearList, "keyID", "name")'>
-                            <option value="">Select</option>
-                        </select>
-                        <span asp-validation-for="inputModel.WorkYear" class="text-danger" id="WorkYearDDlError"></span>
-
-
-
-
-
-                      
                     </div>
                 </div>
             </div>
+
+            <div class="border rounded p-4 mb-4 bg-light">
+
+                <!-- Membership Type -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="required fw-bold form-label-new mb-2">Membership Type</label>
+                        <div class="form-check">
+                            <input type="radio" name="MembershipType" class="form-check-input" value="1" id="membershipSingle" />
+                            <label class="form-check-label" for="membershipSingle">Single</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" name="MembershipType" class="form-check-input" value="2" id="membershipFamily" />
+                            <label class="form-check-label" for="membershipFamily">Family</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="familyDetailsContainer" class="mt-2" style="display:none;">
+
+                <div class="row">
+                    <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+                        <i class="fa fa-users me-2"></i>Family Details
+                    </h4>
+
+                    <div class="border rounded p-4 mb-4 bg-light">
+
+@*                         <div class="d-flex justify-content-end mb-2">
+                            <button type="button" id="addFamilyForm" class="btn btn-outline-primary btn-sm ">
+                                <i class="fa fa-plus me-1"></i> Add Another
+                            </button>
+                        </div> *@
+
+                        <div id="familyForms">
+                            <!-- First Family Member Form (index 0) -->
+                            <div id="familyForms">
+                                @if (Model?.inputModel?.FamilyData != null && Model.inputModel.FamilyData.Any())
+                                {
+                                    for (int i = 0; i < Model.inputModel.FamilyData.Count; i++)
+                                    {
+                                        <div class="card mb-3 family-form">
+                                            <div class="card-body">
+                                                <input type="hidden" name="inputModel.FamilyData[@i].IsChanged" value="false" class="is-changed-flag" />
+                                                <input type="hidden" name="inputModel.FamilyData[@i].IsNew" value="false" class="is-new-flag" />
+                                                <input type="hidden" name="inputModel.FamilyData[@i].MembershipId" value="@Model.inputModel.FamilyData[i].MembershipId" />
+
+
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <label class="required fw-bold form-label-new">Name</label>
+                                                        <input asp-for="inputModel.FamilyData[@i].Name" class="form-control form-control-sm family-name" />
+                                                        <span asp-validation-for="inputModel.FamilyData[@i].Name" class="text-danger"></span>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="required fw-bold form-label-new">Relation</label>
+                                                        <select asp-for="inputModel.FamilyData[@i].RelationType"
+                                                                class="form-select form-select-sm"
+                                                                asp-items='@new SelectList(Model.RelationTypeList, "keyID", "name", Model.inputModel.FamilyData[i].RelationType)'>
+                                                            <option value="">Select</option>
+                                                        </select>
+                                                        <span asp-validation-for="inputModel.FamilyData[@i].RelationType" class="text-danger"></span>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="required fw-bold form-label-new">Civil ID</label>
+                                                        <input asp-for="inputModel.FamilyData[@i].CivilId" class="form-control form-control-sm family-civilid" maxlength="12" />
+                                                        <span class="text-danger civilIdErrorFamily" style="display:none;"></span>
+                                                        <span asp-validation-for="inputModel.FamilyData[@i].CivilId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <label class="required fw-bold form-label-new">Passport No</label>
+                                                        <input asp-for="inputModel.FamilyData[@i].PassportNo" class="form-control form-control-sm family-passport" maxlength="8" />
+                                                        <span class="text-danger passportErrorFamily" style="display:none;"></span>
+                                                        <span asp-validation-for="inputModel.FamilyData[@i].PassportNo" class="text-danger"></span>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="required fw-bold form-label-new">Blood Group</label>
+                                                        <select asp-for="inputModel.FamilyData[@i].BloodGroupid"
+                                                                class="form-select form-select-sm"
+                                                                asp-items='@new SelectList(Model.BloodGroupList, "keyID", "name", Model.inputModel.FamilyData[i].BloodGroupid)'>
+                                                            <option value="">Select</option>
+                                                        </select>
+                                                        <span asp-validation-for="inputModel.FamilyData[@i].BloodGroupid" class="text-danger"></span>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="required fw-bold form-label-new">Mobile Number</label>
+                                                        <div class="input-group">
+                                                            <select asp-for="inputModel.FamilyData[@i].CountryCodeid" class="form-select form-select-sm NoDdl">
+                                                                <option value="+965" selected="@(Model.inputModel.FamilyData[i].CountryCodeid == 965)">+965 🇰🇼</option>
+                                                                <option value="+91" selected="@(Model.inputModel.FamilyData[i].CountryCodeid == 91)">+91 🇮🇳</option>
+                                                            </select>
+                                                            <input asp-for="inputModel.FamilyData[@i].MobileNoRelative" class="form-control form-control-sm family-mobile" />
+                                                        </div>
+                                                        <span id="RelativeNoError_@i" class="text-danger" style="display: none;"></span>
+                                                        <span asp-validation-for="inputModel.FamilyData[@i].MobileNoRelative" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <label class="required fw-bold form-label-new">Email</label>
+                                                        <input asp-for="inputModel.FamilyData[@i].EmailRelative" class="form-control form-control-sm family-email" />
+                                                        <span id="EmailRelativeError_@i" class="text-danger" style="display:none;"></span>
+                                                        <span asp-validation-for="inputModel.FamilyData[@i].EmailRelative" class="text-danger"></span>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="fw-bold form-label-new">Profession (Optional)</label>
+                                                        <select asp-for="inputModel.FamilyData[@i].Professionid"
+                                                                class="form-select form-select-sm family-profession"
+                                                                asp-items='@new SelectList(Model.ProfesssionList, "keyID", "name", Model.inputModel.FamilyData[i].Professionid)'>
+                                                            <option value="">Select</option>
+                                                        </select>
+                                                        <span asp-validation-for="inputModel.FamilyData[@i].Professionid" class="text-danger"></span>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="fw-bold form-label-new">Company (Optional)</label>
+                                                        <input asp-for="inputModel.FamilyData[@i].CompanyName" class="form-control form-control-sm family-company" />
+                                                        <span asp-validation-for="inputModel.FamilyData[@i].CompanyName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <!-- If no existing family, show one empty form -->
+                                    <div class="card mb-3 family-form">
+                                        <div class="card-body">
+
+                                            <input type="hidden" name="inputModel.FamilyData[0].IsChanged" value="true" class="is-changed-flag" />
+                                            <input type="hidden" name="inputModel.FamilyData[0].IsNew" value="true" class="is-new-flag" />
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <label class="required fw-bold form-label-new">Name</label>
+                                                    <input asp-for="inputModel.FamilyData[0].Name" class="form-control form-control-sm family-name" placeholder="Enter family member name" />
+                                                    <span asp-validation-for="inputModel.FamilyData[0].Name" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="required fw-bold form-label-new">Relation</label>
+                                                    <select asp-for="inputModel.FamilyData[0].RelationType"
+                                                            class="form-select form-select-sm"
+                                                            asp-items='@new SelectList(Model.RelationTypeList, "keyID", "name")' id="RelationDDL">
+                                                        <option value="">Select</option>
+                                                    </select>
+                                                    <span asp-validation-for="inputModel.FamilyData[0].RelationType" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="required fw-bold form-label-new">Civil ID</label>
+                                                    <input asp-for="inputModel.FamilyData[0].CivilId" class="form-control form-control-sm family-civilid" maxlength="12" placeholder="Enter Civil ID" />
+                                                    <span class="text-danger civilIdErrorFamily" style="display:none;"></span>
+                                                    <span asp-validation-for="inputModel.FamilyData[0].CivilId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <label class="required fw-bold form-label-new">Passport No</label>
+                                                    <input asp-for="inputModel.FamilyData[0].PassportNo" class="form-control form-control-sm family-passport" maxlength="8" placeholder="Enter Passport No" />
+                                                    <span class="text-danger passportErrorFamily" style="display:none;"></span>
+                                                    <span asp-validation-for="inputModel.FamilyData[0].PassportNo" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="required fw-bold form-label-new">Blood Group</label>
+                                                    <select asp-for="inputModel.FamilyData[0].BloodGroupid"
+                                                            class="form-select form-select-sm"
+                                                            asp-items='@new SelectList(Model.BloodGroupList, "keyID", "name")' id="BloodGroupDDL">
+                                                        <option value="">Select</option>
+                                                    </select>
+                                                    <span asp-validation-for="inputModel.FamilyData[0].BloodGroupid" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="required fw-bold form-label-new">Mobile Number</label>
+                                                    <div class="input-group">
+                                                        <select asp-for="inputModel.FamilyData[0].CountryCodeid" class="form-select form-select-sm NoDdl" id="FamilyCountryDDL">
+                                                            <option value="+965">+965 🇰🇼</option>
+                                                            <option value="+91">+91 🇮🇳</option>
+                                                        </select>
+                                                        <input asp-for="inputModel.FamilyData[0].MobileNoRelative" class="form-control form-control-sm family-mobile" placeholder="Enter phone number" />
+                                                    </div>
+                                                    <span id="RelativeNoError" class="text-danger" style="display: none;"></span>
+                                                    <span asp-validation-for="inputModel.FamilyData[0].MobileNoRelative" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <label class="required fw-bold form-label-new">Email</label>
+                                                    <input asp-for="inputModel.FamilyData[0].EmailRelative" class="form-control form-control-sm family-email" placeholder="Enter Email" />
+                                                    <span id="EmailRelativeError" class="text-danger" style="display:none;"></span>
+                                                    <span asp-validation-for="inputModel.FamilyData[0].EmailRelative" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="fw-bold form-label-new">Profession (Optional)</label>
+                                                    <select asp-for="inputModel.FamilyData[0].Professionid"
+                                                            class="form-select form-select-sm family-profession"
+                                                            asp-items='@new SelectList(Model.ProfesssionList, "keyID", "name")' id="ProfessionDDL_Family">
+                                                        <option value="">Select</option>
+                                                    </select>
+                                                    <span asp-validation-for="inputModel.FamilyData[0].Professionid" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="fw-bold form-label-new">Company (Optional)</label>
+                                                    <input asp-for="inputModel.FamilyData[0].CompanyName" class="form-control form-control-sm family-company" placeholder="Enter Company Name" />
+                                                    <span asp-validation-for="inputModel.FamilyData[0].CompanyName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+                <i class="fa fa-home me-2"></i>Kerela Details
+            </h4>
+
+            <div class="border rounded p-4 mb-4 bg-light mb-4">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <label class="required form-label"> Permenant Address</label>
+                            <textarea asp-for="inputModel.PermenantAddress" class="form-control form-control-sm" placeholder="Enter Permenant Address"></textarea>
+                            <span asp-validation-for="inputModel.PermenantAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Pincode")</label>
+                            <input asp-for="inputModel.Pincode" class="form-control form-control-sm" placeholder="Enter Pincode" />
+                            <span asp-validation-for="inputModel.Pincode" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
+                <i class="bi bi-person-rolodex"></i> Emergency contact Details
+            </h4>
+
+            <div class="border rounded p-4 bg-light mb-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Name")</label>
+                            <input asp-for="inputModel.EmergencyContactName" class="form-control form-control-sm" id="EmergencyContactNameInput" maxlength="100" placeholder="Enter Name" />
+                            <span asp-validation-for="inputModel.EmergencyContactName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Relation")</label>
+                            <select asp-for="inputModel.EmergencyContactRelation"
+                                    class="form-select form-select-sm"
+                                    asp-items='@new SelectList(Model.RelationTypeList, "keyID", "name")' id="RelationDDL">
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="inputModel.EmergencyContactRelation" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Mobile Number")</label>
+                            <div class="input-group">
+                                <select asp-for="inputModel.EmergencyContactCountryCodeid" class="form-select form-select-sm NoDdl">
+                                    <option value="+965">+965 🇰🇼</option>
+                                    <option value="+91">+91 🇮🇳</option>
+                                </select>
+                                <input asp-for="inputModel.EmergencyContactNumber" class="form-control form-control-sm" placeholder="Enter phone number" />
+                            </div>
+
+                            <span id="emergencyContactNoError" class="text-danger" style="display: none;"></span>
+                            <span asp-validation-for="inputModel.EmergencyContactNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label class="required fw-bold form-label-new">@Localize.Localize("Email")</label>
+                            <input asp-for="inputModel.EmergencyContactEmail" class="form-control form-control-sm" id="EmailInputEmergencyContact" placeholder="Enter Email" />
+                            <span id="EmergencyContactEmailError" class="text-danger" style="display:none;"></span>
+                            <span asp-validation-for="inputModel.EmergencyContactEmail" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="border rounded p-4 bg-light mb-4">
                 <h5 class="fw-bold mb-4">👤@Localize.Localize("For Office Use Only")</h5>
                 <div class="row">
                     <!-- Referred By Search Group (now more compact) -->
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-6 mb-3">
                        
                         <div class="form-group">
                             <label class="fw-bold form-label-new">@Localize.Localize("Referred By")</label>
@@ -241,7 +531,7 @@
                             <input type="hidden" id="SelectedMemberIdss" name="SelectedMemberIdss" />
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label class="required fw-bold form-label-new">@Localize.Localize("Zone")</label>
                         <select asp-for="inputModel.ZoneId" id="ZoneId"
                                 class="form-select form-select-sm select2"
@@ -250,7 +540,8 @@
                         </select>
                         <span asp-validation-for="inputModel.ZoneId" class="text-danger" id="ZoneDDLError"></span>
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="col-md-6 mb-3">
                         <label class="required fw-bold form-label-new">@Localize.Localize("Unit")</label>
                         <select asp-for="inputModel.UnitId" id="UnitId"
                                 class="form-select form-select-sm select2"
@@ -258,6 +549,14 @@
                             <option value="">Select</option>
                         </select>
                         <span asp-validation-for="inputModel.UnitId" class="text-danger" id="UnitDDLError"></span>
+                    </div>
+
+                    <div class="col-md-6  mb-3">
+                        <div class="form-group">
+                            <label class="required form-label-new">@Localize.Localize("Membership No")</label>
+                            <input asp-for="inputModel.MembershipNo" class="form-control form-control-sm" placeholder="Enter Membership No" />
+                            <span asp-validation-for="inputModel.MembershipNo" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -648,7 +947,7 @@
             const civilIdInput = document.getElementById("CivilIdInput");
         });
 
-             function fetchAndShowResults() {
+         function fetchAndShowResults() {
             let keyword = $('#referredByInput').val().trim();
             let selectedColumn = $('#searchColumn').val();
             console.log(selectedColumn);
@@ -764,11 +1063,200 @@
                 reader.readAsDataURL(file);
             }
         });
-   
-
-       
 
 
+               // ============================================================
+        // FAMILY SECTION - TOGGLE + ADD/EDIT HANDLING
+        // ============================================================
+        $(document).ready(function () {
+            initMembershipToggle();
+            initAddFamilyMember();
+            setupFamilyChangeTracking();
+        });
 
+        // Toggle visibility of Family Section
+        function initMembershipToggle() {
+            const existingFamilyCount = @((Model?.inputModel?.FamilyData?.Count ?? 0));
+            const familyContainer = document.getElementById('familyDetailsContainer');
+            const singleRadio = document.getElementById('membershipSingle');
+            const familyRadio = document.getElementById('membershipFamily');
+            if (!familyContainer) return;
+
+            // ✅ Auto-check based on existing data
+            if (existingFamilyCount > 0) {
+                familyRadio.checked = true;
+                familyContainer.style.display = 'block';
+            } else {
+                singleRadio.checked = true;
+                familyContainer.style.display = 'none';
+            }
+
+            // ✅ Add event listeners for manual toggle
+            const toggle = () => {
+                familyContainer.style.display = familyRadio.checked ? 'block' : 'none';
+            };
+            singleRadio.addEventListener('change', toggle);
+            familyRadio.addEventListener('change', toggle);
+        }
+
+        // ============================================================
+        // ADD NEW FAMILY MEMBER DYNAMICALLY
+        // ============================================================
+        function initAddFamilyMember() {
+            let familyMemberCount = @((Model?.inputModel?.FamilyData?.Count ?? 1));
+            const addBtn = document.getElementById('addFamilyForm');
+            const container = document.getElementById('familyForms');
+            if (!addBtn || !container) return;
+
+            addBtn.addEventListener('click', function () {
+                const index = familyMemberCount++;
+                const newCard = document.createElement('div');
+                newCard.className = 'card mb-3 family-form';
+                newCard.innerHTML = `
+                    <div class="card-body position-relative pt-10">
+                        <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 remove-family-form">
+                            <i class="fa fa-times"></i> Remove
+                        </button>
+
+                        <input type="hidden" name="inputModel.FamilyData[${index}].IsChanged" value="true" class="is-changed-flag" />
+                        <input type="hidden" name="inputModel.FamilyData[${index}].IsNew" value="true" class="is-new-flag" />
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="required fw-bold form-label-new">Name</label>
+                                <input type="text" name="inputModel.FamilyData[${index}].Name" class="form-control form-control-sm family-name" placeholder="Enter family member name" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="required fw-bold form-label-new">Relation</label>
+                                <select name="inputModel.FamilyData[${index}].RelationType" class="form-select form-select-sm">
+                                    ${getRelationTypeOptions()}
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="required fw-bold form-label-new">Civil ID</label>
+                                <input type="text" name="inputModel.FamilyData[${index}].CivilId" class="form-control form-control-sm family-civilid" maxlength="12" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="required fw-bold form-label-new">Passport No</label>
+                                <input type="text" name="inputModel.FamilyData[${index}].PassportNo" class="form-control form-control-sm family-passport" maxlength="8" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="required fw-bold form-label-new">Blood Group</label>
+                                <select name="inputModel.FamilyData[${index}].BloodGroupid" class="form-select form-select-sm">
+                                    ${getBloodGroupOptions()}
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="required fw-bold form-label-new">Mobile Number</label>
+                                <div class="input-group">
+                                    <select name="inputModel.FamilyData[${index}].CountryCodeid" class="form-select form-select-sm NoDdl">
+                                        <option value="+965">+965 🇰🇼</option>
+                                        <option value="+91">+91 🇮🇳</option>
+                                    </select>
+                                    <input type="text" name="inputModel.FamilyData[${index}].MobileNoRelative" class="form-control form-control-sm family-mobile" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="required fw-bold form-label-new">Email</label>
+                                <input type="email" name="inputModel.FamilyData[${index}].EmailRelative" class="form-control form-control-sm family-email" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="fw-bold form-label-new">Profession (Optional)</label>
+                                <select name="inputModel.FamilyData[${index}].Professionid" class="form-select form-select-sm">
+                                    ${getProfessionOptions()}
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="fw-bold form-label-new">Company (Optional)</label>
+                                <input type="text" name="inputModel.FamilyData[${index}].CompanyName" class="form-control form-control-sm family-company" />
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(newCard);
+                $(newCard).find('.remove-family-form').on('click', () => newCard.remove());
+                bindFamilyInputMasks(newCard);
+            });
+
+            bindFamilyInputMasks(container);
+        }
+
+        // ============================================================
+        // SUPPORT FUNCTIONS FOR OPTIONS AND VALIDATIONS
+        // ============================================================
+        function getRelationTypeOptions() {
+            const select = document.getElementById('RelationDDL');
+            if (!select) return '';
+            return Array.from(select.options).filter(o => o.value)
+                .map(o => `<option value="${o.value}">${o.text}</option>`).join('');
+        }
+
+        function getBloodGroupOptions() {
+            const select = document.getElementById('BloodGroupDDL');
+            if (!select) return '';
+            return Array.from(select.options).filter(o => o.value)
+                .map(o => `<option value="${o.value}">${o.text}</option>`).join('');
+        }
+
+        function getProfessionOptions() {
+            const select = document.getElementById('ProfessionDDL_Family');
+            if (!select) return '';
+            return Array.from(select.options).filter(o => o.value)
+                .map(o => `<option value="${o.value}">${o.text}</option>`).join('');
+        }
+
+        // ============================================================
+        // SIMPLE INPUT MASKS / VALIDATION FOR FAMILY MEMBERS
+        // ============================================================
+        function bindFamilyInputMasks(scopeEl) {
+            $(scopeEl).find('.family-name').on('input', function () {
+                this.value = this.value.replace(/[^A-Za-z ]/g, '');
+            });
+
+            $(scopeEl).find('.family-civilid').on('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+            $(scopeEl).find('.family-passport').on('input', function () {
+                this.value = this.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+            });
+
+            $(scopeEl).find('.family-email').on('change', function () {
+                const ok = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-z]{2,}$/.test(this.value);
+                this.classList.toggle('is-invalid', !ok);
+            });
+        }
+
+        // ============================================================
+        // CHANGE TRACKING FOR EXISTING FAMILY DATA
+        // ============================================================
+        function setupFamilyChangeTracking() {
+            const familyContainer = document.getElementById('familyForms');
+            if (!familyContainer) return;
+
+            $(familyContainer).on('input change', '.family-form input, .family-form select', function () {
+                const card = $(this).closest('.family-form');
+                const isNewFlag = card.find('.is-new-flag').val() === 'true';
+                const isChangedInput = card.find('.is-changed-flag');
+
+                // ✅ Mark as changed only if not new
+                if (!isNewFlag) {
+                    isChangedInput.val('true');
+                }
+            });
+        }
     </script>
 }
