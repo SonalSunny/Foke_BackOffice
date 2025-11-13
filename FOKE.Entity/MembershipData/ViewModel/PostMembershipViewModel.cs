@@ -50,7 +50,6 @@ namespace FOKE.Entity.MembershipIssuedData.ViewModel
         public long AreaId { get; set; }
 
         [Required(ErrorMessage = "REQUIRED")]
-        [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "REQUIRED")]

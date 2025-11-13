@@ -108,7 +108,14 @@
                         </div>
                     </td>
                     <td>
-                        @item.ReferenceNumber
+                            @if (item.MembershipNo != null )
+                            {
+                                @item.MembershipNo
+                            }
+                            else
+                            {
+                                @item.ReferenceNumber
+                            }
                     </td>
                     <td>
                         @item.Name

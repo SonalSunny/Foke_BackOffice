@@ -235,7 +235,7 @@ namespace FOKE.Services.Repository
                 }).ToList();
 
                 retModel.transactionStatus = System.Net.HttpStatusCode.OK;
-                retModel.returnData = objModel.OrderByDescending(i => i.OfferId).ToList();
+                retModel.returnData = objModel.OrderBy(i => i.OfferId).ToList();
             }
             catch (Exception ex)
             {
@@ -428,7 +428,7 @@ namespace FOKE.Services.Repository
                             ImagePath = i.ImagePath,
                             OfferDate = i.CreatedDate != null ? GenericUtilities.ConvertAndFormatToKuwaitDateTime(i.CreatedDate, GenericUtilities.dateTimeFormat) : null,
                         }).ToList();
-                    returnData.returnData = ReturnData.OrderByDescending(i => i.OfferId).ToList();
+                    returnData.returnData = ReturnData.OrderBy(i => i.OfferId).ToList();
                     returnData.transactionStatus = System.Net.HttpStatusCode.OK;
                 }
                 else

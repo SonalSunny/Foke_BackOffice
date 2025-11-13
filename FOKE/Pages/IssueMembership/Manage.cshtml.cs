@@ -112,7 +112,7 @@ namespace FOKE.Pages.IssueMembership
                     "inputModel.DistrictId",
                     "inputModel.PaymentTypeId",
                     "inputModel.PaymentTypeId",
-
+                    "inputModel.FamilyData[0].IsNew"
                 };
 
                 foreach (var field in fieldsToSkip)
@@ -133,7 +133,8 @@ namespace FOKE.Pages.IssueMembership
                     "sortOrder",
                     "searchField",
                     "globalSearch",
-                    "globalSearchColumn"
+                    "globalSearchColumn",
+                    "inputModel.FamilyData[0].IsNew"
                 };
 
                 foreach (var field in fieldsToSkip)

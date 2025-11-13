@@ -130,7 +130,7 @@ namespace FOKE.APIControllers
                 }
                 else
                 {
-                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                    return BadRequest(Data.returnMessage ?? "An error occurred.");
                 }
             }
             catch (Exception ex)
@@ -163,7 +163,7 @@ namespace FOKE.APIControllers
                 }
                 else
                 {
-                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                    return BadRequest(Data.returnMessage ?? "An error occurred.");
                 }
             }
             catch (Exception ex)
@@ -192,7 +192,7 @@ namespace FOKE.APIControllers
                 }
                 else
                 {
-                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                    return BadRequest(Data.returnMessage ?? "An error occurred.");
                 }
             }
             catch (Exception ex)
@@ -215,7 +215,7 @@ namespace FOKE.APIControllers
                 }
                 else
                 {
-                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting EventTypes.");
                 }
             }
             catch (Exception ex)
@@ -242,7 +242,7 @@ namespace FOKE.APIControllers
                 }
                 else
                 {
-                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                    return BadRequest(Data.returnMessage ?? "An error occurred.");
                 }
             }
             catch (Exception ex)
@@ -269,7 +269,7 @@ namespace FOKE.APIControllers
                 }
                 else
                 {
-                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                    return BadRequest(Data.returnMessage ?? "An error occurred.");
                 }
             }
             catch (Exception ex)
@@ -296,7 +296,7 @@ namespace FOKE.APIControllers
                 }
                 else
                 {
-                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                    return BadRequest(Data.returnMessage ?? "An error occurred.");
                 }
             }
             catch (Exception ex)
@@ -322,7 +322,7 @@ namespace FOKE.APIControllers
                 }
                 else
                 {
-                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                    return BadRequest(Data.returnMessage ?? "An error occurred.");
                 }
             }
             catch (Exception ex)
@@ -353,7 +353,7 @@ namespace FOKE.APIControllers
                 }
                 else
                 {
-                    return BadRequest(Data.returnMessage ?? "An error occurred while Getting OfferData.");
+                    return BadRequest(Data.returnMessage ?? "An error occurred.");
                 }
             }
             catch (Exception ex)

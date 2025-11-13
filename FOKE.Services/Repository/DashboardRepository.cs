@@ -365,141 +365,162 @@ namespace FOKE.Services.Repository
                 var currentYear = DateTime.Now.Year;
 
                 #region AreaWiseData
-                var areaWiseData = membershipData
-                    .Where(m => areas.ContainsKey((long)m.AreaId))
-                    .GroupBy(m => m.AreaId)
-                    .Select(g => new DashBoardViewModel
-                    {
-                        AreaName = areas[(long)g.Key],
-                        TotalMembers = g.Count(),
-                        PaidMembers = g.Count(x => x.IsPaid),
-                        UnpaidMembers = g.Count(x => !x.IsPaid)
-                    })
-                    .OrderByDescending(i => i.TotalMembers)
-                    .ToList();
+                var areaWiseData = new List<DashBoardViewModel>();
+
+
+                    //areaWiseData = membershipData
+                    //.Where(m => areas.ContainsKey((long)m.AreaId))
+                    //.GroupBy(m => m.AreaId)
+                    //.Select(g => new DashBoardViewModel
+                    //{
+                    //    AreaName = areas[(long)g.Key],
+                    //    TotalMembers = g.Count(),
+                    //    PaidMembers = g.Count(x => x.IsPaid),
+                    //    UnpaidMembers = g.Count(x => !x.IsPaid)
+                    //})
+                    //.OrderByDescending(i => i.TotalMembers)
+                    //.ToList();
                 #endregion
 
                 #region ZoneWiseData
-                var zoneWiseData = membershipData
-                    .Where(m => zones.ContainsKey((long)m.ZoneId))
-                    .GroupBy(m => m.ZoneId)
-                    .Select(g => new SunburstNode
-                    {
-                        name = zones[(long)g.Key],
-                        children = new List<SunburstNode>
-                        {
-                    new SunburstNode { name = "Paid", value = g.Count(m => m.IsPaid) },
-                    new SunburstNode { name = "Unpaid", value = g.Count(m => !m.IsPaid) }
-                        }
-                    })
-                    .ToList();
+                var zoneWiseData = new List<SunburstNode>();
+
+                    //zoneWiseData  = membershipData
+                    //.Where(m => zones.ContainsKey((long)m.ZoneId))
+                    //.GroupBy(m => m.ZoneId)
+                    //.Select(g => new SunburstNode
+                    //{
+                    //    name = zones[(long)g.Key],
+                    //    children = new List<SunburstNode>
+                    //    {
+                    //new SunburstNode { name = "Paid", value = g.Count(m => m.IsPaid) },
+                    //new SunburstNode { name = "Unpaid", value = g.Count(m => !m.IsPaid) }
+                    //    }
+                    //})
+                    //.ToList();
                 #endregion
 
                 #region UnitWiseData
-                var unitWiseData = membershipData
-                    .Where(m => units.ContainsKey((long)m.UnitId))
-                    .GroupBy(m => m.UnitId)
-                    .Select(g => new SunburstNode
-                    {
-                        name = units[(long)g.Key],
-                        children = new List<SunburstNode>
-                        {
-                    new SunburstNode { name = "Paid", value = g.Count(m => m.IsPaid) },
-                    new SunburstNode { name = "Unpaid", value = g.Count(m => !m.IsPaid) }
-                        }
-                    })
-                    .ToList();
+                var unitWiseData = new List<SunburstNode>();
+
+                //unitWiseData = membershipData
+                //    .Where(m => units.ContainsKey((long)m.UnitId))
+                //    .GroupBy(m => m.UnitId)
+                //    .Select(g => new SunburstNode
+                //    {
+                //        name = units[(long)g.Key],
+                //        children = new List<SunburstNode>
+                //        {
+                //    new SunburstNode { name = "Paid", value = g.Count(m => m.IsPaid) },
+                //    new SunburstNode { name = "Unpaid", value = g.Count(m => !m.IsPaid) }
+                //        }
+                //    })
+                //    .ToList();
                 #endregion
 
                 #region DistrictWiseData
-                var districtLookup = lookUpMastersDict[2].ToDictionary(x => x.LookUpId, x => x.LookUpName);
-                var districtWiseData = membershipData
-                    .Where(m => districtLookup.ContainsKey((long)m.DistrictId))
-                    .GroupBy(m => m.DistrictId)
-                    .Select(g => new DistrictGenderData
-                    {
-                        DistrictName = districtLookup[(long)g.Key],
-                        TotalCount = g.Count(),
-                        MaleCount = g.Count(i => i.GenderId == 9),
-                        FemaleCount = g.Count(i => i.GenderId == 10)
-                    })
-                    .OrderByDescending(i => i.TotalCount)
-                    .ToList();
+                //var districtLookup = lookUpMastersDict[2].ToDictionary(x => x.LookUpId, x => x.LookUpName);
+                var districtWiseData = new List<DistrictGenderData>();
+
+                //districtWiseData = membershipData
+                //    .Where(m => districtLookup.ContainsKey((long)m.DistrictId))
+                //    .GroupBy(m => m.DistrictId)
+                //    .Select(g => new DistrictGenderData
+                //    {
+                //        DistrictName = districtLookup[(long)g.Key],
+                //        TotalCount = g.Count(),
+                //        MaleCount = g.Count(i => i.GenderId == 9),
+                //        FemaleCount = g.Count(i => i.GenderId == 10)
+                //    })
+                //    .OrderByDescending(i => i.TotalCount)
+                //    .ToList();
                 #endregion
 
                 #region BloodGroupData
-                var bloodGroupLookup = lookUpMastersDict[5].ToDictionary(x => x.LookUpId, x => x.LookUpName);
-                var bloodGroupData = membershipData
-                    .Where(m => bloodGroupLookup.ContainsKey((long)m.BloodGroupId))
-                    .GroupBy(m => m.BloodGroupId)
-                    .Select(g => new MemberData
-                    {
-                        Name = bloodGroupLookup[(long)g.Key],
-                        Count = g.Count()
-                    })
-                    .ToList();
+                //var bloodGroupLookup = lookUpMastersDict[5].ToDictionary(x => x.LookUpId, x => x.LookUpName);
+                var bloodGroupData = new List<MemberData>();
+
+                //bloodGroupData = membershipData
+                //    .Where(m => bloodGroupLookup.ContainsKey((long)m.BloodGroupId))
+                //    .GroupBy(m => m.BloodGroupId)
+                //    .Select(g => new MemberData
+                //    {
+                //        Name = bloodGroupLookup[(long)g.Key],
+                //        Count = g.Count()
+                //    })
+                //    .ToList();
                 #endregion
 
                 #region DepartmentData
-                var departmentData = membershipData
-                    .Where(m => departments.ContainsKey((long)m.DepartmentId))
-                    .GroupBy(m => m.DepartmentId)
-                    .Select(g => new DepartmentGenderData
-                    {
-                        DepartmentName = departments[(long)g.Key],
-                        TotalCount = g.Count(),
-                        MaleCount = g.Count(i => i.GenderId == 9),
-                        FemaleCount = g.Count(i => i.GenderId == 10)
-                    })
-                    .OrderByDescending(i => i.TotalCount)
-                    .ToList();
+                var departmentData = new List<DepartmentGenderData>();
+
+                //   departmentData =  membershipData
+                //    .Where(m => departments.ContainsKey((long)m.DepartmentId))
+                //    .GroupBy(m => m.DepartmentId)
+                //    .Select(g => new DepartmentGenderData
+                //    {
+                //        DepartmentName = departments[(long)g.Key],
+                //        TotalCount = g.Count(),
+                //        MaleCount = g.Count(i => i.GenderId == 9),
+                //        FemaleCount = g.Count(i => i.GenderId == 10)
+                //    })
+                //    .OrderByDescending(i => i.TotalCount)
+                //    .ToList();
                 #endregion
 
                 #region GenderData
                 var genderLookup = lookUpMastersDict[4].ToDictionary(x => x.LookUpId, x => x.LookUpName);
-                var genderData = membershipData
-                    .Where(m => genderLookup.ContainsKey((long)m.GenderId))
-                    .GroupBy(m => m.GenderId)
-                    .Select(g => new MemberData
-                    {
-                        Name = genderLookup[(long)g.Key],
-                        Count = g.Count()
-                    })
-                    .ToList();
+                var genderData = new List<MemberData>();
+
+                //genderData = membershipData
+                //    .Where(m => genderLookup.ContainsKey((long)m.GenderId))
+                //    .GroupBy(m => m.GenderId)
+                //    .Select(g => new MemberData
+                //    {
+                //        Name = genderLookup[(long)g.Key],
+                //        Count = g.Count()
+                //    })
+                //    .ToList();
                 #endregion
 
                 #region WorkPlaceData
-                var workPlaceData = membershipData
-                    .Where(m => workPlaces.ContainsKey((long)m.WorkPlaceId))
-                    .GroupBy(m => m.WorkPlaceId)
-                    .Select(g => new MemberData
-                    {
-                        Name = workPlaces[(long)g.Key],
-                        Count = g.Count()
-                    })
-                    .OrderByDescending(i => i.Count)
-                    .ToList();
+                var workPlaceData = new List<MemberData>();
+
+                 //workPlaceData = membershipData
+                 //   .Where(m => workPlaces.ContainsKey((long)m.WorkPlaceId))
+                 //   .GroupBy(m => m.WorkPlaceId)
+                 //   .Select(g => new MemberData
+                 //   {
+                 //       Name = workPlaces[(long)g.Key],
+                 //       Count = g.Count()
+                 //   })
+                 //   .OrderByDescending(i => i.Count)
+                 //   .ToList();
                 #endregion
 
                 #region ProfessionData
-                var professionData = membershipData
-                    .Where(m => professions.ContainsKey((long)m.ProfessionId))
-                    .GroupBy(m => m.ProfessionId)
-                    .Select(g => new MemberData
-                    {
-                        Name = professions[(long)g.Key],
-                        Count = g.Count()
-                    })
-                    .OrderByDescending(i => i.Count)
-                    .ToList();
+                var professionData = new List<MemberData>();
+
+                //professionData = membershipData
+                //    .Where(m => professions.ContainsKey((long)m.ProfessionId))
+                //    .GroupBy(m => m.ProfessionId)
+                //    .Select(g => new MemberData
+                //    {
+                //        Name = professions[(long)g.Key],
+                //        Count = g.Count()
+                //    })
+                //    .OrderByDescending(i => i.Count)
+                //    .ToList();
                 #endregion
 
                 #region FirstBarGraph
+                var allMemberData = new List<MemberData>();
+
                 var totalCount = membershipData.Count;
                 var activeCount = membershipData.Count(i => i.IsPaid);
                 var newCount = membershipData.Count(i => i.CampaignId == activeCampaignId);
 
-                var allMemberData = new List<MemberData>
+                allMemberData = new List<MemberData>
                 {
                     new MemberData { Name = "Total Members", Count = totalCount },
                     new MemberData { Name = "Active Members", Count = activeCount },
@@ -509,42 +530,42 @@ namespace FOKE.Services.Repository
                 #endregion
 
                 #region AgeWiseGraph
-                var ageWiseGenderData = membershipData
-                    .Where(m => m.DateofBirth != null && m.GenderId != null)
-                    .Select(m => new { GenderId = m.GenderId, Age = currentYear - m.DateofBirth.Value.Year })
-                    .Where(m => m.Age >= 20)
-                    .GroupBy(m => $"{20 + ((m.Age - 20) / 10) * 10}-{20 + ((m.Age - 20) / 10) * 10 + 9}")
-                    .Select(g => new SunburstNode
-                    {
-                        name = g.Key,
-                        children = new List<SunburstNode>
-                        {
-                    new SunburstNode { name = "Male", value = g.Count(x => x.GenderId == 9) },
-                    new SunburstNode { name = "Female", value = g.Count(x => x.GenderId == 10) }
-                        }
-                    })
-                    .ToList();
+                //var ageWiseGenderData = membershipData
+                //    .Where(m => m.DateofBirth != null && m.GenderId != null)
+                //    .Select(m => new { GenderId = m.GenderId, Age = currentYear - m.DateofBirth.Value.Year })
+                //    .Where(m => m.Age >= 20)
+                //    .GroupBy(m => $"{20 + ((m.Age - 20) / 10) * 10}-{20 + ((m.Age - 20) / 10) * 10 + 9}")
+                //    .Select(g => new SunburstNode
+                //    {
+                //        name = g.Key,
+                //        children = new List<SunburstNode>
+                //        {
+                //    new SunburstNode { name = "Male", value = g.Count(x => x.GenderId == 9) },
+                //    new SunburstNode { name = "Female", value = g.Count(x => x.GenderId == 10) }
+                //        }
+                //    })
+                //    .ToList();
                 #endregion
 
                 #region ExpWiseGraph
-                var expWiseGenderData = membershipData
-                    .Where(m => m.WorkYear != null && m.GenderId != null)
-                    .Select(m => new { GenderId = m.GenderId, Exp = currentYear - m.WorkYear })
-                    .Where(m => m.Exp >= 0)
-                    .GroupBy(m => $"{1 + ((m.Exp - 1) / 5) * 5}-{1 + ((m.Exp - 1) / 5) * 5 + 4}")
-                    .Select(g => new SunburstNode
-                    {
-                        name = g.Key,
-                        children = new List<SunburstNode>
-                        {
-                    new SunburstNode { name = "Male", value = g.Count(x => x.GenderId == 9) },
-                    new SunburstNode { name = "Female", value = g.Count(x => x.GenderId == 10) }
-                        }
-                    })
-                    .ToList();
+                //var expWiseGenderData = membershipData
+                //    .Where(m => m.WorkYear != null && m.GenderId != null)
+                //    .Select(m => new { GenderId = m.GenderId, Exp = currentYear - m.WorkYear })
+                //    .Where(m => m.Exp >= 0)
+                //    .GroupBy(m => $"{1 + ((m.Exp - 1) / 5) * 5}-{1 + ((m.Exp - 1) / 5) * 5 + 4}")
+                //    .Select(g => new SunburstNode
+                //    {
+                //        name = g.Key,
+                //        children = new List<SunburstNode>
+                //        {
+                //    new SunburstNode { name = "Male", value = g.Count(x => x.GenderId == 9) },
+                //    new SunburstNode { name = "Female", value = g.Count(x => x.GenderId == 10) }
+                //        }
+                //    })
+                //    .ToList();
                 #endregion
 
-                // Assign all data to return model
+                //Assign all data to return model
                 retModel.returnData.BloodGroupData = bloodGroupData;
                 retModel.returnData.UnitData = unitWiseData;
                 retModel.returnData.ZoneData = zoneWiseData;
@@ -555,8 +576,8 @@ namespace FOKE.Services.Repository
                 retModel.returnData.WorkPlaceData = workPlaceData;
                 retModel.returnData.ProffesionData = professionData;
                 retModel.returnData.OrgMemberData = allMemberData;
-                retModel.returnData.AgewiseCategory = ageWiseGenderData;
-                retModel.returnData.ExpwiseCategory = expWiseGenderData;
+                retModel.returnData.AgewiseCategory = new List<SunburstNode>();
+                retModel.returnData.ExpwiseCategory = new List<SunburstNode>();
                 retModel.transactionStatus = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)

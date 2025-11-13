@@ -46,8 +46,8 @@ namespace FOKE.Pages.Dashboards.ByArea
                 WorkPlaceData = retData.returnData.WorkPlaceData;
                 ProffesionData = retData.returnData.ProffesionData;
                 AllMemberList = retData.returnData.OrgMemberData;
-                AgewiseCategory = retData.returnData.AgewiseCategory;
-                ExpwiseCategory = retData.returnData.ExpwiseCategory;
+                //AgewiseCategory = retData.returnData.AgewiseCategory;
+                //ExpwiseCategory = retData.returnData.ExpwiseCategory;
             }
         }
 

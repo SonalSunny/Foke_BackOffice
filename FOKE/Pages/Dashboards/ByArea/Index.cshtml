@@ -820,7 +820,7 @@
         }));
         renderSunburst('ageGroupChart', AgeGroupData);
 
-         const ExpData = @Html.Raw(JsonSerializer.Serialize(Model.ExpwiseCategory, new JsonSerializerOptions {
+        const ExpData = @Html.Raw(JsonSerializer.Serialize(Model.ExpwiseCategory, new JsonSerializerOptions {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         }));
         renderSunburst('ExpGroupChart', ExpData);
