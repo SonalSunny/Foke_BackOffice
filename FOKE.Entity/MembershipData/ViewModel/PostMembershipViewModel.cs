@@ -113,7 +113,7 @@ namespace FOKE.Entity.MembershipIssuedData.ViewModel
 
         public List<FamilyMembersData>? FamilyData { get; set; }
 
-        #region Kerela_Details 
+        #region Kerala_Details 
 
         [Required(ErrorMessage = "REQUIRED")]
         public string? PermenantAddress { get; set; }

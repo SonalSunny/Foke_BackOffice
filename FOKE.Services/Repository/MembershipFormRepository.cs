@@ -154,7 +154,7 @@ namespace FOKE.Services.Repository
                         WhatsAppNoCountryCodeid = model.WhatsAppNoCountryCodeid,
                         KuwaitAddres = model.KuwaitAddres,
                         Company = model.CompanyName,
-                         //MembershipType = model.MembershipType, // Membership type 1 - Single, 2 - Family, MEmber Type - 1 - Parent 2- Dependant
+                        MembershipType = model.MembershipType, // Membership type 1 - Single, 2 - Family, MEmber Type - 1 - Parent 2- Dependant
                         PermenantAddress = model.PermenantAddress,
                         Pincode = model.Pincode,
                         EmergencyContactName = model.EmergencyContactName,
@@ -332,6 +332,8 @@ namespace FOKE.Services.Repository
                     memberData.ProffessionId = model.ProfessionId;
                     memberData.Company = model.Company; 
                     memberData.KuwaitAddres = model.KuwaitAddress;
+
+                    memberData.MembershipType = model.MembershipType;
 
                     memberData.PermenantAddress = model.PermenantAddress;
                     memberData.Pincode = model.Pincode;
@@ -1123,7 +1125,7 @@ namespace FOKE.Services.Repository
                 retModel.transactionStatus = System.Net.HttpStatusCode.OK;
                 retModel.returnData = objModel;
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 retModel.transactionStatus = System.Net.HttpStatusCode.InternalServerError;
                 retModel.returnMessage = ex.Message;
@@ -1271,11 +1273,11 @@ namespace FOKE.Services.Repository
                         .Where(e => e.ProfessionId == c.ProfessionId)
                         .Select(e => e.ProffessionName)
                         .FirstOrDefault(),
-                    WorkPlaceId = c.WorkPlaceId,
-                    WorkPlace = _dbContext.WorkPlace
-                        .Where(e => e.WorkPlaceId == c.WorkPlaceId)
-                        .Select(e => e.WorkPlaceName)
-                        .FirstOrDefault(),
+                    //WorkPlaceId = c.WorkPlaceId,
+                    //WorkPlace = _dbContext.WorkPlace
+                    //    .Where(e => e.WorkPlaceId == c.WorkPlaceId)
+                    //    .Select(e => e.WorkPlaceName)
+                    //    .FirstOrDefault(),
                     PhoneNo = "+" + c.CountryCode + c.ContactNo,
                     Email = c.Email,
                     District = _dbContext.LookupMasters
@@ -1664,6 +1666,8 @@ namespace FOKE.Services.Repository
                         ZoneId = ObjData.ZoneId,
                         UnitId = ObjData.UnitId,
                         Area = ObjData.AreaData.AreaName,
+                        Zone = ObjData.Zone.ZoneName,
+                        Unit = ObjData.Unit.UnitName,
                         CampaignId = ObjData.CampaignId,
                         CampaignName = ObjData.Campaign.CampaignName,
                         CampaignAmount = ObjData.CampaignAmount,

@@ -290,9 +290,9 @@
                                                     <div class="col-md-4">
                                                         <label class="required fw-bold form-label-new">Mobile Number</label>
                                                         <div class="input-group">
-                                                            <select asp-for="inputModel.FamilyData[@i].CountryCodeid" class="form-select form-select-sm NoDdl">
-                                                                <option value="+965" selected="@(Model.inputModel.FamilyData[i].CountryCodeid == 965)">+965 🇰🇼</option>
-                                                                <option value="+91" selected="@(Model.inputModel.FamilyData[i].CountryCodeid == 91)">+91 🇮🇳</option>
+                                                            <select asp-for="inputModel.FamilyData[0].CountryCodeid" class="form-select form-select-sm NoDdl" id="FamilyCountryDDL">
+                                                                <option value="+965">+965 🇰🇼</option>
+                                                                <option value="+91">+91 🇮🇳</option>
                                                             </select>
                                                             <input asp-for="inputModel.FamilyData[@i].MobileNoRelative" class="form-control form-control-sm family-mobile" />
                                                         </div>
@@ -429,7 +429,7 @@
             </div>
 
             <h4 class="fw-bold mb-4 border-bottom pb-2 text-primary">
-                <i class="fa fa-home me-2"></i>Kerela Details
+                <i class="fa fa-home me-2"></i>Kerala Details
             </h4>
 
             <div class="border rounded p-4 mb-4 bg-light mb-4">
