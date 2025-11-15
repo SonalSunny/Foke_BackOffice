@@ -4357,6 +4357,7 @@ namespace FOKE.Services.Repository
                     MemberData.MobileNo = memberDetails.ContactNo != null ? memberDetails.ContactNo.ToString() : null;
                     MemberData.Email = memberDetails?.Email ?? "";
                     MemberData.BloodGroup = memberDetails.BloodGroupId != null ? _dbContext.LookupMasters.FirstOrDefault(i => i.LookUpId == memberDetails.BloodGroupId)?.LookUpName : null;
+                    MemberData.ValidThru = memberDetails.CampaignId != null ? memberDetails?.Campaign.EndDate?.ToString("dd/MM/yyyy") : null;
                     returnData.returnData = MemberData;
                     returnData.transactionStatus = System.Net.HttpStatusCode.OK;
                 }

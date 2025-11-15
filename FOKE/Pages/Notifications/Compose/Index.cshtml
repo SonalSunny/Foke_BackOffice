@@ -105,6 +105,7 @@
                 <div class="col-12 p-3">
                     <!-- Quill Editor -->
                     <div id="editor-container" style="height: 290px;"></div>
+                    <div class="text-end text-muted mt-1" id="charCounter">0/999</div>
                     <input type="hidden" asp-for="inputModel.NotificationContent" id="commentHtml" >
                     <span asp-validation-for="inputModel.NotificationContent" class="text-danger"></span>
                 </div>
@@ -707,43 +708,101 @@
             return removedPhoneNumbers;
         }
 
-        quill = new Quill('#editor-container', {
-                theme: 'snow',
-                  modules: {
-                    toolbar: [
+                const maxChars = 999;
+
+        // Initialize Quill
+        var quill = new Quill('#editor-container', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
                     [{ 'font': [] }],
-                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                    [{ 'size': ['small', false, 'large', 'huge'] }],
                     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-                    ['bold', 'italic', 'underline'],        // toggled buttons
+                    ['bold', 'italic', 'underline'],
                     ['blockquote', 'code-block'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{ 'align': [] }],
+                    ['link', 'image', 'video'],
+                    ['clean']
+                ],
+            }
+        });
 
-                    [{ 'color': [] }, { 'background': [] }],          // dropdowns for color
-                      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-
-                      [{ 'align': [] }],                                // text align
-                      ['link', 'image', 'video'],                       // media
-                      ['clean']                                         // remove formatting
-                   ],
-                }
-         });
-
+        // Load existing HTML
         var existingHtml = $('#commentHtml').val();
         if (existingHtml && existingHtml.trim() !== "") {
-           quill.clipboard.dangerouslyPasteHTML(existingHtml);
+            quill.clipboard.dangerouslyPasteHTML(existingHtml);
         }
 
-        // When form is submitted
+        // Character limit logic
+        quill.on('text-change', function (delta, oldDelta, source) {
+
+            if (source !== 'user') return;  // only block user typing, not programmatic changes
+
+            let text = quill.getText().trim();
+
+            if (text.length > maxChars) {
+                quill.deleteText(maxChars, text.length); // remove anything beyond limit
+                return;
+            }
+
+            // Update character counter
+            $('#charCounter').text(text.length + "/" + maxChars);
+        });
+
+        // On submit
         $('#crudForm').on('submit', function (e) {
             var htmlContent = quill.root.innerHTML;
+
             if (htmlContent.trim() === "<p><br></p>") {
-                    alert("Please enter some content before submitting.");
-                    e.preventDefault();
-                    return;
+                alert("Please enter some content before submitting.");
+                e.preventDefault();
+                return;
             }
+
             $('#commentHtml').val(htmlContent);
         });
+
+
+            // quill = new Quill('#editor-container', {
+            //         theme: 'snow',
+            //           modules: {
+            //             toolbar: [
+            //             [{ 'font': [] }],
+            //             [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            //             [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+            //             ['bold', 'italic', 'underline'],        // toggled buttons
+            //             ['blockquote', 'code-block'],
+
+            //             [{ 'color': [] }, { 'background': [] }],          // dropdowns for color
+            //               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            //               [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+
+            //               [{ 'align': [] }],                                // text align
+            //               ['link', 'image', 'video'],                       // media
+            //               ['clean']                                         // remove formatting
+            //            ],
+            //         }
+            //  });
+
+            // var existingHtml = $('#commentHtml').val();
+            // if (existingHtml && existingHtml.trim() !== "") {
+            //    quill.clipboard.dangerouslyPasteHTML(existingHtml);
+            // }
+
+            // // When form is submitted
+            // $('#crudForm').on('submit', function (e) {
+            //     var htmlContent = quill.root.innerHTML;
+            //     if (htmlContent.trim() === "<p><br></p>") {
+            //             alert("Please enter some content before submitting.");
+            //             e.preventDefault();
+            //             return;
+            //     }
+            //     $('#commentHtml').val(htmlContent);
+            // });
     </script>
 }
 

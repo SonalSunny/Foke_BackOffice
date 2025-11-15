@@ -76,7 +76,7 @@ namespace FOKE.Pages.DigitalIDManagement
             objList.Add(new PageListFilterColumns { ColumName = "Email", ColumnDescription = _sharedLocalizer.Localize("Email").Value });
             objList.Add(new PageListFilterColumns { ColumName = "PhoneNo", ColumnDescription = _sharedLocalizer.Localize("Contact Number").Value });
 
-
+               
             pageListFilterColumns = objList;
         }
         public IActionResult OnGetPagedList(int? pn, int? ps, string so, string sc, string gs, string gsc, string nm, string showProject)

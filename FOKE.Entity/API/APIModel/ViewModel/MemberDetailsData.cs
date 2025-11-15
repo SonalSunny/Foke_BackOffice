@@ -15,6 +15,7 @@
         public string? MobileNo { get; set; }
         public string? Email { get; set; }
         public string? BloodGroup { get; set; }
+        public string? ValidThru { get; set; }
 
     }
 }
